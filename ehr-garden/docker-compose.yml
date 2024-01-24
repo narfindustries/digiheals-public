@@ -1,4 +1,5 @@
 # Use postgres/example user/password credentials
+version: '3.1'
 services:
   db:
     image: postgres
@@ -9,7 +10,6 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     networks:
       - private
-
   adminer:
     image: adminer
     restart: always
@@ -31,8 +31,40 @@ services:
       - private
     depends_on:
       - db
+  mysql:
+    restart: always
+    image: mariadb:10.11
+    command: ['mysqld','--character-set-server=utf8mb4']
+    volumes:
+    - databasevolume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  openemr:
+    restart: always
+    image: openemr #/openemr:6.0.0
+    build: ./openemr
+    ports:
+    - 8001:8001
+    - 443:443
+    volumes:
+    - sitevolume:/var/www/localhost/htdocs/openemr/sites
+    - logvolume01:/var/log
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_ROOT_PASS: root
+      MYSQL_USER: openemr
+      MYSQL_PASS: openemr
+      OE_USER: admin
+      OE_PASS: pass
+    depends_on:
+    - mysql
 
 networks:
   # The presence of these objects is sufficient to define them
   public: {}
   private: {}
+
+volumes:
+  logvolume01: {}
+  sitevolume: {}
+  databasevolume: {}
