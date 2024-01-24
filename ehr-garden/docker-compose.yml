@@ -1,0 +1,38 @@
+# Use postgres/example user/password credentials
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: gnuhealth
+      POSTGRES_DB: health
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - private
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - public
+      - private
+    depends_on:
+      - db
+
+  gnuhealth:
+    build: ./gnuhealth
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      - public
+      - private
+    depends_on:
+      - db
+
+networks:
+  # The presence of these objects is sufficient to define them
+  public: {}
+  private: {}
