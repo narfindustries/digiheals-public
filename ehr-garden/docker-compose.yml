@@ -58,6 +58,20 @@ services:
       OE_PASS: pass
     depends_on:
     - mysql
+  vista:
+    image: osehra/vehu:201908-syn-fhir
+    container_name: vehu
+  fhir-vista:
+    image: osehra/fhir-on-vista
+    container_name: fhir-api
+    ulimits:
+      nofile:
+        soft: 8096
+        hard: 8096
+    depends_on:
+      - vista
+  vista-requests:
+    build: ./vista
 
 networks:
   # The presence of these objects is sufficient to define them
