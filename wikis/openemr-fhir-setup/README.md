@@ -6,9 +6,12 @@ The first step here is to get a "public and private keypair set". To do this we 
 
 We should also need to put a tick in front of "Enable OpenEMR FHIR System Scopes" by going to "Connectors" tab after clicking on "Config" under the "Admin" menu. This will let the client access system scopes (e.g., `system/Patient.read`).
 
-Now we are ready to register a client by going to "Admin --> System --> API Clients" and clicking on the "Register New App" button on the top. Fill out the blanks as shown in the screenshots below. You can leave all the scopes selected. After you paste your "public and private keypair set" in the "JSON Web Key Set URI" field, you can click on the Submit button to see the "Client APP ID" and "Client Secret APP ID" fields being populated. We will use the "Client APP ID" in the next steps. Also, don't forget to enable this newly created client by going to "Admin --> System --> API Clients" and click on the "Edit" button and click "Enable Client" on the top of opened page.
+Now we are ready to register a client by going to "Admin --> System --> API Clients" and clicking on the "Register New App" button on the top. Fill out the blanks as shown in the screenshots below. You can leave all the scopes selected. 
 
 ![Registration Fields - 1](register-1.png)
+
+After you paste your "public and private keypair set" in the "JSON Web Key Set URI" field, you can click on the Submit button to see the "Client APP ID" and "Client Secret APP ID" fields being populated. We will use the "Client APP ID" in the next steps. Also, don't forget to enable this newly created client by going to "Admin --> System --> API Clients" and click on the "Edit" button and click "Enable Client" on the top of opened page.
+
 ![Registration Fields - 2](register-2.png)
 
 ## Getting Access Token
