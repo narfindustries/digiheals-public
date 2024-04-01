@@ -4,10 +4,10 @@ EHR-FIST: Digital Format Rehabilitation to Improve Interoperability of EHR Syste
 We have currently built and hosted the following services in this Docker Compose Project.
 - OpenEMR
 - GNU Health
+- OSEHRA VistA
 
 WIP:
 - OpenMRS
-- OSEHRA VistA
 
 Running
 -----
