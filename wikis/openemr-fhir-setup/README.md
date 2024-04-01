@@ -25,7 +25,7 @@ Now, you can run the curl command below to get the access token in the response.
 <br><br>
 `CODE=<client assertion value you obtained in the previous step (e.g., 'eyJhbGciOiJSUzM4NCI...')>`
 <br><br>
-`curl -X POST http://faust.ccs.neu.edu:9090/oauth2/default/token -H "Content-Type: application/x-www-form-urlencoded" -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&grant_type=client_credentials&scope=$SCOPE&client_assertion=$CODE"`
+`curl -X POST http://<your address>/oauth2/default/token -H "Content-Type: application/x-www-form-urlencoded" -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&grant_type=client_credentials&scope=$SCOPE&client_assertion=$CODE"`
 
 ## Using Access Token
 For example, to query patients from the FHIR API you can run the command below from the command line:
