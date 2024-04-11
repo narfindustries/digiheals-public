@@ -1,0 +1,3 @@
+[submodule "ehr-garden/openmrs"]
+	path = ehr-garden/openmrs
+	url = https://github.com/openmrs/openmrs-core
