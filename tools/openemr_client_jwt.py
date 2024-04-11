@@ -10,6 +10,7 @@ and send FHIR API requests using them.
 import random
 import string
 import json
+from pathlib import Path
 import requests
 import jwt
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -64,7 +65,7 @@ class OpenEMRClient:
         data = {
             "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
             "grant_type": "client_credentials",
-            "scope": "api:fhir system/Patient.read system/Patient.$export",
+            "scope": "openid offline_access api:oemr api:fhir api:port system/Patient.read system/DocumentReference.read system/DocumentReference.$docref system/Binary.read",
             "client_assertion": authorization_key,
         }
         r = requests.post(
@@ -72,7 +73,7 @@ class OpenEMRClient:
             headers={"Content-Type": "application/x-www-form-urlencoded"},
             data=data,
             verify=False,
-            timeout=1,
+            timeout=5,
         )
         if r.status_code == 200:
             self.access_token = r.json()["access_token"]
@@ -90,29 +91,49 @@ class OpenEMRClient:
             f"{self.hostname}/apis/default/fhir/Patient",
             headers=headers,
             verify=False,
-            timeout=1,
+            timeout=5,
         )
         if r.status_code == 200:
-            print(r.json())
+            return r.json()
         else:
+            print(r)
             raise Exception("Patient Access Failed")
 
-    def export_all_fhir_patients(self):
+    def export_fhir_patients_by_docref(self, patient):
         """Bulk export option:
         https://github.com/openemr/openemr/blob/master/FHIR_README.md#bulk-fhir-exports
         """
         assert self.access_token is not None
-        headers = {"Authorization": f"Bearer {self.access_token}"}
-        r = requests.get(
-            f"{self.hostname}/apis/default/fhir/Patient/$export",
+        headers = {"Authorization": f"Bearer {self.access_token}", "accept": "*/*"}
+        r = requests.post(
+            f"{self.hostname}/apis/default/fhir/DocumentReference/$docref",
             headers=headers,
+            params={"patient": patient},
             verify=False,
-            timeout=1,
+            timeout=600,
         )
         if r.status_code == 200:
-            print(r.json())
+            return r.json()
         else:
-            raise Exception("Patient Access Failed")
+            print(r)
+            raise Exception("Docref creation failed")
+
+    def download_ccda_files(self, document_id):
+        """Bulk export option:"""
+        assert self.access_token is not None
+        headers = {"Authorization": f"Bearer {self.access_token}", "accept": "*/*"}
+        r = requests.get(
+            f"{self.hostname}/apis/default/fhir/Binary/{document_id}",
+            headers=headers,
+            verify=False,
+            timeout=300,
+        )
+        if r.status_code == 200:
+            return r
+        else:
+            print(r)
+            raise Exception("CCDA file download failed")
+
 
 def generate_keypair():
     """
@@ -123,7 +144,7 @@ def generate_keypair():
     key = jwk.JWK.generate(kty="RSA", size=2048, alg="RS384", use="sig", kid=kid)
     public_key = key.export_public()
     private_key = key.export_private()
-    keypair_set = {"keys": [eval(private_key)]}
+    keypair_set = {"keys": [eval(private_key)]} # This is VERY bad. Shouldn't be using eval
     print(public_key, private_key, key.export_to_pem(True, None))
     with open("keypair_set", "w", encoding="utf8") as f_keypair:
         f_keypair.write(json.dumps(keypair_set))
@@ -132,11 +153,12 @@ def generate_keypair():
     with open("public_key", "wb") as pub:
         pub.write(key.export_to_pem(False, None))
 
+
 @click.command()
 @click.option("--clientid", required=True, help="Get Client ID cli argument")
 @click.option("--url", required=True, help="Get URL of OpenEMR cli argument")
 @click.option("--generate/--no-generate", default=False)
-def create_openemr_client(clientid, url, generate):
+def openemr_client_instance(clientid, url, generate):
     """
     Defines the command-line interface used by this tool
     Performs two tasks: generates a new keypair
@@ -152,7 +174,35 @@ def create_openemr_client(clientid, url, generate):
         url,
     )
     client.get_authorization_token()
-    client.get_fhir_patients()
+    patients = client.get_fhir_patients() # Request #1
+    for patient in patients["entry"]:
+        """
+        This is where things get a little complicated:
+        1. Find the patient uuid from the total list of patients
+        2. Create a CCDA document using a POST request. Takes a while
+        3. Download the CCD document that was created
+        4. Save the file in the ExportedCCDAFiles folder
+        """
+        patient_id = patient["resource"]["id"]
+
+        # Request #2
+        client.get_authorization_token()
+        document_meta = client.export_fhir_patients_by_docref(patient_id)["entry"][0]
+        document_id = document_meta["resource"]["id"]
+
+        # Request #3
+        client.get_authorization_token()
+        downloaded_file = client.download_ccda_files(document_id)
+
+        # Create a folder if we do not have it already
+        Path("ExportedCCDAFiles").mkdir(parents=True, exist_ok=True)
+
+        # Save the exported XML to file
+        with open(
+            f"ExportedCCDAFiles/{document_id}.xml", "w"
+        ) as downloaded_file_writer:
+            downloaded_file_writer.write(downloaded_file.text)
+
 
 def main():
     """Create an instance of the client and
@@ -164,12 +214,7 @@ def main():
     The access token is only usable for 300 seconds, and usable only once.
     """
 
-    create_openemr_client()
-
-    ## Token has expired, generate one again
-    # client.get_authorization_token()
-    # client.export_all_fhir_patients()
-
+    openemr_client_instance()
 
 if __name__ == "__main__":
     main()
