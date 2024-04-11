@@ -10,16 +10,17 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     networks:
       - private
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    networks:
-      - public
-      - private
-    depends_on:
-      - db
+
+  #adminer:
+    #image: adminer
+    #restart: always
+    #ports:
+      #- 8080:8080
+    #networks:
+      #- public
+      #- private
+    #depends_on:
+      #- db
 
   gnuhealth:
     build: ./gnuhealth
@@ -45,7 +46,7 @@ services:
     build: ./openemr
     ports:
     - 8001:8001
-    - 443:443
+    - 8443:443
     volumes:
     - sitevolume:/var/www/localhost/htdocs/openemr/sites
     - logvolume01:/var/log
@@ -58,20 +59,57 @@ services:
       OE_PASS: pass
     depends_on:
     - mysql
+
   vista:
     image: osehra/vehu:201908-syn-fhir
     container_name: vehu
+    ports:
+    - 8080:8080
   fhir-vista:
     image: osehra/fhir-on-vista
-    container_name: fhir-api
     ulimits:
       nofile:
         soft: 8096
         hard: 8096
+    ports:
+    - 8002:8080
     depends_on:
       - vista
-  vista-requests:
-    build: ./vista
+  openmrs-db:
+    image: mariadb:10.3
+    command: "mysqld --character-set-server=utf8 --collation-server=utf8_general_ci"
+    environment:
+      MYSQL_DATABASE: ${OMRS_DB_NAME:-openmrs}
+      MYSQL_USER: ${OMRS_DB_USER:-openmrs}
+      MYSQL_PASSWORD: ${OMRS_DB_PASSWORD:-openmrs}
+      MYSQL_ROOT_PASSWORD: ${OMRS_DB_ROOT_PASSWORD:-openmrs}
+    healthcheck:
+      test: "mysql --user=${OMRS_DB_USER:-openmrs} --password=${OMRS_DB_PASSWORD:-openmrs} --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - db-data:/var/lib/mysql
+
+  openmrs:
+    image: openmrs/openmrs-core:${TAG:-nightly}
+    build: ./openmrs
+    ports:
+      - "8003:8080"
+    environment:
+      OMRS_DB_HOSTNAME: ${OMRS_DB_HOSTNAME:-openmrs-db}
+      OMRS_DB_NAME: ${OMRS_DB_NAME:-openmrs}
+      OMRS_DB_USERNAME: ${OMRS_DB_USERNAME:-openmrs}
+      OMRS_DB_PASSWORD: ${OMRS_DB_PASSWORD:-openmrs}
+      OMRS_ADMIN_USER_PASSWORD: ${OMRS_ADMIN_USER_PASSWORD:-Admin123}
+      OMRS_ADMIN_PASSWORD_LOCKED: ${OMRS_ADMIN_PASSWORD_LOCKED:-true}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/openmrs"]
+      interval: 3s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - openmrs-data:/openmrs/data/
 
 networks:
   # The presence of these objects is sufficient to define them
@@ -82,3 +120,5 @@ volumes:
   logvolume01: {}
   sitevolume: {}
   databasevolume: {}
+  db-data:
+  openmrs-data:
