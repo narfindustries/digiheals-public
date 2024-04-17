@@ -1,5 +1,4 @@
 # Use postgres/example user/password credentials
-version: '3.1'
 services:
   db:
     image: postgres
@@ -61,12 +60,12 @@ services:
     - mysql
 
   vista:
-    image: osehra/vehu:201908-syn-fhir
+    image: worldvista/vehu:201911-syn-fhir
     container_name: vehu
     ports:
-    - 8080:8080
+    - 9080:9080
   fhir-vista:
-    image: osehra/fhir-on-vista
+    image: worldvista/fhir-on-vista:latest
     ulimits:
       nofile:
         soft: 8096
