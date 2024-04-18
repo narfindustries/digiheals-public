@@ -27,7 +27,7 @@ Web UIs
 The Web UIs live in various containers and can be accessed using the port mappings specified in the docker-compose.yml file.
 
 | EHR Server | Source | Username/Password | Port | FHIR Path | Notes |
-| ---------  | ------ | ----------------- | ---- | ------ |
+| ---------  | ------ | ----------------- | ---- | ------ | ----|
 | GNU Health | [GNU Health Dockerized setup](https://github.com/paramburu/gnuhealth) | admin/ehrgarden | 8000 | N/A | Cannot export FHIR as of now |
 | OpenEMR| [OpenEMR Production Setup](https://github.com/openemr/openemr/blob/master/docker/production/docker-compose.yml) | admin/pass | 8001/8443 | `/apis/default/fhir/Patient` | Takes a while to load the first time, you might also need to run `docker compose down -v` to erase volumes. |
 | VistA | [Dockerized FHIR on VistA](https://github.com/WorldVistA/FHIR-on-VistA) | None | 8002 | `/api/Patient` | None |
