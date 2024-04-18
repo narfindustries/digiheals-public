@@ -110,6 +110,18 @@ services:
     volumes:
       - openmrs-data:/openmrs/data/
 
+  hapi-fhir:
+    image: hapiproject/hapi:latest
+    ports:
+      - "8004:8080"
+
+  ibm-fhir:
+    image: ghcr.io/linuxforhealth/fhir-server
+    ports:
+      - "8005:9443"
+    environment:
+      BOOTSTRAP_DB: true
+
 networks:
   # The presence of these objects is sufficient to define them
   public: {}
