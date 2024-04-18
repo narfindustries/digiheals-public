@@ -8,22 +8,23 @@ Create a Client for vista that can create patients and pull data
 
 import click
 import requests
+from abstract_client import AbstractClient
 
 
-class VistaClient:
+class HapiClient(AbstractClient):
     """Allow users to easy create a new patient and export all patients"""
 
-    def __init__(self, vehu, fhir):
+    def __init__(self, fhir, base):
         """Constructor"""
-        self.vehu = vehu
         self.fhir = fhir
+        self.base = base
 
-    def export(self):
+    def export_patients(self):
         """Calls the FHIR API to export all patients"""
-        r = requests.get(f"{self.fhir}/api/Patient", timeout=100)
+        r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
         return r
 
-    def create(self, file):
+    def create_patient(self, file):
         """Calls the MUMPS API to create a new patient from a FHIR JSON"""
         r = requests.post(f"{self.vehu}/addpatient", data=file.read(), timeout=10)
         return r.status_code
@@ -37,16 +38,18 @@ def cli_options(create, file):
     Extract command-line arguments to either create a new patient
     No arguments: exports all patients in a JSON form
     """
-    client = VistaClient("http://localhost:9080", "http://localhost:8002")
+    client = HapiClient("http://localhost:8004", "fhir")
     if not create:
-        response = client.export()
+        response = client.export_patients()
         if response.status_code == 200:
             print(response.json())
+        else:
+            print(response.status_code)
     else:
         if file is None:
             print("Needs the --file argument")
         else:
-            print(client.create(file))
+            print(client.create_patient(file))
 
 
 if __name__ == "__main__":
