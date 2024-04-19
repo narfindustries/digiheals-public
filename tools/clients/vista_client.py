@@ -25,32 +25,38 @@ class VistaClient(AbstractClient):
         r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
         return r
 
-    def create_patient(self, file):
+    def export_patient(self, p_id):
+        """Calls the FHIR API to export all patients"""
+        r = requests.get(f"{self.fhir}/{self.base}/Patient/{p_id}", timeout=100)
+        return r
+
+    def create_patient_fromfile(self, file):
         """Calls the MUMPS API to create a new patient from a FHIR JSON"""
-        r = requests.post(f"{self.vehu}/addpatient", data=file.read(), timeout=10)
-        return r.status_code
+        r = requests.post(f"{self.vehu}/addpatient", data=file.read(), timeout=100)
+        return r
+
+    def create_patient(self, data):
+        """Calls the MUMPS API to create a new patient from a FHIR JSON"""
+        r = requests.post(f"{self.vehu}/addpatient", data=data, timeout=100)
+        return r
 
 
 @click.command()
-@click.option("--create", default=False, is_flag=True)
 @click.option("--file", type=click.File("r"))
-def cli_options(create, file):
+def cli_options(file):
     """
     Extract command-line arguments to either create a new patient
     No arguments: exports all patients in a JSON form
     """
     client = VistaClient("http://localhost:8002", "api")
-    if not create:
+    if file is None:
         response = client.export_patients()
         if response.status_code == 200:
             print(response.json())
         else:
             print(response.status_code)
     else:
-        if file is None:
-            print("Needs the --file argument")
-        else:
-            print(client.create_patient(file))
+        print(client.create_patient(file).json())
 
 
 if __name__ == "__main__":

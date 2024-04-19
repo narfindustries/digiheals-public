@@ -144,7 +144,9 @@ def generate_keypair():
     key = jwk.JWK.generate(kty="RSA", size=2048, alg="RS384", use="sig", kid=kid)
     public_key = key.export_public()
     private_key = key.export_private()
-    keypair_set = {"keys": [eval(private_key)]} # This is VERY bad. Shouldn't be using eval
+    keypair_set = {
+        "keys": [eval(private_key)]
+    }  # This is VERY bad. Shouldn't be using eval
     print(public_key, private_key, key.export_to_pem(True, None))
     with open("keypair_set", "w", encoding="utf8") as f_keypair:
         f_keypair.write(json.dumps(keypair_set))
@@ -174,7 +176,7 @@ def openemr_client_instance(clientid, url, generate):
         url,
     )
     client.get_authorization_token()
-    patients = client.get_fhir_patients() # Request #1
+    patients = client.get_fhir_patients()  # Request #1
     for patient in patients["entry"]:
         """
         This is where things get a little complicated:
@@ -215,6 +217,7 @@ def main():
     """
 
     openemr_client_instance()
+
 
 if __name__ == "__main__":
     main()
