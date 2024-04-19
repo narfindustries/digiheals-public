@@ -21,12 +21,13 @@ class HapiClient(AbstractClient):
 
     def export_patients(self):
         """Calls the FHIR API to export all patients"""
-        r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
+        r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100, verify=False)
         return r
 
     def create_patient(self, file):
-        """Calls the MUMPS API to create a new patient from a FHIR JSON"""
-        r = requests.post(f"{self.vehu}/addpatient", data=file.read(), timeout=10)
+        """Create a new patient from a FHIR JSON file"""
+        headers = {"Accept": "application/fhir+json", "Content-Type": "application/json"}
+        r = requests.post(f"{self.fhir}/{self.base}/Patient", data=file.read(), timeout=10, headers=headers, verify=False)
         return r.status_code
 
 
@@ -38,7 +39,7 @@ def cli_options(create, file):
     Extract command-line arguments to either create a new patient
     No arguments: exports all patients in a JSON form
     """
-    client = HapiClient("http://localhost:8004", "fhir")
+    client = HapiClient("https://localhost:8004", "fhir")
     if not create:
         response = client.export_patients()
         if response.status_code == 200:

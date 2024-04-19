@@ -25,8 +25,10 @@ class IBMFHIRClient(AbstractClient):
         return r
 
     def create_patient(self, file):
-        """Calls the MUMPS API to create a new patient from a FHIR JSON"""
-        r = requests.post(f"{self.vehu}/addpatient", data=file.read(), timeout=10)
+        """Create a new patient from a FHIR JSON file"""
+        headers = {"Accept": "application/fhir+json", "Content-Type": "application/json"}
+        r = requests.post(f"{self.fhir}/{self.base}/Patient", data=file.read(), timeout=10, headers=headers, verify=False, auth=("fhiruser", "change-password"))
+        print(r.text)
         return r.status_code
 
 

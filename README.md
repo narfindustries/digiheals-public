@@ -13,7 +13,7 @@ Running
 -----
 
 - `git submodule update --init --recursive`
-- `cd ehr-garden && docker compose up` should get the containers built and spinning.
+- `docker compose up` should get the containers built and spinning.
 
 Components
 -----
