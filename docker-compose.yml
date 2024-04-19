@@ -1,0 +1,135 @@
+# Use postgres/example user/password credentials
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: gnuhealth
+      POSTGRES_DB: health
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - private
+
+  #adminer:
+    #image: adminer
+    #restart: always
+    #ports:
+      #- 8080:8080
+    #networks:
+      #- public
+      #- private
+    #depends_on:
+      #- db
+
+  gnuhealth:
+    build: ./ehr-garden/gnuhealth
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      - public
+      - private
+    depends_on:
+      - db
+  mysql:
+    restart: always
+    image: mariadb:10.11
+    command: ['mysqld','--character-set-server=utf8mb4']
+    volumes:
+    - databasevolume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  openemr:
+    restart: always
+    image: openemr #/openemr:6.0.0
+    build: ./ehr-garden/openemr
+    ports:
+    - 8001:8001
+    - 8443:443
+    volumes:
+    - sitevolume:/var/www/localhost/htdocs/openemr/sites
+    - logvolume01:/var/log
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_ROOT_PASS: root
+      MYSQL_USER: openemr
+      MYSQL_PASS: openemr
+      OE_USER: admin
+      OE_PASS: pass
+    depends_on:
+    - mysql
+
+  vista:
+    image: worldvista/vehu:201911-syn-fhir
+    container_name: vehu
+    ports:
+    - 9080:9080
+  fhir-vista:
+    image: worldvista/fhir-on-vista:latest
+    ulimits:
+      nofile:
+        soft: 8096
+        hard: 8096
+    ports:
+    - 8002:8080
+    depends_on:
+      - vista
+  openmrs-db:
+    image: mariadb:10.3
+    command: "mysqld --character-set-server=utf8 --collation-server=utf8_general_ci"
+    environment:
+      MYSQL_DATABASE: ${OMRS_DB_NAME:-openmrs}
+      MYSQL_USER: ${OMRS_DB_USER:-openmrs}
+      MYSQL_PASSWORD: ${OMRS_DB_PASSWORD:-openmrs}
+      MYSQL_ROOT_PASSWORD: ${OMRS_DB_ROOT_PASSWORD:-openmrs}
+    healthcheck:
+      test: "mysql --user=${OMRS_DB_USER:-openmrs} --password=${OMRS_DB_PASSWORD:-openmrs} --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - db-data:/var/lib/mysql
+
+  openmrs:
+    image: openmrs/openmrs-core:${TAG:-nightly}
+    build: ./ehr-garden/openmrs
+    ports:
+      - "8003:8080"
+    environment:
+      OMRS_DB_HOSTNAME: ${OMRS_DB_HOSTNAME:-openmrs-db}
+      OMRS_DB_NAME: ${OMRS_DB_NAME:-openmrs}
+      OMRS_DB_USERNAME: ${OMRS_DB_USERNAME:-openmrs}
+      OMRS_DB_PASSWORD: ${OMRS_DB_PASSWORD:-openmrs}
+      OMRS_ADMIN_USER_PASSWORD: ${OMRS_ADMIN_USER_PASSWORD:-Admin123}
+      OMRS_ADMIN_PASSWORD_LOCKED: ${OMRS_ADMIN_PASSWORD_LOCKED:-true}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/openmrs"]
+      interval: 3s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - openmrs-data:/openmrs/data/
+
+  hapi-fhir:
+    image: hapiproject/hapi:latest
+    ports:
+      - "8004:8080"
+
+  ibm-fhir:
+    image: ghcr.io/linuxforhealth/fhir-server
+    ports:
+      - "8005:9443"
+    environment:
+      BOOTSTRAP_DB: true
+
+networks:
+  # The presence of these objects is sufficient to define them
+  public: {}
+  private: {}
+
+volumes:
+  logvolume01: {}
+  sitevolume: {}
+  databasevolume: {}
+  db-data:
+  openmrs-data:
