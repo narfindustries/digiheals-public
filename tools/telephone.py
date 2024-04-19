@@ -28,9 +28,9 @@ def cli_options(file):
     Extract command-line arguments to either create a new patient
     Step 1a: Send the Synthea-generated file through Vista
     Step 1b: Store the Patient ID and GET /Patient/{id}
-    Step 2a: Send the response through IBM FHIR
+    Step 2a: Send the response through HAPI FHIR
     Step 2b: Store the Patient ID and GET /Patient/{id}
-    Step 3a: Send response through HAPI FHIR
+    Step 3a: Send response through IBM FHIR
     Step 3b: Store the Patient ID and GET /Patient/{id}
     """
 
@@ -63,8 +63,6 @@ def cli_options(file):
         vista_patient_response = step1b_response.json()
     else:
         chain_terminated = True
-
-    if chain_terminated:
         print(step1b_response.json())
         sys.exit(1)
 
@@ -77,8 +75,6 @@ def cli_options(file):
         hapi_patient_id = r["id"]
     else:
         chain_terminated = True
-
-    if chain_terminated:
         print(step2a_response.json())
         sys.exit(1)
 
@@ -89,37 +85,39 @@ def cli_options(file):
         hapi_patient_response = step2b_response.json()
     else:
         chain_terminated = True
-
-    if chain_terminated:
         print(step2b_response.json())
         sys.exit(1)
 
+    hapi_patient_response["communication"] =[{
+        "language": {
+            "coding": [{
+                "system": "urn:ietf:bcp:47",
+                "code": "en-US",
+                "display": "English (United States)"
+            }],
+            "text": "English (United States)"
+        }
+    }]
+
+    print(json.dumps(hapi_patient_response))
     # Step 3 starts here
     step3a_response = ibm_client.create_patient(json.dumps(hapi_patient_response))
     print(step3a_response)
     ibm_patient_id = None
-    if step3a_response.status_code == 201:
-        r = step3a_response.json()
-        ibm_patient_id = r["id"]
-    else:
+    if step3a_response.status_code != 201:
         chain_terminated = True
-
-    if chain_terminated:
         print(step3a_response.json())
         sys.exit(1)
 
     ibm_patient_response = None
-    step3b_response = ibm_client.export_patient(ibm_patient_id)
+    step3b_response = ibm_client.export_patients()
     print(step3b_response)
     if step3b_response.status_code == 200:
         ibm_patient_response = step3b_response.json()
     else:
         chain_terminated = True
-
-    if chain_terminated:
         print(step3b_response.json())
         sys.exit(1)
-
 
 if __name__ == "__main__":
     cli_options()

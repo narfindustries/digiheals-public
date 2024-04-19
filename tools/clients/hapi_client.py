@@ -77,7 +77,7 @@ def cli_options(file):
         else:
             print(response.status_code)
     else:
-        print(client.create_patient(file).json())
+        print(client.create_patient_fromfile(file).json())
 
 
 if __name__ == "__main__":
