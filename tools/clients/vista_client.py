@@ -44,6 +44,8 @@ def cli_options(create, file):
         response = client.export_patients()
         if response.status_code == 200:
             print(response.json())
+        else:
+            print(response.status_code)
     else:
         if file is None:
             print("Needs the --file argument")
