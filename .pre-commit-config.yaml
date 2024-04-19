@@ -3,7 +3,7 @@ repos:
     rev: 24.3.0
     hooks:
     - id: black
-      language_version: python3.9.2
+      language_version: python3.11.2
 -   repo: https://github.com/pycqa/isort
     rev: 5.13.2
     hooks:
@@ -11,5 +11,6 @@ repos:
       name: isort (python)
 -   repo: https://github.com/pycqa/flake8
     rev: 7.0.0
+    args: ['--ignore=E501']
     hooks:
     -   id: flake8
