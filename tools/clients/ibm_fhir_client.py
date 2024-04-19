@@ -87,7 +87,7 @@ def cli_options(file):
         if response.status_code == 200:
             print(response.json())
     else:
-        print(client.create_patient(file).json())
+        print(client.create_patient_fromfile(file).json())
 
 
 if __name__ == "__main__":
