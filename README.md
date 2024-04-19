@@ -15,6 +15,13 @@ Running
 - `git submodule update --init --recursive`
 - `docker compose up` should get the containers built and spinning.
 
+Contributing
+-----
+
+We use git pre-commit hooks to ensure code standard. Please run:
+- `pip install -r requirements.txt`
+- `pre-commit install` to install the pre-commit hooks
+
 Components
 -----
 

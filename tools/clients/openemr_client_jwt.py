@@ -7,15 +7,16 @@
 Build clients for OpenEMR that can get the temporary authorization key
 and send FHIR API requests using them.
 """
+import json
 import random
 import string
-import json
 from pathlib import Path
-import requests
-import jwt
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-from jwcrypto import jwk
+
 import click
+import jwt
+import requests
+from jwcrypto import jwk
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 

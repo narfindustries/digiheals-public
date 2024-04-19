@@ -5,14 +5,15 @@
 """
 
 """
-import sys
-import click
 import json
+import sys
+
+import click
+from hapi_client import HapiClient
+from ibm_fhir_client import IBMFHIRClient
+from vista_client import VistaClient
 
 sys.path.append("./clients")
-from vista_client import VistaClient
-from ibm_fhir_client import IBMFHIRClient
-from hapi_client import HapiClient
 
 config = {
     "vista": ("http://localhost:8002", "api"),
@@ -88,16 +89,20 @@ def cli_options(file):
         print(step2b_response.json())
         sys.exit(1)
 
-    hapi_patient_response["communication"] =[{
-        "language": {
-            "coding": [{
-                "system": "urn:ietf:bcp:47",
-                "code": "en-US",
-                "display": "English (United States)"
-            }],
-            "text": "English (United States)"
+    hapi_patient_response["communication"] = [
+        {
+            "language": {
+                "coding": [
+                    {
+                        "system": "urn:ietf:bcp:47",
+                        "code": "en-US",
+                        "display": "English (United States)",
+                    }
+                ],
+                "text": "English (United States)",
+            }
         }
-    }]
+    ]
 
     print(json.dumps(hapi_patient_response))
     # Step 3 starts here
@@ -118,6 +123,7 @@ def cli_options(file):
         chain_terminated = True
         print(step3b_response.json())
         sys.exit(1)
+
 
 if __name__ == "__main__":
     cli_options()
