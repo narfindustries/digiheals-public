@@ -2,18 +2,16 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-"""
 
-"""
 import json
 import sys
-
 import click
+
+sys.path.append("./clients")
+
 from hapi_client import HapiClient
 from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
-
-sys.path.append("./clients")
 
 config = {
     "vista": ("http://localhost:8002", "api"),
@@ -56,10 +54,10 @@ def cli_options(file):
     if chain_terminated:
         print(step1a_response.json())
         sys.exit(1)
+    print(f"Vista Import {step1a_response} {vista_patient_id}")
 
     vista_patient_response = None
     step1b_response = vista_client.export_patient(vista_patient_id)
-    print(step1b_response)
     if step1b_response.status_code == 200:
         vista_patient_response = step1b_response.json()
     else:
@@ -67,9 +65,10 @@ def cli_options(file):
         print(step1b_response.json())
         sys.exit(1)
 
+    print(f"Vista Export {step1b_response} {vista_patient_id}")
+
     # Step 2 starts here
     step2a_response = hapi_client.create_patient(json.dumps(vista_patient_response))
-    print(step2a_response)
     hapi_patient_id = None
     if step2a_response.status_code == 201:
         r = step2a_response.json()
@@ -79,15 +78,18 @@ def cli_options(file):
         print(step2a_response.json())
         sys.exit(1)
 
+    print(f"HAPI Import {step2a_response} {hapi_patient_id}")
+
     hapi_patient_response = None
     step2b_response = hapi_client.export_patient(hapi_patient_id)
-    print(step2b_response)
     if step2b_response.status_code == 200:
         hapi_patient_response = step2b_response.json()
     else:
         chain_terminated = True
         print(step2b_response.json())
         sys.exit(1)
+
+    print(f"HAPI Export {step2b_response} {hapi_patient_id}")
 
     hapi_patient_response["communication"] = [
         {
@@ -104,25 +106,27 @@ def cli_options(file):
         }
     ]
 
-    print(json.dumps(hapi_patient_response))
     # Step 3 starts here
     step3a_response = ibm_client.create_patient(json.dumps(hapi_patient_response))
-    print(step3a_response)
     ibm_patient_id = None
     if step3a_response.status_code != 201:
         chain_terminated = True
         print(step3a_response.json())
         sys.exit(1)
 
+    print(f"IBM Import {step3a_response} {repr(step3a_response.text)}")
+
     ibm_patient_response = None
     step3b_response = ibm_client.export_patients()
-    print(step3b_response)
     if step3b_response.status_code == 200:
         ibm_patient_response = step3b_response.json()
     else:
         chain_terminated = True
         print(step3b_response.json())
         sys.exit(1)
+
+    print(f"IBM Export {step3b_response}")
+    print(ibm_patient_response)
 
 
 if __name__ == "__main__":
