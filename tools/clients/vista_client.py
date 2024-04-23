@@ -8,6 +8,7 @@ Create a Client for vista that can create patients and pull data
 
 import click
 import requests
+import json
 from abstract_client import AbstractClient
 
 
@@ -63,7 +64,8 @@ class VistaClient(AbstractClient):
             (patient_id, response_json) = self.create_patient_fromfile(data)
         else:
             # Got a JSON from another FHIR server
-            pass
+            data = {"resourceType": "Bundle", "type": "transaction", "entry": [data]}
+            (patient_id, response_json) = self.create_patient(json.dumps(data))
         if patient_id is None:
             # Creating the patient failed
             return (patient_id, response_json.json(), None)
