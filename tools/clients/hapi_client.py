@@ -82,7 +82,12 @@ class HapiClient(AbstractClient):
         patient_id = None
         response_json = None
         if step_number == 0:
-            pass
+            json_data = json.loads(data.read())
+            patient_data = None
+            for entry in json_data["entry"]:
+                if entry["resource"]["resourceType"] == "Patient":
+                    patient_data = entry["resource"]
+            (patient_id, response_json) = self.create_patient(json.dumps(patient_data))
         else:
             # This means we just got a full file from another server, simply upload it
             (patient_id, response_json) = self.create_patient(json.dumps(data))

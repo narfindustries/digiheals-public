@@ -47,6 +47,9 @@ class IBMFHIRClient(AbstractClient):
         Get the patient ID by pulling full list of patients before and after
         """
         (status, after_json) = self.export_patients()
+        if len(after_json["entry"]) == 1:
+            return after_json["entry"][0]["resource"]["id"]
+
         for entry in after_json["entry"]:
             if entry not in before_json["entry"]:
                 return entry["resource"]["id"]
@@ -101,7 +104,12 @@ class IBMFHIRClient(AbstractClient):
         patient_id = None
         response_json = None
         if step_number == 0:
-            pass
+            json_data = json.loads(data.read())
+            patient_data = None
+            for entry in json_data["entry"]:
+                if entry["resource"]["resourceType"] == "Patient":
+                    patient_data = entry["resource"]
+            (patient_id, response_json) = self.create_patient(json.dumps(patient_data))
         else:
             # This means we just got a full file from another server, simply upload it
             data["communication"] = [
