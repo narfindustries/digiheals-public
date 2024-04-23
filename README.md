@@ -19,6 +19,7 @@ Game of Telephone
 -----
 - `telephone-basic.py`: A simple script that would upload a file to Vista, pass it on to HAPI FHIR, and then to IBM FHIR server.
 - `telephone.py --file FILENAME -c hop1 -c hop2 -c hop3`, where the hops can be `ibm`, `hapi`, or `vista`.
+- Or `telephone.py --generate -c hop1 -c hop2 -c hop3`, if you want to generate a new file via Synthea on the fly.
 
 Contributing
 -----
