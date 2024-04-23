@@ -122,6 +122,14 @@ services:
     environment:
       BOOTSTRAP_DB: true
 
+  synthea:
+    image: synthea
+    build: ./ehr-garden/synthea
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./files:/synthea/output
+
 networks:
   # The presence of these objects is sufficient to define them
   public: {}

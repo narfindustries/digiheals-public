@@ -6,8 +6,10 @@
 Skeleton for the Telephone.py script to go through multiple targets
 """
 import click
+from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 import sys
 import json
+import requests
 
 sys.path.append("./clients")
 
@@ -23,7 +25,13 @@ config = {
 
 
 @click.command()
-@click.option("--file", type=click.File("r"), required=True)
+@optgroup.group(
+    "Either generate a file or provide a command-line argument",
+    cls=RequiredMutuallyExclusiveOptionGroup,
+    help="Group description",
+)
+@optgroup.option("--file", type=click.File("r"))
+@optgroup.option("--generate", "generate", is_flag=True, default=False)
 @click.option(
     "--chain",
     "-c",
@@ -31,7 +39,7 @@ config = {
     multiple=True,
     type=click.Choice(["vista", "ibm", "hapi"]),
 )
-def cli_options(file, chain):
+def cli_options(file, generate, chain):
     """Command line options for the telephone.py script
     Vista takes a different format (Bundle Resource) as input, whereas others require a patient
     """
@@ -44,6 +52,11 @@ def cli_options(file, chain):
         "ibm": ibm_client.step,
         "hapi": hapi_client.step,
     }
+    if generate:
+        r = requests.get("http://localhost:9000/", timeout=100)
+        if r.status_code == 200:
+            filename = r.json()["filename"]
+            file = open(f"../files/fhir/{filename}")
 
     for step_number, step in enumerate(chain):
         (patient_id, response_json_1, response_json_2) = functions[step](
