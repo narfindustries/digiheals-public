@@ -7,6 +7,7 @@ Create a Client for vista that can create patients and pull data
 """
 
 import click
+import json
 import requests
 from abstract_client import AbstractClient
 
@@ -27,7 +28,8 @@ class IBMFHIRClient(AbstractClient):
             verify=False,
             auth=("fhiruser", "change-password"),
         )
-        return r
+        response = r.json()
+        return (r.status_code, response)
 
     def export_patient(self, p_id):
         """Calls the FHIR API to export all patients"""
@@ -37,10 +39,21 @@ class IBMFHIRClient(AbstractClient):
             verify=False,
             auth=("fhiruser", "change-password"),
         )
-        return r
+        response = r.json()
+        return (r.status_code, response)
+
+    def __get_new_patient_id(self, before_json):
+        """
+        Get the patient ID by pulling full list of patients before and after
+        """
+        (status, after_json) = self.export_patients()
+        for entry in after_json["entry"]:
+            if entry not in before_json["entry"]:
+                return entry["resource"]["id"]
 
     def create_patient_fromfile(self, file):
         """Create a new patient from a FHIR JSON file"""
+        (b_status, before_json) = self.export_patients()
         headers = {
             "Accept": "application/fhir+json",
             "Content-Type": "application/json",
@@ -53,11 +66,14 @@ class IBMFHIRClient(AbstractClient):
             verify=False,
             auth=("fhiruser", "change-password"),
         )
-        print(r.text)
-        return r
+        patient_id = None
+        if r.status_code == 201:
+            patient_id = self.__get_new_patient_id(before_json)
+        return (patient_id, r)
 
     def create_patient(self, data):
         """Create a new patient from a FHIR JSON file"""
+        (b_status, before_json) = self.export_patients()
         headers = {
             "Accept": "application/fhir+json",
             "Content-Type": "application/json",
@@ -70,8 +86,45 @@ class IBMFHIRClient(AbstractClient):
             verify=False,
             auth=("fhiruser", "change-password"),
         )
-        print(r.text)
-        return r
+        patient_id = None
+        if r.status_code == 201:
+            patient_id = self.__get_new_patient_id(before_json)
+        return (patient_id, r)
+
+    def step(self, step_number: int, data):
+        """
+        Called from the GoT scripts
+        If its the first step, we just got a FHIR JSON file from Synthea.
+        We must extract the patient data from it.
+        If not, then we can import the file as is
+        """
+        patient_id = None
+        response_json = None
+        if step_number == 0:
+            pass
+        else:
+            # This means we just got a full file from another server, simply upload it
+            data["communication"] = [
+                {
+                    "language": {
+                        "coding": [
+                            {
+                                "system": "urn:ietf:bcp:47",
+                                "code": "en-US",
+                                "display": "English (United States)",
+                            }
+                        ],
+                        "text": "English (United States)",
+                    }
+                }
+            ]
+            (patient_id, response_json) = self.create_patient(json.dumps(data))
+
+        if patient_id is None:
+            return (patient_id, {}, None)
+
+        (status, export_response) = self.export_patient(patient_id)
+        return (patient_id, {}, export_response)
 
 
 @click.command()

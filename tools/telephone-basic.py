@@ -39,57 +39,40 @@ def cli_options(file):
 
     chain_terminated = False  # Set to true whenever we need to terminate the chain
     # Step 1
-    vista_patient_id = None
-    step1a_response = vista_client.create_patient_fromfile(file)
-    if step1a_response.status_code == 201:
-        r = step1a_response.json()
-        if r["loadStatus"] == "loaded" and r.get("icn"):
-            vista_patient_id = r["icn"]
-        else:
-            chain_terminated = True
-    else:
+    (vista_patient_id, step1a_response) = vista_client.create_patient_fromfile(file)
+    if vista_patient_id is None:
         chain_terminated = True
-
-    # Add a gate here to ensure that the chain is not terminated before starting 1a
-    if chain_terminated:
         print(step1a_response.json())
         sys.exit(1)
+
     print(f"Vista Import {step1a_response} {vista_patient_id}")
 
-    vista_patient_response = None
-    step1b_response = vista_client.export_patient(vista_patient_id)
-    if step1b_response.status_code == 200:
-        vista_patient_response = step1b_response.json()
-    else:
+    (status_1b, vista_patient_response) = vista_client.export_patient(vista_patient_id)
+    if status_1b != 200:
         chain_terminated = True
-        print(step1b_response.json())
+        print(vista_patient_response)
         sys.exit(1)
 
-    print(f"Vista Export {step1b_response} {vista_patient_id}")
+    print(f"Vista Export {status_1b} {vista_patient_id}")
 
     # Step 2 starts here
-    step2a_response = hapi_client.create_patient(json.dumps(vista_patient_response))
-    hapi_patient_id = None
-    if step2a_response.status_code == 201:
-        r = step2a_response.json()
-        hapi_patient_id = r["id"]
-    else:
+    (hapi_patient_id, step2a_response) = hapi_client.create_patient(
+        json.dumps(vista_patient_response)
+    )
+    if hapi_patient_id is None:
         chain_terminated = True
         print(step2a_response.json())
         sys.exit(1)
 
     print(f"HAPI Import {step2a_response} {hapi_patient_id}")
 
-    hapi_patient_response = None
-    step2b_response = hapi_client.export_patient(hapi_patient_id)
-    if step2b_response.status_code == 200:
-        hapi_patient_response = step2b_response.json()
-    else:
+    (status_2a, hapi_patient_response) = hapi_client.export_patient(hapi_patient_id)
+    if status_2a != 200:
         chain_terminated = True
-        print(step2b_response.json())
+        print(hapi_patient_response)
         sys.exit(1)
 
-    print(f"HAPI Export {step2b_response} {hapi_patient_id}")
+    print(f"HAPI Export {status_2a} {hapi_patient_id}")
 
     hapi_patient_response["communication"] = [
         {
@@ -107,26 +90,20 @@ def cli_options(file):
     ]
 
     # Step 3 starts here
-    step3a_response = ibm_client.create_patient(json.dumps(hapi_patient_response))
-    ibm_patient_id = None
+    (ibm_patient_id, step3a_response) = ibm_client.create_patient(
+        json.dumps(hapi_patient_response)
+    )
     if step3a_response.status_code != 201:
         chain_terminated = True
         print(step3a_response.json())
         sys.exit(1)
 
-    print(f"IBM Import {step3a_response} {repr(step3a_response.text)}")
+    print(f"IBM Import {step3a_response} {ibm_patient_id}")
 
     ibm_patient_response = None
-    step3b_response = ibm_client.export_patients()
-    if step3b_response.status_code == 200:
-        ibm_patient_response = step3b_response.json()
-    else:
-        chain_terminated = True
-        print(step3b_response.json())
-        sys.exit(1)
+    (status_3b, ibm_patient_response) = ibm_client.export_patient(ibm_patient_id)
 
-    print(f"IBM Export {step3b_response}")
-    print(ibm_patient_response)
+    print(f"IBM Export {status_3b} {ibm_patient_response}")
 
 
 if __name__ == "__main__":
