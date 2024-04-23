@@ -7,6 +7,7 @@ Create a Client for vista that can create patients and pull data
 """
 
 import click
+import json
 import requests
 from abstract_client import AbstractClient
 
@@ -22,17 +23,20 @@ class HapiClient(AbstractClient):
     def export_patients(self):
         """Calls the FHIR API to export all patients"""
         r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100, verify=False)
-        return r
+        response_json = r.json()
+        return (r.status_code, response_json)
 
     def export_patient(self, p_id):
         """Calls the FHIR API to export all patients"""
         r = requests.get(
             f"{self.fhir}/{self.base}/Patient/{p_id}", timeout=100, verify=False
         )
-        return r
+        response_json = r.json()
+        return (r.status_code, response_json)
 
     def create_patient_fromfile(self, file):
         """Create a new patient from a FHIR JSON file"""
+        patient_id = None
         headers = {
             "Accept": "application/fhir+json",
             "Content-Type": "application/json",
@@ -44,10 +48,14 @@ class HapiClient(AbstractClient):
             headers=headers,
             verify=False,
         )
-        return r
+        if r.status_code == 201:
+            response = r.json()
+            patient_id = response["id"]
+        return (patient_id, r)
 
     def create_patient(self, data):
         """Create a new patient from a FHIR JSON file"""
+        patient_id = None
         headers = {
             "Accept": "application/fhir+json",
             "Content-Type": "application/json",
@@ -59,7 +67,31 @@ class HapiClient(AbstractClient):
             headers=headers,
             verify=False,
         )
-        return r
+        if r.status_code == 201:
+            response = r.json()
+            patient_id = response["id"]
+        return (patient_id, r)
+
+    def step(self, step_number: int, data):
+        """
+        Called from the GoT scripts
+        If its the first step, we just got a FHIR JSON file from Synthea.
+        We must extract the patient data from it.
+        If not, then we can import the file as is
+        """
+        patient_id = None
+        response_json = None
+        if step_number == 0:
+            pass
+        else:
+            # This means we just got a full file from another server, simply upload it
+            (patient_id, response_json) = self.create_patient(json.dumps(data))
+
+        if patient_id is None:
+            return (patient_id, response_json.json(), None)
+
+        (status, export_response) = self.export_patient(patient_id)
+        return (patient_id, response_json.json(), export_response)
 
 
 @click.command()
