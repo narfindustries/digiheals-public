@@ -15,6 +15,11 @@ Running
 - `git submodule update --init --recursive`
 - `docker compose up` should get the containers built and spinning.
 
+Game of Telephone
+-----
+- `telephone-basic.py`: A simple script that would upload a file to Vista, pass it on to HAPI FHIR, and then to IBM FHIR server.
+- `telephone.py --file FILENAME -c hop1 -c hop2 -c hop3`, where the hops can be `ibm`, `hapi`, or `vista`.
+
 Contributing
 -----
 
