@@ -15,7 +15,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    files_original = os.listdir("/synthea/output/ccda/")
+    output_dir = "/synthea/output/ccda/"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    files_original = os.listdir(output_dir)
     os.system("./gradlew run")
     new_file = list(set(os.listdir("/synthea/output/ccda/")) - set(files_original))[0]
     filename = new_file.split(".")[0]
