@@ -28,8 +28,15 @@ class VistaClient(AbstractClient):
 
     def export_patient(self, p_id):
         """Calls the FHIR API to export all patients"""
-        r = requests.get(f"{self.fhir}/{self.base}/Patient/{p_id}", timeout=100)
-        return (r.status_code, r.json())
+        r = requests.get(f"{self.vehu}/showfhir", timeout=100, params={"ien": p_id})
+        if r.status_code == 200:
+            for entry in r.json()["entry"]:
+                if entry["resource"]["resourceType"] == "Patient":
+                    return (r.status_code, entry["resource"])
+        try:
+            return (r.status_code, r.json())
+        except Exception:
+            return (r.status_code, {})
 
     def create_patient_fromfile(self, file):
         """Calls the MUMPS API to create a new patient from a FHIR JSON"""
@@ -37,8 +44,8 @@ class VistaClient(AbstractClient):
         patient_id = None
         if r.status_code == 201:
             response = r.json()
-            if response["loadStatus"] == "loaded" and response.get("icn"):
-                patient_id = response["icn"]
+            if response["loadStatus"] == "loaded" and response.get("ien"):
+                patient_id = response["ien"]
         return (patient_id, r)
 
     def create_patient(self, data):
@@ -47,8 +54,8 @@ class VistaClient(AbstractClient):
         patient_id = None
         if r.status_code == 201:
             response = r.json()
-            if response["loadStatus"] == "loaded" and response.get("icn"):
-                patient_id = response["icn"]
+            if response["status"] == "ok" and response.get("ien"):
+                patient_id = response["ien"]
         return (patient_id, r)
 
     def step(self, step_number: int, data):
@@ -64,7 +71,11 @@ class VistaClient(AbstractClient):
             (patient_id, response_json) = self.create_patient_fromfile(data)
         else:
             # Got a JSON from another FHIR server
-            data = {"resourceType": "Bundle", "type": "transaction", "entry": [data]}
+            data = {
+                "resourceType": "Bundle",
+                "type": "transaction",
+                "entry": [{"resource": data}],
+            }
             (patient_id, response_json) = self.create_patient(json.dumps(data))
         if patient_id is None:
             # Creating the patient failed
