@@ -57,6 +57,7 @@ def cli_options(file, generate, chain):
         if r.status_code == 200:
             filename = r.json()["filename"]
             file = open(f"../files/fhir/{filename}")
+            print(f"Successfully created file for {filename}")
 
     for step_number, step in enumerate(chain):
         (patient_id, response_json_1, response_json_2) = functions[step](
@@ -66,7 +67,7 @@ def cli_options(file, generate, chain):
             print(f"Chain terminated at step {step_number} {step} {response_json_1}")
             sys.exit(1)
         file = response_json_2
-        print(file)
+        print(f"{step_number} {step} {json.dumps(file)}")
 
 
 if __name__ == "__main__":
