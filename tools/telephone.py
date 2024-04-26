@@ -13,6 +13,7 @@ import requests
 
 sys.path.append("./clients")
 
+from blaze_client import BlazeClient
 from hapi_client import HapiClient
 from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
@@ -21,6 +22,7 @@ config = {
     "vista": ("http://localhost:8002", "api"),
     "ibm": ("https://localhost:8005", "fhir-server/api/v4"),
     "hapi": ("http://localhost:8004", "fhir"),
+    "blaze": ("http://localhost:8006", "fhir"),
 }
 
 
@@ -37,7 +39,7 @@ config = {
     "-c",
     required=True,
     multiple=True,
-    type=click.Choice(["vista", "ibm", "hapi"]),
+    type=click.Choice(["vista", "ibm", "hapi", "blaze"]),
 )
 def cli_options(file, generate, chain):
     """Command line options for the telephone.py script
@@ -46,11 +48,13 @@ def cli_options(file, generate, chain):
     vista_client = VistaClient(config["vista"][0], config["vista"][1])
     ibm_client = IBMFHIRClient(config["ibm"][0], config["ibm"][1])
     hapi_client = HapiClient(config["hapi"][0], config["hapi"][1])
+    blaze_client = BlazeClient(config["blaze"][0], config["blaze"][1])
 
     functions = {
         "vista": vista_client.step,
         "ibm": ibm_client.step,
         "hapi": hapi_client.step,
+        "blaze": blaze_client.step,
     }
     if generate:
         r = requests.get("http://localhost:9000/", timeout=100)

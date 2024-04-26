@@ -122,6 +122,8 @@ services:
     environment:
       BOOTSTRAP_DB: true
 
+
+  # This is not a FHIR server image
   synthea:
     image: synthea
     build: ./ehr-garden/synthea
@@ -129,6 +131,11 @@ services:
       - "9000:9000"
     volumes:
       - ./files:/synthea/output
+  
+  blaze:
+    image: samply/blaze:latest
+    ports:
+      - "8006:8080"
 
 networks:
   # The presence of these objects is sufficient to define them
@@ -141,3 +148,4 @@ volumes:
   databasevolume: {}
   db-data:
   openmrs-data:
+  blaze-data:
