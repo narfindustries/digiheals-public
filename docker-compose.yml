@@ -10,17 +10,6 @@ services:
     networks:
       - private
 
-  #adminer:
-    #image: adminer
-    #restart: always
-    #ports:
-      #- 8080:8080
-    #networks:
-      #- public
-      #- private
-    #depends_on:
-      #- db
-
   gnuhealth:
     build: ./ehr-garden/gnuhealth
     restart: always
@@ -31,6 +20,7 @@ services:
       - private
     depends_on:
       - db
+
   mysql:
     restart: always
     image: mariadb:10.11
@@ -74,6 +64,7 @@ services:
     - 8002:8080
     depends_on:
       - vista
+
   openmrs-db:
     image: mariadb:10.3
     command: "mysqld --character-set-server=utf8 --collation-server=utf8_general_ci"
@@ -122,8 +113,12 @@ services:
     environment:
       BOOTSTRAP_DB: true
 
+  blaze:
+    image: samply/blaze:latest
+    ports:
+      - "8006:8080"
 
-  # This is not a FHIR server image
+  # Images after this are not FHIR images
   synthea:
     image: synthea
     build: ./ehr-garden/synthea
@@ -131,11 +126,16 @@ services:
       - "9000:9000"
     volumes:
       - ./files:/synthea/output
-  
-  blaze:
-    image: samply/blaze:latest
+
+  neo4j:
+    image: neo4j:5.19.0-bullseye
+    environment:
+      NEO4J_AUTH: neo4j/fhir-garden
     ports:
-      - "8006:8080"
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4jvolume:/data
 
 networks:
   # The presence of these objects is sufficient to define them
@@ -149,3 +149,4 @@ volumes:
   db-data:
   openmrs-data:
   blaze-data:
+  neo4jvolume:
