@@ -16,6 +16,8 @@ Running
 - `git submodule update --init --recursive`
 - `docker compose up` should get the containers built and spinning.
 
+> **_NOTE:_**  Although we provide Docker setups for some FHIR servers and EHRs, these must not be used in production setups. This repository contains hardcoded passwords and ports meant to make fuzzing and bug discovery easy.
+
 Game of Telephone
 -----
 - `telephone-basic.py`: A simple script that would upload a file to Vista, pass it on to HAPI FHIR, and then to IBM FHIR server.
