@@ -62,8 +62,8 @@ def dfs(guid, first_node, counter, step, chain, chain_length, file):
         return
     if len(chain) > 0:
         tmp_chain = copy.deepcopy(chain)
-        if len(tmp_chain) != 4:
-            tmp_chain = tmp_chain + (4 - len(tmp_chain)) * [step]
+        if len(tmp_chain) != chain_length:
+            tmp_chain = tmp_chain + (chain_length - len(tmp_chain)) * [step]
         file = process_step(guid, first_node, counter - 1, step, tmp_chain, file)
     for node in list(config.keys()):
         dfs(guid, first_node, counter + 1, node, chain + [node], chain_length, file)
@@ -116,6 +116,9 @@ chain_config = OptionGroup(
 
 
 def check_connections():
+    """
+    Send requests to all the servers to ensure they are up and returning 200s
+    """
     pass
 
 
