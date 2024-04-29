@@ -68,7 +68,7 @@ class VistaClient(AbstractClient):
         response_json = None
         if step_number == 0:
             # This means we just got a full file, simply upload it
-            (patient_id, response_json) = self.create_patient_fromfile(data)
+            (patient_id, response_json) = self.create_patient(data)
         else:
             # Got a JSON from another FHIR server
             data = {

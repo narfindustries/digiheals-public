@@ -104,7 +104,7 @@ class IBMFHIRClient(AbstractClient):
         patient_id = None
         response_json = None
         if step_number == 0:
-            json_data = json.loads(data.read())
+            json_data = json.loads(data)
             patient_data = None
             for entry in json_data["entry"]:
                 if entry["resource"]["resourceType"] == "Patient":

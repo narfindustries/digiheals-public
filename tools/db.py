@@ -61,7 +61,7 @@ def create_edge(guid: str, node1: str, node2: str, json_string):
     NOTE: Functions in this file will throw errors/Exceptions.
     Especially when the connection to Neo4J fails
     """
-    print(f"{guid} {node1} {node2} {json_string}")
+    print(f"{guid} {node1} {node2}")
     with GraphDatabase.driver(URI, auth=AUTH) as driver:
         driver.verify_connectivity()
         with driver.session(database="neo4j") as session:
