@@ -45,6 +45,18 @@ functions = {
 }
 
 
+def check_connection():
+    """
+    Send requests to all the servers to ensure they are up and returning 200s
+    """
+    clients = [vista_client, ibm_client, hapi_client, blaze_client]
+    client_names = ["vista", "ibm", "hapi", "blaze"]
+    for iterator, client in enumerate(map(lambda x: x.export_patients(), clients)):
+        if client[0] != 200:
+            print(f"{client_names[iterator]} server not up yet. Exiting.")
+            sys.exit(0)
+
+
 def process_chain(guid, first_node, chain, file):
     """
     Given a chain, we iterate through the steps in it
@@ -115,15 +127,8 @@ chain_config = OptionGroup(
 )
 
 
-def check_connections():
-    """
-    Send requests to all the servers to ensure they are up and returning 200s
-    """
-    pass
-
-
 @click.command()
-@click.option("--check-connections", "check_connections", is_flag=True, default=True)
+@click.option("--check-connections", "check_connections", is_flag=True, default=False)
 @click.option("--chain-length", "chain_length", default=3, type=int)
 @optgroup.group(
     "Either generate a file or provide a command-line argument",
@@ -148,6 +153,7 @@ def cli_options(check_connections, chain_length, file, generate, chain, all_chai
     """Command line options for the telephone.py script
     Vista takes a different format (Bundle Resource) as input, whereas others require a patient
     """
+    check_connection()  # Make sure all the images are up
     first_node = "file"  # By default assume that we are reading from a CLI file
     guid = str(uuid.uuid4())
 

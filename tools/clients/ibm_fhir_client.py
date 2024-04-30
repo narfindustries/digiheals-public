@@ -22,14 +22,17 @@ class IBMFHIRClient(AbstractClient):
 
     def export_patients(self):
         """Calls the FHIR API to export all patients"""
-        r = requests.get(
-            f"{self.fhir}/{self.base}/Patient",
-            timeout=100,
-            verify=False,
-            auth=("fhiruser", "change-password"),
-        )
-        response = r.json()
-        return (r.status_code, response)
+        try:
+            r = requests.get(
+                f"{self.fhir}/{self.base}/Patient",
+                timeout=100,
+                verify=False,
+                auth=("fhiruser", "change-password"),
+            )
+            response = r.json()
+            return (r.status_code, response)
+        except Exception as e:
+            return (-1, str(e))
 
     def export_patient(self, p_id):
         """Calls the FHIR API to export all patients"""
