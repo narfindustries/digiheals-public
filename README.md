@@ -8,6 +8,7 @@ We have currently built and hosted the following services in this Docker Compose
 - OpenMRS
 - HAPI FHIR
 - LinuxForHealth FHIR (by IBM)
+- Samply Blaze
 
 Running
 -----
@@ -15,11 +16,14 @@ Running
 - `git submodule update --init --recursive`
 - `docker compose up` should get the containers built and spinning.
 
+> **_NOTE:_**  Although we provide Docker setups for some FHIR servers and EHRs, these must not be used in production setups. This repository contains hardcoded passwords and ports meant to make fuzzing and bug discovery easy.
+
 Game of Telephone
 -----
 - `telephone-basic.py`: A simple script that would upload a file to Vista, pass it on to HAPI FHIR, and then to IBM FHIR server.
 - `telephone.py --file FILENAME -c hop1 -c hop2 -c hop3`, where the hops can be `ibm`, `hapi`, or `vista`.
 - Or `telephone.py --generate -c hop1 -c hop2 -c hop3`, if you want to generate a new file via Synthea on the fly.
+- Or `telephone.py --generate --all-chains --chain-length 2`, if you want to generate all possible chains.
 
 Contributing
 -----
@@ -47,6 +51,7 @@ The Web UIs live in various containers and can be accessed using the port mappin
 | OpenMRS| [OpenMRS Core Repository](https://github.com/openmrs/openmrs-core) | None | 8003 | | None |
 | HAPI FHIR | [HAPI FHIR](https://hapifhir.io/) | None | 8004 | `/fhir/Patient` | None |
 | IBM FHIR | [Linux For Health FHIR](https://github.com/LinuxForHealth/FHIR) | fhiruser/change-password | 8005 | `/fhir-server/api/v4/Patient` | Needs HTTPS. Requires a username and password in the FHIR requests. When using curl, use -u. |
+| Samply Blaze FHIR | [Blaze: A FHIR Server with internal, fast CQL Evaluation Engine](https://samply.github.io/blaze) | None | 8006 | `/fhir` | None |
 
 License
 -----
