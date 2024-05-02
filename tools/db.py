@@ -4,6 +4,7 @@
 #
 """
 Create a client for the Neo4J server
+TODO: Functions in this file will throw errors/Exceptions.
 """
 
 from neo4j import GraphDatabase
@@ -58,7 +59,6 @@ def __create_edges(tx, guid, node1, node2, json_string):
 def create_edge(guid: str, node1: str, node2: str, json_string):
     """
     Create nodes for various Servers and other metadata
-    NOTE: Functions in this file will throw errors/Exceptions.
     Especially when the connection to Neo4J fails
     """
     print(f"{guid} {node1} {node2}")
