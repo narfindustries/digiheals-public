@@ -24,3 +24,9 @@ def hello_world():
     filename = new_file.split(".")[0]
     json_file = {"filename": f"{filename}.json"}
     return jsonify(json_file)
+
+
+@app.route("/status")
+def status():
+    json_file = {"status": "ok"}
+    return jsonify(json_file)

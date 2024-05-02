@@ -23,8 +23,11 @@ class VistaClient(AbstractClient):
 
     def export_patients(self):
         """Calls the FHIR API to export all patients"""
-        r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
-        return (r.status_code, r.json())
+        try:
+            r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
+            return (r.status_code, r.json())
+        except Exception as e:
+            return (-1, str(e))
 
     def export_patient(self, p_id):
         """Calls the FHIR API to export all patients"""
@@ -68,7 +71,7 @@ class VistaClient(AbstractClient):
         response_json = None
         if step_number == 0:
             # This means we just got a full file, simply upload it
-            (patient_id, response_json) = self.create_patient_fromfile(data)
+            (patient_id, response_json) = self.create_patient(data)
         else:
             # Got a JSON from another FHIR server
             data = {

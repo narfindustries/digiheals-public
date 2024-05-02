@@ -3,3 +3,6 @@ tools/private_key
 tools/public_key
 tools/ExportedCCDAFiles/
 files
+tools/tests/__pycache__/
+tools/clients/__pycache__/
+tools/__pycache__/
