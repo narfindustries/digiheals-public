@@ -11,7 +11,7 @@ from ibm_fhir_client import IBMFHIRClient
 @pytest.fixture(scope="module")
 def ibm_fhir_client():
     """ Create FHIR Client """
-    fhir = "http://localhost:8005"
+    fhir = "https://localhost:8005"
     base = "fhir-server/api/v4"
     client = IBMFHIRClient(fhir, base)
     yield client
@@ -20,12 +20,16 @@ def ibm_fhir_client():
 def patient_data():
     """ Read Patient Data File """
     with open("./test_files/Adelaide981_Osinski784_580f24ad-3303-7f6a-309e-bf6d767f7046.json", "r") as file:
-        return file.read()
+        json_data = json.loads(file.read())
+        for entry in json_data["entry"]:
+            if entry["resource"]["resourceType"] == "Patient":
+                return entry["resource"]
 
 @pytest.fixture(scope="module")
 def patient_id(ibm_fhir_client, patient_data):
     """ Import Patient Data to server to get Patient ID """
     patient_id, response = ibm_fhir_client.create_patient(json.dumps(patient_data))
+    print(response)
     assert response.status_code == 201
     assert patient_id is not None
     return patient_id
@@ -56,7 +60,7 @@ class TestIBMFHIRClient:
         """ Test for steps 0 and 1 """
         if step_number == 0:
             with open(filename, 'r') as file:
-                patient_id, response_json, export_response = ibm_fhir_client.step(step_number, file)
+                patient_id, response_json, export_response = ibm_fhir_client.step(step_number, file.read())
         else:
             with open(filename, 'r') as file:
                 data = json.load(file)
