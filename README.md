@@ -53,6 +53,11 @@ The Web UIs live in various containers and can be accessed using the port mappin
 | IBM FHIR | [Linux For Health FHIR](https://github.com/LinuxForHealth/FHIR) | fhiruser/change-password | 8005 | `/fhir-server/api/v4/Patient` | Needs HTTPS. Requires a username and password in the FHIR requests. When using curl, use -u. |
 | Samply Blaze FHIR | [Blaze: A FHIR Server with internal, fast CQL Evaluation Engine](https://samply.github.io/blaze) | None | 8006 | `/fhir` | None |
 
+Tests
+-----
+
+Unit tests for Synthea file generation and FHIR clients are in `tools/tests`. Run `make test` from the root directory to run all tests. 
+
 License
 -----
 
