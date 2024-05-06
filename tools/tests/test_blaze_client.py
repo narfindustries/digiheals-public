@@ -66,7 +66,10 @@ class TestBlazeClient:
                 0,
                 "./test_files/Abbie917_Frami345_ffa07c38-1f19-6336-9952-9152a6c882c9.json",
             ),
-            (1, "./test_files/Anglea614_Blanche121_ibm_output.json"),
+            (
+                1, 
+                "./test_files/Anglea614_Blanche121_ibm_output.json"
+            ),
         ],
     )
     def test_step(self, blaze_client, step_number, filename):
