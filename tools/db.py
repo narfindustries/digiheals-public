@@ -58,8 +58,7 @@ def __create_edges(tx, guid, node1, node2, json_string):
 
 def create_edge(guid: str, node1: str, node2: str, json_string):
     """
-    Create nodes for various Servers and other metadata
-    Especially when the connection to Neo4J fails
+    Create edges for various Servers and other metadata
     """
     print(f"{guid} {node1} {node2}")
     with GraphDatabase.driver(URI, auth=AUTH) as driver:
