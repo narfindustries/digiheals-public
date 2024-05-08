@@ -30,3 +30,23 @@ def hello_world():
 def status():
     json_file = {"status": "ok"}
     return jsonify(json_file)
+
+
+@app.route("/cleanup/<filename>")
+def clean_test_files(filename):
+    fhir_file = "/synthea/output/fhir/" + filename
+    ccda_file = "/synthea/output/ccda/" + filename.split(".")[0] + ".xml"
+
+    try:
+        os.remove(fhir_file)
+        print(f"Deleted file: {fhir_file}")
+    except FileNotFoundError:
+        print("Error deleting fhir file")
+
+    try:
+        os.remove(ccda_file)
+        print(f"Deleted file: {ccda_file}")
+    except FileNotFoundError:
+        print("Error deleting fhir file")
+
+    return jsonify(success=True)

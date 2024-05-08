@@ -16,31 +16,27 @@ def generate_fhir_file():
         filename = r.json()["filename"]
         file_path = f"../../files/fhir/{filename}"
         file = open(file_path).read()
-        return file, file_path
+        return file, filename
     return None
 
 
 @pytest.fixture
 def clean_up_file():
-    """Clean Up Generated Test File
-    TO DO: Files don't seem to have permission to be deleted.
-    """
+    """Clean Up Generated Test File"""
     file_to_clean = []
     yield file_to_clean
 
-    for file_path in file_to_clean:
-        try:
-            if os.path.exists(file_path):
-                os.remove(file_path)
-
-        except Exception as e:
-            print(f"Cannot delete {file_path}: {e}")
+    for filename in file_to_clean:
+        synthea_cleanup = requests.get(f"http://localhost:9000/cleanup/{filename}")
+        result = synthea_cleanup.json()
+        if result["success"]:
+            print(f"Successfully deleted test files - {filename}")
 
 
 def test_generate_fhir_file_success(clean_up_file):
     """Call Synthea Generation"""
-    file_content, file_path = generate_fhir_file()
-    if file_path:
-        clean_up_file.append(file_path)
+    file_content, filename = generate_fhir_file()
+    if filename:
+        clean_up_file.append(filename)
 
     assert file_content is not None
