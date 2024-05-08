@@ -63,30 +63,35 @@ class TestVistaClient:
                 0,
                 "./test_files/Abbie917_Frami345_ffa07c38-1f19-6336-9952-9152a6c882c9.json",
             ),
-            (
-                1, 
-                "./test_files/Anglea614_Blanche121_ibm_output.json"
-            ),
+            (1, "./test_files/Anglea614_Blanche121_ibm_output.json"),
         ],
     )
     def test_step(self, vista_client, step_number, filename):
         """Test for steps 0 and 1"""
         if step_number == 0:
-            with open(filename, 'r') as file:
-                patient_id, response_json, export_response = vista_client.step(step_number, file)
+            with open(filename, "r") as file:
+                patient_id, response_json, export_response = vista_client.step(
+                    step_number, file
+                )
         else:
-            with open(filename, 'r') as file:
+            with open(filename, "r") as file:
                 data = json.load(file)
-                patient_id, response_json, export_response = vista_client.step(step_number, data)
+                patient_id, response_json, export_response = vista_client.step(
+                    step_number, data
+                )
 
-        if patient_id is None and "Duplicate SSN" in response_json.get('loadMessage', ''):
-            assert "-1^Duplicate SSN" in response_json['loadMessage'], "Duplicate SSN should be reported"
+        if patient_id is None and "Duplicate SSN" in response_json.get(
+            "loadMessage", ""
+        ):
+            assert (
+                "-1^Duplicate SSN" in response_json["loadMessage"]
+            ), "Duplicate SSN should be reported"
             print("Duplicate Patient Record Found")
         else:
             assert patient_id is not None
             assert isinstance(response_json, dict)
             assert isinstance(export_response, dict)
-        
+
 
 if __name__ == "__main__":
     pytest.main()

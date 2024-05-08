@@ -54,15 +54,16 @@ def check_connection():
     for iterator, client in enumerate(map(lambda x: x.export_patients(), clients)):
         if client[0] != 200:
             print(f"{client_names[iterator]} server not up yet. Exiting.")
-            sys.exit(0)
+            sys.exit(1)
     neo4j_req = requests.get("http://localhost:7474")
     synthea_req = requests.get("http://localhost:9000/status")
     if neo4j_req.status_code != 200:
         print("neo4j server not up yet. Exiting.")
-        sys.exit(0)
+        sys.exit(1)
     if synthea_req.status_code != 200:
         print("synthea server not up yet. Exiting.")
-        sys.exit(0)
+        sys.exit(1)
+    return True
 
 
 def process_chain(guid, first_node, chain, file):

@@ -43,7 +43,7 @@ def patient_id(ibm_fhir_client, patient_data):
 
 class TestIBMFHIRClient:
 
-    def test_create_patient_fromfile(self, patient_id): 
+    def test_create_patient_fromfile(self, patient_id):
         """Test create_patient_fromfile and create_patient"""
         assert patient_id is not None
 
@@ -66,21 +66,18 @@ class TestIBMFHIRClient:
                 0,
                 "./test_files/Abbie917_Frami345_ffa07c38-1f19-6336-9952-9152a6c882c9.json",
             ),
-            (
-                1, 
-                "./test_files/Anglea614_Blanche121_ibm_output.json"
-            ),
+            (1, "./test_files/Anglea614_Blanche121_ibm_output.json"),
         ],
     )
     def test_step(self, ibm_fhir_client, step_number, filename):
         """Test for steps 0 and 1"""
         if step_number == 0:
-            with open(filename, 'r') as file:
+            with open(filename, "r") as file:
                 patient_id, response_json, export_response = ibm_fhir_client.step(
                     step_number, file.read()
                 )
         else:
-            with open(filename, 'r') as file:
+            with open(filename, "r") as file:
                 data = json.load(file)
                 patient_id, response_json, export_response = ibm_fhir_client.step(
                     step_number, data
