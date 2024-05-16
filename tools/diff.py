@@ -10,22 +10,23 @@ from click_option_group import (
 from neo4j import GraphDatabase
 import json
 
+
 URI = "neo4j://localhost:7687"
 AUTH = ("neo4j", "fhir-garden")
 
 
-def run_query(query, guid=None):
+def run_query(query, params=None):
     """Connect to db and execute Cypher query"""
     with GraphDatabase.driver(URI, auth=AUTH) as driver:
         try:
             driver.verify_connectivity()
             print("Connection to db successful.")
             with driver.session(database="neo4j") as session:
-                if guid:
-                    result = session.run(query, guid=guid)
-                else:
-                    result = session.run(query)
-                return [record["path"] for record in result]
+                result = session.run(query, params=params)
+                paths = [record["path"] for record in result]
+                if not paths:
+                    print("No paths found matching the criteria.")
+                return paths
         except Exception as e:
             print(f"Error {e} verifying db connection")
         finally:
@@ -33,12 +34,13 @@ def run_query(query, guid=None):
 
 
 def print_paths(paths):
-    """Temporarily printing the paths for each chain"""
+    file_index = 1
     for path in paths:
         for relationship in path.relationships:
-            print(
-                f"Relationship: {relationship.element_id}, Type: {relationship.type}, Start-Node: {relationship.start_node}, End-Node: {relationship.end_node}, Properties: {dict(relationship)}"
-            )
+            json_data = json.dumps(dict(relationship))
+            with open(f"{file_index}.json", "w") as file:
+                file.write(json.loads(json_data)["json"])
+            file_index += 1
 
 
 @click.command()
@@ -49,29 +51,57 @@ def print_paths(paths):
     help="Specify one GUID or select all paths.",
 )
 @optgroup.option("--guid", default=None, help="GUID for specific chain.")
-@optgroup.option("--all-paths", is_flag=True, help="Select all paths across all GUIDs.")
-def db_query(compare, guid, all_paths):
+@optgroup.option(
+    "--all-guids", "all_guids", is_flag=True, help="Select all paths across all GUIDs."
+)
+@optgroup.group(
+    "Depth Options",
+    cls=RequiredMutuallyExclusiveOptionGroup,
+    help="Control the search depth.",
+)
+@optgroup.option("--depth", type=int, default=1, help="For depth of 1.")
+@optgroup.option(
+    "--all-depths", "all_depths", is_flag=True, help="Search across all depths."
+)
+def db_query(compare, guid, all_guids, depth, all_depths):
     """Command line options to run comparisons"""
     if compare:
         if guid:
-            # User specified guid
-            query = """
-                MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
-                WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
-                AND ALL(n IN nodes(path) WHERE SINGLE(x IN nodes(path) WHERE x = n))
-                RETURN path
-            """
-            paths = run_query(query, guid=guid)
-            print_paths(paths)
-        elif all_paths:
-            # For all chains from synthea/file to end
-            query = """
-                MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
-                WHERE a.name IN ['synthea', 'file'] AND ALL(n IN nodes(path) WHERE size([x IN nodes(path) WHERE x = n]) = 1)
-                RETURN path
-            """
-            paths = run_query(query)
-            print_paths(paths)
+            params = {"guid": guid}
+            if depth == 1:
+                # Search for paths with exactly one intermediate node, filtered by GUID
+                query = """
+                    MATCH path = (a:Server {name: 'synthea'})-[:LINK*1..1]->(b:Server)-[:LINK*1..1]->(c:Server {name: 'end'})
+                    WHERE ALL(r IN relationships(path) WHERE r.guid = $guid)
+                    RETURN path
+                """
+            elif all_depths:
+                # Search for all paths, filtered by GUID
+                query = """
+                    MATCH path = (a:Server {name: 'synthea'})-[:LINK*]->(c:Server {name: 'end'})
+                    WHERE ALL(r IN relationships(path) WHERE r.guid = $guid)
+                    RETURN path
+                """
+        elif all_guids:
+            params = None
+            if depth == 1:
+                # Search for paths with exactly one intermediate node
+                query = """
+                    MATCH path = (a:Server {name: 'synthea'})-[:LINK*1..1]->(b:Server)-[:LINK*1..1]->(c:Server {name: 'end'})
+                    RETURN path
+                """
+            elif all_depths:
+                # Search for all paths irrespective of depth
+                query = """
+                    MATCH path = (a:Server {name: 'synthea'})-[:LINK*]->(c:Server {name: 'end'})
+                    RETURN path
+                """
+        else:
+            print("Please specify a GUID option.")
+            return
+
+        paths = run_query(query, params)
+        print_paths(paths)
     else:
         click.echo("Comparison not enabled. Use --compare to enable.")
 
