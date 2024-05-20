@@ -7,7 +7,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 click-option-group==0.5.6
 cryptography==42.0.5
-deepdiff==4.1.0
+deepdiff==7.0.1
 defusedxml==0.7.1
 dill==0.3.8
 distlib==0.3.8
