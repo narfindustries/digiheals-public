@@ -53,6 +53,16 @@ The Web UIs live in various containers and can be accessed using the port mappin
 | IBM FHIR | [Linux For Health FHIR](https://github.com/LinuxForHealth/FHIR) | fhiruser/change-password | 8005 | `/fhir-server/api/v4/Patient` | Needs HTTPS. Requires a username and password in the FHIR requests. When using curl, use -u. |
 | Samply Blaze FHIR | [Blaze: A FHIR Server with internal, fast CQL Evaluation Engine](https://samply.github.io/blaze) | None | 8006 | `/fhir` | None |
 
+FHIR Data Comparisons
+-----
+
+For every chain, the FHIR data moving between servers can be compared data integrity and sanity. The comparison can be run from `tools/`.
+Use the following commands:
+- `python3 diff.py --compare --guid guid_sequence --all-depths` to compare the paths taken by the guid for all hops.
+- `python3 diff.py --compare --all-guid --depth 1` to make the comparisons for paths with a single hop. The all-guid flag will return paths for all guids that exist in the graph.
+
+The results will show the differences (if they exist) between the input and output FHIR data through the nodes in a path.
+
 Tests
 -----
 

@@ -23,7 +23,7 @@ def run_query(query, params=None):
             driver.verify_connectivity()
             print("Connection to db successful.")
             with driver.session(database="neo4j") as session:
-                result = session.run(query, params=params)
+                result = session.run(query, parameters=params)
                 paths = [record["path"] for record in result]
                 if not paths:
                     print("No paths found matching the criteria.")
@@ -76,7 +76,8 @@ def compare_paths(paths):
                 continue
 
             print(
-                [(guid, ln, links[ln][0], links[ln][1]) for ln in sorted_link_numbers]
+                "Links:",
+                [(guid, ln, links[ln][0], links[ln][1]) for ln in sorted_link_numbers],
             )
 
             # Compare json data between consecutive link numbers within same guid
@@ -112,7 +113,7 @@ def compare_paths(paths):
     cls=RequiredMutuallyExclusiveOptionGroup,
     help="Specify one GUID or select all paths.",
 )
-@optgroup.option("--guid", default=None, help="GUID for specific chain.")
+@optgroup.option("--guid", type=str, default=None, help="GUID for specific chain.")
 @optgroup.option(
     "--all-guids", "all_guids", is_flag=True, help="Select all paths across all GUIDs."
 )
