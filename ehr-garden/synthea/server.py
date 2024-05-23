@@ -5,12 +5,14 @@
 """
 
 """
-from flask import Flask
+from flask import Flask, request
 from flask import jsonify
 import os
 import json
+from fuzzer import fuzz
 
 app = Flask(__name__)
+fhir_dir = "/synthea/output/fhir/"
 
 
 @app.route("/")
@@ -34,7 +36,7 @@ def status():
 
 @app.route("/cleanup/<filename>")
 def clean_test_files(filename):
-    fhir_file = "/synthea/output/fhir/" + filename
+    fhir_file = fhir_dir + filename
     ccda_file = "/synthea/output/ccda/" + filename.split(".")[0] + ".xml"
 
     try:
@@ -50,3 +52,31 @@ def clean_test_files(filename):
         print("Error deleting fhir file")
 
     return jsonify(success=True)
+
+
+@app.route("/fuzz/<filename>")
+def do_fuzz(filename):
+    filepath = os.path.join(fhir_dir, filename)
+    if not os.path.exists(filepath):
+        return jsonify({"error": "file not found"}), 400
+    seed = request.args.get("seed", None)
+    if seed is not None:
+        seed = int(seed)
+    sess = fuzz.JsonFuzzSession.get_session(filepath,
+                                            filepath,
+                                            seed=seed)
+    events = sess.fuzz(int(request.args.get("count", 1)))
+    return jsonify([{"filename": event.filename,
+                     "output_name": event.output_name} for event in events])
+
+@app.route("/pending_fuzz/<filename>")
+def is_fuzzing(filename):
+    filepath = os.path.join(fhir_dir, filename)
+    if not os.path.exists(filepath):
+        return jsonify({"error": "file not found"}), 400
+    sess = fuzz.JsonFuzzSession.get_session(filepath,
+                                            filepath)
+    pending = sess.pending_fuzzes
+    return jsonify({"result": bool(pending),
+                    "count": pending})
+
