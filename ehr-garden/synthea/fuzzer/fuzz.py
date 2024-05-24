@@ -1,5 +1,6 @@
 import os
 import json
+import stat
 import tempfile
 from argparse import Namespace
 from pyjfuzz.lib import PJFConfiguration, PJFFactory
@@ -44,7 +45,9 @@ class JsonFuzzEvent():
                                           suffix=".json",
                                           delete=False, mode="w")
         self.output_path = Path(out.name)
+        # tempfile creates with rw------- perms, make it world readable
         out.close()
+        self.output_path.chmod(0o644)
 
 
 class JsonFuzzSession():
