@@ -66,8 +66,9 @@ def do_fuzz(filename):
                                             filepath,
                                             seed=seed)
     events = sess.fuzz(int(request.args.get("count", 1)))
-    return jsonify([{"filename": event.filename,
-                     "output_name": event.output_name} for event in events])
+    return jsonify({"results": [{"filename": event.filename,
+                                 "output_name": event.output_name} for event in events]})
+
 
 @app.route("/pending_fuzz/<filename>")
 def is_fuzzing(filename):
