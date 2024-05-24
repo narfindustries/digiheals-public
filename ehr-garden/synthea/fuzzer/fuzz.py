@@ -22,7 +22,7 @@ class JsonFuzzEvent():
     @property
     def filename(self) -> str:
         return self.input_path.name
-    
+
     def fuzz(self, data):
         fuzzer = PJFFactory(PJFConfiguration(
             Namespace(json=json.loads(data), level=6, nologo=True)))
@@ -77,7 +77,7 @@ class JsonFuzzSession():
         if not pending:
             self.events = []
         return len(pending)
-    
+
     @classmethod
     def rm_session(cls, id):
         if id in cls.SESSIONS:
@@ -87,3 +87,6 @@ class JsonFuzzSession():
     def get_session(cls, id, *args, **kwargs):
         return cls.SESSIONS.setdefault(id, cls(*args, **kwargs))
 
+    @classmethod
+    def all_sessions(cls):
+        return cls.SESSIONS.values()
