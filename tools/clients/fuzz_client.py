@@ -27,7 +27,7 @@ class FuzzClient():
         except Exception as e:
             return (-1, str(e))
         return (r.status_code, r.json())
-                
+
     def fuzz(self, filename, seed=None):
         params = {} if seed is None else {"seed": seed}
         return self._request(filename, "fuzz", params)
@@ -35,7 +35,7 @@ class FuzzClient():
     def pending_fuzz(self, filename):
         return self._request(filename, "pending_fuzz")
 
-    def fuzz_terminated(self, filename):        
+    def fuzz_terminated(self, filename):
         res, data = self.pending_fuzz(filename)
         return res != 200 or data.get("result", False) == False
 
@@ -44,8 +44,8 @@ class FuzzClient():
         while not done:
             done = self.fuzz_terminated(filename)
             if not done:
-                time.sleep(0.25)        
-            
+                time.sleep(0.25)
+
 
 @click.command()
 @click.option("-f", "--file", type=click.Path(exists=True, dir_okay=False, path_type=Path), required=True, multiple=True)
@@ -56,7 +56,7 @@ def cli_options(file, url):
     """
     print("fuzzing", file)
     client = FuzzClient(url)
-    for f in file:        
+    for f in file:
         code, data = client.fuzz(f.name)
         print(code, data)
 
