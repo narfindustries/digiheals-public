@@ -21,7 +21,7 @@ def run_query(query, params=None):
     with GraphDatabase.driver(URI, auth=AUTH) as driver:
         try:
             driver.verify_connectivity()
-            print("Connection to db successful.")
+            # print("Connection to db successful.")
             with driver.session(database="neo4j") as session:
                 result = session.run(query, parameters=params)
                 paths = [record["path"] for record in result]
@@ -36,7 +36,7 @@ def run_query(query, params=None):
 
 def compare_function(json1, json2):
     """Compare two JSON objects and return their differences using DeepDiff."""
-    diff = DeepDiff(json1, json2, ignore_order=True)
+    diff = DeepDiff(json1, json2, ignore_order=True, get_deep_distance=True)
     if diff:
         return False, diff
     return True, "JSON FHIR data is identical."
@@ -76,7 +76,7 @@ def compare_paths(paths):
                 continue
 
             print(
-                "Links:",
+                "Path:",
                 [(guid, ln, links[ln][0], links[ln][1]) for ln in sorted_link_numbers],
             )
 
@@ -85,25 +85,43 @@ def compare_paths(paths):
                 current_link_number = sorted_link_numbers[i]
                 next_link_number = sorted_link_numbers[i + 1]
 
-                json1 = links[current_link_number][2]
-                json2 = links[next_link_number][2]
+                json1 = json.loads(links[current_link_number][2])
+                json2 = json.loads(links[next_link_number][2])
 
                 if json1 and json2:
+                    if (
+                        links[current_link_number][0] == "synthea"
+                        or links[current_link_number][0] == "file"
+                    ):
+                        syn_file = json.loads(json1)
+                        # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
+                        if syn_file["resourceType"] == "Bundle":
+                            for entries in syn_file["entry"]:
+                                # Only one Patient resourceType exists
+                                if entries["resource"]["resourceType"] == "Patient":
+                                    # print(f"Extracting Patient resourceType from {links[current_link_number][0]}")
+                                    json1 = entries["resource"]
+
                     match, result = compare_function(json1, json2)
+                    # print(
+                    #     f"Comparing FHIR data between link: {current_link_number} and {next_link_number}:"
+                    # )
                     print(
-                        f"Comparing FHIR data between link: {current_link_number} and {next_link_number} for GUID {guid}:"
-                    )
-                    print(
-                        f"Path Nodes: {links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
+                        f"Comparing FHIR data between: {links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
                     )
                     if match:
-                        print(result)
+                        print(f"Result: {result}")
                     else:
-                        print(f"Differences: {result}")
+
+                        print(
+                            f"Result: Input and Output data not identical. Diff score: {result['deep_distance']}"
+                        )
                 else:
                     print(
                         f"Data missing for comparison between links: {current_link_number} and {next_link_number}."
                     )
+
+            print("\n")
 
 
 @click.command()
