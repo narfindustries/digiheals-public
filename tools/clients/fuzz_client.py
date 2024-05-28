@@ -19,25 +19,31 @@ class FuzzClient():
         """Constructor"""
         self.url = url
 
-    def _request(self, filename, path, params=None):
+    def _request(self, path, filename, params=None):
         params = {} if params is None else params
+        if filename is None:
+            filename = ""
         url = f"{self.url}/{path}/{filename}"
         try:
             r = requests.get(url, params=params, timeout=100)
         except Exception as e:
             return (-1, str(e))
-        return (r.status_code, r.json())
+        try:
+            data = r.json()
+        except requests.exceptions.JSONDecodeError:
+            data = {"success": False}
+        return (r.status_code, data)
 
-    def fuzz(self, filename, seed=None):
-        params = {} if seed is None else {"seed": seed}
-        return self._request(filename, "fuzz", params)
+    def fuzz(self, filename, count=1, **kwargs):
+        kwargs["count"] = str(count)
+        return self._request("fuzz", filename, kwargs)
 
     def pending_fuzz(self, filename):
-        return self._request(filename, "pending_fuzz")
+        status, data = self._request("pending_fuzz", filename)
+        return [] if status != 200 else data.get("pending", [])
 
     def fuzz_terminated(self, filename):
-        res, data = self.pending_fuzz(filename)
-        return res != 200 or data.get("result", False) == False
+        return not bool(self.pending_fuzz(filename))
 
     def wait_until_done(self, filename):
         done = False
