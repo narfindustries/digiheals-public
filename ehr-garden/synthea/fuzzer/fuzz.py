@@ -76,7 +76,7 @@ class JsonFuzzSession():
         pending = [o for o in self.events if not o.fuzzed]
         if not pending:
             self.events = []
-        return len(pending)
+        return [o.output_path for o in pending]
 
     @classmethod
     def rm_session(cls, id):
