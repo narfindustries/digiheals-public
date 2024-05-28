@@ -58,7 +58,7 @@ def clean_test_files(filename):
 def do_fuzz(filename):
     filepath = os.path.join(fhir_dir, filename)
     if not os.path.exists(filepath):
-        return jsonify({"error": "file not found"}), 400
+        return jsonify({"success": False, "error": "file not found"}), 400
     seed = request.args.get("seed", None)
     if seed is not None:
         seed = int(seed)
@@ -74,8 +74,7 @@ def do_fuzz(filename):
 
 
 def _is_fuzzing(filename):
-    pending = False
-    count = 0
+    pending = []
 
     if filename is None:
         sessions = fuzz.JsonFuzzSession.all_sessions()
@@ -87,11 +86,11 @@ def _is_fuzzing(filename):
         sessions = [sess] if sess else []
     for sess in sessions:
         pend = sess.pending_fuzzes
-        pending = pending or bool(pend)
-        count += pend
+        pending += pending
     return jsonify({"result": bool(pending),
                     "success": True,
-                    "count": count})
+                    "count": len(pending),
+                    "pending": [str(p) for p in pending]})
 
 
 @app.route("/pending_fuzz/")
