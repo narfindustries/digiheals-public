@@ -20,3 +20,18 @@ class SyntheaClient():
             return (-1, str(e))
         data = r.json()        
         return (r.status_code, data["filename"])
+
+    
+@click.command()
+@click.option("-u", "--url", default="http://localhost:9000")
+def cli_options(url):
+    """
+    Send a request to synthea generate an ehr document
+    """
+    client = SyntheaClient(url)
+    print(client.generate())
+
+
+if __name__ == "__main__":
+    cli_options()
+    
