@@ -115,27 +115,32 @@ def compare_paths(paths):
 
                         match, result = compare_function(json1, json2)
                         chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
-                        diff_score = 0 if match else result["deep_distance"]
+                        diff_score = 0 if match else round(result["deep_distance"], 4)
 
                         # Wrap text for columns
                         wrapped_guid = wrap_text(guid, 40)
                         wrapped_chain_links = wrap_text(chain_links, 40)
+                        wrapped_diff_score = wrap_text(str(diff_score), 20)
                         wrapped_diff = wrap_text(str(result), 60)
 
                         table_data.append(
                             [
                                 wrapped_guid,
                                 wrapped_chain_links,
-                                diff_score,
+                                wrapped_diff_score,
                                 wrapped_diff,
                             ]
                         )
+                        table_data.append(["" * 40, "-" * 40, "-" * 20, "-" * 60])
 
                 if table_data:
+                    # Remove the last separator row
+                    table_data.pop()
+
                     # Merge GUID column for consecutive rows with the same GUID
                     current_guid = None
                     for row in table_data:
-                        if row[0] == current_guid:
+                        if row[1] == "-" * 40 or row[0] == current_guid:
                             row[0] = ""
                         else:
                             current_guid = row[0]
