@@ -10,7 +10,8 @@ from click_option_group import (
 from neo4j import GraphDatabase
 from deepdiff import DeepDiff
 import json
-
+from tabulate import tabulate
+import textwrap
 
 URI = "neo4j://localhost:7687"
 AUTH = ("neo4j", "fhir-garden")
@@ -42,6 +43,18 @@ def compare_function(json1, json2):
     return True, "JSON FHIR data is identical."
 
 
+def wrap_text(text, width):
+    return "\n".join(textwrap.wrap(text, width))
+
+
+def is_increasing_consecutive(numbers):
+    """Check if id list has all increasing numbers in consecutive order."""
+    for i in range(len(numbers) - 1):
+        if numbers[i] + 1 != numbers[i + 1]:
+            return False
+    return True
+
+
 def compare_paths(paths):
     """Create struct for all segments of a path and internally compare those segments."""
     for path in paths:
@@ -49,79 +62,93 @@ def compare_paths(paths):
         json_data_map = {}
         link_number = 1
 
-        # Each segment of the path will have relationships
-        for relationship in path.relationships:
-            guid = relationship.get("guid", None)
-            json_data = relationship.get("json", None)
-            start_node_name = relationship.start_node.get("name", None)
-            end_node_name = relationship.end_node.get("name", None)
+        # Get path ids
+        relationship_ids = [relationship.id for relationship in path.relationships]
+        if is_increasing_consecutive(relationship_ids):
+            # Each segment of the path will have relationships
+            for relationship in path.relationships:
+                guid = relationship.get("guid", None)
+                json_data = relationship.get("json", None)
+                start_node_name = relationship.start_node.get("name", None)
+                end_node_name = relationship.end_node.get("name", None)
 
-            if guid not in json_data_map:
-                json_data_map[guid] = {}
+                if guid not in json_data_map:
+                    json_data_map[guid] = {}
 
-            # Store data by link number in sub-struct for corresponding GUID
-            json_data_map[guid][link_number] = (
-                start_node_name,
-                end_node_name,
-                json_data,
-            )
-            link_number += 1
+                # Store data by link number in sub-struct for corresponding GUID
+                json_data_map[guid][link_number] = (
+                    start_node_name,
+                    end_node_name,
+                    json_data,
+                )
+                link_number += 1
 
-        for guid, links in json_data_map.items():
-            # Sort link numbers for the sequence of chain to be maintained
-            sorted_link_numbers = sorted(links.keys())
+            for guid, links in json_data_map.items():
+                # Sort link numbers for the sequence of chain to be maintained
+                sorted_link_numbers = sorted(links.keys())
 
-            # If sorted list contains only 0 or 1 entry, there is nothing for this to be compared with.
-            if len(sorted_link_numbers) < 2:
-                continue
+                # If sorted list contains only 0 or 1 entry, there is nothing for this to be compared with.
+                if len(sorted_link_numbers) < 2:
+                    continue
 
-            print(
-                "Path:",
-                [(guid, ln, links[ln][0], links[ln][1]) for ln in sorted_link_numbers],
-            )
+                # Compare json data between consecutive link numbers within same guid
+                table_data = []
+                for i in range(len(sorted_link_numbers) - 1):
+                    current_link_number = sorted_link_numbers[i]
+                    next_link_number = sorted_link_numbers[i + 1]
 
-            # Compare json data between consecutive link numbers within same guid
-            for i in range(len(sorted_link_numbers) - 1):
-                current_link_number = sorted_link_numbers[i]
-                next_link_number = sorted_link_numbers[i + 1]
+                    json1 = json.loads(links[current_link_number][2])
+                    json2 = json.loads(links[next_link_number][2])
 
-                json1 = json.loads(links[current_link_number][2])
-                json2 = json.loads(links[next_link_number][2])
+                    if json1 and json2:
+                        if (
+                            links[current_link_number][0] == "synthea"
+                            or links[current_link_number][0] == "file"
+                        ):
+                            syn_file = json.loads(json1)
+                            # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
+                            if syn_file["resourceType"] == "Bundle":
+                                for entries in syn_file["entry"]:
+                                    # Only one Patient resourceType exists
+                                    if entries["resource"]["resourceType"] == "Patient":
+                                        json1 = entries["resource"]
 
-                if json1 and json2:
-                    if (
-                        links[current_link_number][0] == "synthea"
-                        or links[current_link_number][0] == "file"
-                    ):
-                        syn_file = json.loads(json1)
-                        # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
-                        if syn_file["resourceType"] == "Bundle":
-                            for entries in syn_file["entry"]:
-                                # Only one Patient resourceType exists
-                                if entries["resource"]["resourceType"] == "Patient":
-                                    # print(f"Extracting Patient resourceType from {links[current_link_number][0]}")
-                                    json1 = entries["resource"]
+                        match, result = compare_function(json1, json2)
+                        chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
+                        diff_score = 0 if match else result["deep_distance"]
 
-                    match, result = compare_function(json1, json2)
-                    # print(
-                    #     f"Comparing FHIR data between link: {current_link_number} and {next_link_number}:"
-                    # )
-                    print(
-                        f"Comparing FHIR data between: {links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
-                    )
-                    if match:
-                        print(f"Result: {result}")
-                    else:
+                        # Wrap text for columns
+                        wrapped_guid = wrap_text(guid, 40)
+                        wrapped_chain_links = wrap_text(chain_links, 40)
+                        wrapped_diff = wrap_text(str(result), 60)
 
-                        print(
-                            f"Result: Input and Output data not identical. Diff score: {result['deep_distance']}"
+                        table_data.append(
+                            [
+                                wrapped_guid,
+                                wrapped_chain_links,
+                                diff_score,
+                                wrapped_diff,
+                            ]
                         )
-                else:
+
+                if table_data:
+                    # Merge GUID column for consecutive rows with the same GUID
+                    current_guid = None
+                    for row in table_data:
+                        if row[0] == current_guid:
+                            row[0] = ""
+                        else:
+                            current_guid = row[0]
+
                     print(
-                        f"Data missing for comparison between links: {current_link_number} and {next_link_number}."
+                        tabulate(
+                            table_data,
+                            headers=["GUID", "Chain Links", "Diff Score", "Diff"],
+                            tablefmt="pretty",
+                        )
                     )
 
-            print("\n")
+                print("\n")
 
 
 @click.command()
