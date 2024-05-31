@@ -5,12 +5,14 @@
 """
 
 """
-from flask import Flask
+from flask import Flask, request
 from flask import jsonify
 import os
 import json
+from fuzzer import fuzz
 
 app = Flask(__name__)
+fhir_dir = "/synthea/output/fhir/"
 
 
 @app.route("/")
@@ -34,7 +36,7 @@ def status():
 
 @app.route("/cleanup/<filename>")
 def clean_test_files(filename):
-    fhir_file = "/synthea/output/fhir/" + filename
+    fhir_file = fhir_dir + filename
     ccda_file = "/synthea/output/ccda/" + filename.split(".")[0] + ".xml"
 
     try:
@@ -50,3 +52,52 @@ def clean_test_files(filename):
         print("Error deleting fhir file")
 
     return jsonify(success=True)
+
+
+@app.route("/fuzz/<filename>")
+def do_fuzz(filename):
+    filepath = os.path.join(fhir_dir, filename)
+    if not os.path.exists(filepath):
+        return jsonify({"success": False, "error": "file not found"}), 400
+    seed = request.args.get("seed", None)
+    if seed is not None:
+        seed = int(seed)
+    sess = fuzz.JsonFuzzSession.get_session(filepath,
+                                            filepath,
+                                            seed=seed)
+    events = sess.fuzz(int(request.args.get("count", 1)))
+    return jsonify({
+        "success": True,
+        "results": [{"filename": event.filename,
+                     "output_name": event.output_name} for event in events]
+    })
+
+
+def _is_fuzzing(filename):
+    pending = []
+
+    if filename is None:
+        sessions = fuzz.JsonFuzzSession.all_sessions()
+    else:
+        filepath = os.path.join(fhir_dir, filename)
+        if not os.path.exists(filepath):
+            return jsonify({"error": "file not found", "success": False}), 400
+        sess = fuzz.JsonFuzzSession.get_session(filepath, filepath)
+        sessions = [sess] if sess else []
+    for sess in sessions:
+        pend = sess.pending_fuzzes
+        pending += pending
+    return jsonify({"result": bool(pending),
+                    "success": True,
+                    "count": len(pending),
+                    "pending": [str(p) for p in pending]})
+
+
+@app.route("/pending_fuzz/")
+def is_fuzzing_any():
+    return _is_fuzzing(None)
+
+
+@app.route("/pending_fuzz/<filename>")
+def is_fuzzing(filename):
+    return _is_fuzzing(filename)
