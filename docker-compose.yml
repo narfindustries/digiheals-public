@@ -136,6 +136,13 @@ services:
       - 127.0.0.1:7687:7687
     volumes:
       - neo4jvolume:/data
+  java-json-echo:
+    build: ./json-garden/java
+    restart: always
+    ports:
+      - 127.0.0.1:8181:8080
+    networks:
+      - public
 
 networks:
   # The presence of these objects is sufficient to define them
