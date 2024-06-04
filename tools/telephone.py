@@ -175,7 +175,6 @@ chain_config = OptionGroup(
 
 
 @click.command()
-@click.option("--check-connections", "check_connections", is_flag=True, default=False)
 @click.option("--chain-length", "chain_length", default=3, type=int)
 @optgroup.group(
     "Either generate a file or provide a command-line argument",
@@ -196,7 +195,7 @@ chain_config = OptionGroup(
     type=click.Choice(list(config.keys())),
 )
 @optgroup.option("--all-chains", "all_chains", is_flag=True, default=False)
-def cli_options(check_connections, chain_length, file, generate, chain, all_chains):
+def cli_options(chain_length, file, generate, chain, all_chains):
     """Command line options for the telephone.py script
     Vista takes a different format (Bundle Resource) as input, whereas others require a patient
     """
