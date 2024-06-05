@@ -1,0 +1,224 @@
+"""
+Compare input and output patient data files passing through different FHIR nodes
+"""
+
+import click
+from click_option_group import (
+    optgroup,
+    RequiredMutuallyExclusiveOptionGroup,
+)
+from neo4j import GraphDatabase
+from deepdiff import DeepDiff
+import json
+from tabulate import tabulate
+import textwrap
+
+URI = "neo4j://localhost:7687"
+AUTH = ("neo4j", "fhir-garden")
+
+
+def run_query(query, params=None):
+    """Connect to db and execute Cypher query"""
+    with GraphDatabase.driver(URI, auth=AUTH) as driver:
+        try:
+            driver.verify_connectivity()
+            # print("Connection to db successful.")
+            with driver.session(database="neo4j") as session:
+                result = session.run(query, parameters=params)
+                paths = [record["path"] for record in result]
+                if not paths:
+                    print("No paths found matching the criteria.")
+                return paths
+        except Exception as e:
+            print(f"Error {e} verifying db connection")
+        finally:
+            driver.close()
+
+
+def compare_function(json1, json2):
+    """Compare two JSON objects and return their differences using DeepDiff."""
+    diff = DeepDiff(json1, json2, ignore_order=True, get_deep_distance=True)
+    if diff:
+        return False, diff
+    return True, "JSON FHIR data is identical."
+
+
+def wrap_text(text, width):
+    return "\n".join(textwrap.wrap(text, width))
+
+
+def is_increasing_consecutive(numbers):
+    """Check if id list has all increasing numbers in consecutive order."""
+    for i in range(len(numbers) - 1):
+        if numbers[i] + 1 != numbers[i + 1]:
+            return False
+    return True
+
+
+def compare_paths(paths):
+    """Create struct for all segments of a path and internally compare those segments."""
+    for path in paths:
+        # Dict to store json data by GUID. Each entry contains another dict with link number as key.
+        json_data_map = {}
+        link_number = 1
+
+        # Get path ids
+        relationship_ids = [relationship.id for relationship in path.relationships]
+        if is_increasing_consecutive(relationship_ids):
+            # Each segment of the path will have relationships
+            for relationship in path.relationships:
+                guid = relationship.get("guid", None)
+                json_data = relationship.get("json", None)
+                start_node_name = relationship.start_node.get("name", None)
+                end_node_name = relationship.end_node.get("name", None)
+
+                if guid not in json_data_map:
+                    json_data_map[guid] = {}
+
+                # Store data by link number in sub-struct for corresponding GUID
+                json_data_map[guid][link_number] = (
+                    start_node_name,
+                    end_node_name,
+                    json_data,
+                )
+                link_number += 1
+
+            for guid, links in json_data_map.items():
+                # Sort link numbers for the sequence of chain to be maintained
+                sorted_link_numbers = sorted(links.keys())
+
+                # If sorted list contains only 0 or 1 entry, there is nothing for this to be compared with.
+                if len(sorted_link_numbers) < 2:
+                    continue
+
+                # Compare json data between consecutive link numbers within same guid
+                table_data = []
+                for i in range(len(sorted_link_numbers) - 1):
+                    current_link_number = sorted_link_numbers[i]
+                    next_link_number = sorted_link_numbers[i + 1]
+
+                    json1 = json.loads(links[current_link_number][2])
+                    json2 = json.loads(links[next_link_number][2])
+
+                    if json1 and json2:
+                        if (
+                            links[current_link_number][0] == "synthea"
+                            or links[current_link_number][0] == "file"
+                        ):
+                            syn_file = json.loads(json1)
+                            # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
+                            if syn_file["resourceType"] == "Bundle":
+                                for entries in syn_file["entry"]:
+                                    # Only one Patient resourceType exists
+                                    if entries["resource"]["resourceType"] == "Patient":
+                                        json1 = entries["resource"]
+
+                        match, result = compare_function(json1, json2)
+                        chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
+                        diff_score = 0 if match else round(result["deep_distance"], 4)
+
+                        # Wrap text for columns
+                        wrapped_guid = wrap_text(guid, 40)
+                        wrapped_chain_links = wrap_text(chain_links, 40)
+                        wrapped_diff_score = wrap_text(str(diff_score), 20)
+                        wrapped_diff = wrap_text(str(result), 60)
+
+                        table_data.append(
+                            [
+                                wrapped_guid,
+                                wrapped_chain_links,
+                                wrapped_diff_score,
+                                wrapped_diff,
+                            ]
+                        )
+                        table_data.append(["" * 40, "-" * 40, "-" * 20, "-" * 60])
+
+                if table_data:
+                    # Remove the last separator row
+                    table_data.pop()
+
+                    # Merge GUID column for consecutive rows with the same GUID
+                    current_guid = None
+                    for row in table_data:
+                        if row[1] == "-" * 40 or row[0] == current_guid:
+                            row[0] = ""
+                        else:
+                            current_guid = row[0]
+
+                    print(
+                        tabulate(
+                            table_data,
+                            headers=["GUID", "Chain Links", "Diff Score", "Diff"],
+                            tablefmt="pretty",
+                        )
+                    )
+
+                print("\n")
+
+
+@click.command()
+@click.option("--compare", is_flag=True, help="Enable file comparison operations.")
+@optgroup.group(
+    "GUID Options",
+    cls=RequiredMutuallyExclusiveOptionGroup,
+    help="Specify one GUID or select all paths.",
+)
+@optgroup.option("--guid", type=str, default=None, help="GUID for specific chain.")
+@optgroup.option(
+    "--all-guids", "all_guids", is_flag=True, help="Select all paths across all GUIDs."
+)
+@optgroup.group(
+    "Depth Options",
+    cls=RequiredMutuallyExclusiveOptionGroup,
+    help="Control the search depth.",
+)
+@optgroup.option("--depth", type=int, default=0, help="For depth of 1.")
+@optgroup.option(
+    "--all-depths", "all_depths", is_flag=True, help="Search across all depths."
+)
+def db_query(compare, guid, all_guids, depth, all_depths):
+    """Command line options to run comparisons"""
+    if compare:
+        if guid:
+            params = {"guid": guid}
+            if depth == 1:
+                # Search for paths with exactly one intermediate node, filtered by GUID
+                query = """
+                    MATCH path = (a:Server)-[:LINK*1..1]->(b:Server)-[:LINK*1..1]->(c:Server {name: 'end'})
+                    WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
+                    RETURN path
+                """
+            elif all_depths:
+                # Search for all paths, filtered by GUID
+                query = """
+                    MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
+                    WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
+                    RETURN path
+                """
+        elif all_guids:
+            params = None
+            if depth == 1:
+                # Search for paths with exactly one intermediate node
+                query = """
+                    MATCH path = (a:Server)-[:LINK*1..1]->(b:Server)-[:LINK*1..1]->(c:Server {name: 'end'})
+                    WHERE a.name IN ['synthea', 'file']
+                    RETURN path
+                """
+            elif all_depths:
+                # Search for all paths irrespective of depth
+                query = """
+                    MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
+                    WHERE a.name IN ['synthea', 'file']
+                    RETURN path
+                """
+        else:
+            print("Please specify a GUID option.")
+            return
+        paths = run_query(query, params)
+        compare_paths(paths)
+    else:
+        click.echo("Comparison not enabled. Use --compare to enable.")
+
+
+if __name__ == "__main__":
+    db_query()
