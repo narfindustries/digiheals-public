@@ -7,6 +7,8 @@ import re
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 
+from cli_options import add_chain_options
+
 config = ["vista", "ibm", "blaze", "hapi"]
 
 
@@ -22,33 +24,6 @@ def run_command(command):
 
 
 @click.command()
-@click.option("--chain-length", default=3, type=int)
-@optgroup.group(
-    "Either generate a file or provide a command-line argument",
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help="Group description",
-)
-@optgroup.option(
-    "--file", type=click.File("r"), help="Specify a file to use with telephone.py"
-)
-@optgroup.option(
-    "--generate",
-    is_flag=True,
-    default=False,
-    help="Generate the output with telephone.py",
-)
-@optgroup.group(
-    "Either use a chain or generate all chains",
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help="Group description",
-)
-@optgroup.option(
-    "--chain",
-    "-c",
-    multiple=True,
-    type=click.Choice(config),
-)
-@optgroup.option("--all-chains", is_flag=True, default=False)
 @optgroup.group(
     "Depth Options",
     cls=RequiredMutuallyExclusiveOptionGroup,
@@ -58,6 +33,7 @@ def run_command(command):
 @optgroup.option(
     "--all-depths", "all_depths", is_flag=True, help="Search across all depths."
 )
+@add_chain_options
 def main(chain_length, file, generate, chain, all_chains, depth, all_depths):
     """Construct cli command and sequentially run telephone.py and diff.py"""
     # Validate --generate and --file arguments

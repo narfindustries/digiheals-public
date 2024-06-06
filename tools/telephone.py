@@ -25,6 +25,8 @@ from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
 import db
 
+from cli_options import add_chain_options
+
 config = {
     "vista": ("http://localhost:8002", "api"),
     "ibm": ("https://localhost:8005", "fhir-server/api/v4"),
@@ -175,26 +177,7 @@ chain_config = OptionGroup(
 
 
 @click.command()
-@click.option("--chain-length", "chain_length", default=3, type=int)
-@optgroup.group(
-    "Either generate a file or provide a command-line argument",
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help="Group description",
-)
-@optgroup.option("--file", type=click.File("r"))
-@optgroup.option("--generate", "generate", is_flag=True, default=False)
-@optgroup.group(
-    "Either use a chain or generate all chains",
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help="Group description",
-)
-@optgroup.option(
-    "--chain",
-    "-c",
-    multiple=True,
-    type=click.Choice(list(config.keys())),
-)
-@optgroup.option("--all-chains", "all_chains", is_flag=True, default=False)
+@add_chain_options
 def cli_options(chain_length, file, generate, chain, all_chains):
     """Command line options for the telephone.py script
     Vista takes a different format (Bundle Resource) as input, whereas others require a patient
