@@ -150,6 +150,13 @@ services:
       - 127.0.0.1:8282:3000
     networks:
       - public
+  vista-json-echo:
+    build: ./json-garden/vista
+    restart: always
+    ports:
+      - 127.0.0.1:8383:9080
+    networks:
+      - public
 
 networks:
   # The presence of these objects is sufficient to define them
