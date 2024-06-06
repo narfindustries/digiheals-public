@@ -17,7 +17,6 @@ services:
       retries: 5
       start_period: 30s 
 
-
   gnuhealth:
     depends_on:
       - db-gnuhealth
@@ -27,39 +26,48 @@ services:
     ports:
       - 127.0.0.1:8000:8000
 
-  mysql:
+  db-openemr:
+    image: mariadb:11.4.2
     restart: always
-    image: mariadb:10.11
-    command: ['mysqld','--character-set-server=utf8mb4']
-    volumes:
-    - databasevolume:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-  openemr:
-    restart: always
-    image: openemr #/openemr:6.0.0
-    build: ./ehr-garden/openemr
+      MARIADB_ROOT_PASSWORD: root
     ports:
-      - 127.0.0.1:8001:8001
-      - 127.0.0.1:8443:443
+      - 127.0.0.1:3306:3306
     volumes:
-    - sitevolume:/var/www/localhost/htdocs/openemr/sites
-    - logvolume01:/var/log
+    - db-openemr-vol:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  openemr:
+    depends_on:
+      - db-openemr
+    build: ./ehr-garden/openemr
+    image: openemr:7.0.2
+    restart: always
     environment:
-      MYSQL_HOST: mysql
+      MYSQL_HOST: db-openemr
       MYSQL_ROOT_PASS: root
       MYSQL_USER: openemr
       MYSQL_PASS: openemr
       OE_USER: admin
       OE_PASS: pass
-    depends_on:
-    - mysql
+    ports:
+      - 127.0.0.1:8001:8001
+      - 127.0.0.1:8443:443
+    volumes:
+    - openemr-sitevolume:/var/www/localhost/htdocs/openemr/sites
+    - openemr-logvolume01:/var/log
 
   vista:
     image: worldvista/vehu:201911-syn-fhir
     container_name: vehu
     ports:
       - 127.0.0.1:9080:9080
+      
   fhir-vista:
     image: worldvista/fhir-on-vista:latest
     ulimits:
@@ -163,9 +171,9 @@ networks:
   private: {}
 
 volumes:
-  logvolume01: {}
-  sitevolume: {}
-  databasevolume: {}
+  openemr-logvolume01: {}
+  openemr-sitevolume: {}
+  db-openemr-vol: {}
   db-data:
   openmrs-data:
   blaze-data:
