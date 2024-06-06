@@ -8,7 +8,7 @@ import java.util.List;
 import ca.uhn.fhir.parser.IParser;
 import jakarta.servlet.ServletException;
 import ca.uhn.fhir.parser.JsonParser;
-	
+
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -41,7 +41,7 @@ public class RawJsonEchoServlet extends RestfulServer {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String body = IOUtils.toString(request.getInputStream(), Charsets.UTF_8);
 	Map<String, Object> map = new ObjectMapper().readValue(body, Map.class);
-	
+
 	response.setContentType("text/plain");
 	response.getWriter().write(new ObjectMapper().writeValueAsString(map));
 	response.getWriter().close();
