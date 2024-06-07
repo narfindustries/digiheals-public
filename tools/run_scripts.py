@@ -9,18 +9,10 @@ from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 
 from cli_options import add_chain_options
 
+from telephone import telephone_function
+from diff import db_query
+
 config = ["vista", "ibm", "blaze", "hapi"]
-
-
-def run_command(command):
-    """Run command and return output."""
-    result = subprocess.run(
-        command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-    )
-    if result.returncode != 0:
-        print(f"Error running {command}: {result.stderr}")
-        return None
-    return result.stdout.strip()
 
 
 @click.command()
@@ -63,35 +55,8 @@ def main(chain_length, file, generate, chain, all_chains, depth, all_depths):
         chain_args = "--all-chains"
 
     # Run telephone.py with either --generate or --file
-    if generate:
-        telephone_cli_command = (
-            f"python telephone.py --generate {chain_args} --chain-length {chain_length}"
-        )
-    else:
-        telephone_cli_command = f"python telephone.py --file {file.name} {chain_args} --chain-length {chain_length}"
-
-    telephone_output = run_command(telephone_cli_command)
-    if telephone_output:
-        # Get GUID from the output using regex
-        guid_match = re.search(r"\b([a-f0-9-]{36})\b", telephone_output)
-        if guid_match:
-            guid = guid_match.group(1)
-            print(f"GUID: {guid}")
-
-            # Construct diff.py cli command with GUID and depth options
-            if depth:
-                depth_arg = f"--depth {depth}"
-            elif all_depths:
-                depth_arg = "--all-depths"
-
-            diff_cli_command = f"python diff.py --compare --guid {guid} {depth_arg}"
-            diff_output = run_command(diff_cli_command)
-            if diff_output:
-                print(f"diff.py output:\n{diff_output}")
-        else:
-            print("GUID not found in telephone.py output.")
-    else:
-        print("Error running telephone.py.")
+    guid = telephone_function(chain_length, file, generate, chain, all_chains)
+    db_query(True, guid, None, depth, all_depths)
 
 
 if __name__ == "__main__":
