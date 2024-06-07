@@ -31,8 +31,6 @@ services:
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: root
-    ports:
-      - 127.0.0.1:3306:3306
     volumes:
     - db-openemr-vol:/var/lib/mysql
     healthcheck:
