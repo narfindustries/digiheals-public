@@ -7,17 +7,12 @@ services:
       POSTGRES_USER: gnuhealth
       POSTGRES_DB: health
       POSTGRES_HOST_AUTH_METHOD: trust
-    networks:
-      - private
 
   gnuhealth:
     build: ./ehr-garden/gnuhealth
     restart: always
     ports:
       - 127.0.0.1:8000:8000
-    networks:
-      - public
-      - private
     depends_on:
       - db
 
@@ -141,8 +136,6 @@ services:
     restart: always
     ports:
       - 127.0.0.1:8181:8080
-    networks:
-      - public
   clojure-json-echo:
     build: ./json-garden/clojure
     restart: always
@@ -157,7 +150,12 @@ services:
       - 127.0.0.1:8484:5000
     networks:
       - public
-
+  vista-json-echo:
+    build: ./json-garden/vista
+    restart: always
+    ports:
+      - 127.0.0.1:8383:9080
+      
 networks:
   # The presence of these objects is sufficient to define them
   public: {}
