@@ -16,6 +16,7 @@ import json
 import requests
 import uuid
 import copy
+import configparser
 
 sys.path.append("./clients")
 
@@ -24,14 +25,16 @@ from hapi_client import HapiClient
 from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
 import db
-
 from cli_options import add_chain_options
 
+config = configparser.ConfigParser()
+config.read("config.ini")
+
 config = {
-    "vista": ("http://localhost:8002", "api"),
-    "ibm": ("https://localhost:8005", "fhir-server/api/v4"),
-    "hapi": ("http://localhost:8004", "fhir"),
-    "blaze": ("http://localhost:8006", "fhir"),
+    "vista": (config["DEFAULT"]["fhir-vista"], config["DEFAULT"]["fhir-vista-target"]),
+    "hapi": (config["DEFAULT"]["hapi-fhir"], config["DEFAULT"]["hapi-fhir-target"]),
+    "ibm": (config["DEFAULT"]["ibm-fhir"], config["DEFAULT"]["ibm-fhir-target"]),
+    "blaze": (config["DEFAULT"]["blaze"], config["DEFAULT"]["blaze-target"]),
 }
 
 vista_client = VistaClient(config["vista"][0], config["vista"][1])
