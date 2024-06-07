@@ -143,6 +143,7 @@ services:
       - 127.0.0.1:8181:8080
     networks:
       - public
+    profiles: ["json"]      
   clojure-json-echo:
     build: ./json-garden/clojure
     restart: always
@@ -150,13 +151,21 @@ services:
       - 127.0.0.1:8282:3000
     networks:
       - public
+    profiles: ["json"]      
   python-json-echo:
     build: ./json-garden/python
     restart: always
     ports:
       - 127.0.0.1:8484:5000
+    profiles: ["json"]      
+  vista-json-echo:
+    build: ./json-garden/vista
+    restart: always
+    ports:
+      - 127.0.0.1:8383:9080
     networks:
       - public
+    profiles: ["json"]
 
 networks:
   # The presence of these objects is sufficient to define them
