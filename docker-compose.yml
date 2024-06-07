@@ -75,41 +75,44 @@ services:
     depends_on:
       - vista
 
-  openmrs-db:
-    image: mariadb:10.3
-    command: "mysqld --character-set-server=utf8 --collation-server=utf8_general_ci"
+  db-openmrs:
+    image: mariadb:11.4.2
     environment:
-      MYSQL_DATABASE: ${OMRS_DB_NAME:-openmrs}
-      MYSQL_USER: ${OMRS_DB_USER:-openmrs}
-      MYSQL_PASSWORD: ${OMRS_DB_PASSWORD:-openmrs}
-      MYSQL_ROOT_PASSWORD: ${OMRS_DB_ROOT_PASSWORD:-openmrs}
+      MARIADB_DATABASE: openmrs
+      MARIADB_USER: openmrs
+      MARIADB_PASSWORD: openmrs
+      MARIADB_ROOT_PASSWORD: openmrs
+    volumes:
+      - db-openmrs-vol:/var/lib/mysql
     healthcheck:
-      test: "mysql --user=${OMRS_DB_USER:-openmrs} --password=${OMRS_DB_PASSWORD:-openmrs} --execute \"SHOW DATABASES;\""
-      interval: 3s
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      interval: 30s
       timeout: 5s
       retries: 3
-    volumes:
-      - db-data:/var/lib/mysql
 
   openmrs:
-    image: openmrs/openmrs-core:${TAG:-nightly}
+    depends_on:
+      - db-openmrs
     build: ./ehr-garden/openmrs
+    image: openmrs/openmrs-core:2.6.5
+    restart: always
+    environment:
+      OMRS_DB_HOSTNAME: db-openmrs
+      OMRS_DB_NAME: openmrs
+      OMRS_DB_USERNAME: openmrs
+      OMRS_DB_PASSWORD: openmrs
+      OMRS_ADMIN_USER_PASSWORD: Admin123
+      OMRS_ADMIN_PASSWORD_LOCKED: true
     ports:
       - 127.0.0.1:8003:8080
-    environment:
-      OMRS_DB_HOSTNAME: ${OMRS_DB_HOSTNAME:-openmrs-db}
-      OMRS_DB_NAME: ${OMRS_DB_NAME:-openmrs}
-      OMRS_DB_USERNAME: ${OMRS_DB_USERNAME:-openmrs}
-      OMRS_DB_PASSWORD: ${OMRS_DB_PASSWORD:-openmrs}
-      OMRS_ADMIN_USER_PASSWORD: ${OMRS_ADMIN_USER_PASSWORD:-Admin123}
-      OMRS_ADMIN_PASSWORD_LOCKED: ${OMRS_ADMIN_PASSWORD_LOCKED:-true}
+    volumes:
+      - openmrs-data:/openmrs/data/
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/openmrs"]
       interval: 3s
       timeout: 5s
       retries: 3
-    volumes:
-      - openmrs-data:/openmrs/data/
 
   hapi-fhir:
     image: hapiproject/hapi:latest
@@ -164,7 +167,7 @@ volumes:
   openemr-logvolume01: {}
   openemr-sitevolume: {}
   db-openemr-vol: {}
-  db-data:
+  db-openmrs-vol:
   openmrs-data:
   blaze-data:
   neo4jvolume:
