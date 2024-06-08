@@ -57,8 +57,9 @@ def is_increasing_consecutive(numbers):
     return True
 
 
-def compare_paths(paths):
+def compare_paths(paths, chains):
     """Create struct for all segments of a path and internally compare those segments."""
+    edge_list = []
     for path in paths:
         # Dict to store json data by GUID. Each entry contains another dict with link number as key.
         json_data_map = {}
@@ -66,7 +67,16 @@ def compare_paths(paths):
 
         # Get path ids
         relationship_ids = [relationship.id for relationship in path.relationships]
-        if is_increasing_consecutive(relationship_ids):
+        if chains:
+            chain_order = is_increasing_consecutive(relationship_ids)
+        else:
+            if relationship_ids[0] in edge_list:
+                chain_order = False
+                break
+            else:
+                chain_order = True
+
+        if chain_order:
             # Each segment of the path will have relationships
             for relationship in path.relationships:
                 guid = relationship.get("guid", None)
@@ -84,6 +94,9 @@ def compare_paths(paths):
                     json_data,
                 )
                 link_number += 1
+                edge_list.append(
+                    relationship_ids[0]
+                )  # Assumption that only 1 unique edge exists from node a to node b for a given GUID
 
             for guid, links in json_data_map.items():
                 # Sort link numbers for the sequence of chain to be maintained
@@ -157,55 +170,45 @@ def compare_paths(paths):
 
                 print("\n")
 
+        else:
+            print("\n")
+
 
 @click.command()
 @add_diff_options
-def diff_cli_options(compare, guid, all_guids, depth, all_depths):
-    db_query(compare, guid, all_guids, depth, all_depths)
+def diff_cli_options(guid, depth, all_depths):
+    db_query(guid, depth, all_depths)
 
 
-def db_query(compare, guid, all_guids, depth, all_depths):
+def db_query(guid, depth, all_depths):
     """Command line options to run comparisons"""
-    if compare:
-        if guid:
-            params = {"guid": guid}
-            if depth == 1:
-                # Search for paths with exactly one intermediate node, filtered by GUID
-                query = """
-                    MATCH path = (a:Server)-[:LINK*1..1]->(b:Server)-[:LINK*1..1]->(c:Server {name: 'end'})
-                    WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
-                    RETURN path
-                """
-            elif all_depths:
-                # Search for all paths, filtered by GUID
-                query = """
-                    MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
-                    WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
-                    RETURN path
-                """
-        elif all_guids:
-            params = None
-            if depth == 1:
-                # Search for paths with exactly one intermediate node
-                query = """
-                    MATCH path = (a:Server)-[:LINK*1..1]->(b:Server)-[:LINK*1..1]->(c:Server {name: 'end'})
-                    WHERE a.name IN ['synthea', 'file']
-                    RETURN path
-                """
-            elif all_depths:
-                # Search for all paths irrespective of depth
-                query = """
-                    MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
-                    WHERE a.name IN ['synthea', 'file']
-                    RETURN path
-                """
+
+    if guid:
+        params = {"guid": guid}
+        if depth == 1:
+            # Search for paths with exactly one intermediate node, filtered by GUID
+            query = """
+                MATCH path = (a:Server)-[:LINK*1..1]->(b:Server)-[:LINK*1..1]->(c:Server {name: 'end'})
+                WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
+                RETURN path
+            """
+            chains = False  # Set flag where depth search is hardcoded to 1. TO DO: Change logic to work for depth > 1
+        elif all_depths:
+            # Search for all paths, filtered by GUID
+            query = """
+                MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
+                WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
+                RETURN path
+            """
+            chains = True  # Set flag to show that chain sequence is defined by user
         else:
-            print("Please specify a GUID option.")
+            print("Depth not valid.")
             return
-        paths = run_query(query, params)
-        compare_paths(paths)
     else:
-        click.echo("Comparison not enabled. Use --compare to enable.")
+        print("Please specify a GUID option.")
+        return
+    paths = run_query(query, params)
+    compare_paths(paths, chains)
 
 
 if __name__ == "__main__":

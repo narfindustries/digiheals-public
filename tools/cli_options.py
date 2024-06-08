@@ -11,28 +11,8 @@ config = ["vista", "ibm", "blaze", "hapi"]
 def add_diff_options(func):
     """Decorator to add chain options to a Click command."""
 
-    @click.option("--compare", is_flag=True, help="Enable file comparison operations.")
-    @optgroup.group(
-        "GUID Options",
-        cls=RequiredMutuallyExclusiveOptionGroup,
-        help="Specify one GUID or select all paths.",
-    )
-    @optgroup.option("--guid", type=str, default=None, help="GUID for specific chain.")
-    @optgroup.option(
-        "--all-guids",
-        "all_guids",
-        is_flag=True,
-        help="Select all paths across all GUIDs.",
-    )
-    @optgroup.group(
-        "Depth Options",
-        cls=RequiredMutuallyExclusiveOptionGroup,
-        help="Control the search depth.",
-    )
-    @optgroup.option("--depth", type=int, default=0, help="For depth of 1.")
-    @optgroup.option(
-        "--all-depths", "all_depths", is_flag=True, help="Search across all depths."
-    )
+    @click.option("--guid", type=str, default=None, help="GUID for specific chain.")
+    @click.option("--depth", type=int, default=0, help="For depth of 1.")
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
 
