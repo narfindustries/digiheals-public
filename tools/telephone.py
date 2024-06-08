@@ -57,7 +57,7 @@ def check_connection(chain=None):
     Parameters:
     - chain (tuple): Optional. A list of server names to check. If None, checks all servers.
     """
-    if chain is not None:
+    if chain is not None and len(chain) > 0:
         clients = [client_map[x] for x in chain]
         client_names = chain
     else:
