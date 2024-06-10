@@ -23,6 +23,7 @@ class Langs(enum.StrEnum):
     VISTA = "vista"
     CLOJURE = "clojure"
     PYTHON = "python"
+    PHP = "php"
 
     def __str__(self):
         return self.value
@@ -34,6 +35,7 @@ class EHRs(enum.StrEnum):
     VISTA = "vista"
     BLAZE = "blaze"
     GNUHEALTH = "gnuhealth"
+    OPENEMR = "openemr"
 
     def __str__(self):
         return self.value
@@ -46,6 +48,7 @@ class Parsers(enum.StrEnum):
     MUMPS_JSON = "mumps"
     FASTERXML = "fasterxml.jackson"
     JAKARTA = "jakarta"
+    PHP = "php"
 
     def __str__(self):
         return self.value
@@ -89,17 +92,20 @@ EHRMapping.create("openmrs", "java", "fasterxml.jackson")
 EHRMapping.create("vista", "vista", "vista")
 EHRMapping.create("blaze", "clojure", "clojure.data")
 EHRMapping.create("gnuhealth", "python", "python")
+EHRMapping.create("openemr", "php", "php")
 
 
 class EchoClient():
     def __init__(self, javaurl="http://localhost:8181",
                  vistaurl="http://localhost:8383",
                  clojureurl="http://localhost:8282",
-                 pythonurl="http://localhost:8484"):
+                 pythonurl="http://localhost:8484",
+                 opememrurl="http://localhost:8585"):
         self.javaurl = javaurl
         self.vistaurl = vistaurl
         self.clojureurl = clojureurl
         self.pythonurl = pythonurl
+        self.openemrurl = openemrurl
 
 
     def post(self, who, data):
@@ -134,12 +140,13 @@ class EchoClient():
 
 @click.command()
 @click.option("-f", "--file", type=click.Path(exists=True, dir_okay=False, path_type=Path), required=True, multiple=True)
+@click.option("-e", "--openemrurl", default="http://localhost:8585")
 @click.option("-p", "--pythonurl", default="http://localhost:8484")
 @click.option("-c", "--clojureurl", default="http://localhost:8282")
 @click.option("-v", "--vistaurl", default="http://localhost:8383")
 @click.option("-j", "--javaurl", default="http://localhost:8181")
-def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl):
-    client = EchoClient(javaurl, vistaurl, clojureurl, pythonurl)
+def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl, openemrurl):
+    client = EchoClient(javaurl, vistaurl, clojureurl, pythonurl, openemrurl)
     for f in file:
         results = client.post_all(f)
         print(results)
