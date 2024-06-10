@@ -49,6 +49,10 @@ class VistaClient(AbstractClient):
             response = r.json()
             if response["loadStatus"] == "loaded" and response.get("ien"):
                 patient_id = response["ien"]
+        print(r.json())
+        print(r.status_code)
+        print("SDF")
+
         return (patient_id, r)
 
     def create_patient(self, data):
@@ -99,11 +103,11 @@ def cli_options(file):
     if file is None:
         response = client.export_patients()
         if response.status_code == 200:
-            print(response.json())
+            print(response.text)
         else:
             print(response.status_code)
     else:
-        print(client.create_patient_fromfile(file).json())
+        print(client.create_patient_fromfile(file)[1].text)
 
 
 if __name__ == "__main__":

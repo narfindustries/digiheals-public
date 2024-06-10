@@ -22,6 +22,14 @@ EXPOSE 9000
 WORKDIR /tmp
 RUN git clone https://github.com/mseclab/PyJFuzz && cd PyJFuzz && git checkout 578d44c && python setup.py install && cd .. && rm -r PyJFuzz
 
+COPY snodge /opt/snodge
+
+WORKDIR /opt/snodge
+
+RUN apk add nodejs npm && npm install
+
+
+
 WORKDIR /synthea
 ENV PYTHONUNBUFFERED 1
 CMD ["flask", "--app", "server", "run", "-p", "9000", "-h", "0.0.0.0"]
