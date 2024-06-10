@@ -12,7 +12,8 @@ RUN pip install flask
 
 RUN ./gradlew run
 
-COPY fuzzer server.py .
+COPY server.py .
+ADD fuzzer ./fuzzer
 
 COPY synthea.properties /synthea/src/main/resources/synthea.properties
 
@@ -24,3 +25,4 @@ RUN git clone https://github.com/mseclab/PyJFuzz && cd PyJFuzz && git checkout 5
 WORKDIR /synthea
 ENV PYTHONUNBUFFERED 1
 CMD ["flask", "--app", "server", "run", "-p", "9000", "-h", "0.0.0.0"]
+
