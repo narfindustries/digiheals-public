@@ -155,6 +155,12 @@ services:
     ports:
       - 127.0.0.1:8383:9080
     profiles: ["json"]
+  php-json-echo:
+    build: ./json-garden/php
+    restart: always
+    ports:
+      - 127.0.0.1:8585:80
+    profiles: ["json"]
 
 volumes:
   logvolume01: {}
