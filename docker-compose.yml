@@ -71,6 +71,8 @@ services:
       - 127.0.0.1:9080:9080
       
   fhir-vista:
+    depends_on:
+      - vista
     image: worldvista/fhir-on-vista:latest # sole tag on docker hub
     ulimits:
       nofile:
@@ -78,8 +80,7 @@ services:
         hard: 8096
     ports:
       - 127.0.0.1:8002:8080
-    depends_on:
-      - vista
+
 
   db-openmrs:
     image: mariadb:11.4.2
@@ -127,10 +128,10 @@ services:
 
   ibm-fhir:
     image: ghcr.io/linuxforhealth/fhir-server
-    ports:
-      - 127.0.0.1:8005:9443
     environment:
       BOOTSTRAP_DB: true
+    ports:
+      - 127.0.0.1:8005:9443
 
   blaze:
     image: samply/blaze:latest
