@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig()
 
 
+
 class ResultEncoder(json.JSONEncoder):
     """ Json serializer for deepdiff results"""
     def default(self, o):
@@ -168,13 +169,11 @@ class TestManager():
         # save input file
         shutil.copyfile(path, test_file_path)
         # run test against all parsers
-        results = self.client.post_all(path)
         for ehr in EHRMapping.iter_unique():
             output_file = self.tree.test_parser_path(dst, ehr.parser)
             if output_file.exists() and not force:
                 logger.info("results for %s exists, skipping", output_file)
                 continue
-            print(output_file)
             with open(path, "rb") as f:
                 r, v = self.client.post(ehr, f.read())
             if r and r.ok:

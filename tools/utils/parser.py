@@ -111,7 +111,7 @@ def parse_list(data: bytes) -> tuple[JSONNode, bytes]:
             pass
 
         data = consume_whitespace(data)
-        
+
         try:
             data = consume_comma(data)
         except ValueError:
@@ -137,8 +137,11 @@ def parse_object(data: bytes) -> tuple[JSONNode, bytes]:
         kvp: list[JSONNode] = []
         while True:
             data = consume_whitespace(data)
-            item, data = parse_expression(data)
-            kvp.append(item)
+            try:
+                item, data = parse_expression(data)
+                kvp.append(item)
+            except:
+                break
             data = consume_whitespace(data)
             try:
                 data = consume_colon(data)
@@ -146,7 +149,7 @@ def parse_object(data: bytes) -> tuple[JSONNode, bytes]:
                 break
         if len(kvp) > 0:
             result.append(kvp)
-        
+
         # Optionally eat a comma
         try:
             data = consume_comma(data)
