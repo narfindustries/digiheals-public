@@ -18,6 +18,7 @@ import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig()
 
+
 class Langs(enum.StrEnum):
     JAVA = "java"
     VISTA = "vista"
@@ -27,6 +28,7 @@ class Langs(enum.StrEnum):
 
     def __str__(self):
         return self.value
+
 
 class EHRs(enum.StrEnum):
     IPM = "ibm"
@@ -56,12 +58,14 @@ class Parsers(enum.StrEnum):
 
 @dataclasses.dataclass(frozen=True, eq=True)
 class EHRInfo:
+    """Information on a single EHR's language and parser """
     ehr: EHRs
     language: Langs
     parser: Parsers
 
 
 class EHRMapping:
+    """ Class for keeping track of all json parsers"""
     EHR_MAPPING = {}
 
     @classmethod
@@ -86,6 +90,7 @@ class EHRMapping:
             yield ehr.ehr.value
 
 
+# Create EHRMapping object for each EHR parser
 EHRMapping.create("ibm", "java", "jakarta")
 EHRMapping.create("hapi", "java", "fasterxml.jackson")
 EHRMapping.create("openmrs", "java", "fasterxml.jackson")
@@ -96,27 +101,25 @@ EHRMapping.create("openemr", "php", "php")
 
 
 class EchoClient():
+    """Client for posting (deserialized) json to the json echo
+    serversq"""
     def __init__(self, javaurl="http://localhost:8181",
                  vistaurl="http://localhost:8383",
                  clojureurl="http://localhost:8282",
                  pythonurl="http://localhost:8484",
-                 opememrurl="http://localhost:8585"):
+                 phpurl="http://localhost:8585"):
         self.javaurl = javaurl
         self.vistaurl = vistaurl
         self.clojureurl = clojureurl
         self.pythonurl = pythonurl
-        self.openemrurl = openemrurl
-
+        self.phpurl = phpurl
 
     def post(self, who, data):
         if not isinstance(who, EHRInfo):
             who = EHRMapping.get(str(who))
         which = who.language
         url = getattr(self, which + "url") + f"/{who.ehr.value}echo"
-        u = url
-        # req =
-        #prep = req.prepare()
-        #s = requests.Session()
+
         try:
             r = requests.request("POST", url, data=data, stream=True, timeout=100)
             resp = b""
@@ -140,13 +143,14 @@ class EchoClient():
 
 @click.command()
 @click.option("-f", "--file", type=click.Path(exists=True, dir_okay=False, path_type=Path), required=True, multiple=True)
-@click.option("-e", "--openemrurl", default="http://localhost:8585")
+@click.option("-h", "--phpurl", default="http://localhost:8585")
 @click.option("-p", "--pythonurl", default="http://localhost:8484")
 @click.option("-c", "--clojureurl", default="http://localhost:8282")
 @click.option("-v", "--vistaurl", default="http://localhost:8383")
 @click.option("-j", "--javaurl", default="http://localhost:8181")
-def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl, openemrurl):
-    client = EchoClient(javaurl, vistaurl, clojureurl, pythonurl, openemrurl)
+def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl, phpurl):
+    """ Send --file to each parser and print the returned results"""
+    client = EchoClient(javaurl, vistaurl, clojureurl, pythonurl, phpurl)
     for f in file:
         results = client.post_all(f)
         print(results)
