@@ -11,3 +11,4 @@ The 3 endpoints are:
 /ibmecho -- parses w/ the json library used by IBM's EHR
 /hapiecho -- parses w/ underlying json library used by HAPI
 /hapiechoresource -- parses w/ a higher level HAPI json parser, which strips out unknown keys
+/openmrsecho -- parser for openmrs (which is the same parser as hapi)

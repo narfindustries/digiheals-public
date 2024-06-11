@@ -25,6 +25,7 @@ from hapi_client import HapiClient
 from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
 import db
+from cli_options import add_chain_options
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -56,7 +57,7 @@ def check_connection(chain=None):
     Parameters:
     - chain (tuple): Optional. A list of server names to check. If None, checks all servers.
     """
-    if chain is not None:
+    if chain is not None and len(chain) > 0:
         clients = [client_map[x] for x in chain]
         client_names = chain
     else:
@@ -66,10 +67,10 @@ def check_connection(chain=None):
     for iterator, client in enumerate(map(lambda x: x.export_patients(), clients)):
         try:
             if not 200 <= client[0] < 300:  # TO DO: Handle this differently
-                print(f"{client_names[iterator]} server not up. Exciting.")
+                print(f"{client_names[iterator]} server not up. Exiting.")
                 sys.exit(1)
         except Exception as e:
-            print(f"{client_names[iterator]} exciting with error {e}")
+            print(f"{client_names[iterator]} exiting with error {e}")
             sys.exit(1)
 
     try:
@@ -179,27 +180,12 @@ chain_config = OptionGroup(
 
 
 @click.command()
-@click.option("--chain-length", "chain_length", default=3, type=int)
-@optgroup.group(
-    "Either generate a file or provide a command-line argument",
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help="Group description",
-)
-@optgroup.option("--file", type=click.File("r"))
-@optgroup.option("--generate", "generate", is_flag=True, default=False)
-@optgroup.group(
-    "Either use a chain or generate all chains",
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help="Group description",
-)
-@optgroup.option(
-    "--chain",
-    "-c",
-    multiple=True,
-    type=click.Choice(list(config.keys())),
-)
-@optgroup.option("--all-chains", "all_chains", is_flag=True, default=False)
+@add_chain_options
 def cli_options(chain_length, file, generate, chain, all_chains):
+    telephone_function(chain_length, file, generate, chain, all_chains)
+
+
+def telephone_function(chain_length, file, generate, chain, all_chains):
     """Command line options for the telephone.py script
     Vista takes a different format (Bundle Resource) as input, whereas others require a patient
     """
@@ -233,6 +219,7 @@ def cli_options(chain_length, file, generate, chain, all_chains):
     else:
         # all chains not specified, so we specified specific hops
         process_chain(guid, first_node, chain, file)
+    return guid
 
 
 if __name__ == "__main__":

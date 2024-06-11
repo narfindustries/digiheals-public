@@ -81,7 +81,6 @@ services:
     ports:
       - 127.0.0.1:8002:8080
 
-
   db-openmrs:
     image: mariadb:11.4.2
     environment:
@@ -161,13 +160,31 @@ services:
     build: ./json-garden/java
     restart: always
     ports:
-      - 127.0.0.1:8181:8080
-
+    profiles: ["json"]      
   clojure-json-echo:
     build: ./json-garden/clojure
     restart: always
     ports:
       - 127.0.0.1:8282:3000
+    profiles: ["json"]      
+  python-json-echo:
+    build: ./json-garden/python
+    restart: always
+    ports:
+      - 127.0.0.1:8484:5000
+    profiles: ["json"]      
+  vista-json-echo:
+    build: ./json-garden/vista
+    restart: always
+    ports:
+      - 127.0.0.1:8383:9080
+    profiles: ["json"]
+  php-json-echo:
+    build: ./json-garden/php
+    restart: always
+    ports:
+      - 127.0.0.1:8585:80
+    profiles: ["json"]
 
 
 volumes:
