@@ -162,15 +162,19 @@ class TestManager():
         shutil.copyfile(path, test_file_path)
         # run test against all parsers
         results = self.client.post_all(path)
-        for k, v in results.items():
-            output_file = self.tree.test_parser_path(dst, k)
+        for ehr in EHRMapping.iter_unique():
+            output_file = self.tree.test_parser_path(dst, ehr.parser)
             if output_file.exists() and not force:
                 logger.info("results for %s exists, skipping", output_file)
                 continue
-            logger.info("writing results %s", output_file)
-            logger.debug("%s: %s", k, v)
-            with open(output_file, "wb") as f:
-                f.write(v)
+            print(output_file)
+            with open(path, "rb") as f:
+                r, v = self.client.post(ehr, f.read())
+            if r and r.ok:
+                logger.info("writing results %s", output_file)
+                logger.debug("%s: %s", ehr.parser, v)
+                with open(output_file, "wb") as f:
+                    f.write(v)
 
     def run(self, force):
         """ Run test on every file in intput dir"""
@@ -184,11 +188,12 @@ class TestManager():
 def cli(verbose, debug):
     """Process logging options. Note that if any of the options is
     enabled, the json output of the parse command will be unparsable"""
-    if verbose:
-        logger.setLevel(logging.INFO)
     if debug:
         logger.setLevel(logging.DEBUG)
-
+    elif verbose:
+        logger.setLevel(logging.INFO)
+    else:
+        logger.setLevel(logging.WARNING)
 
 @cli.command()
 @click.option("-o", "--output-dir", type=click.Path(file_okay=False, path_type=Path, writable=True), default="output",
