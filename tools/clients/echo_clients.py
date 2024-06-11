@@ -115,6 +115,8 @@ class EchoClient():
         self.phpurl = phpurl
 
     def post(self, who, data):
+        """Given an EHRMapping object (who) and parsed json data,
+        POST request to parser's echo server"""
         if not isinstance(who, EHRInfo):
             who = EHRMapping.get(str(who))
         which = who.language
@@ -131,6 +133,8 @@ class EchoClient():
         return r, resp
 
     def post_all(self, data):
+        """Given path to file (data) POSTs request to all unique
+        parser echo servers"""
         results = {}
         with open(data, "rb") as f:
             data = f.read()
