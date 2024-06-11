@@ -94,6 +94,7 @@ class Analyzer():
             diffs = {}
             errors = {}
             orig = None
+
             for result in item.iterdir():
                 with open(result, "rb") as f:
                     s = f.read()
@@ -107,7 +108,8 @@ class Analyzer():
 
                 except (ValueError, RecursionError) as e:
                     o = None
-                    logger.info("failed to parse json at %s: %s", result, e)
+                    logger.info("failed to parse json at %s: %s",
+                                result, e)
                     errors[result.name] = f"parse error: {e.__dict__}"
                 if result.name == "input.json":
                     orig = o
@@ -117,10 +119,11 @@ class Analyzer():
             # run diff against all results
             for k, v in diffs.items():
                 if k not in errors:
-                    res = deepdiff.DeepDiff(orig, v, get_deep_distance=True,
+                    res = deepdiff.DeepDiff(orig, v,
+                                            get_deep_distance=True,
                                             ignore_encoding_errors=True,
-                                            ignore_order=True, ignore_string_case=True
-                                            )
+                                            # ignore_order=True,
+                                            ignore_string_case=True )
                 else:
                     res = errors[k]
                 results.append({"parser": k, "results": res})
@@ -129,9 +132,10 @@ class Analyzer():
                 first = False
             else:
                 print(",")
-            print('{"file":', '"' + str(item) + '"', ', "results": ', flush=True)
-            print(json.dumps(results,
-                             sort_keys=True, indent=1, cls=ResultEncoder), "}", flush=True)
+            print('{"file":', '"' + str(item) + '"', ', "results": ',
+                  flush=True)
+            print(json.dumps(results, sort_keys=True, indent=1,
+                             cls=ResultEncoder), "}", flush=True)
         print("]")
 
 
