@@ -24,5 +24,7 @@ USER root
 RUN apk del .build-deps
 USER gnuhealth
 WORKDIR /home/gnuhealth
+COPY --chown=gnuhealth:gnuhealth healthcheck.sh healthcheck.sh
+RUN chmod 555 healthcheck.sh
 RUN echo "ehrgarden" > /tmp/pass
 ENTRYPOINT bash -ic 'sleep 5; export TRYTONPASSFILE=/tmp/pass; source .gnuhealthrc; cdexe && python3 ./trytond-admin --all --database=${TRYTON_DATABASE} --email=admin@example.com' && ./start_gnuhealth.sh

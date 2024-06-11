@@ -23,6 +23,12 @@ services:
     restart: always
     ports:
       - 127.0.0.1:8000:8000
+    healthcheck:
+      test: [ "CMD", "/home/gnuhealth/healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s 
 
   db-openemr:
     image: mariadb:11.4.2
@@ -65,7 +71,7 @@ services:
       - 127.0.0.1:9080:9080
       
   fhir-vista:
-    image: worldvista/fhir-on-vista:latest
+    image: worldvista/fhir-on-vista:latest # sole tag on docker hub
     ulimits:
       nofile:
         soft: 8096
@@ -100,7 +106,7 @@ services:
     environment:
       OMRS_DB_HOSTNAME: db-openmrs
       OMRS_DB_NAME: openmrs
-      OMRS_DB_USERNAME: openmrs
+      OMRS_DB_USERNAME: openmrsx
       OMRS_DB_PASSWORD: openmrs
       OMRS_ADMIN_USER_PASSWORD: Admin123
       OMRS_ADMIN_PASSWORD_LOCKED: true
