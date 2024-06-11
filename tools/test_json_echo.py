@@ -84,7 +84,7 @@ class Analyzer():
     def __init__(self, output_dir):
         self.tree = OutputTree(output_dir)
 
-    def run(self):
+    def run(self, diff_ignore_order=False):
         """Run amalysis on all results in output_dir, format output
         as json and print to stdout"""
         print("[")
@@ -119,11 +119,14 @@ class Analyzer():
             # run diff against all results
             for k, v in diffs.items():
                 if k not in errors:
-                    res = deepdiff.DeepDiff(orig, v,
-                                            get_deep_distance=True,
-                                            ignore_encoding_errors=True,
-                                            # ignore_order=True,
-                                            ignore_string_case=True )
+                    args = {
+                        "get_deep_distance": True,
+                        "ignore_encoding_errors": True,
+                        "ignore_string_case": True,
+                    }
+                    if diff_ignore_order:
+                        args["ignore_order"] = True
+                    res = deepdiff.DeepDiff(orig, v, **args)
                 else:
                     res = errors[k]
                 results.append({"parser": k, "results": res})
@@ -202,11 +205,12 @@ def cli(verbose, debug):
 @cli.command()
 @click.option("-o", "--output-dir", type=click.Path(file_okay=False, path_type=Path, writable=True), default="output",
               help="directory to save testing output")
-def analyze(output_dir):
+@click.option("--ignore-order", is_flag=True, help="Ignore order when performing deep diff")
+def analyze(output_dir, ignore_order):
     """Analyze parser results and print a json representation of how
     each parser's result differs from the input file to stdout"""
     a = Analyzer(output_dir)
-    a.run()
+    a.run(ignore_order)
 
 
 @cli.command()
