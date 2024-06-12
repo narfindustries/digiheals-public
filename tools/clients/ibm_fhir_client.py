@@ -95,11 +95,6 @@ class IBMFHIRClient(AbstractClient):
         patient_id = None
         if r.status_code == 201:
             patient_id = self.__get_new_patient_id(before_json)
-
-
-        print(r.text)
-        print(patient_id)
-        print(r.status_code)
         return (patient_id, r)
 
     def step(self, step_number: int, data):
@@ -154,10 +149,9 @@ def cli_options(file):
     if file is None:
         response = client.export_patients()
         if response.status_code == 200:
-            print(response.text)
+            print(response.json())
     else:
-        _, r = client.create_patient_fromfile(file)
-        print(r.text)
+        print(client.create_patient_fromfile(file).json())
 
 
 if __name__ == "__main__":

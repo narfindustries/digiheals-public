@@ -112,11 +112,11 @@ def cli_options(file):
     if file is None:
         response = client.export_patients()
         if response.status_code == 200:
-            print(response.text)
+            print(response.json())
         else:
             print(response.status_code)
     else:
-        print(client.create_patient_fromfile(file)[1].text)
+        print(client.create_patient_fromfile(file).json())
 
 
 if __name__ == "__main__":

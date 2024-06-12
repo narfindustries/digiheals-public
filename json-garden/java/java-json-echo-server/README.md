@@ -12,5 +12,3 @@ The 3 endpoints are:
 /hapiecho -- parses w/ underlying json library used by HAPI
 /hapiechoresource -- parses w/ a higher level HAPI json parser, which strips out unknown keys
 /openmrsecho -- parser for openmrs (which is the same parser as hapi)
-
-note: hapi and openmrs use the save parser
