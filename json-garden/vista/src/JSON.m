@@ -2,7 +2,7 @@ JSON ;ven/gpl - json echo
  ;;0.3;VISTA SYNTHETIC DATA LOADER;;Jul 01, 2019;Build 13
  ;
  ;
- do addService^%webutils("POST","json","wsPostJSON^JSON")
+ do addService^%webutils("POST","vistaecho","wsPostJSON^JSON")
  q
  ;
 
