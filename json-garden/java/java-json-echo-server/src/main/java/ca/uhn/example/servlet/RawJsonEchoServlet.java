@@ -32,6 +32,8 @@ import ca.uhn.fhir.parser.StrictErrorHandler;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import java.util.List;
 
 @WebServlet("/hapiecho")
 public class RawJsonEchoServlet extends RestfulServer {
@@ -40,10 +42,15 @@ public class RawJsonEchoServlet extends RestfulServer {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String body = IOUtils.toString(request.getInputStream(), Charsets.UTF_8);
-	Map<String, Object> map = new ObjectMapper().readValue(body, Map.class);
+	try {
 
+	    Map<String, Object> map = new ObjectMapper().readValue(body, Map.class);
+	    response.getWriter().write(new ObjectMapper().writeValueAsString(map));
+	} catch (MismatchedInputException e) {
+	    List<Object> array = new ObjectMapper().readValue(body, List.class);
+	    response.getWriter().write(new ObjectMapper().writeValueAsString(array));
+	}
 	response.setContentType("text/plain");
-	response.getWriter().write(new ObjectMapper().writeValueAsString(map));
 	response.getWriter().close();
     }
 }
