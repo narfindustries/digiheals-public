@@ -26,11 +26,11 @@ public class IbmJsonEchoServlet extends RestfulServer {
 	StringWriter stWriter = new StringWriter();
 	JsonWriter jsonWriter = Json.createWriter(stWriter);
 	jsonWriter.write(jsonStructure);
-	jsonWriter.close();	
-	response.setContentType("text/plain");
+	jsonWriter.close();
+	response.setContentType("text/plain; charset=UTF-8");
 	response.getWriter().write(stWriter.toString());
 	response.getWriter().close();
-	
+
     }
 
 }
