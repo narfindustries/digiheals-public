@@ -99,10 +99,14 @@ def parse_expression(data: bytes) -> tuple[JSONNode, bytes]:
 
 def parse_list(data: bytes) -> tuple[JSONNode, bytes]:
     data = consume_open_bracket(data)
-
+    data_len = None
     result: list[JSONNode] = []
     while True:
         data = consume_whitespace(data)
+        new_len = len(data)
+        if data_len == new_len:
+            break
+        data_len = new_len
 
         try:
             item, data = parse_expression(data)
@@ -130,9 +134,13 @@ def parse_list(data: bytes) -> tuple[JSONNode, bytes]:
 
 def parse_object(data: bytes) -> tuple[JSONNode, bytes]:
     data = consume_open_curly(data)
-
+    data_len = None
     result: list[list[JSONNode]] = []
     while True:
+        new_len = len(data)
+        if data_len == new_len:
+            break
+        data_len = new_len
         # Eat values separated by colons until there's no colon
         kvp: list[JSONNode] = []
         while True:
@@ -147,6 +155,12 @@ def parse_object(data: bytes) -> tuple[JSONNode, bytes]:
                 data = consume_colon(data)
             except:
                 break
+            new_len = len(data)
+            if data_len == new_len:
+                break
+            data_len = new_len
+
+
         if len(kvp) > 0:
             result.append(kvp)
 

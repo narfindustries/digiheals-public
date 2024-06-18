@@ -123,7 +123,8 @@ class EchoClient():
         url = getattr(self, which + "url") + f"/{who.ehr.value}echo"
 
         try:
-            r = requests.request("POST", url, data=data, stream=True, timeout=100)
+            r = requests.request("POST", url, data=data, stream=True, timeout=100,
+                                  headers={'Content-Type': 'application/json; charset=utf-8'})
             resp = b""
             for line in r.iter_lines():
                 resp += line
@@ -147,17 +148,22 @@ class EchoClient():
 
 @click.command()
 @click.option("-f", "--file", type=click.Path(exists=True, dir_okay=False, path_type=Path), required=True, multiple=True)
+@click.option("-o", "--output", type=click.File("wb"))
 @click.option("-h", "--phpurl", default="http://localhost:8585")
 @click.option("-p", "--pythonurl", default="http://localhost:8484")
 @click.option("-c", "--clojureurl", default="http://localhost:8282")
 @click.option("-v", "--vistaurl", default="http://localhost:8383")
 @click.option("-j", "--javaurl", default="http://localhost:8181")
-def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl, phpurl):
+def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl, phpurl, output):
     """ Send --file to each parser and print the returned results"""
     client = EchoClient(javaurl, vistaurl, clojureurl, pythonurl, phpurl)
     for f in file:
         results = client.post_all(f)
         print(results)
+        if output:
+            for k, v in results.items():
+                output.write(k.encode("utf8") + b"," + v + b"\n")
+        output.close()
 
 
 if __name__ == "__main__":

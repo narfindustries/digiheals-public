@@ -8,7 +8,7 @@ analyzing the results
 """
 
 import click
-from clients.echo_clients import EchoClient, EHRMapping
+from clients.echo_clients import EchoClient, EHRMapping, Parsers
 from pathlib import Path
 from datetime import datetime
 import os
@@ -66,7 +66,7 @@ class OutputTree():
     def iter_results_dir(self):
         """ Iterate through all "leaf" result directories"""
         for dirpath, dirnames, filenames in self.output_dir.walk():
-            if "input.json" in filenames:
+            if (dirpath / Path("input.json")).exists():
                 yield dirpath
 
     def _test_output_path(self, path, parser_name):
@@ -86,18 +86,22 @@ class Analyzer():
     def __init__(self, output_dir):
         self.tree = OutputTree(output_dir)
 
-    def run(self, diff_ignore_order=False):
+    def run(self, diff_ignore_order=False, parsers=None):
         """Run amalysis on all results in output_dir, format output
         as json and print to stdout"""
         print("[")
         first = True
+        if parsers:
+            parsers = list(parsers) + ["input"]
         # for each result directory
         for item in self.tree.iter_results_dir():
             diffs = {}
             errors = {}
             orig = None
-
+            print("analyzing", item, flush=True, file=sys.stderr)
             for result in item.iterdir():
+                if parsers and result.stem not in parsers or not result.exists() or result.suffix != ".json":
+                    continue
                 with open(result, "rb") as f:
                     s = f.read()
                 if result.name == "vista.json" and s.startswith(b"{["):
@@ -107,7 +111,6 @@ class Analyzer():
                 try:
                     # liberally parse the parser's json output
                     o = parser.parse_expression(s)
-
                 except (ValueError, RecursionError) as e:
                     o = None
                     logger.info("failed to parse json at %s: %s",
@@ -118,6 +121,7 @@ class Analyzer():
                 else:
                     diffs[result.name] = o
             results = []
+
             # run diff against all results
             for k, v in diffs.items():
                 if k not in errors:
@@ -225,12 +229,13 @@ def filter(input):
 @cli.command()
 @click.option("-o", "--output-dir", type=click.Path(file_okay=False, path_type=Path, writable=True), default="output",
               help="directory to save testing output")
+@click.option("-p", "--parser", type=click.Choice([v.value for v in Parsers]), multiple=True, help="Parers to analyze, default is all")
 @click.option("--ignore-order", is_flag=True, help="Ignore order when performing deep diff")
-def analyze(output_dir, ignore_order):
+def analyze(output_dir, ignore_order, parser):
     """Analyze parser results and print a json representation of how
     each parser's result differs from the input file to stdout"""
     a = Analyzer(output_dir)
-    a.run(ignore_order)
+    a.run(ignore_order, parser)
 
 
 @cli.command()
