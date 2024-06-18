@@ -6,8 +6,6 @@
   :dependencies [
                  [org.clojure/clojure "1.10.0"]
                  [org.clojure/data.json "0.2.6"]
-                 [org.clojure/java.jdbc "0.7.10"]
-                 [org.postgresql/postgresql "42.1.4"]
                  [ring/ring-defaults "0.3.2"]
                  [ring/ring-devel "1.6.3"]
                  [ring/ring-json "0.5.0"]
