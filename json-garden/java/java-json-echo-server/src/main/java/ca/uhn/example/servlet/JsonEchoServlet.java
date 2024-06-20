@@ -39,19 +39,16 @@ public class JsonEchoServlet extends RestfulServer {
 	String body = IOUtils.toString(request.getInputStream(), Charsets.UTF_8);
 	StringReader reader = new StringReader(body);
 	JsonLikeStructure jacksonStructure = new JacksonStructure();
-	jacksonStructure.load(reader);       	
+	jacksonStructure.load(reader);
 	FhirContext cxt = FhirContext.forR4();
-	JsonParser parser = new JsonParser(cxt, myParserErrorHandler); 
+	JsonParser parser = new JsonParser(cxt, myParserErrorHandler);
 	IBaseResource resource = parser.parseResource(body);
 	StringWriter writer = new StringWriter(body.length());
 	BaseJsonLikeWriter jwrite = jacksonStructure.getJsonLikeWriter(writer);
-	response.setContentType("text/plain");
+	response.setContentType("text/plain; charset=UTF-8");
 	parser.encodeResourceToJsonLikeWriter(resource, jwrite);
 	response.getWriter().write(writer.toString());
 	response.getWriter().close();
-	
+
     }
 }
-
-
-

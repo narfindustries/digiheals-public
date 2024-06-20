@@ -45,12 +45,15 @@ public class RawJsonEchoServlet extends RestfulServer {
 	try {
 
 	    Map<String, Object> map = new ObjectMapper().readValue(body, Map.class);
-	    response.getWriter().write(new ObjectMapper().writeValueAsString(map));
+	    //eresponse.getWriter().write(new ObjectMapper().writeValueAsString(map));
+	    response.getOutputStream().write(new ObjectMapper().writeValueAsBytes(map));
 	} catch (MismatchedInputException e) {
 	    List<Object> array = new ObjectMapper().readValue(body, List.class);
-	    response.getWriter().write(new ObjectMapper().writeValueAsString(array));
+	    //response.getWriter().write(new ObjectMapper().writeValueAsString(array));
+	    response.getOutputStream().write(new ObjectMapper().writeValueAsBytes(array));
 	}
-	response.setContentType("text/plain");
-	response.getWriter().close();
+	response.getOutputStream().close();
+	response.setContentType("text/plain; charset=UTF-8");
+	//response.getWriter().close();
     }
 }
