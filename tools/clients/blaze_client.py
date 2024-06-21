@@ -116,11 +116,8 @@ def cli_options(file):
         else:
             print(status)
     else:
-        status, r = client.create_patient_fromfile(file)
-        if status > 0:
-            print(r.text)
-        else:
-            print(status)
+        _, r = client.create_patient_fromfile(file)
+        print(r.text)
 
 
 if __name__ == "__main__":
