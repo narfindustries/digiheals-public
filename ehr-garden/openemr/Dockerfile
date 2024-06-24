@@ -69,7 +69,7 @@ COPY upgrade/docker-version \
      upgrade/fsupgrade-4.sh \
      upgrade/fsupgrade-5.sh \
      upgrade/fsupgrade-6.sh \
-     /root
+     /root/
 RUN chmod 500 \
     /root/fsupgrade-1.sh \
     /root/fsupgrade-2.sh \
