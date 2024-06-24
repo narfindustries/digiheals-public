@@ -147,11 +147,12 @@ def cli_options(file):
     """
     client = IBMFHIRClient("https://localhost:8005", "fhir-server/api/v4")
     if file is None:
-        response = client.export_patients()
-        if response.status_code == 200:
-            print(response.json())
+        status, response = client.export_patients()
+        if status == 200:
+            print(response.text)
     else:
-        print(client.create_patient_fromfile(file).json())
+        _, r = client.create_patient_fromfile(file)
+        print(r.text)
 
 
 if __name__ == "__main__":

@@ -163,7 +163,7 @@ def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl, phpurl, output):
         if output:
             for k, v in results.items():
                 output.write(k.encode("utf8") + b"," + v + b"\n")
-        output.close()
+            output.close()
 
 
 if __name__ == "__main__":
