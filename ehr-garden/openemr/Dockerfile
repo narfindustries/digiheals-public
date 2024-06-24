@@ -1,4 +1,4 @@
-FROM alpine:3.19
+FROM alpine:3.20
 
 #Install dependencies and fix issue in apache
 RUN apk --no-cache upgrade
@@ -12,16 +12,15 @@ RUN apk add --no-cache \
     certbot openssl openssl-dev dcron \
     rsync shadow ncurses \
     && sed -i 's/^Listen 80$/Listen 0.0.0.0:8001/' /etc/apache2/httpd.conf
+
 # Needed to ensure permissions work across shared volumes with openemr, nginx, and php-fpm dockers
 RUN usermod -u 1000 apache
 
-#BELOW LINE NEEDED TO SUPPORT PHP8 ON ALPINE 3.13+; SHOULD BE ABLE TO REMOVE THIS IN FUTURE ALPINE VERSIONS
-RUN cp /usr/bin/php83 /usr/bin/php
 # Install composer for openemr package building
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 RUN apk add --no-cache git build-base \
-    && git clone https://github.com/openemr/openemr.git --depth 1 \
+    && git clone https://github.com/openemr/openemr.git --branch v7_0_2 --depth 1 \
     && rm -rf openemr/.git \
     && cd openemr \
     && composer install --no-dev \
@@ -50,15 +49,18 @@ RUN apk add --no-cache git build-base \
     && sed -i 's/^ *TransferLog/#TransferLog/' /etc/apache2/conf.d/ssl.conf
 WORKDIR /var/www/localhost/htdocs/openemr
 VOLUME [ "/etc/letsencrypt/", "/etc/ssl" ]
+
 #configure apache & php properly
 ENV APACHE_LOG_DIR=/var/log/apache2
 COPY php.ini /etc/php83/php.ini
 COPY openemr.conf /etc/apache2/conf.d/
+
 #add runner and auto_configure and prevent auto_configure from being run w/o being enabled
 COPY openemr.sh ssl.sh xdebug.sh auto_configure.php /var/www/localhost/htdocs/openemr/
 COPY utilities/unlock_admin.php utilities/unlock_admin.sh /root/
 RUN chmod 500 openemr.sh ssl.sh xdebug.sh /root/unlock_admin.sh \
     && chmod 000 auto_configure.php /root/unlock_admin.php
+
 #bring in pieces used for automatic upgrade process
 COPY upgrade/docker-version \
      upgrade/fsupgrade-1.sh \
@@ -75,14 +77,18 @@ RUN chmod 500 \
     /root/fsupgrade-4.sh \
     /root/fsupgrade-5.sh \
     /root/fsupgrade-6.sh
+
 #fix issue with apache2 dying prematurely
 RUN mkdir -p /run/apache2
+
 #Copy dev tools library to root
 COPY utilities/devtoolsLibrary.source /root/
+
 #Ensure swarm/orchestration pieces are available if needed
 RUN mkdir /swarm-pieces \
     && rsync --owner --group --perms --delete --recursive --links /etc/ssl /swarm-pieces/ \
     && rsync --owner --group --perms --delete --recursive --links /var/www/localhost/htdocs/openemr/sites /swarm-pieces/
+
 #go
 CMD [ "./openemr.sh" ]
 
