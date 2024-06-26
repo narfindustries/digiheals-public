@@ -80,7 +80,7 @@ class EHRMapping:
     def iter_unique(cls):
         parsers = set()
         for ehr in cls.EHR_MAPPING.values():
-            if ehr.parser not in parsers:
+            # if ehr.parser not in parsers:
                 yield ehr
                 parsers.add(ehr.parser)
 
@@ -121,7 +121,7 @@ class EchoClient():
             who = EHRMapping.get(str(who))
         which = who.language
         url = getattr(self, which + "url") + f"/{who.ehr.value}echo"
-
+        print(url)
         try:
             r = requests.request("POST", url, data=data, stream=True, timeout=100,
                                   headers={'Content-Type': 'application/json; charset=utf-8'})
@@ -142,7 +142,7 @@ class EchoClient():
         for ehr in EHRMapping.iter_unique():
             r, res = self.post(ehr, data)
             if r and r.ok:
-                results[ehr.parser.value] = res
+                results[ehr.ehr.value] = res
         return results
 
 
