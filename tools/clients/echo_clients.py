@@ -121,7 +121,6 @@ class EchoClient():
             who = EHRMapping.get(str(who))
         which = who.language
         url = getattr(self, which + "url") + f"/{who.ehr.value}echo"
-        print(url)
         try:
             r = requests.request("POST", url, data=data, stream=True, timeout=100,
                                   headers={'Content-Type': 'application/json; charset=utf-8'})
