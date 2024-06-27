@@ -158,10 +158,12 @@ def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl, phpurl, output):
     client = EchoClient(javaurl, vistaurl, clojureurl, pythonurl, phpurl)
     for f in file:
         results = client.post_all(f)
-        print(results)
-        if output:
-            for k, v in results.items():
+        for k in sorted(results.keys()):
+            v = results[k]
+            print(k, ":", v)
+            if output:
                 output.write(k.encode("utf8") + b"," + v + b"\n")
+        if output:
             output.close()
 
 
