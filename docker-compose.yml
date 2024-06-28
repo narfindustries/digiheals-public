@@ -160,6 +160,7 @@ services:
     build: ./json-garden/java
     restart: always
     ports:
+      - 127.0.0.1:8181:8080
     profiles: ["json"]      
   clojure-json-echo:
     build: ./json-garden/clojure
