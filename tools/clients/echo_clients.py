@@ -58,14 +58,16 @@ class Parsers(enum.StrEnum):
 
 @dataclasses.dataclass(frozen=True, eq=True)
 class EHRInfo:
-    """Information on a single EHR's language and parser """
+    """Information on a single EHR's language and parser"""
+
     ehr: EHRs
     language: Langs
     parser: Parsers
 
 
 class EHRMapping:
-    """ Class for keeping track of all json parsers"""
+    """Class for keeping track of all json parsers"""
+
     EHR_MAPPING = {}
 
     @classmethod
@@ -81,8 +83,8 @@ class EHRMapping:
         parsers = set()
         for ehr in cls.EHR_MAPPING.values():
             # if ehr.parser not in parsers:
-                yield ehr
-                parsers.add(ehr.parser)
+            yield ehr
+            parsers.add(ehr.parser)
 
     @classmethod
     def iter_names(cls):
@@ -100,14 +102,18 @@ EHRMapping.create("gnuhealth", "python", "python")
 EHRMapping.create("openemr", "php", "php")
 
 
-class EchoClient():
+class EchoClient:
     """Client for posting (deserialized) json to the json echo
     serversq"""
-    def __init__(self, javaurl="http://localhost:8181",
-                 vistaurl="http://localhost:8383",
-                 clojureurl="http://localhost:8282",
-                 pythonurl="http://localhost:8484",
-                 phpurl="http://localhost:8585"):
+
+    def __init__(
+        self,
+        javaurl="http://localhost:8181",
+        vistaurl="http://localhost:8383",
+        clojureurl="http://localhost:8282",
+        pythonurl="http://localhost:8484",
+        phpurl="http://localhost:8585",
+    ):
         self.javaurl = javaurl
         self.vistaurl = vistaurl
         self.clojureurl = clojureurl
@@ -122,8 +128,14 @@ class EchoClient():
         which = who.language
         url = getattr(self, which + "url") + f"/{who.ehr.value}echo"
         try:
-            r = requests.request("POST", url, data=data, stream=True, timeout=100,
-                                  headers={'Content-Type': 'application/json; charset=utf-8'})
+            r = requests.request(
+                "POST",
+                url,
+                data=data,
+                stream=True,
+                timeout=100,
+                headers={"Content-Type": "application/json; charset=utf-8"},
+            )
             resp = b""
             for line in r.iter_lines():
                 resp += line
@@ -146,7 +158,13 @@ class EchoClient():
 
 
 @click.command()
-@click.option("-f", "--file", type=click.Path(exists=True, dir_okay=False, path_type=Path), required=True, multiple=True)
+@click.option(
+    "-f",
+    "--file",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    required=True,
+    multiple=True,
+)
 @click.option("-o", "--output", type=click.File("wb"))
 @click.option("-h", "--phpurl", default="http://localhost:8585")
 @click.option("-p", "--pythonurl", default="http://localhost:8484")
@@ -154,7 +172,7 @@ class EchoClient():
 @click.option("-v", "--vistaurl", default="http://localhost:8383")
 @click.option("-j", "--javaurl", default="http://localhost:8181")
 def cli_options(file, pythonurl, clojureurl, vistaurl, javaurl, phpurl, output):
-    """ Send --file to each parser and print the returned results"""
+    """Send --file to each parser and print the returned results"""
     client = EchoClient(javaurl, vistaurl, clojureurl, pythonurl, phpurl)
     for f in file:
         results = client.post_all(f)

@@ -33,13 +33,14 @@ class BlazeClient(AbstractClient):
     def export_patient(self, p_id, file_type):
         """Calls the FHIR API to export all patients"""
         header_text = "application/" + file_type
-        headers = {
-        "Accept": header_text
-        }
+        headers = {"Accept": header_text}
         r = requests.get(
-            f"{self.fhir}/{self.base}/Patient/{p_id}", headers=headers, timeout=100, verify=False
+            f"{self.fhir}/{self.base}/Patient/{p_id}",
+            headers=headers,
+            timeout=100,
+            verify=False,
         )
-        if file_type == 'json':
+        if file_type == "json":
             response_data = r.json()
         else:
             response_data = r.text
@@ -69,8 +70,8 @@ class BlazeClient(AbstractClient):
             else:
                 response = r.text
                 root = ET.fromstring(response)
-                ns = {'fhir': 'http://hl7.org/fhir'}
-                patient_id_element = root.find('fhir:id', ns)
+                ns = {"fhir": "http://hl7.org/fhir"}
+                patient_id_element = root.find("fhir:id", ns)
                 if patient_id_element is not None:
                     patient_id = patient_id_element.get("value")
         return (patient_id, r)
@@ -99,8 +100,8 @@ class BlazeClient(AbstractClient):
             else:
                 response = r.text
                 root = ET.fromstring(response)
-                ns = {'fhir': 'http://hl7.org/fhir'}
-                patient_id_element = root.find('fhir:id', ns)
+                ns = {"fhir": "http://hl7.org/fhir"}
+                patient_id_element = root.find("fhir:id", ns)
                 if patient_id_element is not None:
                     patient_id = patient_id_element.get("value")
 
@@ -124,30 +125,32 @@ class BlazeClient(AbstractClient):
                         if entry["resource"]["resourceType"] == "Patient":
                             patient_data = entry["resource"]
             else:
-                # File type is XML 
+                # File type is XML
                 tree = ET.ElementTree(ET.fromstring(data))
                 root = tree.getroot()
                 patient_data = None
-                ns = {'fhir': 'http://hl7.org/fhir'} # Define namespace
+                ns = {"fhir": "http://hl7.org/fhir"}  # Define namespace
                 # Traverse XML tree to find Patient resource
-                for entry in root.findall('fhir:entry', ns):
-                    resource = entry.find('fhir:resource', ns)
+                for entry in root.findall("fhir:entry", ns):
+                    resource = entry.find("fhir:resource", ns)
                     if resource is not None:
-                        patient = resource.find('fhir:Patient', ns)
+                        patient = resource.find("fhir:Patient", ns)
                         if patient is not None:
-                            patient_data = ET.tostring(patient, encoding='unicode')
+                            patient_data = ET.tostring(patient, encoding="unicode")
             (patient_id, response_data) = self.create_patient(patient_data, file_type)
         else:
             # This means we just got a full file from another server, simply upload it
-            (patient_id, response_data) = self.create_patient(data,file_type)
+            (patient_id, response_data) = self.create_patient(data, file_type)
 
         if patient_id is None:
-            return_response = response_data.json() if file_type == "json" else response_data                
+            return_response = (
+                response_data.json() if file_type == "json" else response_data
+            )
             return (patient_id, return_response, None)
 
         (status, export_response) = self.export_patient(patient_id, file_type)
-        
-        return_response = response_data.json() if file_type == "json" else response_data                
+
+        return_response = response_data.json() if file_type == "json" else response_data
         return (patient_id, return_response, export_response)
 
 
@@ -168,13 +171,14 @@ def cli_options(file):
     else:
         try:
             ET.parse(file)
-            file_type = 'xml'
+            file_type = "xml"
         except ET.ParseError:
-            file_type = 'json'
+            file_type = "json"
         file = file.read()
 
         _, r = client.create_patient_fromfile(file, file_type)
         print(r.text)
+
 
 if __name__ == "__main__":
     cli_options()

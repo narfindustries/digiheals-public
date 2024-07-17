@@ -106,5 +106,6 @@ def cli_options(file):
         _, r = client.create_patient_fromfile(file)
         print(r.text)
 
+
 if __name__ == "__main__":
     cli_options()
