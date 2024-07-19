@@ -61,7 +61,7 @@ class VistaClient(AbstractClient):
                 patient_id = response["ien"]
         return (patient_id, r)
 
-    def step(self, step_number: int, data):
+    def step(self, step_number: int, data, file_type):
         """
         Called from the GoT scripts
         If its the first step, we just got a FHIR JSON file from Synthea.
