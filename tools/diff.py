@@ -12,6 +12,9 @@ from deepdiff import DeepDiff
 import json
 from tabulate import tabulate
 import textwrap
+import re
+import xmltodict
+import lxml.etree as ET
 
 from cli_options import add_diff_options
 
@@ -37,12 +40,19 @@ def run_query(query, params=None):
             driver.close()
 
 
-def compare_function(json1, json2):
+def compare_function(json1, json2, file_type):
     """Compare two JSON objects and return their differences using DeepDiff."""
+    if file_type == "xml":
+        if json1.startswith('"') and json1.endswith('"'):
+            json1 = json1[1:-1]
+        if json2.startswith('"') and json2.endswith('"'):
+            json2 = json2[1:-1]
+        json1 = xmltodict.parse(json1)
+        json2 = xmltodict.parse(json2)
     diff = DeepDiff(json1, json2, ignore_order=True, get_deep_distance=True)
     if diff:
         return False, diff
-    return True, "JSON FHIR data is identical."
+    return True, f"{file_type} FHIR data is identical."
 
 
 def wrap_text(text, width):
@@ -56,8 +66,15 @@ def is_increasing_consecutive(numbers):
             return False
     return True
 
+def xml_parse(xml_content):
+    # Replace escaped newline characters with actual newlines
+    corrected_xml = re.sub(r'\\n', '\n', xml_content)
+    corrected_xml = re.sub(r'\\"', '"', corrected_xml)
+    corrected_xml = re.sub(r"\\'", "'", corrected_xml)
 
-def compare_paths(paths, chains):
+    return corrected_xml
+
+def compare_paths(paths, chains, file_type):
     """Create struct for all segments of a path and internally compare those segments."""
     edge_list = []
     for path in paths:
@@ -111,24 +128,48 @@ def compare_paths(paths, chains):
                 for i in range(len(sorted_link_numbers) - 1):
                     current_link_number = sorted_link_numbers[i]
                     next_link_number = sorted_link_numbers[i + 1]
+                    print("EEEEEEEEEEE", i)
 
-                    json1 = json.loads(links[current_link_number][2])
-                    json2 = json.loads(links[next_link_number][2])
+                    if file_type == "json":
+                        json1 = json.loads(links[current_link_number][2])
+                        json2 = json.loads(links[next_link_number][2])
+                    
+                    else:
+                        json1 = xml_parse(links[current_link_number][2])
+                        json2 = xml_parse(links[next_link_number][2])                       
 
                     if json1 and json2:
                         if (
                             links[current_link_number][0] == "synthea"
                             or links[current_link_number][0] == "file"
                         ):
-                            syn_file = json.loads(json1)
-                            # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
-                            if syn_file["resourceType"] == "Bundle":
-                                for entries in syn_file["entry"]:
-                                    # Only one Patient resourceType exists
-                                    if entries["resource"]["resourceType"] == "Patient":
-                                        json1 = entries["resource"]
-
-                        match, result = compare_function(json1, json2)
+                            if file_type == "json":
+                                syn_file = json.loads(json1)
+                                # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
+                                if syn_file["resourceType"] == "Bundle":
+                                    for entries in syn_file["entry"]:
+                                        # Only one Patient resourceType exists
+                                        if entries["resource"]["resourceType"] == "Patient":
+                                            json1 = entries["resource"]
+                            else:
+                                
+                                if json1.startswith('"') and json1.endswith('"'):
+                                    json1 = json1[1:-1]
+                                if json2.startswith('"') and json2.endswith('"'):
+                                    json2 = json2[1:-1]
+                                
+                                tree = ET.ElementTree(ET.fromstring(json1))
+                                root = tree.getroot()
+                                ns = {"fhir": "http://hl7.org/fhir"}  # Define namespace
+                                # Traverse XML tree to find Patient resource
+                                for entry in root.findall("fhir:entry", ns):
+                                    resource = entry.find("fhir:resource", ns)
+                                    if resource is not None:
+                                        patient = resource.find("fhir:Patient", ns)
+                                        if patient is not None:
+                                            json1 = ET.tostring(patient, encoding="unicode")
+                        
+                        match, result = compare_function(json1, json2, file_type)
                         chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
                         diff_score = 0 if match else round(result["deep_distance"], 4)
 
@@ -180,7 +221,7 @@ def diff_cli_options(guid, depth, all_depths):
     db_query(guid, depth, all_depths)
 
 
-def db_query(guid, depth, all_depths):
+def db_query(guid, depth, all_depths, file_type="json"):
     """Command line options to run comparisons"""
 
     if guid:
@@ -208,7 +249,7 @@ def db_query(guid, depth, all_depths):
         print("Please specify a GUID option.")
         return
     paths = run_query(query, params)
-    compare_paths(paths, chains)
+    compare_paths(paths, chains, file_type)
 
 
 if __name__ == "__main__":

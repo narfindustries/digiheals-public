@@ -200,11 +200,11 @@ chain_config = OptionGroup(
 
 @click.command()
 @add_chain_options
-def cli_options(chain_length, file, generate, chain, all_chains):
-    telephone_function(chain_length, file, generate, chain, all_chains)
+def cli_options(chain_length, file, generate, chain, all_chains, file_type):
+    telephone_function(chain_length, file, generate, chain, all_chains, file_type)
 
 
-def telephone_function(chain_length, file, generate, chain, all_chains):
+def telephone_function(chain_length, file, generate, chain, all_chains, file_type):
     """Command line options for the telephone.py script
     Vista takes a different format (Bundle Resource) as input, whereas others require a patient
     """
@@ -219,13 +219,6 @@ def telephone_function(chain_length, file, generate, chain, all_chains):
 
     # Generate a new FHIR JSON file
     if file:
-        try:
-            ET.parse(file)
-            file_type = "xml"
-            file.seek(0)
-        except ET.ParseError:
-            file_type = "json"
-            file.seek(0)
         file = file.read()
 
     if generate:

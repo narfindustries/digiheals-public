@@ -23,6 +23,7 @@ def add_chain_options(func):
     """Decorator to add chain options to a Click command."""
 
     @click.option("--chain-length", "chain_length", default=3, type=int)
+    @click.option("--type", "file_type", type=str, default="json", help="Patient file type - json or xml")
     @optgroup.group(
         "Either generate a file or provide a command-line argument",
         cls=RequiredMutuallyExclusiveOptionGroup,
