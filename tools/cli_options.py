@@ -12,7 +12,13 @@ def add_diff_options(func):
     """Decorator to add chain options to a Click command."""
 
     @click.option("--guid", type=str, default=None, help="GUID for specific chain.")
-    @click.option("--depth", type=int, default=0, help="For depth of 1.")
+    @optgroup.group(
+        "Either choose depth = 1 or choose all depths.",
+        cls=RequiredMutuallyExclusiveOptionGroup,
+        help="Group description",
+    )
+    @optgroup.option("--depth", type=int, default=0, help="For depth of 1.")
+    @optgroup.option("--all-depths", "all_depths", is_flag=True, default=False)
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
 

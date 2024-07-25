@@ -89,7 +89,6 @@ def compare_paths(paths, chains, file_type):
         else:
             if relationship_ids[0] in edge_list:
                 chain_order = False
-                break
             else:
                 chain_order = True
 
@@ -236,6 +235,7 @@ def db_query(guid, depth, all_depths, file_type="json"):
             chains = False  # Set flag where depth search is hardcoded to 1. TO DO: Change logic to work for depth > 1
         elif all_depths:
             # Search for all paths, filtered by GUID
+            # TBD: --all-depths query takes too long to process, when diff.py is run in isolation with --all-chains generated guid
             query = """
                 MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
                 WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
@@ -243,7 +243,7 @@ def db_query(guid, depth, all_depths, file_type="json"):
             """
             chains = True  # Set flag to show that chain sequence is defined by user
         else:
-            print("Depth not valid.")
+            print("Choose depth = 1 or all depths.")
             return
     else:
         print("Please specify a GUID option.")
