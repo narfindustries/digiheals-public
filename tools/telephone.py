@@ -6,11 +6,7 @@
 Skeleton for the Telephone.py script to go through multiple targets
 """
 import click
-from click_option_group import (
-    optgroup,
-    OptionGroup,
-    RequiredMutuallyExclusiveOptionGroup,
-)
+from click_option_group import OptionGroup
 import sys
 import json
 import requests

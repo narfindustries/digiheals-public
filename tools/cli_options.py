@@ -11,7 +11,17 @@ config = ["vista", "ibm", "blaze", "hapi"]
 def add_diff_options(func):
     """Decorator to add chain options to a Click command."""
 
-    @click.option("--guid", type=str, default=None, help="GUID for specific chain.")
+    @click.option(
+        "--guid", type=str, required=True, default=None, help="GUID for specific chain."
+    )
+    @click.option(
+        "--type",
+        "file_type",
+        type=str,
+        required=True,
+        default=None,
+        help="Patient file type - json or xml",
+    )
     @optgroup.group(
         "Either choose depth = 1 or choose all depths.",
         cls=RequiredMutuallyExclusiveOptionGroup,
@@ -29,7 +39,13 @@ def add_chain_options(func):
     """Decorator to add chain options to a Click command."""
 
     @click.option("--chain-length", "chain_length", default=3, type=int)
-    @click.option("--type", "file_type", type=str, default="json", help="Patient file type - json or xml")
+    @click.option(
+        "--type",
+        "file_type",
+        type=str,
+        default=None,
+        help="Patient file type - json or xml",
+    )
     @optgroup.group(
         "Either generate a file or provide a command-line argument",
         cls=RequiredMutuallyExclusiveOptionGroup,
@@ -50,6 +66,10 @@ def add_chain_options(func):
     )
     @optgroup.option("--all-chains", "all_chains", is_flag=True, default=False)
     def wrapper(*args, **kwargs):
+        if kwargs.get("generate"):
+            kwargs["file_type"] = "json"  # Default file_type for generate
+        elif kwargs.get("file") and not kwargs.get("file_type"):
+            raise click.BadParameter("You must specify --type when using --file")
         return func(*args, **kwargs)
 
     return wrapper
