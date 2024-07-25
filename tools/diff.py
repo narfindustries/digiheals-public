@@ -175,7 +175,7 @@ def compare_paths(paths, chains):
 
 @click.command()
 @add_diff_options
-def diff_cli_options(guid, depth, all_depths=False):
+def diff_cli_options(guid, depth, all_depths):
     db_query(guid, depth, all_depths)
 
 
