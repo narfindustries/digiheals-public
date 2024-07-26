@@ -60,7 +60,8 @@ def main(chain_length, file, generate, chain, all_chains, file_type):
         raise click.UsageError("Choose either --chain or --all-chains.")
 
     # Validate the user input options
-    validate_file_type(file_type, file)
+    if file:
+        validate_file_type(file_type, file)
     validate_options(file_type, chain, all_chains)
 
     # Run telephone.py with either --generate or --file

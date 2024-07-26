@@ -40,7 +40,7 @@ def run_query(query, params=None):
             driver.close()
 
 
-def clean_xml(file):
+def clean_string_from_file(file):
     """Remove leading and trailing " from string, to avoid XML parsing errors"""
     if file.startswith('"') and file.endswith('"'):
         file = file[1:-1]
@@ -50,8 +50,8 @@ def clean_xml(file):
 def compare_function(file1, file2, file_type):
     """Compare two objects and return their differences using DeepDiff"""
     if file_type.lower() == "xml":
-        file1 = xmltodict.parse(clean_xml(file1))
-        file2 = xmltodict.parse(clean_xml(file2))
+        file1 = xmltodict.parse(clean_string_from_file(file1))
+        file2 = xmltodict.parse(clean_string_from_file(file2))
     diff = DeepDiff(file1, file2, ignore_order=True, get_deep_distance=True)
     if diff:
         return False, diff
@@ -94,6 +94,18 @@ def check_file_type(file, file_type):
             return True
         except json.JSONDecodeError:
             raise click.BadParameter("File is not JSON. Enter correct file type.")
+
+
+def check_json(file):
+    # Check if the string starts with '{' or '['
+    clean_file = clean_string_from_file(file)
+    return clean_file.strip().startswith("{") or clean_file.strip().startswith("[")
+
+
+def check_xml(file):
+    # Check if the string starts with '<'
+    clean_file = clean_string_from_file(file)
+    return clean_file.strip().startswith("<")
 
 
 def compare_paths(paths, chains, file_type):
@@ -150,15 +162,27 @@ def compare_paths(paths, chains, file_type):
                     current_link_number = sorted_link_numbers[i]
                     next_link_number = sorted_link_numbers[i + 1]
 
-                    # TBD: If user enters guid with wrong file_type, need to raise error to rerun code with correct file_type
-                    if file_type.lower() == "json":
-                        print("CHECK POINT ^^^^")
-                        parse = json.loads
-                    else:
-                        parse = xml_parse
+                    file1 = links[current_link_number][2]
+                    file2 = links[next_link_number][2]
 
-                    file1 = parse(links[current_link_number][2])
-                    file2 = parse(links[next_link_number][2])
+                    # Validating file with user input file_type
+                    if (
+                        check_json(file1)
+                        and check_json(file2)
+                        and file_type.lower() == "json"
+                    ):
+                        parse = json.loads
+                    elif (
+                        check_xml(file1)
+                        and check_xml(file2)
+                        and file_type.lower() == "xml"
+                    ):
+                        parse = xml_parse
+                    else:
+                        raise click.BadParameter("Re-check file type.")
+
+                    file1 = parse(file1)
+                    file2 = parse(file2)
 
                     if file1 and file2:
                         if (
@@ -177,8 +201,8 @@ def compare_paths(paths, chains, file_type):
                                         ):
                                             file1 = entries["resource"]
                             else:
-                                file1 = clean_xml(file1)
-                                file2 = clean_xml(file2)
+                                file1 = clean_string_from_file(file1)
+                                file2 = clean_string_from_file(file2)
 
                                 tree = ET.ElementTree(ET.fromstring(file1))
                                 root = tree.getroot()
