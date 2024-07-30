@@ -4,12 +4,13 @@ Create unit tests for Blaze Client
 
 import pytest
 import json
+import xml.etree.ElementTree as ET
 import sys
 
 sys.path.append("../clients")
 from blaze_client import BlazeClient
 
-
+# Define fixture with scope limited to duration of module
 @pytest.fixture(scope="module")
 def blaze_client():
     """Create FHIR Client"""
@@ -18,10 +19,9 @@ def blaze_client():
     client = BlazeClient(fhir, base)
     yield client
 
-
 @pytest.fixture(scope="module")
-def patient_data():
-    """Read Patient Data File"""
+def patient_data_json():
+    """Read Patient Data JSON File"""
     with open(
         "./test_files/Adelaide981_Osinski784_580f24ad-3303-7f6a-309e-bf6d767f7046.json",
         "r",
@@ -30,63 +30,104 @@ def patient_data():
         for entry in json_data["entry"]:
             if entry["resource"]["resourceType"] == "Patient":
                 return entry["resource"]
-
-
+            
 @pytest.fixture(scope="module")
-def patient_id(blaze_client, patient_data):
-    """Import Patient Data to server to get Patient ID"""
-    patient_id, response = blaze_client.create_patient(json.dumps(patient_data))
+def patient_data_xml():
+    """Read Patient Data XML File"""
+    with open(
+        "./test_files/Alvaro283_Weber641_4820e76c-c90c-f4ca-e9cc-0325959ab559.xml",
+        "r",
+    ) as file:
+        tree = ET.parse(file)
+        root = tree.getroot()
+        ns = {'fhir': 'http://hl7.org/fhir'} 
+        # Traverse XML tree to find Patient resource
+        for entry in root.findall("fhir:entry", ns):
+            resource = entry.find("fhir:resource", ns)
+            if resource is not None:
+                patient = resource.find("fhir:Patient", ns)
+                if patient is not None:
+                    return ET.tostring(patient, encoding="utf-8")
+ 
+
+# Parameterized to run fixture once for json and once for xml (runs twice in this case)
+@pytest.fixture(scope="module", params=["json", "xml"])
+def patient_id(blaze_client, patient_data_json, patient_data_xml, request):
+    """Import Patient Data to server to get Patient ID for both JSON and XML"""
+    if request.param == "json":
+        patient_data = patient_data_json
+    else:
+        patient_data = patient_data_xml
+
+    patient_id, response = blaze_client.create_patient(patient_data, request.param)
     assert response.status_code == 201
     assert patient_id is not None
-    return patient_id
+    return patient_id, request.param
+
 
 
 class TestBlazeClient:
 
     def test_create_patient_fromfile(self, patient_id):
         """Test create_patient_fromfile and create_patient"""
-        assert patient_id is not None
+        # Patient ID already created through fixture
+        patient_id_value, _ = patient_id  # Unpacking the tuple
+        assert patient_id_value is not None
 
     def test_export_patients(self, blaze_client):
         """Test export_patients"""
         status_code, response = blaze_client.export_patients()
         assert status_code == 200
-        assert isinstance(response, dict)
+        assert isinstance(response, dict) # Response is in json by default
 
     def test_export_patient(self, blaze_client, patient_id):
         """Test export_patient"""
-        status_code, response = blaze_client.export_patient(patient_id)
+        patient_id_value, file_type = patient_id  # Unpacking the tuple
+        status_code, response = blaze_client.export_patient(patient_id_value, file_type)
         assert status_code == 200
-        assert isinstance(response, dict)
+        if file_type == "json":
+            assert isinstance(response, dict)
+        else:
+            assert isinstance(response, str)
 
     @pytest.mark.parametrize(
-        "step_number, filename",
+        "step_number, filename, file_type",
         [
             (
                 0,
-                "./test_files/Abbie917_Frami345_ffa07c38-1f19-6336-9952-9152a6c882c9.json",
+                "./test_files/Abbie917_Frami345_ffa07c38-1f19-6336-9952-9152a6c882c9.json", "json"
             ),
-            (1, "./test_files/Anglea614_Blanche121_ibm_output.json"),
+            (1, "./test_files/Anglea614_Blanche121_ibm_output.json", "json"),
+            (
+                0,
+                "./test_files/Alvaro283_Weber641_4820e76c-c90c-f4ca-e9cc-0325959ab559.xml", "xml"
+            )
+            # TBD: Add intermediate test file for step 1 XML type
         ],
     )
-    def test_step(self, blaze_client, step_number, filename):
+    def test_step(self, blaze_client, step_number, filename, file_type):
         """Test for steps 0 and 1"""
         if step_number == 0:
-            with open(filename, "r") as file:
+            with open(filename, "r", encoding="utf-8") as file:
                 patient_id, response_json, export_response = blaze_client.step(
-                    step_number, file.read()
+                    step_number, file.read(), file_type
                 )
         else:
-            with open(filename, "r") as file:
+            with open(filename, "r", encoding="utf-8") as file:
                 data = json.load(file)
                 patient_id, response_json, export_response = blaze_client.step(
-                    step_number, data
+                    step_number, data, file_type
                 )
 
-        assert patient_id is not None
-        assert isinstance(response_json, dict)
-        assert isinstance(export_response, dict)
-
+        assert patient_id is not None 
+        if file_type == 'xml':
+            response_json = response_json.text
+            resp_type = str
+        else:
+            resp_type = dict
+        assert isinstance(response_json, resp_type)
+        assert isinstance(export_response, resp_type)
 
 if __name__ == "__main__":
     pytest.main()
+

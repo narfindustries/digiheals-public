@@ -23,7 +23,7 @@ class BlazeClient(AbstractClient):
 
     def export_patients(self):
         """Calls the FHIR API to export all patients"""
-        # TBD: XML capabilities
+        # TBD: XML capabilities.
         try:
             r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
             return (r.status_code, r.json())
@@ -115,7 +115,6 @@ class BlazeClient(AbstractClient):
         If not, then we can import the file as is
         """
         patient_id = None
-        response_json = None
         if step_number == 0:
             if file_type == "json":
                 json_data = json.loads(data)
@@ -136,7 +135,7 @@ class BlazeClient(AbstractClient):
                     if resource is not None:
                         patient = resource.find("fhir:Patient", ns)
                         if patient is not None:
-                            patient_data = ET.tostring(patient, encoding="unicode")
+                            patient_data = ET.tostring(patient, encoding="utf-8")
             (patient_id, response_data) = self.create_patient(patient_data, file_type)
         else:
             # This means we just got a full file from another server, simply upload it
