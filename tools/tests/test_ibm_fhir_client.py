@@ -71,7 +71,7 @@ class TestIBMFHIRClient:
     )
     def test_step(self, ibm_fhir_client, step_number, filename):
         """Test for steps 0 and 1"""
-        file_type = 'json' # Only JSON support is available for IBM currently
+        file_type = "json"  # Only JSON support is available for IBM currently
         if step_number == 0:
             with open(filename, "r") as file:
                 patient_id, response_json, export_response = ibm_fhir_client.step(

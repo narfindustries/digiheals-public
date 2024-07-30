@@ -68,7 +68,7 @@ class TestVistaClient:
     )
     def test_step(self, vista_client, step_number, filename):
         """Test for steps 0 and 1"""
-        file_type = 'json' # Only JSON support is available for Vista currently
+        file_type = "json"  # Only JSON support is available for Vista currently
         if step_number == 0:
             with open(filename, "r") as file:
                 patient_id, response_json, export_response = vista_client.step(
@@ -78,7 +78,7 @@ class TestVistaClient:
             with open(filename, "r") as file:
                 data = json.load(file)
                 patient_id, response_json, export_response = vista_client.step(
-                    step_number, data, 'json'
+                    step_number, data, "json"
                 )
 
         if patient_id is None and "Duplicate SSN" in response_json.get(

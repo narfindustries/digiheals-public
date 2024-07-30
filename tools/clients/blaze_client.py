@@ -54,8 +54,6 @@ class BlazeClient(AbstractClient):
             "Accept": header_text,
             "Content-Type": header_text,
         }
-        if file_type == "json":
-            data = json.dumps(data)
         r = requests.post(
             f"{self.fhir}/{self.base}/Patient",
             data=file.read(),

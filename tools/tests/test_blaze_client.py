@@ -10,6 +10,7 @@ import sys
 sys.path.append("../clients")
 from blaze_client import BlazeClient
 
+
 # Define fixture with scope limited to duration of module
 @pytest.fixture(scope="module")
 def blaze_client():
@@ -18,6 +19,7 @@ def blaze_client():
     base = "fhir"
     client = BlazeClient(fhir, base)
     yield client
+
 
 @pytest.fixture(scope="module")
 def patient_data_json():
@@ -30,17 +32,18 @@ def patient_data_json():
         for entry in json_data["entry"]:
             if entry["resource"]["resourceType"] == "Patient":
                 return entry["resource"]
-            
+
+
 @pytest.fixture(scope="module")
 def patient_data_xml():
     """Read Patient Data XML File"""
     with open(
-        "./test_files/Alvaro283_Weber641_4820e76c-c90c-f4ca-e9cc-0325959ab559.xml",
+        "./test_files/Elaina826_Dayna943_Marvin195_b25b43b3-3284-0867-dfdb-f8f9a32fbc91.xml",
         "r",
     ) as file:
         tree = ET.parse(file)
         root = tree.getroot()
-        ns = {'fhir': 'http://hl7.org/fhir'} 
+        ns = {"fhir": "http://hl7.org/fhir"}
         # Traverse XML tree to find Patient resource
         for entry in root.findall("fhir:entry", ns):
             resource = entry.find("fhir:resource", ns)
@@ -48,7 +51,7 @@ def patient_data_xml():
                 patient = resource.find("fhir:Patient", ns)
                 if patient is not None:
                     return ET.tostring(patient, encoding="utf-8")
- 
+
 
 # Parameterized to run fixture once for json and once for xml (runs twice in this case)
 @pytest.fixture(scope="module", params=["json", "xml"])
@@ -65,7 +68,6 @@ def patient_id(blaze_client, patient_data_json, patient_data_xml, request):
     return patient_id, request.param
 
 
-
 class TestBlazeClient:
 
     def test_create_patient_fromfile(self, patient_id):
@@ -78,7 +80,7 @@ class TestBlazeClient:
         """Test export_patients"""
         status_code, response = blaze_client.export_patients()
         assert status_code == 200
-        assert isinstance(response, dict) # Response is in json by default
+        assert isinstance(response, dict)  # Response is in json by default
 
     def test_export_patient(self, blaze_client, patient_id):
         """Test export_patient"""
@@ -95,14 +97,16 @@ class TestBlazeClient:
         [
             (
                 0,
-                "./test_files/Abbie917_Frami345_ffa07c38-1f19-6336-9952-9152a6c882c9.json", "json"
+                "./test_files/Abbie917_Frami345_ffa07c38-1f19-6336-9952-9152a6c882c9.json",
+                "json",
             ),
             (1, "./test_files/Anglea614_Blanche121_ibm_output.json", "json"),
             (
                 0,
-                "./test_files/Alvaro283_Weber641_4820e76c-c90c-f4ca-e9cc-0325959ab559.xml", "xml"
-            )
-            # TBD: Add intermediate test file for step 1 XML type
+                "./test_files/Elaina826_Dayna943_Marvin195_b25b43b3-3284-0867-dfdb-f8f9a32fbc91.xml",
+                "xml",
+            ),
+            (1, "./test_files/Miguel815_Alejandro916_blaze_step_1_output.xml", "xml"),
         ],
     )
     def test_step(self, blaze_client, step_number, filename, file_type):
@@ -114,13 +118,13 @@ class TestBlazeClient:
                 )
         else:
             with open(filename, "r", encoding="utf-8") as file:
-                data = json.load(file)
+                data = file.read() if file_type == "xml" else json.load(file)
                 patient_id, response_json, export_response = blaze_client.step(
                     step_number, data, file_type
                 )
 
-        assert patient_id is not None 
-        if file_type == 'xml':
+        assert patient_id is not None
+        if file_type == "xml":
             response_json = response_json.text
             resp_type = str
         else:
@@ -128,6 +132,6 @@ class TestBlazeClient:
         assert isinstance(response_json, resp_type)
         assert isinstance(export_response, resp_type)
 
+
 if __name__ == "__main__":
     pytest.main()
-

@@ -54,8 +54,6 @@ class HapiClient(AbstractClient):
             "Accept": header_text,
             "Content-Type": header_text,
         }
-        if file_type == "json":
-            data = json.dumps(data)
         r = requests.post(
             f"{self.fhir}/{self.base}/Patient",
             data=file.read(),
@@ -87,7 +85,7 @@ class HapiClient(AbstractClient):
         if file_type == "json":
             data = json.dumps(data)
         r = requests.post(
-            f"{self.fhir}/{self.base}/Patient",
+            f"{self.fhir}/{self.base}/Patient",  # /$everything returns Bundle type
             data=data,
             timeout=10,
             headers=headers,
@@ -136,7 +134,7 @@ class HapiClient(AbstractClient):
                     if resource is not None:
                         patient = resource.find("fhir:Patient", ns)
                         if patient is not None:
-                            patient_data = ET.tostring(patient, encoding="unicode")
+                            patient_data = ET.tostring(patient, encoding="utf-8")
             (patient_id, response_data) = self.create_patient(patient_data, file_type)
         else:
             # This means we just got a full file from another server, simply upload it
