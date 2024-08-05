@@ -24,6 +24,10 @@ from vista_client import VistaClient
 import db
 from cli_options import add_chain_options
 
+import os
+
+neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
+
 config = configparser.ConfigParser()
 config.read("config.ini")
 
@@ -71,7 +75,11 @@ def check_connection(chain=None):
             sys.exit(1)
 
     try:
-        neo4j_req = requests.get("http://localhost:7474")
+        if neo4j_env == "neo4jDev":
+            port = "7474"
+        elif neo4j_env == "neo4jTest":
+            port = "7475"
+        neo4j_req = requests.get(f"http://localhost:{port}")
         print(f"neo4j server responded with code: {neo4j_req.status_code}")
     except ConnectionResetError as e:
         print(f"{e}: Error starting neo4j.")

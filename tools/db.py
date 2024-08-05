@@ -7,11 +7,20 @@ Create a client for the Neo4J server
 TODO: Functions in this file will throw errors/Exceptions.
 """
 
+# Set env variable before starting docker containers. export COMPOSE_PROFILES=neo4jDev or neo4jTest
+
 from neo4j import GraphDatabase
 import json
+import os
 
-URI = "neo4j://localhost:7687"
-AUTH = ("neo4j", "fhir-garden")
+neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
+
+if neo4j_env == "neo4jDev":
+    URI = "neo4j://localhost:7687"
+    AUTH = ("neo4j", "fhir-garden")
+elif neo4j_env == "neo4jTest":
+    URI = "neo4j://localhost:7688"
+    AUTH = ("neo4j", "test-garden")
 
 
 def __create_servers(tx, name):

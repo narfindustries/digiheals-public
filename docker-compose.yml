@@ -81,45 +81,6 @@ services:
     ports:
       - 127.0.0.1:8002:8080
 
-  db-openmrs:
-    image: mariadb:11.4.2
-    environment:
-      MARIADB_DATABASE: openmrs
-      MARIADB_USER: openmrs
-      MARIADB_PASSWORD: openmrs
-      MARIADB_ROOT_PASSWORD: openmrs
-    volumes:
-      - db-openmrs-vol:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
-      start_period: 30s
-      interval: 30s
-      timeout: 5s
-      retries: 3
-
-  openmrs:
-    depends_on:
-      - db-openmrs
-    build: ./ehr-garden/openmrs
-    image: openmrs/openmrs-core:2.6.5
-    restart: always
-    environment:
-      OMRS_DB_HOSTNAME: db-openmrs
-      OMRS_DB_NAME: openmrs
-      OMRS_DB_USERNAME: openmrsx
-      OMRS_DB_PASSWORD: openmrs
-      OMRS_ADMIN_USER_PASSWORD: Admin123
-      OMRS_ADMIN_PASSWORD_LOCKED: true
-    ports:
-      - 127.0.0.1:8003:8080
-    volumes:
-      - openmrs-data:/openmrs/data/
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/openmrs"]
-      interval: 3s
-      timeout: 5s
-      retries: 3
-
   hapi-fhir:
     image: hapiproject/hapi:latest
     ports:
@@ -155,6 +116,21 @@ services:
       - 127.0.0.1:7687:7687
     volumes:
       - neo4jvolume:/data
+    profiles: 
+      - neo4jDev
+  
+  neo4j-test:
+    image: neo4j:5.19.0-bullseye
+    container_name: neo4jTest
+    environment:
+      NEO4J_AUTH: neo4j/test-garden
+    ports:
+      - 127.0.0.1:7475:7474
+      - 127.0.0.1:7688:7687
+    volumes:
+      - ./neo4jTest/data:/data
+    profiles: 
+      - neo4jTest
 
   java-json-echo:
     build: ./json-garden/java
@@ -195,4 +171,6 @@ volumes:
   db-openmrs-vol:
   openmrs-data:
   blaze-data:
-  neo4jvolume:
+  neo4jvolume: {}
+  neo4jTestvolume: {}
+
