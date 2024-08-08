@@ -14,6 +14,7 @@ Running
 -----
 
 - `git submodule update --init --recursive`
+- `export COMPOSE_PROFILES=neo4jDev` or `export COMPOSE_PROFILES=neo4jTest` to set between Dev or Test Environment
 - `docker compose up` should get the containers built and spinning.
 
 > **_NOTE:_**  Although we provide Docker setups for some FHIR servers and EHRs, these must not be used in production setups. This repository contains hardcoded passwords and ports meant to make fuzzing and bug discovery easy.
@@ -21,9 +22,11 @@ Running
 Game of Telephone
 -----
 - `telephone-basic.py`: A simple script that would upload a file to Vista, pass it on to HAPI FHIR, and then to IBM FHIR server.
-- `telephone.py --file FILENAME -c hop1 -c hop2 -c hop3`, where the hops can be `ibm`, `hapi`, or `vista`.
+- `telephone.py --file FILENAME --type <xml or json> -c hop1 -c hop2 -c hop3`, where the hops can be `ibm`, `hapi`, or `vista`.
 - Or `telephone.py --generate -c hop1 -c hop2 -c hop3`, if you want to generate a new file via Synthea on the fly.
 - Or `telephone.py --generate --all-chains --chain-length 2`, if you want to generate all possible chains.
+
+> **_NOTE:_**  Supports FHIR JSON and XML (for Hapi and Blaze). 
 
 Contributing
 -----
@@ -58,15 +61,29 @@ FHIR Data Comparisons
 
 For every chain, the FHIR data moving between servers can be compared data integrity and sanity. The comparison can be run from `tools/`.
 Use the following commands:
-- `python3 diff.py --compare --guid guid_sequence --all-depths` to compare the paths taken by the guid for all hops.
-- `python3 diff.py --compare --all-guid --depth 1` to make the comparisons for paths with a single hop. The all-guid flag will return paths for all guids that exist in the graph.
+- `python3 diff.py --guid guid_sequence --type <xml or json> --all-depths` to compare the paths taken by the guid for all hops.
+- `python3 diff.py --guid guid_sequence --type <xml or json> --depth 1` to make the comparisons for paths with a single hop. 
 
 The results will show the differences (if they exist) between the input and output FHIR data through the nodes in a path.
+
+To run the entire process of Game of Telephone and their corresponding Data Comparisons, run the following:
+- `python3 run_scripts.py --generate --all-chains --chain-length 2`
+- `python3 run_scripts.py --file <file_name> --type xml -c hapi -c blaze`
+
+
+
+
 
 Tests
 -----
 
+To run the test environment:
+1. `mkdir -p neo4jTest` 
+2. `tar -xJf neo4jTest.tar.xz -C neo4jTest/` Untar the volume mount for the Test Server
+3. `export COMPOSE_PROFILES=neo4jTest` Set env variable before building containers
+
 Unit tests for Synthea file generation and FHIR clients are in `tools/tests`. Run `make test` from the root directory to run all tests. 
+
 
 License
 -----
