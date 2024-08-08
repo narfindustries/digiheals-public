@@ -7,21 +7,11 @@ import json
 from xml.etree import ElementTree as ET
 
 from cli_options import add_chain_options
-from telephone import telephone_function
+from telephone import telephone_function, validate_options
 from diff import db_query
 
 
 config = ["vista", "ibm", "blaze", "hapi"]
-
-
-def validate_options(file_type, chain, all_chains):
-    """Validate the combination of options."""
-    if file_type.lower() == "xml" and (
-        all_chains or any(c in chain for c in ["ibm", "vista"])
-    ):
-        raise click.BadParameter(
-            "Combination not possible: --type xml with -c ibm or vista, or --all-chains."
-        )
 
 
 def validate_file_type(file_type, file):

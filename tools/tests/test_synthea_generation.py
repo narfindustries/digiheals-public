@@ -4,7 +4,6 @@ Create unit test for Synthea FHIR JSON file generation
 
 import pytest
 import requests
-import os
 import time
 
 

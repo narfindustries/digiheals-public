@@ -1,0 +1,1 @@
+{'dictionary_item_added': [root['meta']['versionId'], root['meta']['lastUpdated'], root['meta']['source']], 'values_changed': {"root['id']": {'new_value': '25', 'old_value': 'ffa07c38-1f19-6336-9952-9152a6c882c9'}}, 'deep_distance': 0.008968609865470852}

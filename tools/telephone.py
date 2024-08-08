@@ -51,6 +51,16 @@ client_map = {
 }
 
 
+def validate_options(file_type, chain, all_chains):
+    """Validate the combination of options."""
+    if file_type.lower() == "xml" and (
+        all_chains or any(c in chain for c in ["ibm", "vista"])
+    ):
+        raise click.BadParameter(
+            "Combination not possible: --type xml with -c ibm or vista, or --all-chains."
+        )
+
+
 def check_connection(chain=None):
     """
     Send requests to all the servers to ensure they are up and returning 200s
@@ -213,6 +223,7 @@ def telephone_function(chain_length, file, generate, chain, all_chains, file_typ
     Vista takes a different format (Bundle Resource) as input, whereas others require a patient
     """
     check_connection(chain)  # Make sure all the images are up
+    validate_options(file_type, chain, all_chains)
     first_node = "file"  # By default assume that we are reading from a CLI file
     guid = str(uuid.uuid4())
 

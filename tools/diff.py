@@ -18,8 +18,16 @@ from deepdiff import DeepDiff
 
 from cli_options import add_diff_options
 
-URI = "neo4j://localhost:7687"
-AUTH = ("neo4j", "fhir-garden")
+import os
+
+neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
+
+if neo4j_env == "neo4jDev":
+    URI = "neo4j://localhost:7687"
+    AUTH = ("neo4j", "fhir-garden")
+elif neo4j_env == "neo4jTest":
+    URI = "neo4j://localhost:7688"
+    AUTH = ("neo4j", "test-garden")
 
 
 def run_query(query, params=None):
@@ -121,10 +129,7 @@ def compare_paths(paths, chains, file_type):
         if chains:
             chain_order = is_increasing_consecutive(relationship_ids)
         else:
-            if relationship_ids[0] in edge_list:
-                chain_order = False
-            else:
-                chain_order = True
+            chain_order = False if relationship_ids[0] in edge_list else True
 
         if chain_order:
             # Each segment of the path will have relationships
@@ -216,7 +221,6 @@ def compare_paths(paths, chains, file_type):
                                             file1 = ET.tostring(
                                                 patient, encoding="unicode"
                                             )
-
                         match, result = compare_function(file1, file2, file_type)
                         chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
                         diff_score = 0 if match else round(result["deep_distance"], 4)
@@ -257,10 +261,10 @@ def compare_paths(paths, chains, file_type):
                         )
                     )
 
-                print("\n")
+                # print("\n")
 
         else:
-            print("\n")
+            pass
 
 
 @click.command()
