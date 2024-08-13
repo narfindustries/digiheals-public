@@ -50,6 +50,10 @@ def test_chain_creation_and_cleanup(
         chain_length, file, generate, chain, all_chains, file_type
     )
 
+    # Check if all nodes exist
+    nodes = get_all_nodes(neo4j_test_db)
+    assert len(nodes) == 8, "Missing few nodes"
+
     # Check if edges for this guid exist
     edges = get_edges_by_guid(neo4j_test_db, guid)
     assert len(edges) > 0, "No edges created for guid"
@@ -58,6 +62,14 @@ def test_chain_creation_and_cleanup(
     remove_edges_by_guid(neo4j_test_db, guid)
     edges_after_cleanup = get_edges_by_guid(neo4j_test_db, guid)
     assert len(edges_after_cleanup) == 0, "Edges not cleaned up after test"
+
+
+def get_all_nodes(neo4j_test_db):
+    """Query to get all nodes in the db"""
+    with neo4j_test_db.session() as session:
+        query = """MATCH (n) RETURN n.name"""
+        result = session.run(query)
+        return [record for record in result]
 
 
 def get_edges_by_guid(neo4j_test_db, guid):
