@@ -9,12 +9,14 @@ from typing import Optional, Dict
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 
+
 @dataclasses.dataclass
-class JsonFuzzEvent():
+class JsonFuzzEvent:
     input_path: Path
     output_path: Optional[Path] = None
     fuzzed: bool = False
@@ -24,8 +26,9 @@ class JsonFuzzEvent():
         return self.input_path.name
 
     def fuzz(self, data):
-        fuzzer = PJFFactory(PJFConfiguration(
-            Namespace(json=json.loads(data), level=6, nologo=True)))
+        fuzzer = PJFFactory(
+            PJFConfiguration(Namespace(json=json.loads(data), level=6, nologo=True))
+        )
         fuzzed = fuzzer.fuzzed
         with open(self.output_path, "w") as out:
             out.write(fuzzed)
@@ -40,17 +43,20 @@ class JsonFuzzEvent():
         file_fuzz_dir = JsonFuzzSession.OUTPUT_DIR
         if not file_fuzz_dir.exists():
             file_fuzz_dir.mkdir(parents=True)
-        out = tempfile.NamedTemporaryFile(dir=file_fuzz_dir,
-                                          prefix=self.filename + ".fuzz.",
-                                          suffix=".json",
-                                          delete=False, mode="w")
+        out = tempfile.NamedTemporaryFile(
+            dir=file_fuzz_dir,
+            prefix=self.filename + ".fuzz.",
+            suffix=".json",
+            delete=False,
+            mode="w",
+        )
         self.output_path = Path(out.name)
         # tempfile creates with rw------- perms, make it world readable
         out.close()
         self.output_path.chmod(0o644)
 
 
-class JsonFuzzSession():
+class JsonFuzzSession:
     SESSIONS = {}
     OUTPUT_DIR = Path("/synthea/output/fuzzed")
     THREAD_POOL = ThreadPoolExecutor(max_workers=5)

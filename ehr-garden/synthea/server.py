@@ -62,15 +62,17 @@ def do_fuzz(filename):
     seed = request.args.get("seed", None)
     if seed is not None:
         seed = int(seed)
-    sess = fuzz.JsonFuzzSession.get_session(filepath,
-                                            filepath,
-                                            seed=seed)
+    sess = fuzz.JsonFuzzSession.get_session(filepath, filepath, seed=seed)
     events = sess.fuzz(int(request.args.get("count", 1)))
-    return jsonify({
-        "success": True,
-        "results": [{"filename": event.filename,
-                     "output_name": event.output_name} for event in events]
-    })
+    return jsonify(
+        {
+            "success": True,
+            "results": [
+                {"filename": event.filename, "output_name": event.output_name}
+                for event in events
+            ],
+        }
+    )
 
 
 def _is_fuzzing(filename):
@@ -87,10 +89,14 @@ def _is_fuzzing(filename):
     for sess in sessions:
         pend = sess.pending_fuzzes
         pending += pending
-    return jsonify({"result": bool(pending),
-                    "success": True,
-                    "count": len(pending),
-                    "pending": [str(p) for p in pending]})
+    return jsonify(
+        {
+            "result": bool(pending),
+            "success": True,
+            "count": len(pending),
+            "pending": [str(p) for p in pending],
+        }
+    )
 
 
 @app.route("/pending_fuzz/")

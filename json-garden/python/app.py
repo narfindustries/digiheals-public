@@ -11,7 +11,9 @@ from flask import jsonify
 app = Flask(__name__)
 
 app.json.ensure_ascii = False
-@app.route("/gnuhealthecho",  methods=['POST'])
+
+
+@app.route("/gnuhealthecho", methods=["POST"])
 def echo_json():
     data = json.loads(request.get_data())
     return jsonify(data)
