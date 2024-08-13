@@ -81,6 +81,45 @@ services:
     ports:
       - 127.0.0.1:8002:8080
 
+  db-openmrs:
+    image: mariadb:11.4.2
+    environment:
+      MARIADB_DATABASE: openmrs
+      MARIADB_USER: openmrs
+      MARIADB_PASSWORD: openmrs
+      MARIADB_ROOT_PASSWORD: openmrs
+    volumes:
+      - db-openmrs-vol:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  openmrs:
+    depends_on:
+      - db-openmrs
+    build: ./ehr-garden/openmrs
+    image: openmrs/openmrs-core:2.6.5
+    restart: always
+    environment:
+      OMRS_DB_HOSTNAME: db-openmrs
+      OMRS_DB_NAME: openmrs
+      OMRS_DB_USERNAME: openmrsx
+      OMRS_DB_PASSWORD: openmrs
+      OMRS_ADMIN_USER_PASSWORD: Admin123
+      OMRS_ADMIN_PASSWORD_LOCKED: true
+    ports:
+      - 127.0.0.1:8003:8080
+    volumes:
+      - openmrs-data:/openmrs/data/
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/openmrs"]
+      interval: 3s
+      timeout: 5s
+      retries: 3
+
   hapi-fhir:
     image: hapiproject/hapi:latest
     ports:
