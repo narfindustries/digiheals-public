@@ -12,7 +12,8 @@ import requests
 from pathlib import Path
 import time
 
-class FuzzClient():
+
+class FuzzClient:
     """Allow users to easy create a new patient and export all patients"""
 
     def __init__(self, url):
@@ -54,7 +55,13 @@ class FuzzClient():
 
 
 @click.command()
-@click.option("-f", "--file", type=click.Path(exists=True, dir_okay=False, path_type=Path), required=True, multiple=True)
+@click.option(
+    "-f",
+    "--file",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    required=True,
+    multiple=True,
+)
 @click.option("-u", "--url", default="http://localhost:9000")
 def cli_options(file, url):
     """

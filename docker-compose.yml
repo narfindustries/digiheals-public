@@ -155,6 +155,21 @@ services:
       - 127.0.0.1:7687:7687
     volumes:
       - neo4jvolume:/data
+    profiles: 
+      - neo4jDev
+  
+  neo4j-test:
+    image: neo4j:5.19.0-bullseye
+    container_name: neo4jTest
+    environment:
+      NEO4J_AUTH: neo4j/test-garden
+    ports:
+      - 127.0.0.1:7475:7474
+      - 127.0.0.1:7688:7687
+    volumes:
+      - ./neo4jTest/data:/data
+    profiles: 
+      - neo4jTest
 
   java-json-echo:
     build: ./json-garden/java
@@ -195,4 +210,6 @@ volumes:
   db-openmrs-vol:
   openmrs-data:
   blaze-data:
-  neo4jvolume:
+  neo4jvolume: {}
+  neo4jTestvolume: {}
+

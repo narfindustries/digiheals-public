@@ -10,6 +10,7 @@ import click
 import json
 import requests
 from abstract_client import AbstractClient
+import xml.etree.ElementTree as ET
 
 
 class BlazeClient(AbstractClient):
@@ -22,26 +23,36 @@ class BlazeClient(AbstractClient):
 
     def export_patients(self):
         """Calls the FHIR API to export all patients"""
+        # TBD: XML capabilities.
         try:
             r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
             return (r.status_code, r.json())
         except Exception as e:
             return (-1, str(e))
 
-    def export_patient(self, p_id):
+    def export_patient(self, p_id, file_type):
         """Calls the FHIR API to export all patients"""
+        header_text = "application/fhir+" + file_type
+        headers = {"Accept": header_text}
         r = requests.get(
-            f"{self.fhir}/{self.base}/Patient/{p_id}", timeout=100, verify=False
+            f"{self.fhir}/{self.base}/Patient/{p_id}",
+            headers=headers,
+            timeout=100,
+            verify=False,
         )
-        response_json = r.json()
-        return (r.status_code, response_json)
+        if file_type == "json":
+            response_data = r.json()
+        else:
+            response_data = r.text
+        return (r.status_code, response_data)
 
-    def create_patient_fromfile(self, file):
-        """Create a new patient from a FHIR JSON file"""
+    def create_patient_fromfile(self, file, file_type):
+        """Create a new patient from a FHIR XML/JSON file"""
         patient_id = None
+        header_text = "application/fhir+" + file_type
         headers = {
-            "Accept": "application/fhir+json",
-            "Content-Type": "application/json",
+            "Accept": header_text,
+            "Content-Type": header_text,
         }
         r = requests.post(
             f"{self.fhir}/{self.base}/Patient",
@@ -51,17 +62,28 @@ class BlazeClient(AbstractClient):
             verify=False,
         )
         if r.status_code == 201:
-            response = r.json()
-            patient_id = response["id"]
+            if file_type == "json":
+                response = r.json()
+                patient_id = response["id"]
+            else:
+                response = r.text
+                root = ET.fromstring(response)
+                ns = {"fhir": "http://hl7.org/fhir"}
+                patient_id_element = root.find("fhir:id", ns)
+                if patient_id_element is not None:
+                    patient_id = patient_id_element.get("value")
         return (patient_id, r)
 
-    def create_patient(self, data):
-        """Create a new patient from a FHIR JSON file"""
+    def create_patient(self, data, file_type):
+        """Create a new patient from a FHIR XML/JSON file"""
         patient_id = None
+        header_text = "application/fhir+" + file_type
         headers = {
-            "Accept": "application/fhir+json",
-            "Content-Type": "application/json",
+            "Accept": header_text,
+            "Content-Type": header_text,
         }
+        if file_type == "json":
+            data = json.dumps(data)
         r = requests.post(
             f"{self.fhir}/{self.base}/Patient",
             data=data,
@@ -70,11 +92,20 @@ class BlazeClient(AbstractClient):
             verify=False,
         )
         if r.status_code == 201:
-            response = r.json()
-            patient_id = response["id"]
+            if file_type == "json":
+                response = r.json()
+                patient_id = response["id"]
+            else:
+                response = r.text
+                root = ET.fromstring(response)
+                ns = {"fhir": "http://hl7.org/fhir"}
+                patient_id_element = root.find("fhir:id", ns)
+                if patient_id_element is not None:
+                    patient_id = patient_id_element.get("value")
+
         return (patient_id, r)
 
-    def step(self, step_number: int, data):
+    def step(self, step_number: int, data, file_type):
         """
         Called from the GoT scripts
         If its the first step, we just got a FHIR JSON file from Synthea.
@@ -82,23 +113,42 @@ class BlazeClient(AbstractClient):
         If not, then we can import the file as is
         """
         patient_id = None
-        response_json = None
         if step_number == 0:
-            json_data = json.loads(data)
-            patient_data = None
-            for entry in json_data["entry"]:
-                if entry["resource"]["resourceType"] == "Patient":
-                    patient_data = entry["resource"]
-            (patient_id, response_json) = self.create_patient(json.dumps(patient_data))
+            if file_type == "json":
+                json_data = json.loads(data)
+                patient_data = None
+                if json_data["entry"]:
+                    for entry in json_data["entry"]:
+                        if entry["resource"]["resourceType"] == "Patient":
+                            patient_data = entry["resource"]
+            else:
+                # File type is XML
+                tree = ET.ElementTree(ET.fromstring(data))
+                root = tree.getroot()
+                patient_data = None
+                ns = {"fhir": "http://hl7.org/fhir"}  # Define namespace
+                # Traverse XML tree to find Patient resource
+                for entry in root.findall("fhir:entry", ns):
+                    resource = entry.find("fhir:resource", ns)
+                    if resource is not None:
+                        patient = resource.find("fhir:Patient", ns)
+                        if patient is not None:
+                            patient_data = ET.tostring(patient, encoding="utf-8")
+            (patient_id, response_data) = self.create_patient(patient_data, file_type)
         else:
             # This means we just got a full file from another server, simply upload it
-            (patient_id, response_json) = self.create_patient(json.dumps(data))
+            (patient_id, response_data) = self.create_patient(data, file_type)
 
         if patient_id is None:
-            return (patient_id, response_json.json(), None)
+            return_response = (
+                response_data.json() if file_type == "json" else response_data
+            )
+            return (patient_id, return_response, None)
 
-        (status, export_response) = self.export_patient(patient_id)
-        return (patient_id, response_json.json(), export_response)
+        (status, export_response) = self.export_patient(patient_id, file_type)
+
+        return_response = response_data.json() if file_type == "json" else response_data
+        return (patient_id, return_response, export_response)
 
 
 @click.command()
@@ -116,7 +166,14 @@ def cli_options(file):
         else:
             print(status)
     else:
-        _, r = client.create_patient_fromfile(file)
+        try:
+            ET.parse(file)
+            file_type = "xml"
+        except ET.ParseError:
+            file_type = "json"
+        file = file.read()
+
+        _, r = client.create_patient_fromfile(file, file_type)
         print(r.text)
 
 

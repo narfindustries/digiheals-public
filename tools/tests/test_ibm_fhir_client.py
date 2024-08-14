@@ -71,16 +71,17 @@ class TestIBMFHIRClient:
     )
     def test_step(self, ibm_fhir_client, step_number, filename):
         """Test for steps 0 and 1"""
+        file_type = "json"  # Only JSON support is available for IBM currently
         if step_number == 0:
             with open(filename, "r") as file:
                 patient_id, response_json, export_response = ibm_fhir_client.step(
-                    step_number, file.read()
+                    step_number, file.read(), file_type
                 )
         else:
             with open(filename, "r") as file:
                 data = json.load(file)
                 patient_id, response_json, export_response = ibm_fhir_client.step(
-                    step_number, data
+                    step_number, data, file_type
                 )
 
         assert patient_id is not None
