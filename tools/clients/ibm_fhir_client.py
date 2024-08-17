@@ -107,12 +107,15 @@ class IBMFHIRClient(AbstractClient):
         patient_id = None
         response_json = None
         if step_number == 0:
-            json_data = json.loads(data)
-            patient_data = None
-            for entry in json_data["entry"]:
-                if entry["resource"]["resourceType"] == "Patient":
-                    patient_data = entry["resource"]
-            (patient_id, response_json) = self.create_patient(json.dumps(patient_data))
+            try:
+                json_data = json.loads(data)
+                patient_data = None
+                for entry in json_data["entry"]:
+                    if entry["resource"]["resourceType"] == "Patient":
+                        patient_data = entry["resource"]
+                (patient_id, response_json) = self.create_patient(json.dumps(patient_data))
+            except json.JSONDecodeError:
+                raise click.BadParameter("Malformed input json file.")
         else:
             # This means we just got a full file from another server, simply upload it
             data["communication"] = [
