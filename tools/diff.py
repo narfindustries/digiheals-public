@@ -195,35 +195,55 @@ def compare_paths(paths, chains, file_type):
                             or links[current_link_number][0] == "file"
                         ):
                             if file_type.lower() == "json":
-                                syn_file = json.loads(file1)
-                                # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
-                                if syn_file["resourceType"] == "Bundle":
-                                    for entries in syn_file["entry"]:
-                                        # Only one Patient resourceType exists
-                                        if (
-                                            entries["resource"]["resourceType"]
-                                            == "Patient"
-                                        ):
-                                            file1 = entries["resource"]
+                                try:
+                                    syn_file = json.loads(file1) # Need to load json twice as the data contains escaped spaces in string format
+                                    # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
+                                    if syn_file["resourceType"] == "Bundle":
+                                        for entries in syn_file["entry"]:
+                                            # Only one Patient resourceType exists
+                                            if (
+                                                entries["resource"]["resourceType"]
+                                                == "Patient"
+                                            ):
+                                                file1 = entries["resource"]
+                                except json.JSONDecodeError as e:
+                                    #print("Chain created, but input JSON is invalid:", e)
+                                    file1 = None
+                                    """Here, we say that the input file to a server is invalid, but then how did the server import it?
+                                    We skip the compare path function and directly print an invalid message to the table. 
+                                    """
+                                    pass
+                                
                             else:
                                 file1 = clean_string_from_file(file1)
                                 file2 = clean_string_from_file(file2)
 
-                                tree = ET.ElementTree(ET.fromstring(file1))
-                                root = tree.getroot()
-                                ns = {"fhir": "http://hl7.org/fhir"}  # Define namespace
-                                # Traverse XML tree to find Patient resource and only extract that
-                                for entry in root.findall("fhir:entry", ns):
-                                    resource = entry.find("fhir:resource", ns)
-                                    if resource is not None:
-                                        patient = resource.find("fhir:Patient", ns)
-                                        if patient is not None:
-                                            file1 = ET.tostring(
-                                                patient, encoding="unicode"
-                                            )
-                        match, result = compare_function(file1, file2, file_type)
+                                try:
+                                    tree = ET.ElementTree(ET.fromstring(file1))
+                                    root = tree.getroot()
+                                    ns = {"fhir": "http://hl7.org/fhir"}  # Define namespace
+                                    # Traverse XML tree to find Patient resource and only extract that
+                                    for entry in root.findall("fhir:entry", ns):
+                                        resource = entry.find("fhir:resource", ns)
+                                        if resource is not None:
+                                            patient = resource.find("fhir:Patient", ns)
+                                            if patient is not None:
+                                                file1 = ET.tostring(
+                                                    patient, encoding="unicode"
+                                                )
+                                except Exception as e:
+                                    file1 = None
+                                    pass
+                                
+                        if file1 is not None:
+                            match, result = compare_function(file1, file2, file_type)
+                            diff_score = 0 if match else round(result["deep_distance"], 4)
+                        else:
+                            match = False
+                            result = f"Malformed {file_type} input. Cannot perform Diff."
+                            diff_score = "-"
+
                         chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
-                        diff_score = 0 if match else round(result["deep_distance"], 4)
 
                         # Wrap text for columns
                         wrapped_guid = wrap_text(guid, 40)

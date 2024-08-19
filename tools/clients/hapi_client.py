@@ -116,12 +116,15 @@ class HapiClient(AbstractClient):
         response_data = None
         if step_number == 0:
             if file_type == "json":
-                json_data = json.loads(data)
-                patient_data = None
-                if json_data["entry"]:
-                    for entry in json_data["entry"]:
-                        if entry["resource"]["resourceType"] == "Patient":
-                            patient_data = entry["resource"]
+                try:
+                    json_data = json.loads(data)
+                    patient_data = None
+                    if json_data["entry"]:
+                        for entry in json_data["entry"]:
+                            if entry["resource"]["resourceType"] == "Patient":
+                                patient_data = entry["resource"]
+                except json.JSONDecodeError:
+                    raise click.BadParameter("Malformed input json file.")
             else:
                 # File type is XML
                 tree = ET.ElementTree(ET.fromstring(data))
