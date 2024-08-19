@@ -1,0 +1,20 @@
+neo4j server responded with code: 200
+Synthea server responded with code: 200
+Connections check successful.
+vista <neo4j._sync.work.result.Result object at 0x77b545a5e980>
+hapi <neo4j._sync.work.result.Result object at 0x77b545a5eb90>
+ibm <neo4j._sync.work.result.Result object at 0x77b545a5eec0>
+blaze <neo4j._sync.work.result.Result object at 0x77b545a5f1f0>
+synthea <neo4j._sync.work.result.Result object at 0x77b545a5f520>
+file <neo4j._sync.work.result.Result object at 0x77b545baaa40>
+end <neo4j._sync.work.result.Result object at 0x77b545a5f190>
+termination <neo4j._sync.work.result.Result object at 0x77b545a5ee60>
+@@@@
+
+None
+Chain terminated at step 0 ibm {} None
+d1479668-2176-4da8-9258-c9840c2b18b6 file ibm
+d1479668-2176-4da8-9258-c9840c2b18b6 <neo4j._sync.work.result.Result object at 0x77b545a5ec50>
+d1479668-2176-4da8-9258-c9840c2b18b6 ibm termination
+d1479668-2176-4da8-9258-c9840c2b18b6 <neo4j._sync.work.result.Result object at 0x77b545a50970>
+Error encountered processing step 0, node ibm
