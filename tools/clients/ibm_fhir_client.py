@@ -24,7 +24,7 @@ class IBMFHIRClient(AbstractClient):
         """Calls the FHIR API to export all patients"""
         try:
             r = requests.get(
-                f"{self.fhir}/{self.base}/Patient",
+                f"{self.fhir}/{self.base}/Bundle",
                 timeout=100,
                 verify=False,
                 auth=("fhiruser", "change-password"),
@@ -37,7 +37,7 @@ class IBMFHIRClient(AbstractClient):
     def export_patient(self, p_id):
         """Calls the FHIR API to export all patients"""
         r = requests.get(
-            f"{self.fhir}/{self.base}/Patient/{p_id}",
+            f"{self.fhir}/{self.base}/Bundle/{p_id}",
             timeout=100,
             verify=False,
             auth=("fhiruser", "change-password"),
@@ -65,7 +65,7 @@ class IBMFHIRClient(AbstractClient):
             "Content-Type": "application/json",
         }
         r = requests.post(
-            f"{self.fhir}/{self.base}/Patient",
+            f"{self.fhir}/{self.base}/Bundle",
             data=file.read(),
             timeout=10,
             headers=headers,
@@ -85,7 +85,7 @@ class IBMFHIRClient(AbstractClient):
             "Content-Type": "application/json",
         }
         r = requests.post(
-            f"{self.fhir}/{self.base}/Patient",
+            f"{self.fhir}/{self.base}/Bundle",
             data=data,
             timeout=10,
             headers=headers,
@@ -108,11 +108,7 @@ class IBMFHIRClient(AbstractClient):
         response_json = None
         if step_number == 0:
             try:
-                json_data = json.loads(data)
-                patient_data = None
-                for entry in json_data["entry"]:
-                    if entry["resource"]["resourceType"] == "Patient":
-                        patient_data = entry["resource"]
+                patient_data = json.loads(data)
                 (patient_id, response_json) = self.create_patient(json.dumps(patient_data))
             except json.JSONDecodeError:
                 raise click.BadParameter("Malformed input json file.")

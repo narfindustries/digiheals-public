@@ -25,7 +25,7 @@ class HapiClient(AbstractClient):
         """Calls the FHIR API to export all patients"""
         # TBD: XML capabilities
         try:
-            r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
+            r = requests.get(f"{self.fhir}/{self.base}/Bundle", timeout=100)
             return (r.status_code, r.json())
         except Exception as e:
             return (-1, str(e))
@@ -35,7 +35,7 @@ class HapiClient(AbstractClient):
         header_text = "application/fhir+" + file_type
         headers = {"Accept": header_text}
         r = requests.get(
-            f"{self.fhir}/{self.base}/Patient/{p_id}",
+            f"{self.fhir}/{self.base}/Bundle/{p_id}",
             headers=headers,
             timeout=100,
             verify=False,
@@ -55,7 +55,7 @@ class HapiClient(AbstractClient):
             "Content-Type": header_text,
         }
         r = requests.post(
-            f"{self.fhir}/{self.base}/Patient",
+            f"{self.fhir}/{self.base}/Bundle",
             data=file.read(),
             timeout=10,
             headers=headers,
@@ -85,7 +85,7 @@ class HapiClient(AbstractClient):
         if file_type == "json":
             data = json.dumps(data)
         r = requests.post(
-            f"{self.fhir}/{self.base}/Patient",  # /$everything returns Bundle type
+            f"{self.fhir}/{self.base}/Bundle",  # /$everything returns Bundle type
             data=data,
             timeout=10,
             headers=headers,
@@ -117,12 +117,8 @@ class HapiClient(AbstractClient):
         if step_number == 0:
             if file_type == "json":
                 try:
-                    json_data = json.loads(data)
-                    patient_data = None
-                    if json_data["entry"]:
-                        for entry in json_data["entry"]:
-                            if entry["resource"]["resourceType"] == "Patient":
-                                patient_data = entry["resource"]
+                    patient_data = json.loads(data)
+                    patient_data['type'] = "collection"
                 except json.JSONDecodeError:
                     raise click.BadParameter("Malformed input json file.")
             else:
