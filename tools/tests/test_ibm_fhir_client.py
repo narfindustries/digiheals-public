@@ -24,7 +24,8 @@ def patient_data():
     """Read Patient Data File"""
     with open(
         "./test_files/Luigi346_Quitzon246_bd63337a-ea66-952d-b02d-4a79db2ca530.json",
-        "r", encoding='utf-8'
+        "r",
+        encoding="utf-8",
     ) as file:
         json_data = json.loads(file.read())
         return json_data
@@ -71,12 +72,12 @@ class TestIBMFHIRClient:
         """Test for steps 0 and 1"""
         file_type = "json"  # Only JSON support is available for IBM currently
         if step_number == 0:
-            with open(filename, "r", encoding='utf-8') as file:
+            with open(filename, "r", encoding="utf-8") as file:
                 patient_id, response_json, export_response = ibm_fhir_client.step(
                     step_number, file.read(), file_type
                 )
         else:
-            with open(filename, "r", encoding='utf-8') as file:
+            with open(filename, "r", encoding="utf-8") as file:
                 data = json.load(file)
                 patient_id, response_json, export_response = ibm_fhir_client.step(
                     step_number, data, file_type

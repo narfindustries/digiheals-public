@@ -25,7 +25,8 @@ def patient_data_json():
     """Read Patient Data JSON File"""
     with open(
         "./test_files/Luigi346_Quitzon246_bd63337a-ea66-952d-b02d-4a79db2ca530.json",
-        "r", encoding='utf-8'
+        "r",
+        encoding="utf-8",
     ) as file:
         json_data = json.loads(file.read())
         return json_data
@@ -34,10 +35,7 @@ def patient_data_json():
 @pytest.fixture(scope="module")
 def patient_data_xml():
     """Read Patient Data XML File"""
-    with open(
-        "./test_files/Elena945_Sipes176.xml",
-        "r", encoding='utf-8'
-    ) as file:
+    with open("./test_files/Elena945_Sipes176.xml", "r", encoding="utf-8") as file:
         return file.read()
 
 
