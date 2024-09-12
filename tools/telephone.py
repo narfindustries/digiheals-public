@@ -12,11 +12,6 @@ import copy
 import configparser
 import requests
 
-from blaze_client import BlazeClient
-from hapi_client import HapiClient
-from ibm_fhir_client import IBMFHIRClient
-from vista_client import VistaClient
-
 import db
 from cli_options import add_chain_options
 
@@ -24,6 +19,10 @@ import click
 from click_option_group import OptionGroup
 
 sys.path.append("./clients")
+from blaze_client import BlazeClient
+from hapi_client import HapiClient
+from ibm_fhir_client import IBMFHIRClient
+from vista_client import VistaClient
 
 neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
 

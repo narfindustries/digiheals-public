@@ -57,7 +57,6 @@ class VistaClient(AbstractClient):
             response = r.json()
             if response["status"] == "ok" and response.get("ien"):
                 patient_id = response["ien"]
-                print(patient_id)
         return (patient_id, r)
 
     def step(self, step_number: int, data, _):

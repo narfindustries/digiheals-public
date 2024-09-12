@@ -41,7 +41,7 @@ class HapiClient(AbstractClient):
             verify=False,
         )
         if file_type == "json":
-            response_data = r.json()
+            response_data = r.json()         
         else:
             response_data = r.text
         return (r.status_code, response_data)
@@ -86,12 +86,14 @@ class HapiClient(AbstractClient):
             data["type"] = "collection"
             data = json.dumps(data)
         else:
+            ns = {'fhir': 'http://hl7.org/fhir'}
+            data = data.strip()
             root = fromstring(data)
-            type_element = root.find("type")
+            type_element = root.find("fhir:type", ns)
             if type_element is not None:
-                type_element.text = "collection"
+                type_element.set('value', 'collection') 
                 data = tostring(root, encoding="utf-8")
-
+                
         r = requests.post(
             f"{self.fhir}/{self.base}/Bundle",  # /$everything returns Bundle type
             data=data,

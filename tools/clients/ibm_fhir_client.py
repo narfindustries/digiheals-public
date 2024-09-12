@@ -93,7 +93,6 @@ class IBMFHIRClient(AbstractClient):
             auth=("fhiruser", "change-password"),
         )
         patient_id = None
-        print(r.status_code)
         if r.status_code == 201:
             patient_id = self.__get_new_patient_id(before_json)
         return (patient_id, r)

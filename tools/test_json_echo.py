@@ -7,18 +7,16 @@ analyzing the results
 
 """
 
-import click
-from clients.echo_clients import EchoClient, EHRMapping, Parsers
 from pathlib import Path
-from datetime import datetime
-import os
+import json
 import sys
 import shutil
 import logging
+import click
+from clients.echo_clients import EchoClient, EHRMapping, Parsers
 import deepdiff
-import pprint
+
 from utils import parser
-import json
 
 logger = logging.getLogger(__name__)
 logging.basicConfig()
