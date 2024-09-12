@@ -3,11 +3,10 @@
 # vim:fenc=utf-8
 #
 """
-Create a Client for vista that can create patients and pull data
+Create a Client for ibm that can create patients and pull data
 """
-
-import click
 import json
+import click
 import requests
 from abstract_client import AbstractClient
 
@@ -49,7 +48,8 @@ class IBMFHIRClient(AbstractClient):
         """
         Get the patient ID by pulling full list of patients before and after
         """
-        (status, after_json) = self.export_patients()
+        (_, after_json) = self.export_patients()
+
         if len(after_json["entry"]) == 1:
             return after_json["entry"][0]["resource"]["id"]
 
@@ -59,7 +59,7 @@ class IBMFHIRClient(AbstractClient):
 
     def create_patient_fromfile(self, file):
         """Create a new patient from a FHIR JSON file"""
-        (b_status, before_json) = self.export_patients()
+        (_, before_json) = self.export_patients()
         headers = {
             "Accept": "application/fhir+json",
             "Content-Type": "application/json",
@@ -79,7 +79,7 @@ class IBMFHIRClient(AbstractClient):
 
     def create_patient(self, data):
         """Create a new patient from a FHIR JSON file"""
-        (b_status, before_json) = self.export_patients()
+        (_, before_json) = self.export_patients()
         headers = {
             "Accept": "application/fhir+json",
             "Content-Type": "application/json",
@@ -93,6 +93,7 @@ class IBMFHIRClient(AbstractClient):
             auth=("fhiruser", "change-password"),
         )
         patient_id = None
+        print(r.status_code)
         if r.status_code == 201:
             patient_id = self.__get_new_patient_id(before_json)
         return (patient_id, r)
@@ -105,35 +106,24 @@ class IBMFHIRClient(AbstractClient):
         If not, then we can import the file as is
         """
         patient_id = None
-        response_json = None
         if step_number == 0:
             try:
                 patient_data = json.loads(data)
-                (patient_id, response_json) = self.create_patient(json.dumps(patient_data))
+                (patient_id, _) = self.create_patient(json.dumps(patient_data))
             except json.JSONDecodeError:
                 raise click.BadParameter("Malformed input json file.")
         else:
             # This means we just got a full file from another server, simply upload it
-            data["communication"] = [
-                {
-                    "language": {
-                        "coding": [
-                            {
-                                "system": "urn:ietf:bcp:47",
-                                "code": "en-US",
-                                "display": "English (United States)",
-                            }
-                        ],
-                        "text": "English (United States)",
-                    }
-                }
-            ]
-            (patient_id, response_json) = self.create_patient(json.dumps(data))
+            if file_type == "json":
+                data["type"] = "transaction"
+                data = json.dumps(data)
+
+            (patient_id, _) = self.create_patient(data)
 
         if patient_id is None:
             return (patient_id, {}, None)
 
-        (status, export_response) = self.export_patient(patient_id)
+        (_, export_response) = self.export_patient(patient_id)
         return (patient_id, {}, export_response)
 
 

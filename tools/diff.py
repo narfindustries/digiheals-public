@@ -2,23 +2,19 @@
 Compare input and output patient data files passing through different FHIR nodes
 """
 
-import click
-from click_option_group import (
-    optgroup,
-    RequiredMutuallyExclusiveOptionGroup,
-)
 import json
 import re
 import textwrap
+import os
+
+import click
 import xmltodict
-import lxml.etree as ET
+from defusedxml.ElementTree import fromstring, ParseError
 from tabulate import tabulate
 from neo4j import GraphDatabase
 from deepdiff import DeepDiff
 
 from cli_options import add_diff_options
-
-import os
 
 neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
 
@@ -60,9 +56,11 @@ def compare_function(file1, file2, file_type):
     if file_type.lower() == "xml":
         file1 = xmltodict.parse(clean_string_from_file(file1))
         file2 = xmltodict.parse(clean_string_from_file(file2))
-    diff = DeepDiff(file1, file2, ignore_order=True, get_deep_distance=True)
+    diff = DeepDiff(file1, file2, ignore_order=False, get_deep_distance=True)
+
     if diff:
         return False, diff
+
     return True, f"{file_type} FHIR data is identical."
 
 
@@ -92,9 +90,9 @@ def check_file_type(file, file_type):
     file.seek(0)
     if file_type.lower() == "xml":
         try:
-            ET.fromstring(content)
+            fromstring(content)
             return True
-        except ET.ParseError:
+        except ParseError:
             raise click.BadParameter("File is not XML. Enter correct file type.")
     else:
         try:
@@ -105,13 +103,13 @@ def check_file_type(file, file_type):
 
 
 def check_json(file):
-    # Check if the string starts with '{' or '['
+    """Check if the string starts with '{' or '['"""
     clean_file = clean_string_from_file(file)
     return clean_file.strip().startswith("{") or clean_file.strip().startswith("[")
 
 
 def check_xml(file):
-    # Check if the string starts with '<'
+    """Check if the string starts with '<'"""
     clean_file = clean_string_from_file(file)
     return clean_file.strip().startswith("<")
 
@@ -196,51 +194,32 @@ def compare_paths(paths, chains, file_type):
                         ):
                             if file_type.lower() == "json":
                                 try:
-                                    syn_file = json.loads(file1) # Need to load json twice as the data contains escaped spaces in string format
-                                    # If resourceType in file is a Bundle, extract only Patient resourceType for comparison
-                                    if syn_file["resourceType"] == "Bundle":
-                                        for entries in syn_file["entry"]:
-                                            # Only one Patient resourceType exists
-                                            if (
-                                                entries["resource"]["resourceType"]
-                                                == "Patient"
-                                            ):
-                                                file1 = entries["resource"]
+                                    file1 = json.loads(
+                                        file1
+                                    )  # Need to load json twice as the data contains escaped spaces in string format
                                 except json.JSONDecodeError as e:
-                                    #print("Chain created, but input JSON is invalid:", e)
+                                    # print("Chain created, but input JSON is invalid:", e)
                                     file1 = None
                                     """Here, we say that the input file to a server is invalid, but then how did the server import it?
-                                    We skip the compare path function and directly print an invalid message to the table. 
+                                    We skip the compare path function and directly print an invalid message to the table.
                                     """
                                     pass
-                                
+
                             else:
                                 file1 = clean_string_from_file(file1)
                                 file2 = clean_string_from_file(file2)
 
-                                try:
-                                    tree = ET.ElementTree(ET.fromstring(file1))
-                                    root = tree.getroot()
-                                    ns = {"fhir": "http://hl7.org/fhir"}  # Define namespace
-                                    # Traverse XML tree to find Patient resource and only extract that
-                                    for entry in root.findall("fhir:entry", ns):
-                                        resource = entry.find("fhir:resource", ns)
-                                        if resource is not None:
-                                            patient = resource.find("fhir:Patient", ns)
-                                            if patient is not None:
-                                                file1 = ET.tostring(
-                                                    patient, encoding="unicode"
-                                                )
-                                except Exception as e:
-                                    file1 = None
-                                    pass
-                                
                         if file1 is not None:
                             match, result = compare_function(file1, file2, file_type)
-                            diff_score = 0 if match else round(result["deep_distance"], 4)
+                            diff_score = (
+                                0 if match else round(result["deep_distance"], 4)
+                            )
+
                         else:
                             match = False
-                            result = f"Malformed {file_type} input. Cannot perform Diff."
+                            result = (
+                                f"Malformed {file_type} input. Cannot perform Diff."
+                            )
                             diff_score = "-"
 
                         chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
