@@ -57,7 +57,6 @@ def compare_function(file1, file2, file_type):
         file1 = xmltodict.parse(clean_string_from_file(file1))
         file2 = xmltodict.parse(clean_string_from_file(file2))
     diff = DeepDiff(file1, file2, ignore_order=False, get_deep_distance=True)
-
     if diff:
         return False, diff
 

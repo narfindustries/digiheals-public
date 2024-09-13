@@ -2,9 +2,9 @@
 Create unit test for XML and JSON diff of patient data
 """
 
+import json
 import pytest
 from neo4j import GraphDatabase
-import json
 from diff import run_query, compare_function, diff_cli_options, db_query, compare_paths
 from click.testing import CliRunner
 
@@ -25,12 +25,12 @@ def db():
     "guid, depth",
     [
         (
-            "68889840-0eb3-4e95-b1a7-0d3721714915",
+            "88b95103-74b4-421c-8172-dddc4741efd5",
             1,
-        ),  # JSON depth 1 3d2f0488-7588-414c-be04-664b394366ff (vista)
-        ("e558a270-b87e-43c7-912c-62f0afc77a88", 0),  # JSON all depth
-        ("2a9a8016-db1c-4195-8f02-7d49088d905b", 1),  # XML depth 1
-        ("45038f5e-db56-49ac-9f72-6d212917ac6b", 0),  # XML depth 2 (hapi, blaze)
+        ),  # JSON depth 1 vista
+        ("2712fb90-4c43-4146-b0a3-647095e997c0", 0),  # JSON depth 3 vista, hapi, blaze
+        ("c776d8c4-6d0a-4e01-8f53-9887f5bff4a2", 1),  # XML depth 1 blaze
+        ("dfa449ed-10b2-4386-a8ad-6e568880a34e", 0),  # XML depth 2 (hapi, blaze)
         ("abcdef", 0),  # invalid guid should return 0 paths
     ],
 )
@@ -100,7 +100,7 @@ def test_compare_function(file1, file2, file_type, expected):
 
 def test_compare_paths_with_chains(capsys):
     """Test to check paths comparison functionality"""
-    params = {"guid": "45038f5e-db56-49ac-9f72-6d212917ac6b"}
+    params = {"guid": "c776d8c4-6d0a-4e01-8f53-9887f5bff4a2"}
     query = """
                 MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
                 WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
@@ -117,12 +117,12 @@ def test_compare_paths_with_chains(capsys):
 
     # Check if certain expected strings are in the output
     assert (
-        "45038f5e-db56-49ac-9f72-6d212917ac6b" in captured.out
+        "c776d8c4-6d0a-4e01-8f53-9887f5bff4a2" in captured.out
     ), "GUID not found in output"
     assert (
-        "file -> hapi and hapi -> blaze" in captured.out
+        "file -> blaze and blaze -> end" in captured.out
     ), "Chains not found in output"
-    assert "0.0046" in captured.out, "Diff Score not found in output"
+    assert "0.0026" in captured.out, "Diff Score not found in output"
     assert "{'dictionary_item_added':" in captured.out, "Diff column is empty"
 
 
@@ -131,7 +131,7 @@ def test_cli_options():
     runner = CliRunner()
     test_args = [
         "--guid",
-        "3d2f0488-7588-414c-be04-664b394366ff",
+        "88b95103-74b4-421c-8172-dddc4741efd5",
         "--depth",
         "1",
         "--type",
@@ -149,7 +149,9 @@ def test_cli_options():
 def test_database_integration():
     """Test to check full integration of diff functionality"""
     # Output should show diff tables
-    result = db_query("e558a270-b87e-43c7-912c-62f0afc77a88", 0, True, "json")
+    result = db_query(
+        "2712fb90-4c43-4146-b0a3-647095e997c0", 0, True, "json"
+    )  # json chain with depth 3 - vista, hapi, blaze
     assert (
         result is None
     ), "Full integration failed."  # Return is None, as this function doesn't return anything
