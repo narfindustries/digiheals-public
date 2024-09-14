@@ -31,7 +31,7 @@ class HapiClient(AbstractClient):
             return (-1, str(e))
 
     def export_patient(self, p_id, file_type):
-        """Calls the FHIR API to export all patients"""
+        """Calls the FHIR API to export patients with given ID"""
         header_text = "application/fhir+" + file_type
         headers = {"Accept": header_text}
         r = requests.get(

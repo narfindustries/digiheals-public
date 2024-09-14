@@ -34,7 +34,7 @@ class IBMFHIRClient(AbstractClient):
             return (-1, str(e))
 
     def export_patient(self, p_id):
-        """Calls the FHIR API to export all patients"""
+        """Calls the FHIR API to export patients with given ID"""
         r = requests.get(
             f"{self.fhir}/{self.base}/Bundle/{p_id}",
             timeout=100,
