@@ -5,26 +5,24 @@
 """
 Skeleton for the Telephone.py script to go through multiple targets
 """
-import click
-from click_option_group import OptionGroup
+import os
 import sys
-import json
-import requests
 import uuid
 import copy
 import configparser
-import xml.etree.ElementTree as ET
+import requests
+
+import db
+from cli_options import add_chain_options
+
+import click
+from click_option_group import OptionGroup
 
 sys.path.append("./clients")
-
 from blaze_client import BlazeClient
 from hapi_client import HapiClient
 from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
-import db
-from cli_options import add_chain_options
-
-import os
 
 neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
 
@@ -91,7 +89,7 @@ def check_connection(chain=None):
     try:
         if neo4j_env == "neo4jDev":
             port = "7474"
-        elif neo4j_env == "neo4jTest":
+        else:
             port = "7475"
         neo4j_req = requests.get(f"http://localhost:{port}")
         print(f"neo4j server responded with code: {neo4j_req.status_code}")

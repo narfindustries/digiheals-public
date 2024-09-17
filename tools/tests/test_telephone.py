@@ -33,7 +33,7 @@ def neo4j_test_db():
         (1, None, True, None, True, "json"),
         (
             1,
-            "test_files/Elaina826_Dayna943_Marvin195_b25b43b3-3284-0867-dfdb-f8f9a32fbc91.xml",
+            "test_files/Elena945_Sipes176.xml",
             False,
             ["hapi"],
             False,

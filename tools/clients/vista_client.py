@@ -6,9 +6,9 @@
 Create a Client for vista that can create patients and pull data
 """
 
+import json
 import click
 import requests
-import json
 from abstract_client import AbstractClient
 
 
@@ -30,12 +30,10 @@ class VistaClient(AbstractClient):
             return (-1, str(e))
 
     def export_patient(self, p_id):
-        """Calls the FHIR API to export all patients"""
+        """Calls the FHIR API to export patients with given ID"""
         r = requests.get(f"{self.vehu}/showfhir", timeout=100, params={"ien": p_id})
         if r.status_code == 200:
-            for entry in r.json()["entry"]:
-                if entry["resource"]["resourceType"] == "Patient":
-                    return (r.status_code, entry["resource"])
+            return (r.status_code, r.json())
         try:
             return (r.status_code, r.json())
         except Exception:
@@ -61,7 +59,7 @@ class VistaClient(AbstractClient):
                 patient_id = response["ien"]
         return (patient_id, r)
 
-    def step(self, step_number: int, data, file_type):
+    def step(self, step_number: int, data, _):
         """
         Called from the GoT scripts
         If its the first step, we just got a FHIR JSON file from Synthea.
@@ -73,18 +71,12 @@ class VistaClient(AbstractClient):
             # This means we just got a full file, simply upload it
             (patient_id, response_json) = self.create_patient(data)
         else:
-            # Got a JSON from another FHIR server
-            data = {
-                "resourceType": "Bundle",
-                "type": "transaction",
-                "entry": [{"resource": data}],
-            }
             (patient_id, response_json) = self.create_patient(json.dumps(data))
         if patient_id is None:
             # Creating the patient failed
             return (patient_id, response_json.json(), None)
 
-        (status, export_response) = self.export_patient(patient_id)
+        (_, export_response) = self.export_patient(patient_id)
         return (patient_id, response_json.json(), export_response)
 
 

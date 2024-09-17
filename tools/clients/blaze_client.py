@@ -6,11 +6,11 @@
 Create a Client for blaze that can create patients and pull data
 """
 
-import click
 import json
+import click
 import requests
 from abstract_client import AbstractClient
-import xml.etree.ElementTree as ET
+from defusedxml.ElementTree import fromstring, parse, ParseError
 
 
 class BlazeClient(AbstractClient):
@@ -25,17 +25,17 @@ class BlazeClient(AbstractClient):
         """Calls the FHIR API to export all patients"""
         # TBD: XML capabilities.
         try:
-            r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
+            r = requests.get(f"{self.fhir}/{self.base}/Bundle", timeout=100)
             return (r.status_code, r.json())
         except Exception as e:
             return (-1, str(e))
 
     def export_patient(self, p_id, file_type):
-        """Calls the FHIR API to export all patients"""
+        """Calls the FHIR API to export patients with given ID"""
         header_text = "application/fhir+" + file_type
         headers = {"Accept": header_text}
         r = requests.get(
-            f"{self.fhir}/{self.base}/Patient/{p_id}",
+            f"{self.fhir}/{self.base}/Bundle/{p_id}",
             headers=headers,
             timeout=100,
             verify=False,
@@ -55,7 +55,7 @@ class BlazeClient(AbstractClient):
             "Content-Type": header_text,
         }
         r = requests.post(
-            f"{self.fhir}/{self.base}/Patient",
+            f"{self.fhir}/{self.base}/Bundle",
             data=file.read(),
             timeout=10,
             headers=headers,
@@ -67,7 +67,7 @@ class BlazeClient(AbstractClient):
                 patient_id = response["id"]
             else:
                 response = r.text
-                root = ET.fromstring(response)
+                root = fromstring(response)
                 ns = {"fhir": "http://hl7.org/fhir"}
                 patient_id_element = root.find("fhir:id", ns)
                 if patient_id_element is not None:
@@ -84,8 +84,9 @@ class BlazeClient(AbstractClient):
         }
         if file_type == "json":
             data = json.dumps(data)
+
         r = requests.post(
-            f"{self.fhir}/{self.base}/Patient",
+            f"{self.fhir}/{self.base}/Bundle",
             data=data,
             timeout=10,
             headers=headers,
@@ -97,7 +98,7 @@ class BlazeClient(AbstractClient):
                 patient_id = response["id"]
             else:
                 response = r.text
-                root = ET.fromstring(response)
+                root = fromstring(response)
                 ns = {"fhir": "http://hl7.org/fhir"}
                 patient_id_element = root.find("fhir:id", ns)
                 if patient_id_element is not None:
@@ -115,28 +116,13 @@ class BlazeClient(AbstractClient):
         patient_id = None
         if step_number == 0:
             if file_type == "json":
-                try: 
-                    json_data = json.loads(data)
-                    patient_data = None
-                    if json_data["entry"]:
-                        for entry in json_data["entry"]:
-                            if entry["resource"]["resourceType"] == "Patient":
-                                patient_data = entry["resource"]
+                try:
+                    patient_data = json.loads(data)
                 except json.JSONDecodeError:
                     raise click.BadParameter("Malformed input json file.")
             else:
                 # File type is XML
-                tree = ET.ElementTree(ET.fromstring(data))
-                root = tree.getroot()
-                patient_data = None
-                ns = {"fhir": "http://hl7.org/fhir"}  # Define namespace
-                # Traverse XML tree to find Patient resource
-                for entry in root.findall("fhir:entry", ns):
-                    resource = entry.find("fhir:resource", ns)
-                    if resource is not None:
-                        patient = resource.find("fhir:Patient", ns)
-                        if patient is not None:
-                            patient_data = ET.tostring(patient, encoding="utf-8")
+                patient_data = data
             (patient_id, response_data) = self.create_patient(patient_data, file_type)
         else:
             # This means we just got a full file from another server, simply upload it
@@ -148,7 +134,7 @@ class BlazeClient(AbstractClient):
             )
             return (patient_id, return_response, None)
 
-        (status, export_response) = self.export_patient(patient_id, file_type)
+        (_, export_response) = self.export_patient(patient_id, file_type)
 
         return_response = response_data.json() if file_type == "json" else response_data
         return (patient_id, return_response, export_response)
@@ -170,9 +156,9 @@ def cli_options(file):
             print(status)
     else:
         try:
-            ET.parse(file)
+            parse(file)
             file_type = "xml"
-        except ET.ParseError:
+        except ParseError:
             file_type = "json"
         file = file.read()
 

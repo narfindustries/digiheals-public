@@ -2,9 +2,10 @@
 Script to telephone.py and diff.py
 """
 
-import click
 import json
-from xml.etree import ElementTree as ET
+import click
+
+from defusedxml.ElementTree import fromstring, ParseError
 
 from cli_options import add_chain_options
 from telephone import telephone_function, validate_options
@@ -20,9 +21,9 @@ def validate_file_type(file_type, file):
     file.seek(0)
     if file_type.lower() == "xml":
         try:
-            ET.fromstring(content)
+            fromstring(content)
             return True
-        except ET.ParseError:
+        except ParseError:
             raise click.BadParameter("File is not XML")
 
     else:

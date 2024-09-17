@@ -2,10 +2,9 @@
 Create unit tests for Blaze Client
 """
 
-import pytest
 import json
-import xml.etree.ElementTree as ET
 import sys
+import pytest
 
 sys.path.append("../clients")
 from blaze_client import BlazeClient
@@ -25,32 +24,19 @@ def blaze_client():
 def patient_data_json():
     """Read Patient Data JSON File"""
     with open(
-        "./test_files/Adelaide981_Osinski784_580f24ad-3303-7f6a-309e-bf6d767f7046.json",
+        "./test_files/Luigi346_Quitzon246_bd63337a-ea66-952d-b02d-4a79db2ca530.json",
         "r",
+        encoding="utf-8",
     ) as file:
         json_data = json.loads(file.read())
-        for entry in json_data["entry"]:
-            if entry["resource"]["resourceType"] == "Patient":
-                return entry["resource"]
+        return json_data
 
 
 @pytest.fixture(scope="module")
 def patient_data_xml():
     """Read Patient Data XML File"""
-    with open(
-        "./test_files/Elaina826_Dayna943_Marvin195_b25b43b3-3284-0867-dfdb-f8f9a32fbc91.xml",
-        "r",
-    ) as file:
-        tree = ET.parse(file)
-        root = tree.getroot()
-        ns = {"fhir": "http://hl7.org/fhir"}
-        # Traverse XML tree to find Patient resource
-        for entry in root.findall("fhir:entry", ns):
-            resource = entry.find("fhir:resource", ns)
-            if resource is not None:
-                patient = resource.find("fhir:Patient", ns)
-                if patient is not None:
-                    return ET.tostring(patient, encoding="utf-8")
+    with open("./test_files/Elena945_Sipes176.xml", "r", encoding="utf-8") as file:
+        return file.read()
 
 
 # Parameterized to run fixture once for json and once for xml (runs twice in this case)
@@ -97,16 +83,16 @@ class TestBlazeClient:
         [
             (
                 0,
-                "./test_files/Abbie917_Frami345_ffa07c38-1f19-6336-9952-9152a6c882c9.json",
+                "./test_files/Suzanne628_Jesus702_Stehr398_1589ce57-c816-e5d4-744e-a0e9899bab32.json",
                 "json",
             ),
-            (1, "./test_files/Anglea614_Blanche121_ibm_output.json", "json"),
+            (1, "./test_files/Monty345_Borer986_ibm_step1.json", "json"),
             (
                 0,
-                "./test_files/Elaina826_Dayna943_Marvin195_b25b43b3-3284-0867-dfdb-f8f9a32fbc91.xml",
+                "./test_files/Elena945_Sipes176.xml",
                 "xml",
             ),
-            (1, "./test_files/Miguel815_Alejandro916_blaze_step_1_output.xml", "xml"),
+            (1, "./test_files/Lisa683_Cherrie404_Rutherford999_step1.xml", "xml"),
         ],
     )
     def test_step(self, blaze_client, step_number, filename, file_type):
