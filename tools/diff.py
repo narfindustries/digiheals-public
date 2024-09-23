@@ -14,6 +14,8 @@ from tabulate import tabulate
 from neo4j import GraphDatabase
 from deepdiff import DeepDiff
 
+from llm_4_diff import gpt_diff_output
+
 from cli_options import add_diff_options
 
 neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
@@ -58,7 +60,8 @@ def compare_function(file1, file2, file_type):
         file2 = xmltodict.parse(clean_string_from_file(file2))
     diff = DeepDiff(file1, file2, ignore_order=False, get_deep_distance=True)
     if diff:
-        return False, diff
+        gpt_diff_result = json.loads(gpt_diff_output(diff))
+        return False, gpt_diff_result
 
     return True, f"{file_type} FHIR data is identical."
 
@@ -210,30 +213,34 @@ def compare_paths(paths, chains, file_type):
 
                         if file1 is not None:
                             match, result = compare_function(file1, file2, file_type)
-                            diff_score = (
-                                0 if match else round(result["deep_distance"], 4)
-                            )
+
 
                         else:
                             match = False
                             result = (
                                 f"Malformed {file_type} input. Cannot perform Diff."
                             )
-                            diff_score = "-"
+                            
 
                         chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
+                        if match is False:
+                            severity = result["Category"]
+                            summary = result["Summary"]
+                        else:
+                            severity = "N/A"
+                            summary = result
 
                         # Wrap text for columns
                         wrapped_guid = wrap_text(guid, 40)
                         wrapped_chain_links = wrap_text(chain_links, 40)
-                        wrapped_diff_score = wrap_text(str(diff_score), 20)
-                        wrapped_diff = wrap_text(str(result), 60)
+                        wrapped_severity = wrap_text(severity, 20)
+                        wrapped_diff = wrap_text(summary, 60)
 
                         table_data.append(
                             [
                                 wrapped_guid,
                                 wrapped_chain_links,
-                                wrapped_diff_score,
+                                wrapped_severity,
                                 wrapped_diff,
                             ]
                         )
