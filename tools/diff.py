@@ -214,13 +214,11 @@ def compare_paths(paths, chains, file_type):
                         if file1 is not None:
                             match, result = compare_function(file1, file2, file_type)
 
-
                         else:
                             match = False
                             result = (
                                 f"Malformed {file_type} input. Cannot perform Diff."
                             )
-                            
 
                         chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
                         if match is False:
