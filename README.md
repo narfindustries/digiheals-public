@@ -16,7 +16,7 @@ Running
 - `git submodule update --init --recursive`
 - `export COMPOSE_PROFILES=neo4jDev` or `export COMPOSE_PROFILES=neo4jTest` to set between Dev or Test Environment
 - `docker compose up` should get the containers built and spinning.
--  For diff results, access to openAI's API key is required. Update `OPENAI_API_KEY` `ORGANIZATION_KEY` and `PROJECT_KEY` in `tools/llm_4_diff.py` with your personal access keys.
+-  For diff results, access to openAI's API key is required. Set `export OPENAI_API_KEY="your_openai_api_key"`, `export ORGANIZATION_KEY="your_organization_key"` and `export PROJECT_KEY="your_project_key"` using your personal access keys.
 
 > **_NOTE:_**  Although we provide Docker setups for some FHIR servers and EHRs, these must not be used in production setups. This repository contains hardcoded passwords and ports meant to make fuzzing and bug discovery easy.
 
