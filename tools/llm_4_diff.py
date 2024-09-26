@@ -3,8 +3,8 @@ Use gpt-4o to summarise DeepDiff output
 """
 
 import re
-import string
 import os
+import openai
 from openai import OpenAI
 import tiktoken
 
@@ -112,34 +112,70 @@ def retrieve_relevant_chunks(query, corpus, top_n=10):
     return [chunk for chunk, _ in similarities[:top_n]]
 
 
+def make_gpt_request(system_message, user_message, context=None):
+    """Helper function to make gpt-4o requests and to handle retries"""
+    messages = [{"role": "system", "content": system_message}]
+    if context:  # for RAG
+        messages[0]["content"] += f"\nContext:\n{context}"
+    messages.append({"role": "user", "content": user_message})
+
+    retries = 2
+    while retries > 0:
+        try:
+            completion = client.chat.completions.create(
+                model="gpt-4o",
+                response_format={"type": "json_object"},
+                messages=messages,
+            )
+            return completion.choices[0].message.content
+
+        except openai.RateLimitError as e:
+            print(f"OpenAI API request exceeded rate limit: {e}")
+            if e:
+                retries -= 1
+            else:
+                raise e
+
+        except openai.APIConnectionError as e:
+            print(f"OpenAI API request failed to connect: {e}")
+            if e:
+                retries -= 1
+            else:
+                raise e
+
+        except openai.AuthenticationError as e:
+            print(f"OpenAI API request was not authorized: {e}")
+            if e:
+                retries -= 1
+            else:
+                raise e
+
+        except openai.APIError as e:
+            print(f"OpenAI API returned an API Error: {e}")
+            if e:
+                retries -= 1
+            else:
+                raise e
+
+        except Exception as e:
+            print(f"OpenAI API returned Error: {e}")
+            if e:
+                retries -= 1
+            else:
+                raise e
+
+
 def rag_prompt(query, context):
     """Function to use RAG to prompt GPT-4"""
     if not context:
         return "Not enough information to summarize."
-
-    completion = client.chat.completions.create(
-        model="gpt-4o",
-        response_format={"type": "json_object"},
-        messages=[
-            {"role": "system", "content": f"{SYSTEM_MESSAGE}\nContext:\n{context}"},
-            {"role": "user", "content": query},
-        ],
-    )
-    return completion.choices[0].message.content
+    return make_gpt_request(SYSTEM_MESSAGE, query, context)
 
 
 def direct_gpt_prompt(diff_text):
     """Direct prompting of GPT-4"""
     mod_user_message = USER_MESSAGE + diff_text
-    completion = client.chat.completions.create(
-        model="gpt-4o",
-        response_format={"type": "json_object"},
-        messages=[
-            {"role": "system", "content": SYSTEM_MESSAGE},
-            {"role": "user", "content": mod_user_message},
-        ],
-    )
-    return completion.choices[0].message.content
+    return make_gpt_request(SYSTEM_MESSAGE, mod_user_message)
 
 
 def gpt_diff_output(diff):
@@ -150,7 +186,6 @@ def gpt_diff_output(diff):
     # Calculate num of tokens to choose between RAG or not
     diff_text = "\n".join(chunks)
     num_tokens = num_tokens_in_text(diff_text)
-    print(num_tokens)
 
     if num_tokens < 80000:
         # Send whole diff to GPT-4
