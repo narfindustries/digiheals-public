@@ -58,7 +58,7 @@ def compare_function(file1, file2, file_type):
     if file_type.lower() == "xml":
         file1 = xmltodict.parse(clean_string_from_file(file1))
         file2 = xmltodict.parse(clean_string_from_file(file2))
-    diff = DeepDiff(file1, file2, ignore_order=False, get_deep_distance=True)
+    diff = DeepDiff(file1, file2, ignore_order=False)
     if diff:
         gpt_diff_result = json.loads(gpt_diff_output(diff))
         return False, gpt_diff_result
@@ -261,7 +261,7 @@ def compare_paths(paths, chains, file_type):
                     print(
                         tabulate(
                             table_data,
-                            headers=["GUID", "Chain Links", "Diff Score", "Diff"],
+                            headers=["GUID", "Chain Links", "Severity", "Diff"],
                             tablefmt="pretty",
                         )
                     )
