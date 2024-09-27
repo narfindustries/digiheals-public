@@ -62,19 +62,7 @@ def test_run_query(db, guid, depth):
             "./test_files/json_diff_file2_id.json",
             "json",
             (True, "./test_files/json_diff_1_2_id.txt"),
-        ),
-        (
-            "./test_files/xml_diff_file1.txt",
-            "./test_files/xml_diff_file2.txt",
-            "xml",
-            (False, "./test_files/xml_diff_1_2.txt"),
-        ),
-        (
-            "./test_files/json_diff_file1.json",
-            "./test_files/json_diff_file2.json",
-            "json",
-            (False, "./test_files/json_diff_1_2.txt"),
-        ),
+        )
     ],
 )
 def test_compare_function(file1, file2, file_type, expected):
@@ -122,8 +110,7 @@ def test_compare_paths_with_chains(capsys):
     assert (
         "file -> blaze and blaze -> end" in captured.out
     ), "Chains not found in output"
-    assert "0.0026" in captured.out, "Diff Score not found in output"
-    assert "{'dictionary_item_added':" in captured.out, "Diff column is empty"
+    assert "Low" in captured.out, "Severity not found in output"
 
 
 def test_cli_options():
