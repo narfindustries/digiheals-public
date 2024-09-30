@@ -8,11 +8,6 @@ import openai
 from openai import OpenAI
 import tiktoken
 
-
-os.environ["OPENAI_API_KEY"] = ""
-os.environ["ORGANIZATION_KEY"] = ""
-os.environ["PROJECT_KEY"] = ""
-
 SYSTEM_MESSAGE = """
 You are a summarising agent part of a larger software tool that studies the interoperability of electronic medical records between different electronic health record (EHR) management systems.
 The tool passes a patient medical record in JSON or XML format from one EHR system to another and identifies the differences between the input patient file and the output patient file through that system.
@@ -50,11 +45,14 @@ The output should only be a JSON object.
 DeepDiff Output -
 """
 
-client = OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY"),
-    organization=os.environ.get("ORGANIZATION_KEY"),
-    project=os.environ.get("PROJECT_KEY"),
-)
+try:
+    client = OpenAI(
+        api_key=os.environ.get("OPENAI_API_KEY"),
+        organization=os.environ.get("ORGANIZATION_KEY"),
+        project=os.environ.get("PROJECT_KEY"),
+    )
+except openai.OpenAIError as err:
+    print(f"Failed to initialize OpenAI client: {err}")
 
 
 def num_tokens_in_text(text, encoding_name="cl100k_base"):

@@ -3,6 +3,7 @@ Script to telephone.py and diff.py
 """
 
 import json
+import os
 import click
 
 from defusedxml.ElementTree import fromstring, ParseError
@@ -54,6 +55,14 @@ def main(chain_length, file, generate, chain, all_chains, file_type):
     if file:
         validate_file_type(file_type, file)
     validate_options(file_type, chain, all_chains)
+
+    # Validate openAI keys
+    if not (
+        "OPENAI_API_KEY" in os.environ
+        and "ORGANIZATION_KEY" in os.environ
+        and "PROJECT_KEY" in os.environ
+    ):
+        raise click.UsageError("OpenAI API keys not set.")
 
     # Run telephone.py with either --generate or --file
     guid = telephone_function(
