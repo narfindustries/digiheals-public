@@ -137,6 +137,24 @@ services:
     ports:
       - 127.0.0.1:8006:8080
 
+  intersystems:
+    build: ./ehr-garden/intersystems
+    restart: always
+    hostname: fhir-template
+    container_name: fhir-template
+#   command: --check-caps false
+    ports: 
+      - 32782:1972
+      - 32783:52773
+      - 32784:53773
+    command: 
+      - -a
+      - iris session iris -U%SYS '##class(Security.Users).UnExpireUserPasswords("*")'
+      - --check-caps false
+    volumes:
+      - ./data:/data
+      - ./:/home/irisowner/irisdev
+
   # Images after this are not FHIR images
   synthea:
     image: synthea
