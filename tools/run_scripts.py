@@ -37,7 +37,7 @@ def validate_file_type(file_type, file):
 
 @click.command()
 @add_chain_options
-def main(chain_length, file, generate, chain, all_chains, file_type):
+def main(chain_length, file, generate, chain, all_chains, file_type, diff_type):
     """Construct cli command and sequentially run telephone.py and diff.py"""
     # Validate --generate and --file arguments
     if generate and file:
@@ -56,13 +56,14 @@ def main(chain_length, file, generate, chain, all_chains, file_type):
         validate_file_type(file_type, file)
     validate_options(file_type, chain, all_chains)
 
-    # Validate openAI keys
-    if not (
-        "OPENAI_API_KEY" in os.environ
-        and "ORGANIZATION_KEY" in os.environ
-        and "PROJECT_KEY" in os.environ
-    ):
-        raise click.UsageError("OpenAI API keys not set.")
+    if diff_type == "summary":
+        # Validate openAI keys
+        if not (
+            "OPENAI_API_KEY" in os.environ
+            and "ORGANIZATION_KEY" in os.environ
+            and "PROJECT_KEY" in os.environ
+        ):
+            raise click.UsageError("OpenAI API keys not set.")
 
     # Run telephone.py with either --generate or --file
     guid = telephone_function(
@@ -76,7 +77,7 @@ def main(chain_length, file, generate, chain, all_chains, file_type):
     if all_chains:
         # Return results of depth = 1 only
         depth = 1
-    db_query(guid, depth, all_depths, file_type)
+    db_query(guid, depth, all_depths, file_type, diff_type)
 
 
 if __name__ == "__main__":
