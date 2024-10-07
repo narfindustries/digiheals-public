@@ -27,7 +27,7 @@ def add_diff_options(func):
         "diff_type",
         type=str,
         required=True,
-        default=None,
+        default="full",
         help="Diff output type - summary or full",
     )
     @optgroup.group(
@@ -58,8 +58,8 @@ def add_chain_options(func):
         "--diff",
         "diff_type",
         type=str,
-        required=True,
-        default=None,
+        required=False,
+        default="full",
         help="Diff output type - summary or full",
     )
     @optgroup.group(

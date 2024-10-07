@@ -67,7 +67,7 @@ def main(chain_length, file, generate, chain, all_chains, file_type, diff_type):
 
     # Run telephone.py with either --generate or --file
     guid = telephone_function(
-        chain_length, file, generate, chain, all_chains, file_type
+        chain_length, file, generate, chain, all_chains, file_type, diff_type
     )
     all_depths = False
     depth = 0
