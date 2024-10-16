@@ -22,6 +22,14 @@ def add_diff_options(func):
         default=None,
         help="Patient file type - json or xml",
     )
+    @click.option(
+        "--diff",
+        "diff_type",
+        type=str,
+        required=True,
+        default="full",
+        help="Diff output type - summary or full",
+    )
     @optgroup.group(
         "Either choose depth = 1 or choose all depths.",
         cls=RequiredMutuallyExclusiveOptionGroup,
@@ -45,6 +53,14 @@ def add_chain_options(func):
         type=str,
         default=None,
         help="Patient file type - json or xml",
+    )
+    @click.option(
+        "--diff",
+        "diff_type",
+        type=str,
+        required=False,
+        default="full",
+        help="Diff output type - summary or full",
     )
     @optgroup.group(
         "Either generate a file or provide a command-line argument",

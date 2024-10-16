@@ -216,11 +216,15 @@ chain_config = OptionGroup(
 
 @click.command()
 @add_chain_options
-def cli_options(chain_length, file, generate, chain, all_chains, file_type):
-    telephone_function(chain_length, file, generate, chain, all_chains, file_type)
+def cli_options(chain_length, file, generate, chain, all_chains, file_type, diff_type):
+    telephone_function(
+        chain_length, file, generate, chain, all_chains, file_type, diff_type
+    )
 
 
-def telephone_function(chain_length, file, generate, chain, all_chains, file_type):
+def telephone_function(
+    chain_length, file, generate, chain, all_chains, file_type, diff_type
+):
     """Command line options for the telephone.py script
     Vista takes a different format (Bundle Resource) as input, whereas others require a patient
     """
