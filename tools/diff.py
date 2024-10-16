@@ -53,20 +53,22 @@ def clean_string_from_file(file):
     return file
 
 
-def compare_function(file1, file2, file_type):
+def compare_function(file1, file2, file_type, diff_type):
     """Compare two objects and return their differences using DeepDiff"""
     if file_type.lower() == "xml":
         file1 = xmltodict.parse(clean_string_from_file(file1))
         file2 = xmltodict.parse(clean_string_from_file(file2))
     diff = DeepDiff(file1, file2, ignore_order=False)
-    if diff:
-        gpt_diff_result = json.loads(gpt_diff_output(diff))
-        return False, gpt_diff_result
-
-    return True, f"{file_type} FHIR data is identical."
+    if not diff:
+        return True, f"{file_type} FHIR data is identical."
+    if diff_type == "summary":
+        return False, json.loads(gpt_diff_output(diff))
+    else:
+        return False, str(diff)
 
 
 def wrap_text(text, width):
+    """Wraps Text"""
     return "\n".join(textwrap.wrap(text, width))
 
 
@@ -116,7 +118,7 @@ def check_xml(file):
     return clean_file.strip().startswith("<")
 
 
-def compare_paths(paths, chains, file_type):
+def compare_paths(paths, chains, file_type, diff_type):
     """Create struct for all segments of a path and internally compare those segments."""
     edge_list = []
     for path in paths:
@@ -200,19 +202,21 @@ def compare_paths(paths, chains, file_type):
                                         file1
                                     )  # Need to load json twice as the data contains escaped spaces in string format
                                 except json.JSONDecodeError as e:
-                                    # print("Chain created, but input JSON is invalid:", e)
+                                    print(
+                                        "Chain created, but input JSON is invalid:", e
+                                    )
                                     file1 = None
-                                    """Here, we say that the input file to a server is invalid, but then how did the server import it?
-                                    We skip the compare path function and directly print an invalid message to the table.
-                                    """
-                                    pass
+                                    # Here, we say that the input file to a server is invalid, but then how did the server import it?
+                                    # We skip the compare path function and directly print an invalid message to the table.
 
                             else:
                                 file1 = clean_string_from_file(file1)
                                 file2 = clean_string_from_file(file2)
 
                         if file1 is not None:
-                            match, result = compare_function(file1, file2, file_type)
+                            match, result = compare_function(
+                                file1, file2, file_type, diff_type
+                            )
 
                         else:
                             match = False
@@ -221,28 +225,38 @@ def compare_paths(paths, chains, file_type):
                             )
 
                         chain_links = f"{links[current_link_number][0]} -> {links[current_link_number][1]} and {links[next_link_number][0]} -> {links[next_link_number][1]}"
-                        if match is False:
-                            severity = result["Category"]
-                            summary = result["Summary"]
-                        else:
-                            severity = "N/A"
-                            summary = result
 
                         # Wrap text for columns
                         wrapped_guid = wrap_text(guid, 40)
                         wrapped_chain_links = wrap_text(chain_links, 40)
-                        wrapped_severity = wrap_text(severity, 20)
-                        wrapped_diff = wrap_text(summary, 60)
 
-                        table_data.append(
-                            [
-                                wrapped_guid,
-                                wrapped_chain_links,
-                                wrapped_severity,
-                                wrapped_diff,
-                            ]
-                        )
-                        table_data.append(["" * 40, "-" * 40, "-" * 20, "-" * 60])
+                        if diff_type == "summary":
+                            severity = result["Category"] if not match else "N/A"
+                            summary = result["Summary"] if not match else result
+
+                            wrapped_severity = wrap_text(severity, 20)
+                            wrapped_diff = wrap_text(summary, 60)
+
+                            table_data.append(
+                                [
+                                    wrapped_guid,
+                                    wrapped_chain_links,
+                                    wrapped_severity,
+                                    wrapped_diff,
+                                ]
+                            )
+                            table_data.append(["" * 40, "-" * 40, "-" * 20, "-" * 60])
+
+                        else:
+                            wrapped_diff = wrap_text(result, 60)
+                            table_data.append(
+                                [
+                                    wrapped_guid,
+                                    wrapped_chain_links,
+                                    wrapped_diff,
+                                ]
+                            )
+                            table_data.append(["" * 40, "-" * 40, "-" * 60])
 
                 if table_data:
                     # Remove the last separator row
@@ -256,10 +270,15 @@ def compare_paths(paths, chains, file_type):
                         else:
                             current_guid = row[0]
 
+                    headers = (
+                        ["GUID", "Chain Links", "Severity", "Diff"]
+                        if diff_type == "summary"
+                        else ["GUID", "Chain Links", "Diff"]
+                    )
                     print(
                         tabulate(
                             table_data,
-                            headers=["GUID", "Chain Links", "Severity", "Diff"],
+                            headers=headers,
                             tablefmt="pretty",
                         )
                     )
@@ -272,11 +291,11 @@ def compare_paths(paths, chains, file_type):
 
 @click.command()
 @add_diff_options
-def diff_cli_options(guid, depth, all_depths, file_type):
-    db_query(guid, depth, all_depths, file_type)
+def diff_cli_options(guid, depth, all_depths, file_type, diff_type):
+    db_query(guid, depth, all_depths, file_type, diff_type)
 
 
-def db_query(guid, depth, all_depths, file_type):
+def db_query(guid, depth, all_depths, file_type, diff_type):
     """Command line options to run comparisons"""
 
     if guid:
@@ -305,7 +324,7 @@ def db_query(guid, depth, all_depths, file_type):
         print("Please specify a GUID option.")
         return
     paths = run_query(query, params)
-    compare_paths(paths, chains, file_type)
+    compare_paths(paths, chains, file_type, diff_type)
 
 
 if __name__ == "__main__":

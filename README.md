@@ -16,7 +16,7 @@ Running
 - `git submodule update --init --recursive`
 - `export COMPOSE_PROFILES=neo4jDev` or `export COMPOSE_PROFILES=neo4jTest` to set between Dev or Test Environment
 - `docker compose up` should get the containers built and spinning.
--  For diff results, access to openAI's API key is required. Set `export OPENAI_API_KEY="your_openai_api_key"`, `export ORGANIZATION_KEY="your_organization_key"` and `export PROJECT_KEY="your_project_key"` using your personal access keys.
+-  For diff results, by default you get the full diff result. We also provide a comprehensive summary of the diff result if selected. For the summary, access to openAI's API key is required. Set `export OPENAI_API_KEY="your_openai_api_key"`, `export ORGANIZATION_KEY="your_organization_key"` and `export PROJECT_KEY="your_project_key"` using your personal access keys.
 
 # Run your script
 python your_script.py
@@ -66,14 +66,14 @@ FHIR Data Comparisons
 
 For every chain, the FHIR data moving between servers can be compared data integrity and sanity. The comparison can be run from `tools/`.
 Use the following commands:
-- `python3 diff.py --guid guid_sequence --type <xml or json> --all-depths` to compare the paths taken by the guid for all hops.
-- `python3 diff.py --guid guid_sequence --type <xml or json> --depth 1` to make the comparisons for paths with a single hop. 
+- `python3 diff.py --guid guid_sequence --type <xml or json> --all-depths` to compare the paths taken by the guid for all hops and to get the full diff result.
+- `python3 diff.py --guid guid_sequence --type <xml or json> --depth 1 --diff summary` to make the comparisons for paths with a single hop and to get the summary of the diff result. 
 
 The results will show the differences (if they exist) between the input and output FHIR data through the nodes in a path.
 
 To run the entire process of Game of Telephone and their corresponding Data Comparisons, run the following:
 - `python3 run_scripts.py --generate --all-chains --chain-length 2`
-- `python3 run_scripts.py --file <file_name> --type xml -c hapi -c blaze`
+- `python3 run_scripts.py --file <file_name> --type xml -c hapi -c blaze --diff summary`
 
 
 
