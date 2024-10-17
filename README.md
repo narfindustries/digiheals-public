@@ -1,6 +1,7 @@
 EHR-FIST: Digital Format Rehabilitation to Improve Interoperability of EHR Systems and Records
 ============
 
+
 We have currently built and hosted the following services in this Docker Compose Project.
 - OpenEMR
 - GNU Health
@@ -20,7 +21,7 @@ Running
 -  For diff results, by default you get the full diff result. We also provide a comprehensive summary of the diff result if selected. For the summary, access to openAI's API key is required. Set `export OPENAI_API_KEY="your_openai_api_key"`, `export ORGANIZATION_KEY="your_organization_key"` and `export PROJECT_KEY="your_project_key"` using your personal access keys.
 
 # Run your script
-python your_script.py
+`python your_script.py`
 
 
 > **_NOTE:_**  Although we provide Docker setups for some FHIR servers and EHRs, these must not be used in production setups. This repository contains hardcoded passwords and ports meant to make fuzzing and bug discovery easy.
@@ -61,7 +62,7 @@ The Web UIs live in various containers and can be accessed using the port mappin
 | HAPI FHIR | [HAPI FHIR](https://hapifhir.io/) | None | 8004 | `/fhir/Patient` | None |
 | IBM FHIR | [Linux For Health FHIR](https://github.com/LinuxForHealth/FHIR) | fhiruser/change-password | 8005 | `/fhir-server/api/v4/Patient` | Needs HTTPS. Requires a username and password in the FHIR requests. When using curl, use -u. |
 | Samply Blaze FHIR | [Blaze: A FHIR Server with internal, fast CQL Evaluation Engine](https://samply.github.io/blaze) | None | 8006 | `/fhir` | None |
-| Intersystems Iris | [Iris FHIR Template](https://github.com/intersystems-community/iris-fhir-template) | None | 72783 | `fhir/r4/Patient` | None |
+| Intersystems Iris | [Iris FHIR Template](https://github.com/intersystems-community/iris-fhir-template) | None | 8007 | `fhir/r4/Patient` | None |
 
 FHIR Data Comparisons
 -----
@@ -78,7 +79,23 @@ To run the entire process of Game of Telephone and their corresponding Data Comp
 - `python3 run_scripts.py --file <file_name> --type xml -c hapi -c blaze --diff summary`
 
 
+Publications
+-----
 
+More information about this project is available under [Publications](./publications/).
+
+```
+@inproceedings{anantharaman2024healthsec,
+authors={Prashant Anantharaman and Rebecca “.bx” Shapiro and Vishnupriya Varadharaju
+and Michael E. Locasto},
+year={2024},
+title={{A Study of Interoperability in Electronic Health Record Software}},
+booktitle={Proceedings of the 2024 Workshop on Cybersecurity in Healthcare (HealthSec ’24), October 14–18}
+address={Salt Lake City, UT, USA},
+publisher={ACM, New York, NY, USA},
+numpages={8},
+doi={10.1145/3689942.3694743}}
+```
 
 
 Tests
