@@ -11,13 +11,14 @@ import uuid
 import copy
 import configparser
 import requests
-import re
+import json
 
 import db
 from cli_options import add_chain_options
 
 import click
 from click_option_group import OptionGroup
+from references_modify import modify_references_in_json
 
 sys.path.append("./clients")
 from blaze_client import BlazeClient
@@ -114,41 +115,6 @@ def check_connection(chain=None):
     return True
 
 
-def replace_substring(input_string):
-    """
-    Replace substring in input string
-    """
-    part1, part2 = input_string.split("?identifier=")
-    reference_value = part2.split("|")[-1]
-    return f"{part1}/{reference_value}"
-
-
-def modify_references_in_json(json_data):
-    """
-    Modify references in JSON object by recursion
-    """
-    reg_pattern = re.compile(
-        r"(Organization|Location|Practitioner)\?identifier=[^\|]+\|[a-zA-Z0-9\-]+"
-    )
-
-    def recursive_modify(data):
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if key == "reference" and isinstance(value, str):
-                    match = reg_pattern.search(value)
-                    if match:
-                        # Replace substring
-                        data[key] = replace_substring(value)
-                else:
-                    recursive_modify(value)
-        elif isinstance(data, list):
-            for item in data:
-                recursive_modify(item)
-
-    recursive_modify(json_data)
-    return json_data
-
-
 def process_chain(guid, first_node, chain, file, file_type):
     """
     Given a chain, we iterate through the steps in it
@@ -235,9 +201,7 @@ def process_step(
         db.create_edge(guid, first_node, step, file)
         db.create_edge(guid, step, "end", response_json_2)
     elif step_number == 0:
-        """
-        If its the first hop then we need to read the first_node field
-        """
+        # If its the first hop then we need to read the first_node field
         db.create_edge(guid, first_node, step, file)
     elif step_number == chain_length - 1:
         # Last element
@@ -306,7 +270,7 @@ def telephone_function(
             sys.exit(1)
 
     if file_type == "json":
-        file = modify_references_in_json(file)
+        file = modify_references_in_json(json.loads(file))
 
     if all_chains:
         # Traverse all the chains possible now

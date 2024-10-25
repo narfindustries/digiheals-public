@@ -27,32 +27,25 @@ def neo4j_test_db():
 
 
 @pytest.mark.parametrize(
-    "chain_length, file, generate, chain, all_chains, file_type",
+    "chain_length, file, generate, chain, all_chains, file_type, diff_type",
     [
-        (2, None, True, ["hapi", "blaze"], False, "json"),
-        (1, None, True, None, True, "json"),
-        (
-            1,
-            "test_files/Elena945_Sipes176.xml",
-            False,
-            ["hapi"],
-            False,
-            "xml",
-        ),
+        (2, None, True, ["hapi", "blaze"], False, "json", "full"),
+        (1, None, True, None, True, "json", "full"),
+        (1, "test_files/Elena945_Sipes176.xml", False, ["hapi"], False, "xml", "full"),
     ],
 )
 def test_chain_creation_and_cleanup(
-    neo4j_test_db, chain_length, file, generate, chain, all_chains, file_type
+    neo4j_test_db, chain_length, file, generate, chain, all_chains, file_type, diff_type
 ):
     """Run telephone chain and test if edges are created"""
 
     guid = telephone_function(
-        chain_length, file, generate, chain, all_chains, file_type
+        chain_length, file, generate, chain, all_chains, file_type, diff_type
     )
 
     # Check if all nodes exist
     nodes = get_all_nodes(neo4j_test_db)
-    assert len(nodes) == 8, "Missing few nodes"
+    assert len(nodes) == 9, "Missing few nodes"
 
     # Check if edges for this guid exist
     edges = get_edges_by_guid(neo4j_test_db, guid)

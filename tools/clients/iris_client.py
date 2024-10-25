@@ -65,7 +65,7 @@ class IrisClient(AbstractClient):
         r = requests.post(
             f"{self.fhir}/{self.base}/Bundle",
             data=file.read(),
-            timeout=10,
+            timeout=60,
             headers=headers,
             verify=False
         )
@@ -84,7 +84,7 @@ class IrisClient(AbstractClient):
         r = requests.post(
             f"{self.fhir}/{self.base}/Bundle",
             data=data,
-            timeout=10,
+            timeout=60,
             headers=headers,
             verify=False
         )
