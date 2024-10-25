@@ -76,7 +76,9 @@ class TestIrisClient:
         if step_number == 0:
             with open(filename, "r", encoding="utf-8") as file:
                 patient_id, response_json, export_response = iris_client.step(
-                    step_number, modify_references_in_json(json.loads(file.read())), file_type
+                    step_number,
+                    modify_references_in_json(json.loads(file.read())),
+                    file_type,
                 )
         else:
             with open(filename, "r", encoding="utf-8") as file:

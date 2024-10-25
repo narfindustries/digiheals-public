@@ -1,10 +1,7 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-# vim:fenc=utf-8
-#
 """
 Regex to modify input patient file
 """
+
 import re
 import json
 
@@ -25,6 +22,7 @@ def modify_references_in_json(json_data):
     reg_pattern = re.compile(
         r"(Organization|Location|Practitioner)\?identifier=[^\|]+\|[a-zA-Z0-9\-]+"
     )
+
     def recursive_modify(data):
         if isinstance(data, dict):
             for key, value in data.items():

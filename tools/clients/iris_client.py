@@ -23,9 +23,7 @@ class IrisClient(AbstractClient):
         """Calls the FHIR API to export all patients"""
         try:
             r = requests.get(
-                f"{self.fhir}/{self.base}/Bundle",
-                timeout=100,
-                verify=False
+                f"{self.fhir}/{self.base}/Bundle", timeout=100, verify=False
             )
             response = r.json()
             return (r.status_code, response)
@@ -35,17 +33,13 @@ class IrisClient(AbstractClient):
     def export_patient(self, p_id):
         """Calls the FHIR API to export patients with given ID"""
         r = requests.get(
-            f"{self.fhir}/{self.base}/Bundle/{p_id}",
-            timeout=100,
-            verify=False
+            f"{self.fhir}/{self.base}/Bundle/{p_id}", timeout=100, verify=False
         )
         response = r.json()
         return (r.status_code, response)
 
     def __get_new_patient_id(self, before_json):
-        """
-        Get the patient ID by pulling full list of patients before and after
-        """
+        """Get the patient ID by pulling full list of patients before and after"""
         (_, after_json) = self.export_patients()
 
         if len(after_json["entry"]) == 1:
@@ -67,7 +61,7 @@ class IrisClient(AbstractClient):
             data=file.read(),
             timeout=60,
             headers=headers,
-            verify=False
+            verify=False,
         )
         patient_id = None
         if r.status_code == 201:
@@ -86,7 +80,7 @@ class IrisClient(AbstractClient):
             data=data,
             timeout=60,
             headers=headers,
-            verify=False
+            verify=False,
         )
         patient_id = None
         if r.status_code == 201:

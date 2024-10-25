@@ -1,3 +1,7 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+#
 """
 Compare input and output patient data files passing through different FHIR nodes
 """

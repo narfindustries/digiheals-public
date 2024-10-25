@@ -107,7 +107,7 @@ def cli_options(url, count, file, generate, is_fuzzing, no_wait):
         sys.exit(0)
     if generate:
         sclient = SyntheaClient(url)
-        (res, file) = sclient.generate()
+        (_, file) = sclient.generate()
     fuzz(client, file, count, no_wait)
 
 
