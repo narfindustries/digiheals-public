@@ -5,7 +5,7 @@ Module to abstract click command options
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 
-config = ["vista", "ibm", "blaze", "hapi"]
+config = ["vista", "ibm", "blaze", "hapi", "iris"]
 
 
 def add_diff_options(func):

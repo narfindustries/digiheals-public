@@ -3,7 +3,7 @@
 # vim:fenc=utf-8
 #
 """
-Create a Client for vista that can create patients and pull data
+Create a Client for hapi that can create patients and pull data
 """
 
 import json
