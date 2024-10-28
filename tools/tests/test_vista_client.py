@@ -23,7 +23,7 @@ def vista_client():
 def patient_data():
     """Read Patient Data File"""
     with open(
-        "./test_files/Luigi346_Quitzon246_bd63337a-ea66-952d-b02d-4a79db2ca530.json",
+        "./test_files/Wilbert25_Dare640_0b28086d-1670-37a6-b07d-4b581f948b5d.json",
         "r",
         encoding="utf-8",
     ) as file:

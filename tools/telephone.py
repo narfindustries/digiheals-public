@@ -10,6 +10,7 @@ import sys
 import uuid
 import copy
 import configparser
+import json
 import requests
 
 import db
@@ -17,12 +18,14 @@ from cli_options import add_chain_options
 
 import click
 from click_option_group import OptionGroup
+from references_modify import modify_references_in_json
 
 sys.path.append("./clients")
 from blaze_client import BlazeClient
 from hapi_client import HapiClient
 from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
+from iris_client import IrisClient
 
 neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
 
@@ -38,18 +41,21 @@ config = {
     "hapi": (config["DEFAULT"]["hapi-fhir"], config["DEFAULT"]["hapi-fhir-target"]),
     "ibm": (config["DEFAULT"]["ibm-fhir"], config["DEFAULT"]["ibm-fhir-target"]),
     "blaze": (config["DEFAULT"]["blaze"], config["DEFAULT"]["blaze-target"]),
+    "iris": (config["DEFAULT"]["iris"], config["DEFAULT"]["iris-target"]),
 }
 
 vista_client = VistaClient(config["vista"][0], config["vista"][1])
 ibm_client = IBMFHIRClient(config["ibm"][0], config["ibm"][1])
 hapi_client = HapiClient(config["hapi"][0], config["hapi"][1])
 blaze_client = BlazeClient(config["blaze"][0], config["blaze"][1])
+iris_client = IrisClient(config["iris"][0], config["iris"][1])
 
 client_map = {
     "vista": vista_client,
     "ibm": ibm_client,
     "hapi": hapi_client,
     "blaze": blaze_client,
+    "iris": iris_client,
 }
 
 
@@ -74,12 +80,13 @@ def check_connection(chain=None):
         clients = [client_map[x] for x in chain]
         client_names = chain
     else:
-        clients = [vista_client, ibm_client, hapi_client, blaze_client]
-        client_names = ["vista", "ibm", "hapi", "blaze"]
+        clients = [vista_client, ibm_client, hapi_client, blaze_client, iris_client]
+        client_names = ["vista", "ibm", "hapi", "blaze", "iris"]
 
     for iterator, client in enumerate(map(lambda x: x.export_patients(), clients)):
         try:
             if not 200 <= client[0] < 300:  # TO DO: Handle this differently
+                print(client[1])
                 print(f"{client_names[iterator]} server not up. Exiting.")
                 sys.exit(1)
         except Exception as e:
@@ -178,7 +185,7 @@ def process_step(
         Either way, we create an edge to this node
         and another edge from this node to terminated
         Why: a JSON blob is returned when the node cannot ingest it
-        This way we also know clearly where it failed
+        This way we also know clearly where it failed.
         """
         if step_number == 0:
             db.create_edge(guid, first_node, step, file)
@@ -194,9 +201,7 @@ def process_step(
         db.create_edge(guid, first_node, step, file)
         db.create_edge(guid, step, "end", response_json_2)
     elif step_number == 0:
-        """
-        If its the first hop then we need to read the first_node field
-        """
+        # If its the first hop then we need to read the first_node field
         db.create_edge(guid, first_node, step, file)
     elif step_number == chain_length - 1:
         # Last element
@@ -263,6 +268,9 @@ def telephone_function(
         else:
             print("File creation failed from Synthea")
             sys.exit(1)
+
+    if file_type == "json":
+        file = modify_references_in_json(json.loads(file))
 
     if all_chains:
         # Traverse all the chains possible now

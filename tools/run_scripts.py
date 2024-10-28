@@ -1,3 +1,7 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+#
 """
 Script to telephone.py and diff.py
 """
@@ -13,7 +17,7 @@ from telephone import telephone_function, validate_options
 from diff import db_query
 
 
-config = ["vista", "ibm", "blaze", "hapi"]
+config = ["vista", "ibm", "blaze", "hapi", "iris"]
 
 
 def validate_file_type(file_type, file):
