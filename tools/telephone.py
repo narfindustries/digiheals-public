@@ -10,7 +10,6 @@ import sys
 import uuid
 import copy
 import configparser
-import json
 import requests
 
 import db
@@ -18,7 +17,6 @@ from cli_options import add_chain_options
 
 import click
 from click_option_group import OptionGroup
-from references_modify import modify_references_in_json
 
 sys.path.append("./clients")
 from blaze_client import BlazeClient
@@ -268,9 +266,6 @@ def telephone_function(
         else:
             print("File creation failed from Synthea")
             sys.exit(1)
-
-    if file_type == "json":
-        file = modify_references_in_json(json.loads(file))
 
     if all_chains:
         # Traverse all the chains possible now

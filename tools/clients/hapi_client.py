@@ -83,16 +83,9 @@ class HapiClient(AbstractClient):
             "Content-Type": header_text,
         }
         if file_type == "json":
-            data["type"] = "collection"
             data = json.dumps(data)
         else:
-            ns = {"fhir": "http://hl7.org/fhir"}
-            data = data.strip()
-            root = fromstring(data)
-            type_element = root.find("fhir:type", ns)
-            if type_element is not None:
-                type_element.set("value", "collection")
-                data = tostring(root, encoding="utf-8")
+            data = data
 
         r = requests.post(
             f"{self.fhir}/{self.base}/Bundle",  # /$everything returns Bundle type
