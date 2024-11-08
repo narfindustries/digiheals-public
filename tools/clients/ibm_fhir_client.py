@@ -113,10 +113,6 @@ class IBMFHIRClient(AbstractClient):
                 raise click.BadParameter("Malformed input json file.")
         else:
             # This means we just got a full file from another server, simply upload it
-            if file_type == "json":
-                data["type"] = "transaction"
-                data = json.dumps(data)
-
             (patient_id, _) = self.create_patient(data)
 
         if patient_id is None:
