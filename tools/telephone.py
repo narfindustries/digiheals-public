@@ -64,7 +64,7 @@ def validate_options(file_type, chain, all_chains):
         all_chains or any(c in chain for c in ["vista"])
     ):
         raise click.BadParameter(
-            "Combination not possible: --type xml with -c ibm or vista, or --all-chains."
+            "Combination not possible: --type xml with -c vista, or --all-chains."
         )
 
 
