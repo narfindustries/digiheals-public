@@ -21,7 +21,7 @@ class VistaClient(AbstractClient):
         self.fhir = fhir
         self.base = base
 
-    def export_patients(self):
+    def export_patients(self, file_type=None):
         """Calls the FHIR API to export all patients"""
         try:
             r = requests.get(f"{self.fhir}/{self.base}/Patient", timeout=100)
