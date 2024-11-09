@@ -75,7 +75,6 @@ class IBMFHIRClient(AbstractClient):
 
         else:
             ns = {"fhir": "http://hl7.org/fhir"}
-            # print(after_data)
 
             after_root = ET.fromstring(after_data)
 
@@ -104,7 +103,7 @@ class IBMFHIRClient(AbstractClient):
             for entry in after_entries:
                 after_ids.append(entry.attrib.get("value"))
 
-            return set(after_ids) - set(before_ids)
+            return list(set(after_ids) - set(before_ids))[0]
 
     def create_patient_fromfile(self, file, file_type):
         """Create a new patient from a FHIR JSON file"""

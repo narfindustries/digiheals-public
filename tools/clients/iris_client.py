@@ -101,7 +101,7 @@ class IrisClient(AbstractClient):
             for entry in after_entries:
                 after_ids.append(entry.attrib.get("value"))
 
-            return set(after_ids) - set(before_ids)
+            return int(list(set(after_ids) - set(before_ids))[0])
 
     def create_patient_fromfile(self, file, file_type):
         """Create a new patient from a FHIR JSON file"""
