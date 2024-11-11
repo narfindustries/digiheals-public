@@ -129,7 +129,7 @@ class IrisClient(AbstractClient):
             "Accept": f"application/fhir+{file_type}",
             "Content-Type": f"application/fhir+{file_type}",
         }
-        if file_type == "json":
+        if file_type == "json" and isinstance(data, dict):
             data = json.dumps(data)
         r = requests.post(
             f"{self.fhir}/{self.base}/Bundle",
@@ -161,8 +161,7 @@ class IrisClient(AbstractClient):
                 except json.JSONDecodeError:
                     raise click.BadParameter("Malformed input json file.")
             else:
-                patient_data = data
-                (patient_id, _) = self.create_patient(patient_data, file_type)
+                (patient_id, _) = self.create_patient(data, file_type)
         else:
             # This means we just got a full file from another server, simply upload it
             (patient_id, _) = self.create_patient(data, file_type)
