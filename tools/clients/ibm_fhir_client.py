@@ -132,6 +132,8 @@ class IBMFHIRClient(AbstractClient):
             "Accept": f"application/fhir+{file_type}",
             "Content-Type": f"application/fhir+{file_type}",
         }
+        if file_type == "json" and isinstance(data, dict):
+            data = json.dumps(data)
         r = requests.post(
             f"{self.fhir}/{self.base}/Bundle",
             data=data,
