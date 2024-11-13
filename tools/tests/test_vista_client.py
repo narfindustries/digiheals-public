@@ -23,7 +23,7 @@ def vista_client():
 def patient_data():
     """Read Patient Data File"""
     with open(
-        "./test_files/Wilbert25_Dare640_0b28086d-1670-37a6-b07d-4b581f948b5d.json",
+        "./test_files/Gordon377_Smith67_e5339c99-4895-1005-25c8-b02c3607d11c.json",
         "r",
         encoding="utf-8",
     ) as file:
@@ -62,7 +62,7 @@ class TestVistaClient:
         [
             (
                 0,
-                "./test_files/Suzanne628_Jesus702_Stehr398_1589ce57-c816-e5d4-744e-a0e9899bab32.json",
+                "./test_files/Allan198_Lockman863_a2f3765a-dbec-5702-bb12-0426ddf4b535.json",
             ),
             (1, "./test_files/Monty345_Borer986_ibm_step1.json"),
         ],
