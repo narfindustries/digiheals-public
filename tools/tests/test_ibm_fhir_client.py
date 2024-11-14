@@ -65,7 +65,7 @@ class TestIBMFHIRClient:
                 0,
                 "./test_files/Allan198_Lockman863_a2f3765a-dbec-5702-bb12-0426ddf4b535.json",
             ),
-            (1, "./test_files/Monty345_Borer986_ibm_step1.json"),
+            (1, "./test_files/Step1_Leonel449_Ryan260_1e00a484-5de7-ebe7-4a81-3573e055531b.json"),
         ],
     )
     def test_step(self, ibm_fhir_client, step_number, filename):
