@@ -35,11 +35,15 @@ def patient_data_json():
 @pytest.fixture(scope="module")
 def patient_data_xml():
     """Read Patient Data XML File"""
+<<<<<<< HEAD
     with open(
         "./test_files/Tawanda156_Marielle507_Jacobson885_7674fc84-c574-e4eb-c809-507b185b110.xml",
         "r",
         encoding="utf-8",
     ) as file:
+=======
+    with open("./test_files/Tawanda156_Marielle507_Jacobson885_7674fc84-c574-e4eb-c809-507b185b110.xml", "r", encoding="utf-8") as file:
+>>>>>>> 174248fd3ed0f1905e2887c13e4fb5f601cfa480
         return file.read()
 
 
@@ -88,6 +92,7 @@ class TestIrisClient:
                 0,
                 "./test_files/Allan198_Lockman863_a2f3765a-dbec-5702-bb12-0426ddf4b535.json",
                 "json",
+<<<<<<< HEAD
             ),
             (
                 1,
@@ -104,6 +109,16 @@ class TestIrisClient:
                 "./test_files/Step1_Shelby741_Koss676_320924f3-d18a-c5ed-19d1-ff2326f362bc.xml",
                 "xml",
             ),
+=======
+            ),
+            (1, "./test_files/Step1_Leonel449_Ryan260_1e00a484-5de7-ebe7-4a81-3573e055531b.json", "json"),
+            (
+                0,
+                "./test_files/Leanne251_Rice937_5bf2b528-4162-16a3-e418-f0f6adb47b41.xml",
+                "xml",
+            ),
+            (1, "./test_files/Step1_Shelby741_Koss676_320924f3-d18a-c5ed-19d1-ff2326f362bc.xml", "xml"),
+>>>>>>> 174248fd3ed0f1905e2887c13e4fb5f601cfa480
         ],
     )
     def test_step(self, iris_client, step_number, filename, file_type):
@@ -122,6 +137,10 @@ class TestIrisClient:
 
         assert patient_id is not None
         if file_type == "xml":
+<<<<<<< HEAD
+=======
+            response_json = response_json.text
+>>>>>>> 174248fd3ed0f1905e2887c13e4fb5f601cfa480
             resp_type = str
         else:
             resp_type = dict
