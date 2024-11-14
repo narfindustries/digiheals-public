@@ -10,15 +10,14 @@ import sys
 import uuid
 import copy
 import configparser
-import json
 import requests
+import json
 
 import db
 from cli_options import add_chain_options
 
 import click
 from click_option_group import OptionGroup
-from references_modify import modify_references_in_json
 
 sys.path.append("./clients")
 from blaze_client import BlazeClient
@@ -62,10 +61,10 @@ client_map = {
 def validate_options(file_type, chain, all_chains):
     """Validate the combination of options."""
     if file_type.lower() == "xml" and (
-        all_chains or any(c in chain for c in ["ibm", "vista"])
+        all_chains or any(c in chain for c in ["vista"])
     ):
         raise click.BadParameter(
-            "Combination not possible: --type xml with -c ibm or vista, or --all-chains."
+            "Combination not possible: --type xml with -c vista, or --all-chains."
         )
 
 
@@ -175,6 +174,7 @@ def process_step(
     (patient_id, response_json_1, response_json_2) = client_map[step].step(
         step_number, file, file_type
     )
+
     if patient_id is None:
         print(
             f"Chain terminated at step {step_number} {step} {response_json_1} {response_json_2}"
@@ -268,9 +268,6 @@ def telephone_function(
         else:
             print("File creation failed from Synthea")
             sys.exit(1)
-
-    if file_type == "json":
-        file = modify_references_in_json(json.loads(file))
 
     if all_chains:
         # Traverse all the chains possible now

@@ -21,12 +21,25 @@ class HapiClient(AbstractClient):
         self.fhir = fhir
         self.base = base
 
-    def export_patients(self):
+    def export_patients(self, file_type=None):
         """Calls the FHIR API to export all patients"""
-        # TBD: XML capabilities
+        if file_type is None:
+            # Used for checking network/default
+            file_type = "json"
+        header_text = "application/fhir+" + file_type
+        headers = {"Accept": header_text}
         try:
-            r = requests.get(f"{self.fhir}/{self.base}/Bundle", timeout=100)
-            return (r.status_code, r.json())
+            r = requests.get(
+                f"{self.fhir}/{self.base}/Bundle",
+                headers=headers,
+                timeout=100,
+                verify=False,
+            )
+            if file_type == "json":
+                response_data = r.json()
+            else:
+                response_data = r.text
+            return (r.status_code, response_data)
         except Exception as e:
             return (-1, str(e))
 
@@ -83,16 +96,9 @@ class HapiClient(AbstractClient):
             "Content-Type": header_text,
         }
         if file_type == "json":
-            data["type"] = "collection"
             data = json.dumps(data)
         else:
-            ns = {"fhir": "http://hl7.org/fhir"}
-            data = data.strip()
-            root = fromstring(data)
-            type_element = root.find("fhir:type", ns)
-            if type_element is not None:
-                type_element.set("value", "collection")
-                data = tostring(root, encoding="utf-8")
+            data = data
 
         r = requests.post(
             f"{self.fhir}/{self.base}/Bundle",  # /$everything returns Bundle type

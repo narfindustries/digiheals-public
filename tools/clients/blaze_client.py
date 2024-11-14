@@ -21,12 +21,25 @@ class BlazeClient(AbstractClient):
         self.fhir = fhir
         self.base = base
 
-    def export_patients(self):
+    def export_patients(self, file_type=None):
         """Calls the FHIR API to export all patients"""
-        # TBD: XML capabilities.
+        if file_type is None:
+            # Used for checking network/default
+            file_type = "json"
+        header_text = "application/fhir+" + file_type
+        headers = {"Accept": header_text}
         try:
-            r = requests.get(f"{self.fhir}/{self.base}/Bundle", timeout=100)
-            return (r.status_code, r.json())
+            r = requests.get(
+                f"{self.fhir}/{self.base}/Bundle",
+                headers=headers,
+                timeout=100,
+                verify=False,
+            )
+            if file_type == "json":
+                response_data = r.json()
+            else:
+                response_data = r.text
+            return (r.status_code, response_data)
         except Exception as e:
             return (-1, str(e))
 

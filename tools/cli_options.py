@@ -17,7 +17,7 @@ def add_diff_options(func):
     @click.option(
         "--type",
         "file_type",
-        type=str,
+        type=click.Choice(["json", "xml"], case_sensitive=False),
         required=True,
         default=None,
         help="Patient file type - json or xml",
@@ -50,7 +50,7 @@ def add_chain_options(func):
     @click.option(
         "--type",
         "file_type",
-        type=str,
+        type=click.Choice(["json", "xml"], case_sensitive=False),
         default=None,
         help="Patient file type - json or xml",
     )
