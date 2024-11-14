@@ -137,7 +137,7 @@ class IBMFHIRClient(AbstractClient):
         r = requests.post(
             f"{self.fhir}/{self.base}/Bundle",
             data=data,
-            timeout=10,
+            timeout=60,
             headers=headers,
             verify=False,
             auth=("fhiruser", "change-password"),
