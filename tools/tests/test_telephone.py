@@ -30,8 +30,13 @@ def neo4j_test_db():
     "chain_length, file, generate, chain, all_chains, file_type, diff_type",
     [
         (2, None, True, ["hapi", "blaze"], False, "json", "full"),
-        (1, None, True, None, True, "json", "full"),
-        (1, "test_files/Elena945_Sipes176.xml", False, ["hapi"], False, "xml", "full"),
+        (1, None, True, ["iris"], False, "json", "full"),
+        (2, None, True, ["ibm", "vista"], False, "json", "full"),
+        (3, None, True, ["blaze", "hapi","vista"], False, "json", "full"),
+        (1, "test_files/Tawanda156_Marielle507_Jacobson885_7674fc84-c574-e4eb-c809-507b185b110.xml", False, ["hapi"], False, "xml", "full"),
+        (2, "test_files/Tawanda156_Marielle507_Jacobson885_7674fc84-c574-e4eb-c809-507b185b110.xml", False, ["ibm", "iris"], False, "xml", "full"),
+        (3, "test_files/Tawanda156_Marielle507_Jacobson885_7674fc84-c574-e4eb-c809-507b185b110.xml", False, ["blaze","hapi","iris"], False, "xml", "full"),
+        (1, "test_files/Tawanda156_Marielle507_Jacobson885_7674fc84-c574-e4eb-c809-507b185b110.xml", False, ["iris"], False, "xml", "full")
     ],
 )
 def test_chain_creation_and_cleanup(

@@ -30,7 +30,7 @@ class IBMFHIRClient(AbstractClient):
         headers = {"Accept": header_text}
         try:
             r = requests.get(
-                f"{self.fhir}/{self.base}/Bundle",
+                f"{self.fhir}/{self.base}/Bundle?_count=500", 
                 headers=headers,
                 timeout=100,
                 verify=False,
