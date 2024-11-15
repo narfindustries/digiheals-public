@@ -29,8 +29,9 @@ class IBMFHIRClient(AbstractClient):
         header_text = "application/fhir+" + file_type
         headers = {"Accept": header_text}
         try:
+            # Adding _count=500 here. Otherwise, it only returns a max of 10 bundle resources, even though more bundles are being created
             r = requests.get(
-                f"{self.fhir}/{self.base}/Bundle?_count=500", 
+                f"{self.fhir}/{self.base}/Bundle?_count=500",
                 headers=headers,
                 timeout=100,
                 verify=False,

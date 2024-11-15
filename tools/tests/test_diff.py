@@ -27,12 +27,14 @@ def db():
     "guid, depth",
     [
         (
-            "88b95103-74b4-421c-8172-dddc4741efd5",
+            "39eef653-347c-4655-a39b-f887c13808fa",
             1,
         ),  # JSON depth 1 vista
-        ("2712fb90-4c43-4146-b0a3-647095e997c0", 0),  # JSON depth 3 vista, hapi, blaze
-        ("c776d8c4-6d0a-4e01-8f53-9887f5bff4a2", 1),  # XML depth 1 blaze
-        ("dfa449ed-10b2-4386-a8ad-6e568880a34e", 0),  # XML depth 2 (hapi, blaze)
+        ("b25d7482-f9fc-4c2b-86e6-74a93a50acfd", 0),  # JSON depth 3 (iris, hapi, vista)
+        ("808f9341-84d1-4843-914d-21944b616467", 0),  # JSON depth 2 (ibm, iris)
+        ("6d831452-4058-4a00-8b61-ef7a4a6fb4d0", 1),  # XML depth 1 blaze
+        ("fecc37e8-da09-4941-bf32-9bce982ea375", 0),  # XML depth 2 (hapi, blaze)
+        ("bd2335f8-862a-40d6-b74d-330338511f69", 0),  # XML depth 3 (ibm, hapi, iris)
         ("abcdef", 0),  # invalid guid should return 0 paths
     ],
 )
@@ -64,7 +66,19 @@ def test_run_query(db, guid, depth):
             "./test_files/json_diff_file2_id.json",
             "json",
             (True, "./test_files/json_diff_1_2_id.txt"),
-        )
+        ),
+        (
+            "./test_files/json_diff_file1.json",
+            "./test_files/json_diff_file2.json",
+            "json",
+            (False, "./test_files/json_diff_1_2.txt"),
+        ),
+        (
+            "./test_files/xml_diff_file1.txt",
+            "./test_files/xml_diff_file2.txt",
+            "xml",
+            (False, "./test_files/xml_diff_1_2.txt"),
+        ),
     ],
 )
 def test_compare_function(file1, file2, file_type, expected):
@@ -90,7 +104,7 @@ def test_compare_function(file1, file2, file_type, expected):
 
 def test_compare_paths_with_chains(capsys):
     """Test to check paths comparison functionality"""
-    params = {"guid": "c776d8c4-6d0a-4e01-8f53-9887f5bff4a2"}
+    params = {"guid": "6d831452-4058-4a00-8b61-ef7a4a6fb4d0"}
     query = """
                 MATCH path = (a:Server)-[:LINK*]->(c:Server {name: 'end'})
                 WHERE a.name IN ['synthea', 'file'] AND ALL(r IN relationships(path) WHERE r.guid = $guid)
@@ -107,12 +121,12 @@ def test_compare_paths_with_chains(capsys):
 
     # Check if certain expected strings are in the output
     assert (
-        "c776d8c4-6d0a-4e01-8f53-9887f5bff4a2" in captured.out
+        "6d831452-4058-4a00-8b61-ef7a4a6fb4d0" in captured.out
     ), "GUID not found in output"
     assert (
         "file -> blaze and blaze -> end" in captured.out
     ), "Chains not found in output"
-    # assert "Low" in captured.out, "Severity not found in output"
+    assert "{'dictionary_item_added':" in captured.out, "Diff not found in output"
 
 
 def test_cli_options():
@@ -120,7 +134,7 @@ def test_cli_options():
     runner = CliRunner()
     test_args = [
         "--guid",
-        "88b95103-74b4-421c-8172-dddc4741efd5",
+        "39eef653-347c-4655-a39b-f887c13808fa",
         "--depth",
         "1",
         "--type",
@@ -139,7 +153,7 @@ def test_database_integration():
     """Test to check full integration of diff functionality"""
     # Output should show diff tables
     result = db_query(
-        "2712fb90-4c43-4146-b0a3-647095e997c0", 0, True, "json", "full"
+        "b25d7482-f9fc-4c2b-86e6-74a93a50acfd", 0, True, "json", "full"
     )  # json chain with depth 3 - vista, hapi, blaze
     assert (
         result is None
