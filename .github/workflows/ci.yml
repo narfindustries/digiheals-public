@@ -1,0 +1,49 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches:
+      - staging  
+
+env:
+  COMPOSE_PROFILES: neo4jTest
+  OPENAI_API_KEY: ""
+  ORGANIZATION_KEY: ""
+  PROJECT_KEY: ""
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker Image
+        run: docker compose build --no-cache
+
+      - name: Start Containers
+        run: docker compose up -d
+
+      - name: Wait for Services to be up
+        run: sleep 300  
+
+      - name: Run Tests
+        run: make test
+
+      - name: Bring down Containers
+        run: docker compose down -v
