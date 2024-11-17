@@ -29,11 +29,11 @@ Running
 Game of Telephone
 -----
 - `telephone-basic.py`: A simple script that would upload a file to Vista, pass it on to HAPI FHIR, and then to IBM FHIR server.
-- `telephone.py --file FILENAME --type <xml or json> -c hop1 -c hop2 -c hop3`, where the hops can be `ibm`, `hapi`, or `vista`.
+- `telephone.py --file FILENAME --type <xml or json> -c hop1 -c hop2 -c hop3`, where the hops can be `ibm`, `hapi`, `vista`, `blaze` or `iris`.
 - Or `telephone.py --generate -c hop1 -c hop2 -c hop3`, if you want to generate a new file via Synthea on the fly.
 - Or `telephone.py --generate --all-chains --chain-length 2`, if you want to generate all possible chains.
 
-> **_NOTE:_**  Supports FHIR JSON and XML (for Hapi and Blaze). 
+> **_NOTE:_**  Supports FHIR JSON and XML (for Hapi, Blaze, IBM and Iris). 
 
 Contributing
 -----
