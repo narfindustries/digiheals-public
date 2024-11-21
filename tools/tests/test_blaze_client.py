@@ -24,7 +24,7 @@ def blaze_client():
 def patient_data_json():
     """Read Patient Data JSON File"""
     with open(
-        "./test_files/Wilbert25_Dare640_0b28086d-1670-37a6-b07d-4b581f948b5d.json",
+        "./test_files/Gordon377_Smith67_e5339c99-4895-1005-25c8-b02c3607d11c.json",
         "r",
         encoding="utf-8",
     ) as file:
@@ -35,7 +35,11 @@ def patient_data_json():
 @pytest.fixture(scope="module")
 def patient_data_xml():
     """Read Patient Data XML File"""
-    with open("./test_files/Elena945_Sipes176.xml", "r", encoding="utf-8") as file:
+    with open(
+        "./test_files/Tawanda156_Marielle507_Jacobson885_7674fc84-c574-e4eb-c809-507b185b110.xml",
+        "r",
+        encoding="utf-8",
+    ) as file:
         return file.read()
 
 
@@ -83,16 +87,24 @@ class TestBlazeClient:
         [
             (
                 0,
-                "./test_files/Suzanne628_Jesus702_Stehr398_1589ce57-c816-e5d4-744e-a0e9899bab32.json",
+                "./test_files/Allan198_Lockman863_a2f3765a-dbec-5702-bb12-0426ddf4b535.json",
                 "json",
             ),
-            (1, "./test_files/Monty345_Borer986_ibm_step1.json", "json"),
+            (
+                1,
+                "./test_files/Step1_Leonel449_Ryan260_1e00a484-5de7-ebe7-4a81-3573e055531b.json",
+                "json",
+            ),
             (
                 0,
-                "./test_files/Elena945_Sipes176.xml",
+                "./test_files/Leanne251_Rice937_5bf2b528-4162-16a3-e418-f0f6adb47b41.xml",
                 "xml",
             ),
-            (1, "./test_files/Lisa683_Cherrie404_Rutherford999_step1.xml", "xml"),
+            (
+                1,
+                "./test_files/Step1_Shelby741_Koss676_320924f3-d18a-c5ed-19d1-ff2326f362bc.xml",
+                "xml",
+            ),
         ],
     )
     def test_step(self, blaze_client, step_number, filename, file_type):
