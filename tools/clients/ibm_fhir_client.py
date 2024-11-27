@@ -6,6 +6,7 @@
 Create a Client for ibm that can create patients and pull data
 """
 import json
+import re
 import click
 import requests
 from abstract_client import AbstractClient
@@ -169,6 +170,13 @@ class IBMFHIRClient(AbstractClient):
                 (patient_id, _) = self.create_patient(data, file_type)
         else:
             # This means we just got a full file from another server, simply upload it
+            # Here we want to check if data is imported from Blaze - if yes, we need to modify it
+            if file_type == "xml":
+                pattern = r'<div xmlns="" xmlns:a="http://www.w3.org/1999/xhtml"'
+                replacement = '<div xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://www.w3.org/1999/xhtml"'
+                
+                if re.search(pattern, data):
+                    data = re.sub(pattern, replacement, data)
             (patient_id, _) = self.create_patient(data, file_type)
 
         if patient_id is None:
