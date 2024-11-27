@@ -1,0 +1,44 @@
+stages:
+  - test
+
+services:
+  - docker:dind  
+
+image: docker:latest 
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375
+  COMPOSE_PROFILES: neo4jTest
+  OPENAI_API_KEY: ""
+  ORGANIZATION_KEY: ""
+  PROJECT_KEY: ""
+  DOCKER_CONFIG: ${DOCKER_CONFIG:-$HOME/.docker} 
+
+test_job:
+  stage: test
+
+  before_script:  
+    # Install Python and dependencies
+    - apk add --no-cache python3 py3-pip curl
+    - python3 -m pip install --upgrade pip
+    - pip install -r requirements.txt
+
+    # Install specific Docker Compose version (v2.29.7)
+    - mkdir -p $DOCKER_CONFIG/cli-plugins
+    - curl -SL https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-$(uname -m) -o $DOCKER_CONFIG/cli-plugins/docker-compose
+    - chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+    - docker compose version
+
+  script:
+    # Build and start services
+    - docker compose build --no-cache
+    - docker compose up -d
+    - sleep 300  # Wait for services to initialize
+
+    # Run tests
+    - make test
+
+  after_script:
+    # Tear down containers
+    - docker compose down -v
