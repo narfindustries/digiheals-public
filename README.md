@@ -10,7 +10,7 @@ We have currently built and hosted the following services in this Docker Compose
 - HAPI FHIR
 - LinuxForHealth FHIR (by IBM)
 - Samply Blaze
-- Intersystems
+- Intersystems IRIS
 
 Running
 -----
