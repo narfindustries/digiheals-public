@@ -18,6 +18,9 @@ variables:
 test_job:
   stage: test
 
+  tags:
+    - digiheals
+
   before_script:  
     # Install Python and dependencies
     - apk add --no-cache python3 py3-pip curl
