@@ -13,7 +13,7 @@ variables:
   OPENAI_API_KEY: ""
   ORGANIZATION_KEY: ""
   PROJECT_KEY: ""
-  DOCKER_CONFIG: ${DOCKER_CONFIG:-$HOME/.docker} 
+  DOCKER_CONFIG: ${DOCKER_CONFIG:-$HOME/.docker}
 
 test_job:
   stage: test
@@ -21,11 +21,20 @@ test_job:
   tags:
     - digiheals
 
-  before_script:  
+  before_script:
     # Install Python and dependencies
-    - apk add --no-cache python3 py3-pip curl
+    - apk add --no-cache python3 py3-pip curl git-lfs
     - python3 -m pip install --upgrade pip
     - pip install -r requirements.txt
+
+    # Configure Git LFS and fetch objects
+    - git lfs install
+    - git lfs pull
+
+    # Extract Neo4j test data
+    - mkdir -p neo4jTest
+    - tar -xJf neo4jTest.tar.xz -C neo4jTest/
+    - export COMPOSE_PROFILES=neo4jTest
 
     # Install specific Docker Compose version (v2.29.7)
     - mkdir -p $DOCKER_CONFIG/cli-plugins
