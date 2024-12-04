@@ -27,14 +27,10 @@ test_job:
     - python3 -m pip install --upgrade pip
     - pip install -r requirements.txt
 
-    # Configure Git LFS and fetch objects
-    - git lfs install
-    - git lfs pull
-
-    # Extract Neo4j test data
+    # Download and extract the Neo4j test data from google drive
+    - curl -L -o neo4jTest.tar.xz "https://drive.google.com/uc?export=download&id=1JXXPCnuPyerGKTPNVWYWF8Aw-mdHDFH_"
     - mkdir -p neo4jTest
     - tar -xJf neo4jTest.tar.xz -C neo4jTest/
-    - export COMPOSE_PROFILES=neo4jTest
 
     # Install specific Docker Compose version (v2.29.7)
     - mkdir -p $DOCKER_CONFIG/cli-plugins
@@ -54,3 +50,4 @@ test_job:
   after_script:
     # Tear down containers
     - docker compose down -v
+
