@@ -34,8 +34,11 @@ test_job:
     - curl -L -o neo4jTest.tar.xz "https://drive.google.com/uc?export=download&id=1JXXPCnuPyerGKTPNVWYWF8Aw-mdHDFH_"
     - ls -lh neo4jTest.tar.xz
     - mkdir -p neo4jTest
-    - tar -xJf neo4jTest.tar.xz -C neo4jTest/ || echo "Warning: tar extraction failed"
-
+    - if ! tar -xJf neo4jTest.tar.xz -C neo4jTest/; then
+        echo "Error: tar extraction failed";
+        exit 1;
+      fi
+    
     # Install specific Docker Compose version
     - mkdir -p $DOCKER_CONFIG/cli-plugins
     - curl -SL https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-$(uname -m) -o $DOCKER_CONFIG/cli-plugins/docker-compose
