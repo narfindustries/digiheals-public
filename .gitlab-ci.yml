@@ -9,6 +9,7 @@ image: docker:latest
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""    # Disabled TLS for DinD
   COMPOSE_PROFILES: neo4jTest
   OPENAI_API_KEY: ""
   ORGANIZATION_KEY: ""
@@ -23,16 +24,18 @@ test_job:
 
   before_script:
     # Install Python and dependencies
-    - apk add --no-cache python3 py3-pip curl git-lfs
-    - python3 -m pip install --upgrade pip
+    - apk add --no-cache python3 py3-pip curl 
+    - python3 -m venv /builds/venv
+    - . /builds/venv/bin/activate
+    - pip install --upgrade pip
     - pip install -r requirements.txt
 
-    # Download and extract the Neo4j test data from google drive
+    # Download and extract Neo4j test data
     - curl -L -o neo4jTest.tar.xz "https://drive.google.com/uc?export=download&id=1JXXPCnuPyerGKTPNVWYWF8Aw-mdHDFH_"
     - mkdir -p neo4jTest
     - tar -xJf neo4jTest.tar.xz -C neo4jTest/
 
-    # Install specific Docker Compose version (v2.29.7)
+    # Install specific Docker Compose version
     - mkdir -p $DOCKER_CONFIG/cli-plugins
     - curl -SL https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-$(uname -m) -o $DOCKER_CONFIG/cli-plugins/docker-compose
     - chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
@@ -50,4 +53,3 @@ test_job:
   after_script:
     # Tear down containers
     - docker compose down -v
-
