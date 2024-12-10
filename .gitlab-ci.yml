@@ -24,20 +24,19 @@ test_job:
 
   before_script:
     # Install Python and dependencies
-    - apk add --no-cache python3 py3-pip curl 
+    - apk add --no-cache python3 py3-pip curl make
     - python3 -m venv /builds/venv
     - . /builds/venv/bin/activate
     - pip install --upgrade pip
     - pip install -r requirements.txt
+    - pip install gdown
+    - pip install --upgrade openai
 
     # Download and extract Neo4j test data
-    - curl -L -o neo4jTest.tar.xz "https://drive.google.com/uc?export=download&id=1JXXPCnuPyerGKTPNVWYWF8Aw-mdHDFH_"
+    - gdown --id 1JXXPCnuPyerGKTPNVWYWF8Aw-mdHDFH_ -O neo4jTest.tar.xz
     - ls -lh neo4jTest.tar.xz
     - mkdir -p neo4jTest
-    - if ! tar -xJf neo4jTest.tar.xz -C neo4jTest/; then
-        echo "Error: tar extraction failed";
-        exit 1;
-      fi
+    - tar -xJf neo4jTest.tar.xz -C neo4jTest/
     
     # Install specific Docker Compose version
     - mkdir -p $DOCKER_CONFIG/cli-plugins
@@ -49,7 +48,7 @@ test_job:
     # Build and start services
     - docker compose build --no-cache
     - docker compose up -d
-    - sleep 300  # Wait for services to initialize
+    - sleep 480  # Wait for services to initialize
 
     # Run tests
     - make test
