@@ -1,4 +1,6 @@
 stages:
+  - linting
+  - build
   - test
 
 services:
@@ -10,11 +12,73 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""    # Disabled TLS for DinD
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
   COMPOSE_PROFILES: neo4jTest
   OPENAI_API_KEY: ""
   ORGANIZATION_KEY: ""
   PROJECT_KEY: ""
   DOCKER_CONFIG: ${DOCKER_CONFIG:-$HOME/.docker}
+
+black:
+  stage: linting
+  tags:
+    - digiheals
+  image: registry.gitlab.com/pipeline-components/black:latest
+  script:
+    - black --check .
+
+# flake8:
+#   stage: linting
+#   tags:
+#     - digiheals
+#   image: python:3.10-slim
+#   script:
+#     - pip install --no-cache-dir --upgrade pip
+#     - pip install --no-cache-dir flake8
+#     - flake8 .
+
+
+build_image_job:
+  stage: build
+  tags:
+    - digiheals
+
+  before_script:
+    - echo "Setting up Docker BuildKit..."
+    - mkdir -p $DOCKER_CONFIG/cli-plugins
+
+  script:
+    # Log into registry
+    - echo "$CI_REGISTRY_PASSWORD" | docker login registry-tigr.narfs.co -u "$CI_REGISTRY_USER" --password-stdin
+
+    # Tag and build Docker image
+    - export IMAGE_TAG=registry-tigr.narfs.co/digiheals/docker:${CI_COMMIT_REF_SLUG}
+    - docker build -t $IMAGE_TAG .
+    
+    # Push image to registry
+    - docker push $IMAGE_TAG
+
+    # Tag as 'latest' if on staging branch
+    - |
+      if [ "$CI_COMMIT_REF_NAME" == "staging" ]; then
+        docker tag $IMAGE_TAG registry-tigr.narfs.co/digiheals/docker:latest
+        docker push registry-tigr.narfs.co/digiheals/docker:latest
+      fi
+
+
+build_job:
+  stage: build
+
+  tags:
+    - digiheals
+
+  script:
+    - docker pull registry-tigr.narfs.co/digiheals/docker:${CI_COMMIT_REF_SLUG} || docker pull registry-tigr.narfs.co/digiheals/docker:latest
+    
+    - docker compose up -d
+
+    - sleep 480  # Wait for services to initialize
 
 test_job:
   stage: test
@@ -22,34 +86,7 @@ test_job:
   tags:
     - digiheals
 
-  before_script:
-    # Install Python and dependencies
-    - apk add --no-cache python3 py3-pip curl make
-    - python3 -m venv /builds/venv
-    - . /builds/venv/bin/activate
-    - pip install --upgrade pip
-    - pip install -r requirements.txt
-    - pip install gdown
-    - pip install --upgrade openai
-
-    # Download and extract Neo4j test data
-    - gdown --id 1JXXPCnuPyerGKTPNVWYWF8Aw-mdHDFH_ -O neo4jTest.tar.xz
-    - ls -lh neo4jTest.tar.xz
-    - mkdir -p neo4jTest
-    - tar -xJf neo4jTest.tar.xz -C neo4jTest/
-    
-    # Install specific Docker Compose version
-    - mkdir -p $DOCKER_CONFIG/cli-plugins
-    - curl -SL https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-$(uname -m) -o $DOCKER_CONFIG/cli-plugins/docker-compose
-    - chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
-    - docker compose version
-
   script:
-    # Build and start services
-    - docker compose build --no-cache
-    - docker compose up -d
-    - sleep 480  # Wait for services to initialize
-
     # Run tests
     - make test
 

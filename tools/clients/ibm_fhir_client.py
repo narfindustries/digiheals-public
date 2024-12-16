@@ -174,7 +174,7 @@ class IBMFHIRClient(AbstractClient):
             if file_type == "xml":
                 pattern = r'<div xmlns="" xmlns:a="http://www.w3.org/1999/xhtml"'
                 replacement = '<div xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://www.w3.org/1999/xhtml"'
-                
+
                 if re.search(pattern, data):
                     data = re.sub(pattern, replacement, data)
             (patient_id, _) = self.create_patient(data, file_type)
