@@ -11,14 +11,46 @@ image: docker:latest
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: tcp://docker:2375
-  DOCKER_TLS_CERTDIR: ""    # Disabled TLS for DinD
+  DOCKER_TLS_CERTDIR: ""   # Disabled TLS for DinD
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1
   COMPOSE_PROFILES: neo4jTest
   OPENAI_API_KEY: ""
   ORGANIZATION_KEY: ""
   PROJECT_KEY: ""
-  DOCKER_CONFIG: ${DOCKER_CONFIG:-$HOME/.docker}
+  DOCKER_CONFIG: ${DOCKER_CONFIG:-$CI_PROJECT_DIR/.docker}
+  VISTA_TAG: vista-fhir
+  VISTA_PATH_TEST: "$CI_REGISTRY_IMAGE/$VISTA_TAG:$CI_COMMIT_REF_SLUG"
+  HAPI_TAG: hapi-fhir
+  HAPI_PATH_TEST: "$CI_REGISTRY_IMAGE/$HAPI_TAG:$CI_COMMIT_REF_SLUG"
+  IBM_TAG: ibm-fhir
+  IBM_PATH_TEST: "$CI_REGISTRY_IMAGE/$IBM_TAG:$CI_COMMIT_REF_SLUG"
+  BLAZE_TAG: blaze-fhir
+  BLAZE_PATH_TEST: "$CI_REGISTRY_IMAGE/$BLAZE_TAG:$CI_COMMIT_REF_SLUG"
+  INTERSYSTEMS_TAG: iris-fhir
+  INTERSYSTEMS_PATH_TEST: "$CI_REGISTRY_IMAGE/$INTERSYSTEMS_TAG:$CI_COMMIT_REF_SLUG"
+  SYNTHEA_TAG: synthea
+  SYNTHEA_PATH_TEST: "$CI_REGISTRY_IMAGE/$SYNTHEA_TAG:$CI_COMMIT_REF_SLUG"
+  NEO4J_TEST_TAG: neo4j-test
+  NEO4J_TEST_PATH_TEST: "$CI_REGISTRY_IMAGE/$NEO4J_TEST_TAG:$CI_COMMIT_REF_SLUG"
+
+.default_scripts: &default_scripts
+  - echo "Waiting for docker cli to respond before continuing build..."
+  - |
+    for i in $(seq 1 60); do
+        if ! docker info &> /dev/null; then
+            echo "Docker not responding yet. Sleeping for 2s..." && sleep 2s
+        else
+            echo "Docker ready. Continuing build..."
+            break
+        fi
+    done
+  - export DOCKER_CLIENT_TIMEOUT=300
+  - export COMPOSE_HTTP_TIMEOUT=300
+  - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+  - echo "Testing registry connectivity..."
+  - curl -v https://gitlab-tigr.narfs.co:5050/v2/ || echo "Registry unreachable" 
+  - export TAG=$([ "$CI_COMMIT_REF_NAME" == "staging" ] && echo "latest" || echo "$CI_COMMIT_REF_NAME" | tr '/' '-')
 
 black:
   stage: linting
@@ -28,68 +60,78 @@ black:
   script:
     - black --check .
 
-# flake8:
-#   stage: linting
-#   tags:
-#     - digiheals
-#   image: python:3.10-slim
-#   script:
-#     - pip install --no-cache-dir --upgrade pip
-#     - pip install --no-cache-dir flake8
-#     - flake8 .
-
-
-build_image_job:
+build_template: &build_template
   stage: build
   tags:
     - digiheals
-
-  before_script:
-    - echo "Setting up Docker BuildKit..."
-    - mkdir -p $DOCKER_CONFIG/cli-plugins
-
+  before_script: *default_scripts
+  variables:
+    BUILD_CONTEXT: "."
   script:
-    # Log into registry
-    - echo "$CI_REGISTRY_PASSWORD" | docker login registry-tigr.narfs.co -u "$CI_REGISTRY_USER" --password-stdin
+    - docker pull "${IMAGE_PATH}" || true
+    - docker build --cache-from "${IMAGE_PATH}" -t "${IMAGE_PATH}" "${BUILD_CONTEXT}"
+    - docker push "${IMAGE_PATH}"
 
-    # Tag and build Docker image
-    - export IMAGE_TAG=registry-tigr.narfs.co/digiheals/docker:${CI_COMMIT_REF_SLUG}
-    - docker build -t $IMAGE_TAG .
-    
-    # Push image to registry
-    - docker push $IMAGE_TAG
-
-    # Tag as 'latest' if on staging branch
-    - |
-      if [ "$CI_COMMIT_REF_NAME" == "staging" ]; then
-        docker tag $IMAGE_TAG registry-tigr.narfs.co/digiheals/docker:latest
-        docker push registry-tigr.narfs.co/digiheals/docker:latest
-      fi
-
-
-build_job:
-  stage: build
-
+build_vista:
+  <<: *build_template
   tags:
     - digiheals
+  variables:
+    IMAGE_PATH: "$VISTA_PATH_TEST"
 
-  script:
-    - docker pull registry-tigr.narfs.co/digiheals/docker:${CI_COMMIT_REF_SLUG} || docker pull registry-tigr.narfs.co/digiheals/docker:latest
-    
-    - docker compose up -d
+build_hapi:
+  <<: *build_template
+  tags:
+    - digiheals
+  variables:
+    IMAGE_PATH: "$HAPI_PATH_TEST"
 
-    - sleep 480  # Wait for services to initialize
+build_ibm:
+  <<: *build_template
+  tags:
+    - digiheals
+  variables:
+    IMAGE_PATH: "$IBM_PATH_TEST"
 
-test_job:
+build_blaze:
+  <<: *build_template
+  tags:
+    - digiheals
+  variables:
+    IMAGE_PATH: "$BLAZE_PATH_TEST"
+
+build_iris:
+  <<: *build_template
+  tags:
+    - digiheals
+  variables:
+    IMAGE_PATH: "$INTERSYSTEMS_PATH_TEST"
+    BUILD_CONTEXT: ./ehr-garden/intersystems
+
+build_synthea:
+  <<: *build_template
+  tags:
+    - digiheals
+  variables:
+    IMAGE_PATH: "$SYNTHEA_PATH_TEST"
+    BUILD_CONTEXT: ./ehr-garden/synthea
+
+build_neo4jtest:
+  <<: *build_template
+  tags:
+    - digiheals
+  variables:
+    IMAGE_PATH: "$NEO4J_TEST_PATH_TEST"
+
+run_test:
   stage: test
-
+  before_script: *default_scripts
   tags:
     - digiheals
-
   script:
-    # Run tests
+    - docker compose -f docker-compose-ci.yml pull
+    - docker compose -f docker-compose-ci.yml up -d
+    - docker ps
+    - sleep 480
     - make test
-
-  after_script:
-    # Tear down containers
-    - docker compose down -v
+    - docker compose -f docker-compose-ci.yml down -v
