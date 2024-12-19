@@ -3,7 +3,7 @@ name: ehrgarden
 services:
 
   vista:
-    image: worldvista/vehu:201911-syn-fhir
+    image: ${CI_REGISTRY_IMAGE}/vista-vehu:${CI_COMMIT_REF_SLUG}
     container_name: vehu
     ports:
       - 127.0.0.1:9080:9080
@@ -11,7 +11,7 @@ services:
   fhir-vista:
     depends_on:
       - vista
-    image: worldvista/fhir-on-vista:latest # sole tag on docker hub
+    image: ${CI_REGISTRY_IMAGE}/vista-fhir:${CI_COMMIT_REF_SLUG}
     ulimits:
       nofile:
         soft: 8096
@@ -20,28 +20,26 @@ services:
       - 127.0.0.1:8002:8080
 
   hapi-fhir:
-    image: hapiproject/hapi:latest
+    image: ${CI_REGISTRY_IMAGE}/hapi-fhir:${CI_COMMIT_REF_SLUG}
     ports:
       - 127.0.0.1:8004:8080
 
   ibm-fhir:
-    image: ghcr.io/linuxforhealth/fhir-server
+    image: ${CI_REGISTRY_IMAGE}/ibm-fhir:${CI_COMMIT_REF_SLUG}
     environment:
       BOOTSTRAP_DB: true
     ports:
       - 127.0.0.1:8005:9443
 
   blaze:
-    image: samply/blaze:latest
+    image: ${CI_REGISTRY_IMAGE}/blaze-fhir:${CI_COMMIT_REF_SLUG}
     ports:
       - 127.0.0.1:8006:8080
 
   intersystems:
-    build: ./ehr-garden/intersystems
-    restart: always
+    image: ${CI_REGISTRY_IMAGE}/iris-fhir:${CI_COMMIT_REF_SLUG}  
     hostname: fhir-template
-    container_name: fhir-template
-#   command: --check-caps false
+
     ports: 
       - 32782:1972
       - 8007:52773
@@ -54,17 +52,15 @@ services:
       - ./data:/data
       - ./:/home/irisowner/irisdev
 
-  # Images after this are not FHIR images
   synthea:
-    image: synthea
-    build: ./ehr-garden/synthea
+    image: ${CI_REGISTRY_IMAGE}/synthea:${CI_COMMIT_REF_SLUG}
     ports:
       - 127.0.0.1:9000:9000
     volumes:
       - ./files:/synthea/output
   
   neo4j-test:
-    image: neo4j:5.19.0-bullseye
+    image: ${CI_REGISTRY_IMAGE}/neo4j-test:${CI_COMMIT_REF_SLUG}
     container_name: neo4jTest
     environment:
       NEO4J_AUTH: neo4j/test-garden
