@@ -10,6 +10,7 @@ image: docker:latest
 
 variables:
   DOCKER_DRIVER: overlay2
+  CI_REGISTRY_IMAGE: registry-tigr.narfs.co
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""   # Disabled TLS for DinD
   DOCKER_BUILDKIT: 1
@@ -19,6 +20,8 @@ variables:
   ORGANIZATION_KEY: ""
   PROJECT_KEY: ""
   DOCKER_CONFIG: ${DOCKER_CONFIG:-$CI_PROJECT_DIR/.docker}
+  VISTA_VEHU_TAG: vista-vehu
+  VISTA_VEHU_PATH_TEST: "$CI_REGISTRY_IMAGE/$VISTA_VEHU_TAG:$CI_COMMIT_REF_SLUG"
   VISTA_TAG: vista-fhir
   VISTA_PATH_TEST: "$CI_REGISTRY_IMAGE/$VISTA_TAG:$CI_COMMIT_REF_SLUG"
   HAPI_TAG: hapi-fhir
@@ -47,9 +50,9 @@ variables:
     done
   - export DOCKER_CLIENT_TIMEOUT=300
   - export COMPOSE_HTTP_TIMEOUT=300
+  - echo $CI_REGISTRY
+  - echo $CI_REGISTRY_IMAGE
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
-  - echo "Testing registry connectivity..."
-  - curl -v https://gitlab-tigr.narfs.co:5050/v2/ || echo "Registry unreachable" 
   - export TAG=$([ "$CI_COMMIT_REF_NAME" == "staging" ] && echo "latest" || echo "$CI_COMMIT_REF_NAME" | tr '/' '-')
 
 black:
@@ -60,10 +63,7 @@ black:
   script:
     - black --check .
 
-build_template: &build_template
-  stage: build
-  tags:
-    - digiheals
+.build_template: &build_template
   before_script: *default_scripts
   variables:
     BUILD_CONTEXT: "."
@@ -72,36 +72,61 @@ build_template: &build_template
     - docker build --cache-from "${IMAGE_PATH}" -t "${IMAGE_PATH}" "${BUILD_CONTEXT}"
     - docker push "${IMAGE_PATH}"
 
+.push_image_template: &push_image_template
+  before_script: *default_scripts
+  script:
+    - docker pull "${GLOBAL_IMAGE_PATH}" || true
+    - docker tag "${GLOBAL_IMAGE_PATH}" "${IMAGE_PATH}"
+    - docker push "${IMAGE_PATH}"
+
+build_vista_vehu:
+  <<: *push_image_template
+  stage: build
+  tags:
+    - digiheals
+  variables:
+    IMAGE_PATH: "$VISTA_VEHU_PATH_TEST"
+    GLOBAL_IMAGE_PATH: "worldvista/vehu:201911-syn-fhir"
+
 build_vista:
-  <<: *build_template
+  <<: *push_image_template
+  stage: build
   tags:
     - digiheals
   variables:
     IMAGE_PATH: "$VISTA_PATH_TEST"
+    GLOBAL_IMAGE_PATH: "worldvista/fhir-on-vista:latest"
 
 build_hapi:
-  <<: *build_template
+  <<: *push_image_template
+  stage: build
   tags:
     - digiheals
   variables:
     IMAGE_PATH: "$HAPI_PATH_TEST"
+    GLOBAL_IMAGE_PATH: "hapiproject/hapi:latest"
 
 build_ibm:
-  <<: *build_template
+  <<: *push_image_template
+  stage: build
   tags:
     - digiheals
   variables:
     IMAGE_PATH: "$IBM_PATH_TEST"
+    GLOBAL_IMAGE_PATH: "ghcr.io/linuxforhealth/fhir-server"
 
 build_blaze:
-  <<: *build_template
+  <<: *push_image_template
+  stage: build
   tags:
     - digiheals
   variables:
     IMAGE_PATH: "$BLAZE_PATH_TEST"
+    GLOBAL_IMAGE_PATH: "samply/blaze:latest"
 
 build_iris:
   <<: *build_template
+  stage: build
   tags:
     - digiheals
   variables:
@@ -110,6 +135,7 @@ build_iris:
 
 build_synthea:
   <<: *build_template
+  stage: build
   tags:
     - digiheals
   variables:
@@ -117,11 +143,13 @@ build_synthea:
     BUILD_CONTEXT: ./ehr-garden/synthea
 
 build_neo4jtest:
-  <<: *build_template
+  <<: *push_image_template
+  stage: build
   tags:
     - digiheals
   variables:
     IMAGE_PATH: "$NEO4J_TEST_PATH_TEST"
+    GLOBAL_IMAGE_PATH: "neo4j:5.19.0-bullseye"
 
 run_test:
   stage: test
