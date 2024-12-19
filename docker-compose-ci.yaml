@@ -1,0 +1,83 @@
+name: ehrgarden
+
+services:
+
+  vista:
+    image: worldvista/vehu:201911-syn-fhir
+    container_name: vehu
+    ports:
+      - 127.0.0.1:9080:9080
+      
+  fhir-vista:
+    depends_on:
+      - vista
+    image: worldvista/fhir-on-vista:latest # sole tag on docker hub
+    ulimits:
+      nofile:
+        soft: 8096
+        hard: 8096
+    ports:
+      - 127.0.0.1:8002:8080
+
+  hapi-fhir:
+    image: hapiproject/hapi:latest
+    ports:
+      - 127.0.0.1:8004:8080
+
+  ibm-fhir:
+    image: ghcr.io/linuxforhealth/fhir-server
+    environment:
+      BOOTSTRAP_DB: true
+    ports:
+      - 127.0.0.1:8005:9443
+
+  blaze:
+    image: samply/blaze:latest
+    ports:
+      - 127.0.0.1:8006:8080
+
+  intersystems:
+    build: ./ehr-garden/intersystems
+    restart: always
+    hostname: fhir-template
+    container_name: fhir-template
+#   command: --check-caps false
+    ports: 
+      - 32782:1972
+      - 8007:52773
+      - 32784:53773
+    command: 
+      - -a
+      - iris session iris -U%SYS '##class(Security.Users).UnExpireUserPasswords("*")'
+      - --check-caps false
+    volumes:
+      - ./data:/data
+      - ./:/home/irisowner/irisdev
+
+  # Images after this are not FHIR images
+  synthea:
+    image: synthea
+    build: ./ehr-garden/synthea
+    ports:
+      - 127.0.0.1:9000:9000
+    volumes:
+      - ./files:/synthea/output
+  
+  neo4j-test:
+    image: neo4j:5.19.0-bullseye
+    container_name: neo4jTest
+    environment:
+      NEO4J_AUTH: neo4j/test-garden
+    ports:
+      - 127.0.0.1:7475:7474
+      - 127.0.0.1:7688:7687
+    volumes:
+      - ./neo4jTest/data:/data
+    profiles: 
+      - neo4jTest
+
+
+volumes:
+  blaze-data:
+  neo4jTestvolume: {}
+
