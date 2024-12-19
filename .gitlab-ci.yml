@@ -153,13 +153,30 @@ build_neo4jtest:
 
 run_test:
   stage: test
-  before_script: *default_scripts
+  before_script:
+    - *default_scripts
+
+    # Install Python and dependencies
+    - apk add --no-cache python3 py3-pip curl make
+    - python3 -m venv /builds/venv
+    - . /builds/venv/bin/activate
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pip install gdown
+    - pip install --upgrade openai
+
+    # Download and extract Neo4j test data
+    - gdown --id 1JXXPCnuPyerGKTPNVWYWF8Aw-mdHDFH_ -O neo4jTest.tar.xz
+    - ls -lh neo4jTest.tar.xz
+    - mkdir -p neo4jTest
+    - tar -xJf neo4jTest.tar.xz -C neo4jTest/
+
   tags:
     - digiheals
   script:
     - docker compose -f docker-compose-ci.yml pull
     - docker compose -f docker-compose-ci.yml up -d
     - docker ps
-    - sleep 480
+    - sleep 420
     - make test
     - docker compose -f docker-compose-ci.yml down -v
