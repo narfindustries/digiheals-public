@@ -166,7 +166,7 @@ run_test:
     - pip install --upgrade openai
 
     # Download and extract Neo4j test data
-    #- gdown --id 105J7X5QR55sUJjT3_I43eGB4AQ2Kq7hh -O neo4jTest.tar.xz
+    - gdown --id 105J7X5QR55sUJjT3_I43eGB4AQ2Kq7hh -O neo4jTest.tar.xz
     - ls -lh neo4jTest.tar.xz
     - mkdir -p neo4jTest
     - tar -xJf neo4jTest.tar.xz -C neo4jTest/

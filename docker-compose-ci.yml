@@ -4,7 +4,6 @@ services:
 
   vista:
     image: ${CI_REGISTRY_IMAGE}/vista-vehu:${CI_COMMIT_REF_SLUG}
-    container_name: vehu
     ports:
       - 127.0.0.1:9080:9080
       
