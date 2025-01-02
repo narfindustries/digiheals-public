@@ -177,15 +177,14 @@ services:
       - neo4jDev
   
   neo4j-test:
-    image: neo4j:5.19.0-bullseye
+    image: neo4j-test
+    build: ./ehr-garden/neo4jTest
     container_name: neo4jTest
     environment:
       NEO4J_AUTH: neo4j/test-garden
     ports:
       - 127.0.0.1:7475:7474
       - 127.0.0.1:7688:7687
-    volumes:
-      - ./neo4jTest/data:/data
     profiles: 
       - neo4jTest
 

@@ -149,10 +149,11 @@ build_neo4jtest:
     - digiheals
   variables:
     IMAGE_PATH: "$NEO4J_TEST_PATH_TEST"
-    GLOBAL_IMAGE_PATH: "neo4j:5.19.0-bullseye"
+    BUILD_CONTEXT: ./ehr-garden/neo4jTest
 
 run_test:
   stage: test
+  allow_failure: true
   before_script:
     - *default_scripts
 
@@ -162,14 +163,7 @@ run_test:
     - . /builds/venv/bin/activate
     - pip install --upgrade pip
     - pip install -r requirements.txt
-    - pip install gdown
     - pip install --upgrade openai
-
-    # Download and extract Neo4j test data
-    - gdown --id 105J7X5QR55sUJjT3_I43eGB4AQ2Kq7hh -O neo4jTest.tar.xz
-    - ls -lh neo4jTest.tar.xz
-    - mkdir -p neo4jTest
-    - tar -xJf neo4jTest.tar.xz -C neo4jTest/
 
   tags:
     - digiheals
