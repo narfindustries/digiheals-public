@@ -143,7 +143,7 @@ build_synthea:
     BUILD_CONTEXT: ./ehr-garden/synthea
 
 build_neo4jtest:
-  <<: *push_image_template
+  <<: *build_template
   stage: build
   tags:
     - digiheals
