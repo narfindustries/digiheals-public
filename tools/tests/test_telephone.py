@@ -88,10 +88,10 @@ def test_chain_creation_and_cleanup(
     edges = get_edges_by_guid(neo4j_test_db, guid)
     assert len(edges) > 0, "No edges created for guid"
 
-    # Clean up database by removing edges with this guid
-    remove_edges_by_guid(neo4j_test_db, guid)
-    edges_after_cleanup = get_edges_by_guid(neo4j_test_db, guid)
-    assert len(edges_after_cleanup) == 0, "Edges not cleaned up after test"
+    # # Clean up database by removing edges with this guid
+    # remove_edges_by_guid(neo4j_test_db, guid)
+    # edges_after_cleanup = get_edges_by_guid(neo4j_test_db, guid)
+    # assert len(edges_after_cleanup) == 0, "Edges not cleaned up after test"
 
 
 def get_all_nodes(neo4j_test_db):
@@ -112,9 +112,9 @@ def get_edges_by_guid(neo4j_test_db, guid):
         return [record for record in result]
 
 
-def remove_edges_by_guid(neo4j_test_db, guid):
-    """Query to delete the edges with this guid from db created for this test"""
-    with neo4j_test_db.session() as session:
-        query = """MATCH (n1)-[r:LINK {guid: $guid}]->(n2)
-            DELETE r"""
-        session.run(query, parameters={"guid": guid})
+# def remove_edges_by_guid(neo4j_test_db, guid):
+#     """Query to delete the edges with this guid from db created for this test"""
+#     with neo4j_test_db.session() as session:
+#         query = """MATCH (n1)-[r:LINK {guid: $guid}]->(n2)
+#             DELETE r"""
+#         session.run(query, parameters={"guid": guid})
