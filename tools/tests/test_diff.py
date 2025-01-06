@@ -102,7 +102,7 @@ def test_compare_function(file1, file2, file_type, expected):
     assert result == expected_tuple, f"Failed for {file_type} comparison"
 
 
-@pytest.mark.skip(reason="no way of currently testing this")
+# @pytest.mark.skip(reason="no way of currently testing this")
 def test_compare_paths_with_chains(capsys):
     """Test to check paths comparison functionality"""
     params = {"guid": "6d831452-4058-4a00-8b61-ef7a4a6fb4d0"}

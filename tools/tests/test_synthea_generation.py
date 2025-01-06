@@ -9,7 +9,7 @@ import time
 
 def generate_fhir_file():
     """Create Synthea File"""
-    r = requests.get("http://localhost:9000/", timeout=100)
+    r = requests.get("http://localhost:9000/", timeout=200)
     time.sleep(20)
     if r.status_code == 200:
         filename = r.json()["filename"]
