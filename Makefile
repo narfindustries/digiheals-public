@@ -13,3 +13,6 @@ test:
 		echo "Running test $$file"; \
 		( cd tools/tests && pytest $$(basename $$file) ) || exit 1; \
 	done
+
+test-pipeline:
+		pytest tools/tests/test_telephone.py || exit 1

@@ -172,5 +172,5 @@ run_test:
     - docker compose -f docker-compose-ci.yml up -d
     - docker ps
     - sleep 420
-    - make test
+    - make test-pipeline
     - docker compose -f docker-compose-ci.yml down -v
