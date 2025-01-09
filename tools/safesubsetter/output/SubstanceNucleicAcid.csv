@@ -1,0 +1,13 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+sequenceType,CodeableConcept
+numberOfSubunits,integer
+areaOfHybridisation,string
+oligoNucleotideType,CodeableConcept
+subunit,SubstanceNucleicAcid::Subunit

@@ -1,0 +1,15 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+status,code
+contact,ContactPoint
+end,instant
+reason,string
+criteria,string
+error,string
+channel,Subscription::Channel

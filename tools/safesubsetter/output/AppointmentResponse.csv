@@ -1,0 +1,16 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+appointment,Reference
+start,instant
+end,instant
+participantType,CodeableConcept
+actor,Reference
+participantStatus,code
+comment,string
