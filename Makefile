@@ -15,4 +15,4 @@ test:
 	done
 
 test-pipeline:
-		pytest tools/tests/test_telephone.py || exit 1
+		( cd tools/tests && pytest test_telephone.py ) || exit 1
