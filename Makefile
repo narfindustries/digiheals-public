@@ -1,6 +1,7 @@
-.PHONY: check-connection test
+.PHONY: check-connection test test-pipeline
 
 TEST_FILES := $(wildcard tools/tests/test_*.py)
+PIPELINE_TEST_FILES := tools/tests/test_telephone.py tools/tests/test_diff.py
 
 check-connection:
 	@echo "Checking connection"
@@ -15,4 +16,7 @@ test:
 	done
 
 test-pipeline:
-		( cd tools/tests && pytest test_telephone.py ) || exit 1
+	@for file in $(PIPELINE_TEST_FILES); do \
+		echo "Running test $$(basename $$file)"; \
+		( cd tools/tests && pytest $$(basename $$file) ) || exit 1; \
+	done

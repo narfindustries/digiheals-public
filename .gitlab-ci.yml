@@ -173,4 +173,5 @@ run_test:
     - docker ps
     - sleep 420
     - make test-pipeline
-    - docker compose -f docker-compose-ci.yml down -v
+    - docker compose -f docker-compose-ci.yml stop
+    - docker compose -f docker-compose-ci.yml down -v --timeout 120
