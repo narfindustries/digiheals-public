@@ -19,8 +19,19 @@ def list_all_resources
   FHIR::R4::RESOURCES.each do |resource|
     # We need an eval here because it comes from the resource itself
     type_list = eval("FHIR::R4::#{resource}::METADATA")
-    CSV.open("output/#{resource}.csv", "w") do |csv|
+    CSV.open("output/resource/#{resource}.csv", "w") do |csv|
       puts "Resource: #{resource}"
+      for key, definition in type_list
+        csv << [key, definition["type"]]
+      end # loop through type_list
+    end # CSV open
+  end # loop through resource types
+
+  FHIR::R4::TYPES.each do |resource|
+    # We need an eval here because it comes from the resource itself
+    type_list = eval("FHIR::R4::#{resource}::METADATA")
+    CSV.open("output/types/#{resource}.csv", "w") do |csv|
+      puts "Type: #{resource}"
       for key, definition in type_list
         csv << [key, definition["type"]]
       end # loop through type_list

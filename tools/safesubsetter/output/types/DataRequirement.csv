@@ -1,0 +1,11 @@
+id,string
+extension,Extension
+type,code
+profile,canonical
+subjectCodeableConcept,CodeableConcept
+subjectReference,Reference
+mustSupport,string
+codeFilter,DataRequirement::CodeFilter
+dateFilter,DataRequirement::DateFilter
+limit,positiveInt
+sort,DataRequirement::Sort

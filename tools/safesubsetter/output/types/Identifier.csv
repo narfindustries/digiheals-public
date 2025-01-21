@@ -1,0 +1,8 @@
+id,string
+extension,Extension
+use,code
+type,CodeableConcept
+system,uri
+value,string
+period,Period
+assigner,Reference

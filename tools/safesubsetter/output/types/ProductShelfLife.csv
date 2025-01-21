@@ -1,0 +1,7 @@
+id,string
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+type,CodeableConcept
+period,Quantity
+specialPrecautionsForStorage,CodeableConcept
