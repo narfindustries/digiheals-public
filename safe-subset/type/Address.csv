@@ -1,0 +1,13 @@
+Field,Type
+id,string
+extension,Extension
+use,code
+type,code
+text,string
+line,string
+city,string
+district,string
+state,string
+postalCode,string
+country,string
+period,Period

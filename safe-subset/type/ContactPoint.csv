@@ -1,0 +1,8 @@
+Field,Type
+id,string
+extension,Extension
+system,code
+value,string
+use,code
+rank,positiveInt
+period,Period
