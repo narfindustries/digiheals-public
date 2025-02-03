@@ -6,10 +6,15 @@ import os
 import sqlite3
 import csv
 import argparse
+from concurrent.futures import ThreadPoolExecutor
+from threading import Lock
 
 RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"
+DB_FILE = "synthea_corpus.db"
 
+file_count = 0
+count_lock = Lock()
 
 def parse_fhir_spec_csv(file_path):
     """Parse csv file to extract all fields and their types"""
@@ -129,7 +134,7 @@ def insert_data(conn, file_path, resource_type, resource_data, metadata, types_f
 
 def process_synthea_json(file_path, resources_folder, types_folder):
     """Read Synthea file and process the fields"""
-    conn = sqlite3.connect("synthea_corpus.db")
+    conn = sqlite3.connect(DB_FILE)
 
     with open(file_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -146,11 +151,31 @@ def process_synthea_json(file_path, resources_folder, types_folder):
 
     conn.close()
 
+    global file_count
+    with count_lock:
+        file_count += 1
+        print(f"Files processed: {file_count}")
 
+
+def list_files_in_folder(folder_path):
+    """
+    List all file paths in the given folder.
+    """
+    file_paths = []
+    for root, _, files in os.walk(folder_path):
+        for file in files:
+            file_paths.append(os.path.join(root, file))
+    return file_paths
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Add Synthea patient file to db.")
-    parser.add_argument("file_path", type=str)
+    parser.add_argument("folder_path", type=str, help="Path to the folder containing Synthea patient files.")
     args = parser.parse_args()
 
-    process_synthea_json(args.file_path, RESOURCES_FOLDER, TYPES_FOLDER)
+    file_paths = list_files_in_folder(args.folder_path)
+
+    # Using ThreadPoolExecutor for multithreading
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        executor.map(process_synthea_json, file_paths, [RESOURCES_FOLDER] * len(file_paths), [TYPES_FOLDER] * len(file_paths))
+
+
