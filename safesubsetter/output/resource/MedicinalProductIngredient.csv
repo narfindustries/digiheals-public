@@ -1,0 +1,14 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+role,CodeableConcept
+allergenicIndicator,boolean
+manufacturer,Reference
+specifiedSubstance,MedicinalProductIngredient::SpecifiedSubstance
+substance,MedicinalProductIngredient::Substance

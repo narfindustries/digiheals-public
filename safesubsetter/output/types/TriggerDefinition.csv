@@ -1,0 +1,10 @@
+id,string
+extension,Extension
+type,code
+name,string
+timingTiming,Timing
+timingReference,Reference
+timingDate,date
+timingDateTime,dateTime
+data,DataRequirement
+condition,Expression

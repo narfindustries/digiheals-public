@@ -1,0 +1,7 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+contentType,code
+securityContext,Reference
+data,base64Binary

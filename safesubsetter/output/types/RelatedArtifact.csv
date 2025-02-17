@@ -1,0 +1,9 @@
+id,string
+extension,Extension
+type,code
+label,string
+display,string
+citation,markdown
+url,url
+document,Attachment
+resource,canonical

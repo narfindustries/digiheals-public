@@ -1,0 +1,15 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+administrableDoseForm,CodeableConcept
+unitOfPresentation,CodeableConcept
+ingredient,Reference
+device,Reference
+characteristics,MedicinalProductPharmaceutical::Characteristics
+routeOfAdministration,MedicinalProductPharmaceutical::RouteOfAdministration

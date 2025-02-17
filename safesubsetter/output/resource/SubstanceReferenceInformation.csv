@@ -1,0 +1,13 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+comment,string
+gene,SubstanceReferenceInformation::Gene
+geneElement,SubstanceReferenceInformation::GeneElement
+classification,SubstanceReferenceInformation::Classification
+target,SubstanceReferenceInformation::Target

@@ -1,0 +1,11 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+identifier,Identifier
+type,code
+timestamp,instant
+total,unsignedInt
+link,Bundle::Link
+entry,Bundle::Entry
+signature,Signature

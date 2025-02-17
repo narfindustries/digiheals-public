@@ -1,0 +1,8 @@
+id,string
+extension,Extension
+modifierExtension,Extension
+country,CodeableConcept
+jurisdiction,CodeableConcept
+status,CodeableConcept
+dateRange,Period
+restoreDate,dateTime

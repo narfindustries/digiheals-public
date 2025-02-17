@@ -1,0 +1,6 @@
+id,string
+extension,Extension
+authorReference,Reference
+authorString,string
+time,dateTime
+text,markdown

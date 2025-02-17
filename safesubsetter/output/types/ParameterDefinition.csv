@@ -1,0 +1,9 @@
+id,string
+extension,Extension
+name,code
+use,code
+min,integer
+max,string
+documentation,string
+type,code
+profile,canonical

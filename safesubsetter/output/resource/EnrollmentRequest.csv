@@ -1,0 +1,15 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+status,code
+created,dateTime
+insurer,Reference
+provider,Reference
+candidate,Reference
+coverage,Reference

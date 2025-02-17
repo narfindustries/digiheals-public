@@ -1,0 +1,8 @@
+id,string
+extension,Extension
+modifierExtension,Extension
+ageRange,Range
+ageCodeableConcept,CodeableConcept
+gender,CodeableConcept
+race,CodeableConcept
+physiologicalCondition,CodeableConcept
