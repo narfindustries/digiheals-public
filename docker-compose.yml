@@ -1,8 +1,18 @@
 name: ehrgarden
 
 services:
+
+  safesubset-db:
+    image: postgres:17.3-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+ 
   db-gnuhealth:
-    image: postgres:alpine3.20
+    image: postgres:17.3-alpine
     restart: always
     environment:
       POSTGRES_USER: gnuhealth
@@ -229,4 +239,5 @@ volumes:
   blaze-data:
   neo4jvolume: {}
   neo4jTestvolume: {}
+  pgdata: {}
 
