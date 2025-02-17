@@ -4,13 +4,18 @@ Script to build sqlite db with synthea patient data examples
 
 import json
 import os
-import sqlite3
 import csv
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from sqlalchemy.engine import URL
+from sqlalchemy import create_engine, Column, Integer, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
 
 RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"
+table_classes = {}
 
 
 def parse_fhir_spec_csv(file_path):
@@ -25,29 +30,42 @@ def parse_fhir_spec_csv(file_path):
     return metadata
 
 
-def create_table(conn, resource_type, metadata, table_type="resource"):
+def create_table(conn, resource_type, metadata, base_obj, table_type="resource"):
     """Create table for resource or type with metadata as columns"""
-    cursor = conn.cursor()
-    columns = [f'"{field}" TEXT' for field in metadata.keys() if field != "id"]
-    columns.append('"source_file" TEXT')
 
-    if table_type == "resource":
-        sql_query = f"""
-            CREATE TABLE IF NOT EXISTS "{resource_type}" (
-                "id" TEXT PRIMARY KEY,
-                {', '.join(columns)}
-            )
-        """
-    else:
-        sql_query = f"""
-            CREATE TABLE IF NOT EXISTS "{resource_type}" (
-                "id" integer PRIMARY KEY AUTOINCREMENT,
-                {', '.join(columns)}
-            )
-        """
+    columns = {}
+    columns["__tablename__"] = resource_type
+    for field in metadata.keys():
+        if field != "id":
+            columns[field] = Column(Text)
+    columns["source_file"] = Column(Text)
+    columns["id"] = Column(Integer, primary_key=True, autoincrement=True)
 
-    cursor.execute(sql_query)
-    conn.commit()
+    """
+    TODO: I am not really sure what the difference between these two logics are. ID can be a string, uuid, or integer even in resources
+    For now I have ignored all ID fields and just stuck to them all being integers that autoincrement
+    """
+    # if table_type == "resource":
+    #     # sql_query = f"""
+    #     #     CREATE TABLE IF NOT EXISTS "{resource_type}" (
+    #     #         "id" TEXT PRIMARY KEY,
+    #     #         {', '.join(columns)}
+    #     #     )
+    #     # """
+    #     table_class = type(resource_type, (base_obj,), columns)
+    # else:
+    #     # sql_query = f"""
+    #     #     CREATE TABLE IF NOT EXISTS "{resource_type}" (
+    #     #         "id" integer PRIMARY KEY AUTOINCREMENT,
+    #     #         {', '.join(columns)}
+    #     #     )
+    #     # """
+    #     columns["id"] = Column(Integer, primary_key=True, autoincrement=True)
+    #     table_class = type(resource_type, (base_obj,), columns)
+
+    table_class = type(resource_type, (base_obj,), columns)
+    base_obj.metadata.create_all(conn)
+    table_classes[resource_type] = table_class
 
 
 def process_field_value(value):
@@ -60,7 +78,14 @@ def process_field_value(value):
 
 
 def insert_data(
-    conn, file_path, resource_type, resource_data, metadata, types_folder, depth=0
+    conn,
+    file_path,
+    resource_type,
+    resource_data,
+    metadata,
+    types_folder,
+    base_obj,
+    depth=0,
 ):
     """
     Insert value into table. For depth > 0, create table, then insert value into new table.
@@ -69,23 +94,25 @@ def insert_data(
     if depth > 1:
         return  # Stop processing nested structures beyond depth 1
 
-    cursor = conn.cursor()
-    resource_id = resource_data.get("id")
-    cursor.execute(f"SELECT 1 FROM {resource_type} WHERE id = ?", (resource_id,))
-    if cursor.fetchone():
-        print(
-            f"{resource_type} with id {resource_id} already exists. Skipping insertion."
-        )
-        return
+    # cursor = conn.cursor()
+    # resource_id = resource_data.get("id")
+    # cursor.execute(f"SELECT 1 FROM {resource_type} WHERE id = ?", (resource_id,))
+    # if cursor.fetchone():
+    #     print(
+    #         f"{resource_type} with id {resource_id} already exists. Skipping insertion."
+    #     )
+    #     return
 
-    if resource_id is None:  # If field is of type and not resource
-        columns = ["source_file"]
-        values = [file_path]
-    else:
-        columns = ["id", "source_file"]
-        values = [resource_id, file_path]
+    # if resource_id is None:  # If field is of type and not resource
+    columns = ["source_file"]
+    values = [file_path]
+    # else:
+    #     columns = ["id", "source_file"]
+    #     values = [resource_id, file_path]
 
     for field, details in metadata.items():
+        if field == "id":
+            continue
         value = resource_data.get(field)
         if (
             details.get("type")
@@ -99,7 +126,8 @@ def insert_data(
             nested_metadata = parse_fhir_spec_csv(nested_spec_file)
 
             # Ensure the nested table exists before inserting data
-            create_table(conn, nested_type, nested_metadata, "type")
+            if nested_type not in base_obj.metadata.tables.keys():
+                create_table(conn, nested_type, nested_metadata, base_obj, "type")
             if isinstance(value, list):
                 for nested_item in value:
                     insert_data(
@@ -109,6 +137,7 @@ def insert_data(
                         nested_item,
                         nested_metadata,
                         types_folder,
+                        base_obj,
                         depth + 1,
                     )
             elif isinstance(value, dict):
@@ -119,23 +148,37 @@ def insert_data(
                     value,
                     nested_metadata,
                     types_folder,
+                    base_obj,
                     depth + 1,
                 )
         else:
             columns.append(field)
             values.append(process_field_value(value))
 
-    placeholders_insert = ", ".join(["?"] * len(values))
-    insert_query = f"INSERT INTO {resource_type} ({', '.join(columns)}) VALUES ({placeholders_insert})"
-    cursor.execute(insert_query, values)
-    conn.commit()
+    Session = sessionmaker(bind=conn)
+    session = Session()
+    data = dict(zip(columns, values))
+    table_class = table_classes[resource_type]
+    new_record = table_class(**data)
+    session.add(new_record)
+    session.commit()
+    session.close()
 
 
 def process_synthea_json(file_path, resources_folder, types_folder):
     """Read Synthea file and process the fields"""
-    conn = sqlite3.connect(
-        "synthea_corpus_main.db"
-    )  # Each thread gets its own connection
+
+    # url = URL.create(
+    #     drivername="postgresql",
+    #     username="postgres",
+    #     password="password",
+    #     host="localhost",
+    #     database="safesubset"
+    #     )
+    url = "sqlite:///synthea_corpus_main.db"
+
+    conn = create_engine(url)  # Each thread gets its own connection
+    Base = declarative_base()
 
     with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -147,12 +190,11 @@ def process_synthea_json(file_path, resources_folder, types_folder):
         resource_spec_file = os.path.join(resources_folder, f"{resource_type}.csv")
         if os.path.exists(resource_spec_file):
             metadata = parse_fhir_spec_csv(resource_spec_file)
-            create_table(conn, resource_type, metadata)
+            if resource_type not in Base.metadata.tables.keys():
+                create_table(conn, resource_type, metadata, Base)
             insert_data(
-                conn, file_path, resource_type, resource, metadata, types_folder
+                conn, file_path, resource_type, resource, metadata, types_folder, Base
             )
-
-    conn.close()
 
 
 def list_files_in_folder(folder_path):
@@ -189,3 +231,4 @@ if __name__ == "__main__":
 
         for i, future in enumerate(as_completed(futures)):
             print(f"Processed file {i + 1}/{len(file_paths)}: {futures[future]}")
+            print(future.result())
