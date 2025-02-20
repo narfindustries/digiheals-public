@@ -87,23 +87,23 @@ def traverse_all_paths(
     if current_node == "Patient":
         node_styles[current_node] = {
             "color": "#e6add8",
-            "shape": "diamond",
+            "shape": "square",
             "size": 15,
-        }  # Gold and Diamond
+        }
     elif current_node == "Extension":
         node_styles[current_node] = {"color": "#d8e6ad", "shape": "cross", "size": 15}
     elif spec_file.startswith(RESOURCES_FOLDER):
         node_styles[current_node] = {
-            "color": "#add8e6",
+            "color": "#e6bbad",
             "shape": "star-triangle-up",
             "size": 10,
-        }  # Light blue and Triangle
+        }
     elif spec_file.startswith(TYPES_FOLDER):
         node_styles[current_node] = {
-            "color": "#e6bbad",
+            "color": "#add8e6",
             "shape": "circle",
             "size": 10,
-        }  # Light red and Circle
+        }
 
     for _, details in metadata.items():
         if (
@@ -222,8 +222,8 @@ for node in graph.nodes():
     node_x.append(x)
     node_y.append(y)
     node_style = node_styles.get(
-        node, {"color": "#add8e6", "shape": "circle"}
-    )  # Default: Blue and Circle
+        node, {"color": "#e6bbad", "shape": "star-triangle-up"}
+    )
     node_color_list.append(node_style["color"])
     node_symbol.append(node_style["shape"])
     node_size.append(node_style["size"])
