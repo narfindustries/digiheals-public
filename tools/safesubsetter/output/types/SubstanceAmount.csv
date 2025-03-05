@@ -1,9 +1,0 @@
-id,string
-extension,Extension
-modifierExtension,Extension
-amountQuantity,Quantity
-amountRange,Range
-amountString,string
-amountType,CodeableConcept
-amountText,string
-referenceRange,SubstanceAmount::ReferenceRange

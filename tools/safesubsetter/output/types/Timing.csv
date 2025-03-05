@@ -1,6 +1,0 @@
-id,string
-extension,Extension
-modifierExtension,Extension
-event,dateTime
-repeat,Timing::Repeat
-code,CodeableConcept

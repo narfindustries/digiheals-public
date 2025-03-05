@@ -1,7 +1,0 @@
-id,string
-extension,Extension
-description,string
-name,id
-language,code
-expression,string
-reference,uri

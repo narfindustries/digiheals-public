@@ -1,9 +1,0 @@
-id,string
-extension,Extension
-origin,Quantity
-period,decimal
-factor,decimal
-lowerLimit,decimal
-upperLimit,decimal
-dimensions,positiveInt
-data,string

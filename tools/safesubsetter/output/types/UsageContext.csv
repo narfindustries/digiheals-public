@@ -1,7 +1,0 @@
-id,string
-extension,Extension
-code,Coding
-valueCodeableConcept,CodeableConcept
-valueQuantity,Quantity
-valueRange,Range
-valueReference,Reference

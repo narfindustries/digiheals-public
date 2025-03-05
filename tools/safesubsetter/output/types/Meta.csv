@@ -1,8 +1,0 @@
-id,string
-extension,Extension
-versionId,id
-lastUpdated,instant
-source,uri
-profile,canonical
-security,Coding
-tag,Coding
