@@ -1,10 +1,10 @@
-""" Find max depth for each resource type"""
+""" Traverse all paths and find max depth for each resource type"""
 
 import os
 import csv
-import json
 import networkx as nx
 import plotly.graph_objects as go
+import plotly.io as pio
 
 RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"
@@ -139,6 +139,59 @@ def traverse_all_paths(
                 )
 
 
+def traverse_patient_paths(
+    spec_file, visited_files_per_path, graph, edges_set, node_styles
+):
+    """Recursively traverse 1st level paths for Patient.csv"""
+    if (
+        spec_file in visited_files_per_path
+    ):  # To avoid same file from being visited again
+        return
+
+    visited_files_per_path.add(spec_file)
+    metadata = parse_fhir_spec_csv(spec_file)
+
+    current_node = os.path.basename(spec_file).split(".")[0]
+
+    if current_node == "Patient":
+        node_styles[current_node] = {
+            "color": "#e6add8",
+            "shape": "square",
+            "size": 15,
+        }
+    elif spec_file.startswith(TYPES_FOLDER):
+        node_styles[current_node] = {
+            "color": "#e6bbad",
+            "shape": "circle",
+            "size": 10,
+        }
+
+    for _, details in metadata.items():
+        if (
+            "type" in details and details["type"][0].isupper()
+        ):  # Check if type is a nested type
+            nested_type = details["type"]
+
+            # Determine which folder the nested file belongs to
+            resource_nested_spec_file = os.path.join(
+                RESOURCES_FOLDER, f"{nested_type}.csv"
+            )
+            type_nested_spec_file = os.path.join(TYPES_FOLDER, f"{nested_type}.csv")
+            nested_spec_file = (
+                resource_nested_spec_file
+                if os.path.exists(resource_nested_spec_file)
+                else type_nested_spec_file
+            )
+
+            if os.path.exists(nested_spec_file):
+                edge = (current_node, nested_type)  # Create edge
+
+                # Check if edge exists in set before creating edge, if not add to set
+                if edge not in edges_set:
+                    graph.add_edge(current_node, nested_type)
+                    edges_set.add(edge)
+
+
 def list_files_in_folder(folder_path):
     """List all file paths in the given folder."""
     file_paths = []
@@ -187,6 +240,16 @@ for resource_file in resource_files:
     # Start traversal with root node
     graph.add_node(resource_name)
     traverse_all_paths(resource_file, set(), graph, edges_set, node_styles)
+
+# """ Create Struct for Patient Resource type"""
+# resource_file = 'output/resource/Patient.csv'
+# print(f"Processing: {resource_file}")
+# resource_name = os.path.basename(resource_file).split(".")[0]
+
+# # Start traversal with root node
+# graph.add_node(resource_name)
+# traverse_patient_paths(resource_file, set(), graph, edges_set, node_styles)
+
 
 # Plot graph using Plotly
 pos = nx.spring_layout(graph, k=0.8, seed=42)
@@ -248,12 +311,40 @@ node_trace = go.Scatter(
 fig = go.Figure(
     data=[edge_trace, node_trace],
     layout=go.Layout(
-        title="FHIR Resource Types",
+        # title="FHIR Resource Types",
         showlegend=False,
         hovermode="closest",
-        margin=dict(b=20, l=5, r=5, t=40),
+        margin=dict(b=0, l=0, r=0, t=0),
         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        width=1600,
+        height=800,
     ),
 )
-fig.show()
+
+pio.write_image(fig, "figs/resource_graph_all.pdf", format="pdf", scale=5)
+# pio.write_image(fig, "resource_graph_all.eps", format="eps", scale=3) Throwing PDF to EPS conversion failed error
+# Display the figure
+# fig.show()
+
+
+# # Plot Patient figure using Plotly
+# pos = nx.spring_layout(graph, k=0.5, seed=42)
+
+# node_trace = go.Scatter(
+#     x=node_x,
+#     y=node_y,
+#     mode="markers+text",
+#     hoverinfo="text",
+#     text=node_text,
+#     textposition="middle center",
+#     marker=dict(
+#         size=150,
+#         symbol=node_symbol,
+#         color=node_color_list,
+#         line=dict(width=1, color="black"),
+#     ),
+#     textfont=dict(size=14, color="black", family="Arial Black")
+# )
+
+# pio.write_image(fig, "figs/patient_struct.pdf", format="pdf", scale=5)
