@@ -1,6 +1,10 @@
 # SafeSubsetter
 
-SafeSubsetter is a tool designed to help derive a stricter FHIR R4 specification..
+SafeSubsetter is a tool designed to help derive a stricter FHIR R4 specification.
+
+## Install Dependency
+
+`sudo apt-get -y install libpq-dev`
 
 ## Usage
 
