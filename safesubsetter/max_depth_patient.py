@@ -7,7 +7,7 @@ import networkx as nx
 import plotly.graph_objects as go
 import plotly.io as pio
 
-from resource_type_paths import parse_fhir_spec_csv, list_files_in_folder
+from utils import parse_fhir_spec_csv, list_files_in_folder
 
 RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"
