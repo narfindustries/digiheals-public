@@ -11,7 +11,7 @@ from sqlalchemy.engine import URL
 from sqlalchemy import create_engine, Column, Integer, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
+from utils import parse_fhir_spec_csv, list_files_in_folder
 
 RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"
@@ -195,15 +195,6 @@ def process_synthea_json(file_path, resources_folder, types_folder):
             insert_data(
                 conn, file_path, resource_type, resource, metadata, types_folder, Base
             )
-
-
-def list_files_in_folder(folder_path):
-    """List all file paths in the given folder."""
-    file_paths = []
-    for root, _, files in os.walk(folder_path):
-        for file in files:
-            file_paths.append(os.path.join(root, file))
-    return file_paths
 
 
 if __name__ == "__main__":

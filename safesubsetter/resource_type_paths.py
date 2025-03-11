@@ -6,20 +6,10 @@ import networkx as nx
 import plotly.graph_objects as go
 import plotly.io as pio
 
+from utils import parse_fhir_spec_csv, list_files_in_folder
+
 RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"
-
-
-def parse_fhir_spec_csv(file_path):
-    """Parse csv file to extract all fields and their types"""
-    metadata = {}
-    with open(file_path, "r", encoding="utf-8") as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if len(row) == 2:
-                field, field_type = row
-                metadata[field] = {"type": field_type}
-    return metadata
 
 
 def find_max_depth(spec_file, depth, visited_files_per_path, chain_path):
@@ -190,15 +180,6 @@ def traverse_patient_paths(
                 if edge not in edges_set:
                     graph.add_edge(current_node, nested_type)
                     edges_set.add(edge)
-
-
-def list_files_in_folder(folder_path):
-    """List all file paths in the given folder."""
-    file_paths = []
-    for root, _, files in os.walk(folder_path):
-        for file in files:
-            file_paths.append(os.path.join(root, file))
-    return file_paths
 
 
 # Process all resource files
