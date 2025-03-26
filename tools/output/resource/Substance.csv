@@ -1,0 +1,15 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+status,code
+category,CodeableConcept
+code,CodeableConcept
+description,string
+instance,Substance::Instance
+ingredient,Substance::Ingredient

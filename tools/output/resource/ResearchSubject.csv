@@ -1,0 +1,16 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+status,code
+period,Period
+study,Reference
+individual,Reference
+assignedArm,string
+actualArm,string
+consent,Reference

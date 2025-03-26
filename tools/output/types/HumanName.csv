@@ -1,0 +1,9 @@
+id,string
+extension,Extension
+use,code
+text,string
+family,string
+given,string
+prefix,string
+suffix,string
+period,Period

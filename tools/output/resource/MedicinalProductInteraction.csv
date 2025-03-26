@@ -1,0 +1,15 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+subject,Reference
+description,string
+interactant,MedicinalProductInteraction::Interactant
+type,CodeableConcept
+effect,CodeableConcept
+incidence,CodeableConcept
+management,CodeableConcept

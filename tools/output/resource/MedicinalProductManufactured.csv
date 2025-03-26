@@ -1,0 +1,15 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+manufacturedDoseForm,CodeableConcept
+unitOfPresentation,CodeableConcept
+quantity,Quantity
+manufacturer,Reference
+ingredient,Reference
+physicalCharacteristics,ProdCharacteristic
+otherCharacteristics,CodeableConcept

@@ -1,0 +1,14 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+typeCollected,CodeableConcept
+patientPreparation,CodeableConcept
+timeAspect,string
+collection,CodeableConcept
+typeTested,SpecimenDefinition::TypeTested

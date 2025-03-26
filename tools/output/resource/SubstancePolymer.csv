@@ -1,0 +1,14 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+class,CodeableConcept
+geometry,CodeableConcept
+copolymerConnectivity,CodeableConcept
+modification,string
+monomerSet,SubstancePolymer::MonomerSet
+repeat,SubstancePolymer::Repeat

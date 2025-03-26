@@ -1,0 +1,9 @@
+id,string
+extension,Extension
+type,Coding
+when,instant
+who,Reference
+onBehalfOf,Reference
+targetFormat,code
+sigFormat,code
+data,base64Binary

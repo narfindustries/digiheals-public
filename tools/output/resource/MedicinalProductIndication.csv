@@ -1,0 +1,17 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+subject,Reference
+diseaseSymptomProcedure,CodeableConcept
+diseaseStatus,CodeableConcept
+comorbidity,CodeableConcept
+intendedEffect,CodeableConcept
+duration,Quantity
+otherTherapy,MedicinalProductIndication::OtherTherapy
+undesirableEffect,Reference
+population,Population

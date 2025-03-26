@@ -1,0 +1,7 @@
+id,string
+extension,Extension
+value,decimal
+comparator,code
+unit,string
+system,uri
+code,code

@@ -1,0 +1,10 @@
+id,string
+extension,Extension
+contentType,code
+language,code
+data,base64Binary
+url,url
+size,unsignedInt
+hash,base64Binary
+title,string
+creation,dateTime

@@ -1,0 +1,17 @@
+id,id
+meta,Meta
+implicitRules,uri
+language,code
+text,Narrative
+contained,Resource
+extension,Extension
+modifierExtension,Extension
+identifier,Identifier
+subject,Reference
+description,string
+legalStatusOfSupply,CodeableConcept
+marketingStatus,MarketingStatus
+marketingAuthorization,Reference
+manufacturer,Reference
+batchIdentifier,MedicinalProductPackaged::BatchIdentifier
+packageItem,MedicinalProductPackaged::PackageItem
