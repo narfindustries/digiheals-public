@@ -12,6 +12,8 @@ import copy
 import configparser
 import requests
 import json
+import docker
+import time
 
 import db
 from cli_options import add_chain_options
@@ -25,8 +27,6 @@ from hapi_client import HapiClient
 from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
 from iris_client import IrisClient
-
-neo4j_env = os.getenv("COMPOSE_PROFILES", "neo4jDev")
 
 config = configparser.ConfigParser()
 # Dynamically load directory where script is located - as its called from tests and also from run_scripts.py
@@ -67,6 +67,18 @@ def validate_options(file_type, chain, all_chains):
             "Combination not possible: --type xml with -c vista, or --all-chains."
         )
 
+def restart_container(container_name):
+    """Stop and then start a Docker container by name."""
+    docker_client = docker.from_env()
+    for container in docker_client.containers.list():
+        if container_name.lower() in container.name.lower():
+            print(f"Stopping container: {container.name}")
+            container.stop()
+            time.sleep(20)  # brief wait after stop
+
+            print(f"Starting container: {container.name}")
+            container.start()
+            time.sleep(420)  # wait for full startup
 
 def check_connection(chain=None):
     """
@@ -81,51 +93,91 @@ def check_connection(chain=None):
     else:
         clients = [vista_client, ibm_client, hapi_client, blaze_client, iris_client]
         client_names = ["vista", "ibm", "hapi", "blaze", "iris"]
-
+    
     for iterator, client in enumerate(map(lambda x: x.export_patients(), clients)):
         try:
-            if not 200 <= client[0] < 300:  # TO DO: Handle this differently
+            if not 200 <= client[0] < 300:
                 print(client[1])
-                print(f"{client_names[iterator]} server not up. Exiting.")
-                sys.exit(1)
+                print(f"{client_names[iterator]} server not up. Restarting FHIR containers...")
+
+                # Restart FHIR containers
+                docker_client = docker.from_env()
+                print(docker_client)
+
+                containers_to_restart = []
+
+                # Determine containers to restart
+                if 'vista' in [name.lower() for name in client_names]:
+                    containers_to_restart.extend(['vista', 'vehu'])
+                else:
+                    containers_to_restart.extend(client_names)
+
+                # Restart containers
+                for cname in containers_to_restart:
+                    restart_container(cname)
+
+                # Retry checking connection up to 3 times
+                retries = 3
+                while retries > 0:
+                    time.sleep(180)  # Wait 3 minutes before rechecking
+
+                    client = clients[iterator].export_patients()
+
+                    if 200 <= client[0] < 300:
+                        print(f"{client_names[iterator]} server is back up!")
+                        break
+
+                    retries -= 1
+                    print(f"Retry {3 - retries}/3: {client_names[iterator]} server still not up. Restarting containers again.")
+
+                    # Restart containers again on retry
+                    for cname in containers_to_restart:
+                        restart_container(cname)
+
+                if retries == 0:
+                    print(f"{client_names[iterator]} server did not recover. Exiting.")
+                    sys.exit(1)
+
         except Exception as e:
             print(f"{client_names[iterator]} exiting with error {e}")
             sys.exit(1)
 
     try:
-        if neo4j_env == "neo4jDev":
-            port = "7474"
-        else:
-            port = "7475"
-        neo4j_req = requests.get(f"http://localhost:{port}")
-        print(f"neo4j server responded with code: {neo4j_req.status_code}")
-    except ConnectionResetError as e:
-        print(f"{e}: Error starting neo4j.")
-        sys.exit(1)
-
-    try:
         synthea_req = requests.get("http://localhost:9000/status")
-        print(f"Synthea server responded with code: {synthea_req.status_code}")
+        # print(f"Synthea server responded with code: {synthea_req.status_code}")
     except Exception as e:
         print(f"{e}: Error starting Synthea.")
         sys.exit(1)
-
     print("Connections check successful.")
     return True
 
 
-def process_chain(guid, first_node, chain, file, file_type):
+def process_chain(guid, first_node, chain, file, file_type, name):
     """
     Given a chain, we iterate through the steps in it
     """
     for step_number, step in enumerate(chain):
         # First step is Synthea or File
-        (error, file) = process_step(
+        (error, server_response, pat_file) = process_step(
             guid, first_node, step_number, step, chain, file, len(chain), file_type
         )
+        # response_file_name = (
+        #     "output-test/" + chain[0] + "/" + chain[0] + "_" + name.split("/")[1]
+        # )
+        # with open(response_file_name, "w", encoding="utf-8") as f:
+        #     json.dump(file, f, ensure_ascii=False, indent=4)
+
         if error:
-            print(f"Error encountered processing step {step_number}, node {step}")
+            print("error")
+            response_file_name = "temp_error_vista.json"
+            with open(response_file_name, "w", encoding="utf-8") as f:
+                json.dump(server_response, f, ensure_ascii=False, indent=4)
             break
+        else:
+            print("success")
+            response_file_name = "temp_response_vista.json"
+            with open(response_file_name, "w", encoding="utf-8") as f:
+                json.dump(pat_file, f, ensure_ascii=False, indent=4)
 
 
 def dfs(guid, first_node, counter, step, chain, chain_length, file, file_type):
@@ -176,9 +228,9 @@ def process_step(
     )
 
     if patient_id is None:
-        print(
-            f"Chain terminated at step {step_number} {step} {response_json_1} {response_json_2}"
-        )
+        # print(
+        #     f"Chain terminated at step {step_number} {step} {response_json_1} {response_json_2}"
+        # )
         """
         Connection to this current node failed.
         So either this node could not ingest the file or could not export
@@ -187,31 +239,10 @@ def process_step(
         Why: a JSON blob is returned when the node cannot ingest it
         This way we also know clearly where it failed.
         """
-        if step_number == 0:
-            db.create_edge(guid, first_node, step, file)
-            db.create_edge(guid, step, "termination", response_json_2)
-        else:
-            db.create_edge(guid, chain[step_number - 1], step, file)
-            db.create_edge(guid, step, "termination", response_json_2)
 
-        return (True, response_json_2)
-        # We must not be terminating the entire run, just what cannot be reached after
-    if step_number == chain_length - 1 and step_number == 0:
-        # Last element
-        db.create_edge(guid, first_node, step, file)
-        db.create_edge(guid, step, "end", response_json_2)
-    elif step_number == 0:
-        # If its the first hop then we need to read the first_node field
-        db.create_edge(guid, first_node, step, file)
-    elif step_number == chain_length - 1:
-        # Last element
-        db.create_edge(guid, chain[step_number - 1], step, file)
-        db.create_edge(guid, step, "end", response_json_2)
+        return (True, response_json_1, response_json_2)
 
-    else:
-        db.create_edge(guid, chain[step_number - 1], step, file)
-
-    return (False, response_json_2)
+    return (False, response_json_1, response_json_2)
 
 
 chain_config = OptionGroup(
@@ -241,8 +272,8 @@ def telephone_function(
     # Create nodes in the neo4j database for all the servers we use
     # It won't create duplicate nodes for the servers
     # We add additional nodes to denote the end of a chain and how many keys are present
-    db.create_nodes(list(config.keys()) + ["synthea", "file", "end", "termination"])
-
+    # db.create_nodes(list(config.keys()) + ["synthea", "file", "end", "termination"])
+    name = "abc"
     # Generate a new FHIR JSON file
     if file:
         if isinstance(file, str):
@@ -250,6 +281,7 @@ def telephone_function(
             with open(file, "r") as f:
                 file = f.read()
         else:
+            name = file.name
             # If file is like a file object, read it
             file = file.read()
 
@@ -257,6 +289,7 @@ def telephone_function(
         first_node = "synthea"  # generated by Synthea, not a file read
         r = requests.get("http://localhost:9000/", timeout=100)
         file_type = "json"
+        name = "syn-create"
         if r.status_code == 200:
             filename = r.json()["filename"]
 
@@ -269,12 +302,13 @@ def telephone_function(
             print("File creation failed from Synthea")
             sys.exit(1)
 
-    if all_chains:
-        # Traverse all the chains possible now
-        dfs(guid, first_node, 0, "", [], chain_length, file, file_type)
+    # if all_chains:
+    #     # Traverse all the chains possible now
+    #     dfs(guid, first_node, 0, "", [], chain_length, file, file_type)
     else:
         # all chains not specified, so we specified specific hops
-        process_chain(guid, first_node, chain, file, file_type)
+        process_chain(guid, first_node, chain, file, file_type, name)
+
     return guid
 
 

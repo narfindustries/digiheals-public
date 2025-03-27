@@ -5,7 +5,7 @@ import json
 import re
 import os
 import argparse
-import rfc3986
+#import rfc3986
 
 RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"

@@ -5,7 +5,6 @@ import os
 import json
 import csv
 import exrex
-import rfc3986
 import copy
 import re
 import time
@@ -19,7 +18,7 @@ RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"
 
 docker_client = docker.from_env()
-ibm_request_count = 0
+server_request_count = 0
 
 FHIR_SERVERS = ["vista"] #["iris", "ibm", "blaze", "hapi", "vista"]
 
@@ -220,13 +219,13 @@ def nested_func_replace(data, keys, new_value):
 
 def send_to_fhir_server(patient_file, server):
     """Send modified patient data to server through telephone.py func"""
-    global ibm_request_count
+    global server_request_count
 
-    if server == "ibm" or server == "iris":
-        ibm_request_count += 1
+    if server in ["ibm","iris","vista"]:
+        server_request_count += 1
 
         # Restart after every 120 requests
-        if ibm_request_count % 120 == 0:
+        if server_request_count % 120 == 0:
             print(f"120 {server} requests reached. Restarting {server} container.")
             restart_container(server)
 
