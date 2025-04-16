@@ -8,16 +8,15 @@ Skeleton for the Telephone.py script to go through multiple targets
 import os
 import sys
 import uuid
-import copy
 import configparser
 import requests
 import json
 import docker
 import time
 
-import db
 from cli_options import add_chain_options
 
+from utils.fhir_utils import SERVER_NAME
 import click
 from click_option_group import OptionGroup
 
@@ -27,6 +26,7 @@ from hapi_client import HapiClient
 from ibm_fhir_client import IBMFHIRClient
 from vista_client import VistaClient
 from iris_client import IrisClient
+
 
 config = configparser.ConfigParser()
 # Dynamically load directory where script is located - as its called from tests and also from run_scripts.py
@@ -67,6 +67,7 @@ def validate_options(file_type, chain, all_chains):
             "Combination not possible: --type xml with -c vista, or --all-chains."
         )
 
+
 def restart_container(container_name):
     """Stop and then start a Docker container by name."""
     docker_client = docker.from_env()
@@ -79,6 +80,7 @@ def restart_container(container_name):
             print(f"Starting container: {container.name}")
             container.start()
             time.sleep(420)  # wait for full startup
+
 
 def check_connection(chain=None):
     """
@@ -93,12 +95,14 @@ def check_connection(chain=None):
     else:
         clients = [vista_client, ibm_client, hapi_client, blaze_client, iris_client]
         client_names = ["vista", "ibm", "hapi", "blaze", "iris"]
-    
+
     for iterator, client in enumerate(map(lambda x: x.export_patients(), clients)):
         try:
             if not 200 <= client[0] < 300:
                 print(client[1])
-                print(f"{client_names[iterator]} server not up. Restarting FHIR containers...")
+                print(
+                    f"{client_names[iterator]} server not up. Restarting FHIR containers..."
+                )
 
                 # Restart FHIR containers
                 docker_client = docker.from_env()
@@ -107,8 +111,8 @@ def check_connection(chain=None):
                 containers_to_restart = []
 
                 # Determine containers to restart
-                if 'vista' in [name.lower() for name in client_names]:
-                    containers_to_restart.extend(['vista', 'vehu'])
+                if "vista" in [name.lower() for name in client_names]:
+                    containers_to_restart.extend(["vista", "vehu"])
                 else:
                     containers_to_restart.extend(client_names)
 
@@ -128,7 +132,9 @@ def check_connection(chain=None):
                         break
 
                     retries -= 1
-                    print(f"Retry {3 - retries}/3: {client_names[iterator]} server still not up. Restarting containers again.")
+                    print(
+                        f"Retry {3 - retries}/3: {client_names[iterator]} server still not up. Restarting containers again."
+                    )
 
                     # Restart containers again on retry
                     for cname in containers_to_restart:
@@ -142,12 +148,6 @@ def check_connection(chain=None):
             print(f"{client_names[iterator]} exiting with error {e}")
             sys.exit(1)
 
-    try:
-        synthea_req = requests.get("http://localhost:9000/status")
-        # print(f"Synthea server responded with code: {synthea_req.status_code}")
-    except Exception as e:
-        print(f"{e}: Error starting Synthea.")
-        sys.exit(1)
     print("Connections check successful.")
     return True
 
@@ -166,54 +166,19 @@ def process_chain(guid, first_node, chain, file, file_type, name):
         # )
         # with open(response_file_name, "w", encoding="utf-8") as f:
         #     json.dump(file, f, ensure_ascii=False, indent=4)
+        print(error, server_response, pat_file)
 
         if error:
             print("error")
-            response_file_name = "temp_error_vista.json"
+            response_file_name = f"temp_error_{SERVER_NAME}.json"
             with open(response_file_name, "w", encoding="utf-8") as f:
                 json.dump(server_response, f, ensure_ascii=False, indent=4)
             break
         else:
             print("success")
-            response_file_name = "temp_response_vista.json"
+            response_file_name = f"temp_response_{SERVER_NAME}.json"
             with open(response_file_name, "w", encoding="utf-8") as f:
                 json.dump(pat_file, f, ensure_ascii=False, indent=4)
-
-
-def dfs(guid, first_node, counter, step, chain, chain_length, file, file_type):
-    """
-    Run a depth-first search to compute all possible chains
-    """
-    error = False
-    if len(chain) > 0:
-        tmp_chain = copy.deepcopy(chain)
-        if len(tmp_chain) != chain_length:
-            tmp_chain = tmp_chain + (chain_length - len(tmp_chain)) * [step]
-        (error, file) = process_step(
-            guid,
-            first_node,
-            counter - 1,
-            step,
-            tmp_chain,
-            file,
-            chain_length,
-            file_type,
-        )
-    if counter > chain_length - 1:
-        return
-    if error:
-        return
-    for node in list(config.keys()):
-        dfs(
-            guid,
-            first_node,
-            counter + 1,
-            node,
-            chain + [node],
-            chain_length,
-            file,
-            file_type,
-        )
 
 
 def process_step(
@@ -231,14 +196,6 @@ def process_step(
         # print(
         #     f"Chain terminated at step {step_number} {step} {response_json_1} {response_json_2}"
         # )
-        """
-        Connection to this current node failed.
-        So either this node could not ingest the file or could not export
-        Either way, we create an edge to this node
-        and another edge from this node to terminated
-        Why: a JSON blob is returned when the node cannot ingest it
-        This way we also know clearly where it failed.
-        """
 
         return (True, response_json_1, response_json_2)
 
@@ -273,8 +230,9 @@ def telephone_function(
     # It won't create duplicate nodes for the servers
     # We add additional nodes to denote the end of a chain and how many keys are present
     # db.create_nodes(list(config.keys()) + ["synthea", "file", "end", "termination"])
-    name = "abc"
+    name = "placeholder"
     # Generate a new FHIR JSON file
+    print(file)
     if file:
         if isinstance(file, str):
             # If file is a string path, open and read file

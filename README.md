@@ -108,6 +108,11 @@ To run the test environment:
 
 Unit tests for Synthea file generation and FHIR clients are in `tools/tests`. Run `make test` from the root directory to run all tests. 
 
+Safe subset
+-----
+To run FHIR R4 validation on files: `python3 validator.py <file_name> or <directory_name>`. File is valid if output is `[]`.
+To run mutation on patient file and pass it through a server: `python3 mutator.py <file_name> or <directory_name>`. Modify server name and db as needed.
+To create files with different resource types from template files: `python3 file_modify.py ss-patient-input/fill-files`. The generated files will be in `ss-patient-input/fill-files/filled`.
 
 License
 -----
