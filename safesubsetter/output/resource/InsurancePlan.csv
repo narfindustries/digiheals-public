@@ -1,22 +1,22 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-type,CodeableConcept
-name,string
-alias,string
-period,Period
-ownedBy,Reference
-administeredBy,Reference
-coverageArea,Reference
-contact,InsurancePlan::Contact
-endpoint,Reference
-network,Reference
-coverage,InsurancePlan::Coverage
-plan,InsurancePlan::Plan
+id,id,InsurancePlan.id,,0,1
+meta,Meta,InsurancePlan.meta,,0,1
+implicitRules,uri,InsurancePlan.implicitRules,,0,1
+language,code,InsurancePlan.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,InsurancePlan.text,,0,1
+contained,Resource,InsurancePlan.contained,,0,Infinity
+extension,Extension,InsurancePlan.extension,,0,Infinity
+modifierExtension,Extension,InsurancePlan.modifierExtension,,0,Infinity
+identifier,Identifier,InsurancePlan.identifier,,0,Infinity
+status,code,InsurancePlan.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",0,1
+type,CodeableConcept,InsurancePlan.type,"{""http://terminology.hl7.org/CodeSystem/insurance-plan-type""=>[""medical"", ""dental"", ""mental"", ""subst-ab"", ""vision"", ""Drug"", ""short-term"", ""long-term"", ""hospice"", ""home""]}",0,Infinity
+name,string,InsurancePlan.name,,0,1
+alias,string,InsurancePlan.alias,,0,Infinity
+period,Period,InsurancePlan.period,,0,1
+ownedBy,Reference,InsurancePlan.ownedBy,,0,1
+administeredBy,Reference,InsurancePlan.administeredBy,,0,1
+coverageArea,Reference,InsurancePlan.coverageArea,,0,Infinity
+contact,InsurancePlan::Contact,InsurancePlan.contact,,0,Infinity
+endpoint,Reference,InsurancePlan.endpoint,,0,Infinity
+network,Reference,InsurancePlan.network,,0,Infinity
+coverage,InsurancePlan::Coverage,InsurancePlan.coverage,,0,Infinity
+plan,InsurancePlan::Plan,InsurancePlan.plan,,0,Infinity

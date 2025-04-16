@@ -1,4 +1,4 @@
-id,string
-extension,Extension
-numerator,Quantity
-denominator,Quantity
+id,string,Ratio.id,,0,1
+extension,Extension,Ratio.extension,,0,Infinity
+numerator,Quantity,Ratio.numerator,,0,1
+denominator,Quantity,Ratio.denominator,,0,1

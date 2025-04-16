@@ -1,20 +1,20 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-active,boolean
-patient,Reference
-relationship,CodeableConcept
-name,HumanName
-telecom,ContactPoint
-gender,code
-birthDate,date
-address,Address
-photo,Attachment
-period,Period
-communication,RelatedPerson::Communication
+id,id,RelatedPerson.id,,0,1
+meta,Meta,RelatedPerson.meta,,0,1
+implicitRules,uri,RelatedPerson.implicitRules,,0,1
+language,code,RelatedPerson.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,RelatedPerson.text,,0,1
+contained,Resource,RelatedPerson.contained,,0,Infinity
+extension,Extension,RelatedPerson.extension,,0,Infinity
+modifierExtension,Extension,RelatedPerson.modifierExtension,,0,Infinity
+identifier,Identifier,RelatedPerson.identifier,,0,Infinity
+active,boolean,RelatedPerson.active,,0,1
+patient,Reference,RelatedPerson.patient,,1,1
+relationship,CodeableConcept,RelatedPerson.relationship,"{""http://terminology.hl7.org/CodeSystem/v2-0131""=>[""C"", ""E"", ""F"", ""I"", ""N"", ""O"", ""S"", ""U""], ""http://terminology.hl7.org/CodeSystem/v3-RoleCode""=>[""FAMMEMB"", ""CHILD"", ""CHLDADOPT"", ""DAUADOPT"", ""SONADOPT"", ""CHLDFOST"", ""DAUFOST"", ""SONFOST"", ""DAUC"", ""DAU"", ""STPDAU"", ""NCHILD"", ""SON"", ""SONC"", ""STPSON"", ""STPCHLD"", ""EXT"", ""AUNT"", ""MAUNT"", ""PAUNT"", ""COUSN"", ""MCOUSN"", ""PCOUSN"", ""GGRPRN"", ""GGRFTH"", ""MGGRFTH"", ""PGGRFTH"", ""GGRMTH"", ""MGGRMTH"", ""PGGRMTH"", ""MGGRPRN"", ""PGGRPRN"", ""GRNDCHILD"", ""GRNDDAU"", ""GRNDSON"", ""GRPRN"", ""GRFTH"", ""MGRFTH"", ""PGRFTH"", ""GRMTH"", ""MGRMTH"", ""PGRMTH"", ""MGRPRN"", ""PGRPRN"", ""INLAW"", ""CHLDINLAW"", ""DAUINLAW"", ""SONINLAW"", ""PRNINLAW"", ""FTHINLAW"", ""MTHINLAW"", ""SIBINLAW"", ""BROINLAW"", ""SISINLAW"", ""NIENEPH"", ""NEPHEW"", ""NIECE"", ""UNCLE"", ""MUNCLE"", ""PUNCLE"", ""PRN"", ""ADOPTP"", ""ADOPTF"", ""ADOPTM"", ""FTH"", ""FTHFOST"", ""NFTH"", ""NFTHF"", ""STPFTH"", ""MTH"", ""GESTM"", ""MTHFOST"", ""NMTH"", ""NMTHF"", ""STPMTH"", ""NPRN"", ""PRNFOST"", ""STPPRN"", ""SIB"", ""BRO"", ""HBRO"", ""NBRO"", ""TWINBRO"", ""FTWINBRO"", ""ITWINBRO"", ""STPBRO"", ""HSIB"", ""HSIS"", ""NSIB"", ""NSIS"", ""TWINSIS"", ""FTWINSIS"", ""ITWINSIS"", ""TWIN"", ""FTWIN"", ""ITWIN"", ""SIS"", ""STPSIS"", ""STPSIB"", ""SIGOTHR"", ""DOMPART"", ""FMRSPS"", ""SPS"", ""HUSB"", ""WIFE"", ""FRND"", ""NBOR"", ""ONESELF"", ""ROOM""]}",0,Infinity
+name,HumanName,RelatedPerson.name,,0,Infinity
+telecom,ContactPoint,RelatedPerson.telecom,,0,Infinity
+gender,code,RelatedPerson.gender,"{""http://hl7.org/fhir/administrative-gender""=>[""male"", ""female"", ""other"", ""unknown""]}",0,1
+birthDate,date,RelatedPerson.birthDate,,0,1
+address,Address,RelatedPerson.address,,0,Infinity
+photo,Attachment,RelatedPerson.photo,,0,Infinity
+period,Period,RelatedPerson.period,,0,1
+communication,RelatedPerson::Communication,RelatedPerson.communication,,0,Infinity

@@ -1,13 +1,13 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-comment,string
-gene,SubstanceReferenceInformation::Gene
-geneElement,SubstanceReferenceInformation::GeneElement
-classification,SubstanceReferenceInformation::Classification
-target,SubstanceReferenceInformation::Target
+id,id,SubstanceReferenceInformation.id,,0,1
+meta,Meta,SubstanceReferenceInformation.meta,,0,1
+implicitRules,uri,SubstanceReferenceInformation.implicitRules,,0,1
+language,code,SubstanceReferenceInformation.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,SubstanceReferenceInformation.text,,0,1
+contained,Resource,SubstanceReferenceInformation.contained,,0,Infinity
+extension,Extension,SubstanceReferenceInformation.extension,,0,Infinity
+modifierExtension,Extension,SubstanceReferenceInformation.modifierExtension,,0,Infinity
+comment,string,SubstanceReferenceInformation.comment,,0,1
+gene,SubstanceReferenceInformation::Gene,SubstanceReferenceInformation.gene,,0,Infinity
+geneElement,SubstanceReferenceInformation::GeneElement,SubstanceReferenceInformation.geneElement,,0,Infinity
+classification,SubstanceReferenceInformation::Classification,SubstanceReferenceInformation.classification,,0,Infinity
+target,SubstanceReferenceInformation::Target,SubstanceReferenceInformation.target,,0,Infinity

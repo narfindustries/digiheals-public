@@ -1,25 +1,25 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-type,CodeableConcept
-policyHolder,Reference
-subscriber,Reference
-subscriberId,string
-beneficiary,Reference
-dependent,string
-relationship,CodeableConcept
-period,Period
-payor,Reference
-class,Coverage::Class
-order,positiveInt
-network,string
-costToBeneficiary,Coverage::CostToBeneficiary
-subrogation,boolean
-contract,Reference
+id,id,Coverage.id,,0,1
+meta,Meta,Coverage.meta,,0,1
+implicitRules,uri,Coverage.implicitRules,,0,1
+language,code,Coverage.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,Coverage.text,,0,1
+contained,Resource,Coverage.contained,,0,Infinity
+extension,Extension,Coverage.extension,,0,Infinity
+modifierExtension,Extension,Coverage.modifierExtension,,0,Infinity
+identifier,Identifier,Coverage.identifier,,0,Infinity
+status,code,Coverage.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1
+type,CodeableConcept,Coverage.type,"{""http://terminology.hl7.org/CodeSystem/coverage-selfpay""=>[""pay""], ""http://terminology.hl7.org/CodeSystem/v3-ActCode""=>[""EHCPOL"", ""HSAPOL"", ""AUTOPOL"", ""COL"", ""UNINSMOT"", ""PUBLICPOL"", ""DENTPRG"", ""DISEASEPRG"", ""CANPRG"", ""ENDRENAL"", ""HIVAIDS"", ""MANDPOL"", ""MENTPRG"", ""SAFNET"", ""SUBPRG"", ""SUBSIDIZ"", ""SUBSIDMC"", ""SUBSUPP"", ""WCBPOL"", ""DENTAL"", ""DISEASE"", ""DRUGPOL"", ""HIP"", ""LTC"", ""MCPOL"", ""POS"", ""HMO"", ""PPO"", ""MENTPOL"", ""SUBPOL"", ""VISPOL"", ""DIS"", ""EWB"", ""FLEXP"", ""LIFE"", ""ANNU"", ""TLIFE"", ""ULIFE"", ""PNC"", ""REI"", ""SURPL"", ""UMBRL"", ""CHAR"", ""CRIME"", ""EAP"", ""GOVEMP"", ""HIRISK"", ""IND"", ""MILITARY"", ""RETIRE"", ""SOCIAL"", ""VET""]}",0,1
+policyHolder,Reference,Coverage.policyHolder,,0,1
+subscriber,Reference,Coverage.subscriber,,0,1
+subscriberId,string,Coverage.subscriberId,,0,1
+beneficiary,Reference,Coverage.beneficiary,,1,1
+dependent,string,Coverage.dependent,,0,1
+relationship,CodeableConcept,Coverage.relationship,"{""http://terminology.hl7.org/CodeSystem/subscriber-relationship""=>[""child"", ""parent"", ""spouse"", ""common"", ""other"", ""self"", ""injured""]}",0,1
+period,Period,Coverage.period,,0,1
+payor,Reference,Coverage.payor,,1,Infinity
+class,Coverage::Class,Coverage.class,,0,Infinity
+order,positiveInt,Coverage.order,,0,1
+network,string,Coverage.network,,0,1
+costToBeneficiary,Coverage::CostToBeneficiary,Coverage.costToBeneficiary,,0,Infinity
+subrogation,boolean,Coverage.subrogation,,0,1
+contract,Reference,Coverage.contract,,0,Infinity

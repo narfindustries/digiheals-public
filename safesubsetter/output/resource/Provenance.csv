@@ -1,19 +1,19 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-target,Reference
-occurredPeriod,Period
-occurredDateTime,dateTime
-recorded,instant
-policy,uri
-location,Reference
-reason,CodeableConcept
-activity,CodeableConcept
-agent,Provenance::Agent
-entity,Provenance::Entity
-signature,Signature
+id,id,Provenance.id,,0,1
+meta,Meta,Provenance.meta,,0,1
+implicitRules,uri,Provenance.implicitRules,,0,1
+language,code,Provenance.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,Provenance.text,,0,1
+contained,Resource,Provenance.contained,,0,Infinity
+extension,Extension,Provenance.extension,,0,Infinity
+modifierExtension,Extension,Provenance.modifierExtension,,0,Infinity
+target,Reference,Provenance.target,,1,Infinity
+occurredPeriod,Period,Provenance.occurred[x],,0,1
+occurredDateTime,dateTime,Provenance.occurred[x],,0,1
+recorded,instant,Provenance.recorded,,1,1
+policy,uri,Provenance.policy,,0,Infinity
+location,Reference,Provenance.location,,0,1
+reason,CodeableConcept,Provenance.reason,"{""http://terminology.hl7.org/CodeSystem/v3-ActReason""=>[""PurposeOfUse"", ""HMARKT"", ""HOPERAT"", ""CAREMGT"", ""DONAT"", ""FRAUD"", ""GOV"", ""HACCRED"", ""HCOMPL"", ""HDECD"", ""HDIRECT"", ""HDM"", ""HLEGAL"", ""HOUTCOMS"", ""HPRGRP"", ""HQUALIMP"", ""HSYSADMIN"", ""LABELING"", ""METAMGT"", ""MEMADMIN"", ""MILCDM"", ""PATADMIN"", ""PATSFTY"", ""PERFMSR"", ""RECORDMGT"", ""SYSDEV"", ""HTEST"", ""TRAIN"", ""HPAYMT"", ""CLMATTCH"", ""COVAUTH"", ""COVERAGE"", ""ELIGDTRM"", ""ELIGVER"", ""ENROLLM"", ""MILDCRG"", ""REMITADV"", ""HRESCH"", ""BIORCH"", ""CLINTRCH"", ""CLINTRCHNPC"", ""CLINTRCHPC"", ""PRECLINTRCH"", ""DSRCH"", ""POARCH"", ""TRANSRCH"", ""PATRQT"", ""FAMRQT"", ""PWATRNY"", ""SUPNWK"", ""PUBHLTH"", ""DISASTER"", ""THREAT"", ""TREAT"", ""CLINTRL"", ""COC"", ""ETREAT"", ""BTG"", ""ERTREAT"", ""POPHLTH""]}",0,Infinity
+activity,CodeableConcept,Provenance.activity,"{""http://terminology.hl7.org/CodeSystem/v3-DocumentCompletion""=>[""LA""], ""http://terminology.hl7.org/CodeSystem/v3-ActCode""=>[""ANONY"", ""DEID"", ""MASK"", ""LABEL"", ""PSEUD""], ""http://terminology.hl7.org/CodeSystem/v3-DataOperation""=>[""CREATE"", ""DELETE"", ""UPDATE"", ""APPEND"", ""NULLIFY""], ""http://terminology.hl7.org/CodeSystem/v3-ParticipationType""=>[""PART"", ""ADM"", ""ATND"", ""CALLBCK"", ""CON"", ""DIS"", ""ESC"", ""REF"", ""AUT"", ""INF"", ""TRANS"", ""ENT"", ""WIT"", ""CST"", ""DIR"", ""ALY"", ""BBY"", ""CAT"", ""CSM"", ""TPA"", ""DEV"", ""NRD"", ""RDV"", ""DON"", ""EXPAGNT"", ""EXPART"", ""EXPTRGT"", ""EXSRC"", ""PRD"", ""SBJ"", ""SPC"", ""IND"", ""BEN"", ""CAGNT"", ""COV"", ""GUAR"", ""HLD"", ""RCT"", ""RCV"", ""IRCP"", ""NOT"", ""PRCP"", ""REFB"", ""REFT"", ""TRC"", ""LOC"", ""DST"", ""ELOC"", ""ORG"", ""RML"", ""VIA"", ""PRF"", ""DIST"", ""PPRF"", ""SPRF"", ""RESP"", ""VRF"", ""AUTHEN"", ""LA""]}",0,1
+agent,Provenance::Agent,Provenance.agent,,1,Infinity
+entity,Provenance::Entity,Provenance.entity,,0,Infinity
+signature,Signature,Provenance.signature,,0,Infinity

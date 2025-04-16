@@ -1,20 +1,20 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-statusHistory,EpisodeOfCare::StatusHistory
-type,CodeableConcept
-diagnosis,EpisodeOfCare::Diagnosis
-patient,Reference
-managingOrganization,Reference
-period,Period
-referralRequest,Reference
-careManager,Reference
-team,Reference
-account,Reference
+id,id,EpisodeOfCare.id,,0,1
+meta,Meta,EpisodeOfCare.meta,,0,1
+implicitRules,uri,EpisodeOfCare.implicitRules,,0,1
+language,code,EpisodeOfCare.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,EpisodeOfCare.text,,0,1
+contained,Resource,EpisodeOfCare.contained,,0,Infinity
+extension,Extension,EpisodeOfCare.extension,,0,Infinity
+modifierExtension,Extension,EpisodeOfCare.modifierExtension,,0,Infinity
+identifier,Identifier,EpisodeOfCare.identifier,,0,Infinity
+status,code,EpisodeOfCare.status,"{""http://hl7.org/fhir/episode-of-care-status""=>[""planned"", ""waitlist"", ""active"", ""onhold"", ""finished"", ""cancelled"", ""entered-in-error""]}",1,1
+statusHistory,EpisodeOfCare::StatusHistory,EpisodeOfCare.statusHistory,,0,Infinity
+type,CodeableConcept,EpisodeOfCare.type,"{""http://terminology.hl7.org/CodeSystem/episodeofcare-type""=>[""hacc"", ""pac"", ""diab"", ""da"", ""cacp""]}",0,Infinity
+diagnosis,EpisodeOfCare::Diagnosis,EpisodeOfCare.diagnosis,,0,Infinity
+patient,Reference,EpisodeOfCare.patient,,1,1
+managingOrganization,Reference,EpisodeOfCare.managingOrganization,,0,1
+period,Period,EpisodeOfCare.period,,0,1
+referralRequest,Reference,EpisodeOfCare.referralRequest,,0,Infinity
+careManager,Reference,EpisodeOfCare.careManager,,0,1
+team,Reference,EpisodeOfCare.team,,0,Infinity
+account,Reference,EpisodeOfCare.account,,0,Infinity

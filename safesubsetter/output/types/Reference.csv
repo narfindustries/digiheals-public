@@ -1,6 +1,6 @@
-id,string
-extension,Extension
-reference,string
-type,uri
-identifier,Identifier
-display,string
+id,string,Reference.id,,0,1
+extension,Extension,Reference.extension,,0,Infinity
+reference,string,Reference.reference,,0,1
+type,uri,Reference.type,,0,1
+identifier,Identifier,Reference.identifier,,0,1
+display,string,Reference.display,,0,1

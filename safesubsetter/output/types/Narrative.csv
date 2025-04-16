@@ -1,4 +1,4 @@
-id,string
-extension,Extension
-status,code
-div,xhtml
+id,string,Narrative.id,,0,1
+extension,Extension,Narrative.extension,,0,Infinity
+status,code,Narrative.status,"{""http://hl7.org/fhir/narrative-status""=>[""generated"", ""extensions"", ""additional"", ""empty""]}",1,1
+div,xhtml,Narrative.div,,1,1

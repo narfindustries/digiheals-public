@@ -1,9 +1,9 @@
-id,string
-extension,Extension
-use,code
-text,string
-family,string
-given,string
-prefix,string
-suffix,string
-period,Period
+id,string,HumanName.id,,0,1
+extension,Extension,HumanName.extension,,0,Infinity
+use,code,HumanName.use,"{""http://hl7.org/fhir/name-use""=>[""usual"", ""official"", ""temp"", ""nickname"", ""anonymous"", ""old"", ""maiden""]}",0,1
+text,string,HumanName.text,,0,1
+family,string,HumanName.family,,0,1
+given,string,HumanName.given,,0,Infinity
+prefix,string,HumanName.prefix,,0,Infinity
+suffix,string,HumanName.suffix,,0,Infinity
+period,Period,HumanName.period,,0,1

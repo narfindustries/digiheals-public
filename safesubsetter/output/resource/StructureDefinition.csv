@@ -1,35 +1,35 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-url,uri
-identifier,Identifier
-version,string
-name,string
-title,string
-status,code
-experimental,boolean
-date,dateTime
-publisher,string
-contact,ContactDetail
-description,markdown
-useContext,UsageContext
-jurisdiction,CodeableConcept
-purpose,markdown
-copyright,markdown
-keyword,Coding
-fhirVersion,code
-mapping,StructureDefinition::Mapping
-kind,code
-abstract,boolean
-context,StructureDefinition::Context
-contextInvariant,string
-type,uri
-baseDefinition,canonical
-derivation,code
-snapshot,StructureDefinition::Snapshot
-differential,StructureDefinition::Differential
+id,id,StructureDefinition.id,,0,1
+meta,Meta,StructureDefinition.meta,,0,1
+implicitRules,uri,StructureDefinition.implicitRules,,0,1
+language,code,StructureDefinition.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,StructureDefinition.text,,0,1
+contained,Resource,StructureDefinition.contained,,0,Infinity
+extension,Extension,StructureDefinition.extension,,0,Infinity
+modifierExtension,Extension,StructureDefinition.modifierExtension,,0,Infinity
+url,uri,StructureDefinition.url,,1,1
+identifier,Identifier,StructureDefinition.identifier,,0,Infinity
+version,string,StructureDefinition.version,,0,1
+name,string,StructureDefinition.name,,1,1
+title,string,StructureDefinition.title,,0,1
+status,code,StructureDefinition.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1
+experimental,boolean,StructureDefinition.experimental,,0,1
+date,dateTime,StructureDefinition.date,,0,1
+publisher,string,StructureDefinition.publisher,,0,1
+contact,ContactDetail,StructureDefinition.contact,,0,Infinity
+description,markdown,StructureDefinition.description,,0,1
+useContext,UsageContext,StructureDefinition.useContext,,0,Infinity
+jurisdiction,CodeableConcept,StructureDefinition.jurisdiction,,0,Infinity
+purpose,markdown,StructureDefinition.purpose,,0,1
+copyright,markdown,StructureDefinition.copyright,,0,1
+keyword,Coding,StructureDefinition.keyword,"{""http://terminology.hl7.org/CodeSystem/definition-use""=>[""fhir-structure"", ""custom-resource"", ""dam"", ""wire-format"", ""archetype"", ""template""]}",0,Infinity
+fhirVersion,code,StructureDefinition.fhirVersion,"{""http://hl7.org/fhir/FHIR-version""=>[""0.01"", ""0.05"", ""0.06"", ""0.11"", ""0.0.80"", ""0.0.81"", ""0.0.82"", ""0.4.0"", ""0.5.0"", ""1.0.0"", ""1.0.1"", ""1.0.2"", ""1.1.0"", ""1.4.0"", ""1.6.0"", ""1.8.0"", ""3.0.0"", ""3.0.1"", ""3.3.0"", ""3.5.0"", ""4.0.0"", ""4.0.1""]}",0,1
+mapping,StructureDefinition::Mapping,StructureDefinition.mapping,,0,Infinity
+kind,code,StructureDefinition.kind,"{""http://hl7.org/fhir/structure-definition-kind""=>[""primitive-type"", ""complex-type"", ""resource"", ""logical""]}",1,1
+abstract,boolean,StructureDefinition.abstract,,1,1
+context,StructureDefinition::Context,StructureDefinition.context,,0,Infinity
+contextInvariant,string,StructureDefinition.contextInvariant,,0,Infinity
+type,uri,StructureDefinition.type,,1,1
+baseDefinition,canonical,StructureDefinition.baseDefinition,,0,1
+derivation,code,StructureDefinition.derivation,"{""http://hl7.org/fhir/type-derivation-rule""=>[""specialization"", ""constraint""]}",0,1
+snapshot,StructureDefinition::Snapshot,StructureDefinition.snapshot,,0,1
+differential,StructureDefinition::Differential,StructureDefinition.differential,,0,1

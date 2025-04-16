@@ -1,11 +1,11 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-identifier,Identifier
-type,code
-timestamp,instant
-total,unsignedInt
-link,Bundle::Link
-entry,Bundle::Entry
-signature,Signature
+id,id,Bundle.id,,0,1
+meta,Meta,Bundle.meta,,0,1
+implicitRules,uri,Bundle.implicitRules,,0,1
+language,code,Bundle.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+identifier,Identifier,Bundle.identifier,,0,1
+type,code,Bundle.type,"{""http://hl7.org/fhir/bundle-type""=>[""document"", ""message"", ""transaction"", ""transaction-response"", ""batch"", ""batch-response"", ""history"", ""searchset"", ""collection""]}",1,1
+timestamp,instant,Bundle.timestamp,,0,1
+total,unsignedInt,Bundle.total,,0,1
+link,Bundle::Link,Bundle.link,,0,Infinity
+entry,Bundle::Entry,Bundle.entry,,0,Infinity
+signature,Signature,Bundle.signature,,0,1

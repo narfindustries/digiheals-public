@@ -1,7 +1,7 @@
-id,string
-extension,Extension
-value,decimal
-comparator,code
-unit,string
-system,uri
-code,code
+id,string,Age.id,,0,1
+extension,Extension,Age.extension,,0,Infinity
+value,decimal,Age.value,,0,1
+comparator,code,Age.comparator,"{""http://hl7.org/fhir/quantity-comparator""=>[""<"", ""<="", "">="", "">""]}",0,1
+unit,string,Age.unit,,0,1
+system,uri,Age.system,,0,1
+code,code,Age.code,,0,1

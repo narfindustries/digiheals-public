@@ -1,35 +1,35 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-type,CodeableConcept
-subType,CodeableConcept
-use,code
-patient,Reference
-created,dateTime
-insurer,Reference
-requestor,Reference
-request,Reference
-outcome,code
-disposition,string
-preAuthRef,string
-preAuthPeriod,Period
-payeeType,CodeableConcept
-item,ClaimResponse::Item
-addItem,ClaimResponse::AddItem
-adjudication,ClaimResponse::Item::Adjudication
-total,ClaimResponse::Total
-payment,ClaimResponse::Payment
-fundsReserve,CodeableConcept
-formCode,CodeableConcept
-form,Attachment
-processNote,ClaimResponse::ProcessNote
-communicationRequest,Reference
-insurance,ClaimResponse::Insurance
-error,ClaimResponse::Error
+id,id,ClaimResponse.id,,0,1
+meta,Meta,ClaimResponse.meta,,0,1
+implicitRules,uri,ClaimResponse.implicitRules,,0,1
+language,code,ClaimResponse.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,ClaimResponse.text,,0,1
+contained,Resource,ClaimResponse.contained,,0,Infinity
+extension,Extension,ClaimResponse.extension,,0,Infinity
+modifierExtension,Extension,ClaimResponse.modifierExtension,,0,Infinity
+identifier,Identifier,ClaimResponse.identifier,,0,Infinity
+status,code,ClaimResponse.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1
+type,CodeableConcept,ClaimResponse.type,"{""http://terminology.hl7.org/CodeSystem/claim-type""=>[""institutional"", ""oral"", ""pharmacy"", ""professional"", ""vision""]}",1,1
+subType,CodeableConcept,ClaimResponse.subType,"{""http://terminology.hl7.org/CodeSystem/ex-claimsubtype""=>[""ortho"", ""emergency""]}",0,1
+use,code,ClaimResponse.use,"{""http://hl7.org/fhir/claim-use""=>[""claim"", ""preauthorization"", ""predetermination""]}",1,1
+patient,Reference,ClaimResponse.patient,,1,1
+created,dateTime,ClaimResponse.created,,1,1
+insurer,Reference,ClaimResponse.insurer,,1,1
+requestor,Reference,ClaimResponse.requestor,,0,1
+request,Reference,ClaimResponse.request,,0,1
+outcome,code,ClaimResponse.outcome,"{""http://hl7.org/fhir/remittance-outcome""=>[""queued"", ""complete"", ""error"", ""partial""]}",1,1
+disposition,string,ClaimResponse.disposition,,0,1
+preAuthRef,string,ClaimResponse.preAuthRef,,0,1
+preAuthPeriod,Period,ClaimResponse.preAuthPeriod,,0,1
+payeeType,CodeableConcept,ClaimResponse.payeeType,"{""http://terminology.hl7.org/CodeSystem/payeetype""=>[""subscriber"", ""provider"", ""other""]}",0,1
+item,ClaimResponse::Item,ClaimResponse.item,,0,Infinity
+addItem,ClaimResponse::AddItem,ClaimResponse.addItem,,0,Infinity
+adjudication,ClaimResponse::Item::Adjudication,ClaimResponse.adjudication,,0,Infinity
+total,ClaimResponse::Total,ClaimResponse.total,,0,Infinity
+payment,ClaimResponse::Payment,ClaimResponse.payment,,0,1
+fundsReserve,CodeableConcept,ClaimResponse.fundsReserve,"{""http://terminology.hl7.org/CodeSystem/fundsreserve""=>[""patient"", ""provider"", ""none""]}",0,1
+formCode,CodeableConcept,ClaimResponse.formCode,"{""http://terminology.hl7.org/CodeSystem/forms-codes""=>[""1"", ""2""]}",0,1
+form,Attachment,ClaimResponse.form,,0,1
+processNote,ClaimResponse::ProcessNote,ClaimResponse.processNote,,0,Infinity
+communicationRequest,Reference,ClaimResponse.communicationRequest,,0,Infinity
+insurance,ClaimResponse::Insurance,ClaimResponse.insurance,,0,Infinity
+error,ClaimResponse::Error,ClaimResponse.error,,0,Infinity

@@ -1,20 +1,20 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-name,string
-status,code
-testScript,Reference
-result,code
-score,decimal
-tester,string
-issued,dateTime
-participant,TestReport::Participant
-setup,TestReport::Setup
-test,TestReport::Test
-teardown,TestReport::Teardown
+id,id,TestReport.id,,0,1
+meta,Meta,TestReport.meta,,0,1
+implicitRules,uri,TestReport.implicitRules,,0,1
+language,code,TestReport.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,TestReport.text,,0,1
+contained,Resource,TestReport.contained,,0,Infinity
+extension,Extension,TestReport.extension,,0,Infinity
+modifierExtension,Extension,TestReport.modifierExtension,,0,Infinity
+identifier,Identifier,TestReport.identifier,,0,1
+name,string,TestReport.name,,0,1
+status,code,TestReport.status,"{""http://hl7.org/fhir/report-status-codes""=>[""completed"", ""in-progress"", ""waiting"", ""stopped"", ""entered-in-error""]}",1,1
+testScript,Reference,TestReport.testScript,,1,1
+result,code,TestReport.result,"{""http://hl7.org/fhir/report-result-codes""=>[""pass"", ""fail"", ""pending""]}",1,1
+score,decimal,TestReport.score,,0,1
+tester,string,TestReport.tester,,0,1
+issued,dateTime,TestReport.issued,,0,1
+participant,TestReport::Participant,TestReport.participant,,0,Infinity
+setup,TestReport::Setup,TestReport.setup,,0,1
+test,TestReport::Test,TestReport.test,,0,Infinity
+teardown,TestReport::Teardown,TestReport.teardown,,0,1

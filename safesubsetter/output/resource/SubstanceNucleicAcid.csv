@@ -1,13 +1,13 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-sequenceType,CodeableConcept
-numberOfSubunits,integer
-areaOfHybridisation,string
-oligoNucleotideType,CodeableConcept
-subunit,SubstanceNucleicAcid::Subunit
+id,id,SubstanceNucleicAcid.id,,0,1
+meta,Meta,SubstanceNucleicAcid.meta,,0,1
+implicitRules,uri,SubstanceNucleicAcid.implicitRules,,0,1
+language,code,SubstanceNucleicAcid.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
+text,Narrative,SubstanceNucleicAcid.text,,0,1
+contained,Resource,SubstanceNucleicAcid.contained,,0,Infinity
+extension,Extension,SubstanceNucleicAcid.extension,,0,Infinity
+modifierExtension,Extension,SubstanceNucleicAcid.modifierExtension,,0,Infinity
+sequenceType,CodeableConcept,SubstanceNucleicAcid.sequenceType,,0,1
+numberOfSubunits,integer,SubstanceNucleicAcid.numberOfSubunits,,0,1
+areaOfHybridisation,string,SubstanceNucleicAcid.areaOfHybridisation,,0,1
+oligoNucleotideType,CodeableConcept,SubstanceNucleicAcid.oligoNucleotideType,,0,1
+subunit,SubstanceNucleicAcid::Subunit,SubstanceNucleicAcid.subunit,,0,Infinity
