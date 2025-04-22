@@ -29,7 +29,7 @@ FHIR_TYPES = {
     "boolean": {"type": "boolean", "regex": "true|false"},
     "uri": {"type": "string", "regex": "\S*"},
     "url": {"type": "string", "regex": "\S*"},
-    "string": {"type": "string", "regex": "[ \r\n\t\S]+"},
+    "string": {"type": "string", "regex": "[a-zA-Z0-9]+"},
     "base64Binary": {
         "type": "string",
         "generator": lambda: base64.b64encode(os.urandom(16)).decode("utf-8"),
@@ -59,7 +59,7 @@ FHIR_TYPES = {
         "generator": lambda: f"{random.randint(0, 23):02}:{random.randint(0, 59):02}:{random.randint(0, 59):02}",
     },
     "code": {
-        "type": "string",
+        "type": "code",
         "generator": lambda: "".join(random.choices(string.ascii_letters, k=2)).upper(),
     },
     "oid": {"type": "string", "regex": "urn:oid:[0-2](\.(0|[1-9][0-9]*))+"},
@@ -117,20 +117,23 @@ def fill_missing_basic_fields(resource_dict, resource_type):
     metadata, _ = parse_fhir_spec_csv(csv_path)
 
     for field, type_info in metadata.items():
-        print(field, type_info)
-        if (
-            type_info["type"] == "code"
-        ):  # ignoring code type as they are very specific for each resource; regex check alone is insufficient
-            continue
-
+        min_val = type_info["min"]
+        max_val = type_info["max"]
         if field not in resource_dict:
             field_type = type_info["type"]
             if field_type in FHIR_TYPES:
                 regex_info = FHIR_TYPES[field_type]
-                generated_value = generate_value_from_type_info(regex_info)
+                if field_type == "code":
+                    int_num = random.randint(0, len(type_info["codes"])-1) 
+                    generated_value = type_info["codes"][int_num]
+                else:
+                    generated_value = generate_value_from_type_info(regex_info)
                 if field_type in ["uri", "url", "canonical"]:
                     generated_value = "http://hl7.org/fhir/StructureDefinition/example"
-                resource_dict[field] = generated_value
+                if max_val == "Infinity":
+                    resource_dict[field] = [generated_value]
+                else:
+                    resource_dict[field] = generated_value
                 print(
                     f"Added missing field '{field}' to {resource_type} with value: {generated_value}"
                 )
@@ -156,6 +159,10 @@ def fill_missing_nested_fields(resource_dict, resource_type):
             # Skip contained type as it further nests into another resource. Skip modifierExtension as document says they are better avoided
             continue
 
+        min_val = type_info["min"]
+        max_val = type_info["max"]
+
+        
         nested_type = type_info["type"]
         nested_csv_path = os.path.join(RESOURCES_FOLDER, f"{nested_type}.csv")
         if not os.path.exists(nested_csv_path):
@@ -163,24 +170,41 @@ def fill_missing_nested_fields(resource_dict, resource_type):
         if not os.path.exists(nested_csv_path):
             print(f"Metadata CSV not found for {nested_type}")
             continue
-
         if field not in resource_dict:
             resource_dict[field] = (
-                [{}] if field == "modifierExtension" or field == "extension" else {}
+                [{}] if field == "modifierExtension" or field == "extension" or max_val == "Infinity" else {}
             )
+            if type_info["type"] == "CodeableConcept":
+                system = type_info["system_url"]
+                code = random.choice(type_info["codes"])
+                resource_dict[field] = {"coding": [{"system": system, "code": code}]}
 
         meta_fund, _ = parse_fhir_spec_csv(nested_csv_path)
+
         if isinstance(resource_dict[field], dict):
 
             for subfield, sub_type_info in meta_fund.items():
+                
                 sub_type = sub_type_info["type"]
-                if sub_type == "code":
-                    continue
+
                 if subfield not in resource_dict[field] and sub_type in FHIR_TYPES:
-                    val = generate_value_from_type_info(FHIR_TYPES[sub_type])
+                    if nested_type == "Reference" and subfield == "reference":     
+                        val = f"{type_info['references'][0]}/123"
+                    else:
+                        if sub_type == "code":
+                            int_num = random.randint(0, len(sub_type_info["codes"])-1)
+                            val = sub_type_info["codes"][int_num]
+                            print(val)
+                        else:
+                            val = generate_value_from_type_info(FHIR_TYPES[sub_type])
+
                     if subfield == "suffix" or subfield == "profile":
                         val = [val]
-                    resource_dict[field][subfield] = val
+
+                    if max_val == "Infinity":
+                        resource_dict[field][0][subfield] = val
+                    else:
+                        resource_dict[field][subfield] = val
 
         elif isinstance(resource_dict[field], list):
             for _, item in enumerate(resource_dict[field]):
@@ -200,17 +224,25 @@ def fill_missing_nested_fields(resource_dict, resource_type):
                                         FHIR_TYPES[sub_type_info["type"]]
                                     )
                                     ext_list.append(temp_json)
+                            if field == "extension":
+                                resource_dict[field] = []
                             resource_dict[field].extend(ext_list)
                             break
                     else:
                         for subfield, sub_type_info in meta_fund.items():
                             sub_type = sub_type_info["type"]
-                            if sub_type == "code":
-                                continue
                             if subfield not in item and sub_type in FHIR_TYPES:
-                                val = generate_value_from_type_info(
-                                    FHIR_TYPES[sub_type]
-                                )
+                                if type_info["type"] == "Reference" and subfield == "reference":
+                                    val = f"{type_info['references'][0]}/123"
+                                else:
+                                    if sub_type == "code":
+                                        int_num = random.randint(0, len(sub_type_info["codes"])-1)
+                                        val = sub_type_info["codes"][int_num]
+                                        print(val)
+                                    else:
+                                        val = generate_value_from_type_info(
+                                        FHIR_TYPES[sub_type]
+                                        )
                                 if subfield == "suffix":
                                     val = [val]
                                 item[subfield] = [val] if subfield == "profile" else val
@@ -239,6 +271,8 @@ def fill_missing_fields_in_patient_file(patient_json):
             continue
         resource_type = resource.get("resourceType")
         if not resource_type:
+            continue
+        if resource_type == "Patient":
             continue
         print(f"Processing resourceType: {resource_type}")
         resource = fill_all_missing_fields(resource, resource_type)

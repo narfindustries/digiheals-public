@@ -1,6 +1,7 @@
 """Common FHIR functions used across modules """
 
 import csv
+import ast
 
 # Common file paths
 RESOURCES_FOLDER = "output/resource"
@@ -57,17 +58,31 @@ def parse_fhir_spec_csv(file_path):
     """Parse CSV file to extract all fields and their types and store as metadata."""
     metadata_fundamental = {}
     metadata_recursive = {}
-
+    multi_set = set()
     with open(file_path, "r", encoding="utf-8") as f:
         reader = csv.reader(f)
         for row in reader:
-            if len(row) == 2:
-                field, field_type = row
-                if field_type[0].islower():
-                    metadata_fundamental[field] = {"type": field_type}
-                elif field_type[0].isupper() and field_type.isalnum():
-                    metadata_recursive[field] = {"type": field_type}
+            if len(row) == 7:
+                field, field_type, data_extension, codes, min_val, max_val, reference_val = row
+                if codes.startswith("{") and codes.endswith("}"):
+                    code = codes.split("=>", 1)
+                    code_url = ast.literal_eval(code[0].lstrip("{"))
+                    code_string_list = ast.literal_eval(code[1].rstrip("}"))
+                else: 
+                    code_string_list = ['']
+                    code_url = ''
+                if reference_val.startswith("[") and reference_val.endswith("]"):
+                    reference_val = ast.literal_eval(reference_val)
 
+                if ("[x]" in data_extension and data_extension not in multi_set) or "[x]" not in data_extension:          
+                    if field_type[0].islower():
+                        metadata_fundamental[field] = {"type": field_type, "min": min_val, "max": max_val, "codes": code_string_list, "system_url": code_url, "data_extension": data_extension, "references": reference_val}
+                    elif field_type[0].isupper() and field_type.isalnum():
+                        metadata_recursive[field] = {"type": field_type, "min": min_val, "max": max_val, "codes": code_string_list, "system_url": code_url, "data_extension": data_extension, "references": reference_val}
+                    multi_set.add(data_extension)
+                else:
+
+                    continue
     return metadata_fundamental, metadata_recursive
 
 
