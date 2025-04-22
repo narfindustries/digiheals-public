@@ -1,16 +1,16 @@
-id,id,VisionPrescription.id,,0,1
-meta,Meta,VisionPrescription.meta,,0,1
-implicitRules,uri,VisionPrescription.implicitRules,,0,1
-language,code,VisionPrescription.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,VisionPrescription.text,,0,1
-contained,Resource,VisionPrescription.contained,,0,Infinity
-extension,Extension,VisionPrescription.extension,,0,Infinity
-modifierExtension,Extension,VisionPrescription.modifierExtension,,0,Infinity
-identifier,Identifier,VisionPrescription.identifier,,0,Infinity
-status,code,VisionPrescription.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1
-created,dateTime,VisionPrescription.created,,1,1
-patient,Reference,VisionPrescription.patient,,1,1
-encounter,Reference,VisionPrescription.encounter,,0,1
-dateWritten,dateTime,VisionPrescription.dateWritten,,1,1
-prescriber,Reference,VisionPrescription.prescriber,,1,1
-lensSpecification,VisionPrescription::LensSpecification,VisionPrescription.lensSpecification,,1,Infinity
+id,id,VisionPrescription.id,,0,1,[]
+meta,Meta,VisionPrescription.meta,,0,1,[]
+implicitRules,uri,VisionPrescription.implicitRules,,0,1,[]
+language,code,VisionPrescription.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,VisionPrescription.text,,0,1,[]
+contained,Resource,VisionPrescription.contained,,0,Infinity,[]
+extension,Extension,VisionPrescription.extension,,0,Infinity,[]
+modifierExtension,Extension,VisionPrescription.modifierExtension,,0,Infinity,[]
+identifier,Identifier,VisionPrescription.identifier,,0,Infinity,[]
+status,code,VisionPrescription.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1,[]
+created,dateTime,VisionPrescription.created,,1,1,[]
+patient,Reference,VisionPrescription.patient,,1,1,"[""Patient""]"
+encounter,Reference,VisionPrescription.encounter,,0,1,"[""Encounter""]"
+dateWritten,dateTime,VisionPrescription.dateWritten,,1,1,[]
+prescriber,Reference,VisionPrescription.prescriber,,1,1,"[""Practitioner"", ""PractitionerRole""]"
+lensSpecification,VisionPrescription::LensSpecification,VisionPrescription.lensSpecification,,1,Infinity,[]

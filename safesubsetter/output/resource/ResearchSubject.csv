@@ -1,16 +1,16 @@
-id,id,ResearchSubject.id,,0,1
-meta,Meta,ResearchSubject.meta,,0,1
-implicitRules,uri,ResearchSubject.implicitRules,,0,1
-language,code,ResearchSubject.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,ResearchSubject.text,,0,1
-contained,Resource,ResearchSubject.contained,,0,Infinity
-extension,Extension,ResearchSubject.extension,,0,Infinity
-modifierExtension,Extension,ResearchSubject.modifierExtension,,0,Infinity
-identifier,Identifier,ResearchSubject.identifier,,0,Infinity
-status,code,ResearchSubject.status,"{""http://hl7.org/fhir/research-subject-status""=>[""candidate"", ""eligible"", ""follow-up"", ""ineligible"", ""not-registered"", ""off-study"", ""on-study"", ""on-study-intervention"", ""on-study-observation"", ""pending-on-study"", ""potential-candidate"", ""screening"", ""withdrawn""]}",1,1
-period,Period,ResearchSubject.period,,0,1
-study,Reference,ResearchSubject.study,,1,1
-individual,Reference,ResearchSubject.individual,,1,1
-assignedArm,string,ResearchSubject.assignedArm,,0,1
-actualArm,string,ResearchSubject.actualArm,,0,1
-consent,Reference,ResearchSubject.consent,,0,1
+id,id,ResearchSubject.id,,0,1,[]
+meta,Meta,ResearchSubject.meta,,0,1,[]
+implicitRules,uri,ResearchSubject.implicitRules,,0,1,[]
+language,code,ResearchSubject.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,ResearchSubject.text,,0,1,[]
+contained,Resource,ResearchSubject.contained,,0,Infinity,[]
+extension,Extension,ResearchSubject.extension,,0,Infinity,[]
+modifierExtension,Extension,ResearchSubject.modifierExtension,,0,Infinity,[]
+identifier,Identifier,ResearchSubject.identifier,,0,Infinity,[]
+status,code,ResearchSubject.status,"{""http://hl7.org/fhir/research-subject-status""=>[""candidate"", ""eligible"", ""follow-up"", ""ineligible"", ""not-registered"", ""off-study"", ""on-study"", ""on-study-intervention"", ""on-study-observation"", ""pending-on-study"", ""potential-candidate"", ""screening"", ""withdrawn""]}",1,1,[]
+period,Period,ResearchSubject.period,,0,1,[]
+study,Reference,ResearchSubject.study,,1,1,"[""ResearchStudy""]"
+individual,Reference,ResearchSubject.individual,,1,1,"[""Patient""]"
+assignedArm,string,ResearchSubject.assignedArm,,0,1,[]
+actualArm,string,ResearchSubject.actualArm,,0,1,[]
+consent,Reference,ResearchSubject.consent,,0,1,"[""Consent""]"

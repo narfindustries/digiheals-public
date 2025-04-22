@@ -1,20 +1,20 @@
-id,id,PaymentNotice.id,,0,1
-meta,Meta,PaymentNotice.meta,,0,1
-implicitRules,uri,PaymentNotice.implicitRules,,0,1
-language,code,PaymentNotice.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,PaymentNotice.text,,0,1
-contained,Resource,PaymentNotice.contained,,0,Infinity
-extension,Extension,PaymentNotice.extension,,0,Infinity
-modifierExtension,Extension,PaymentNotice.modifierExtension,,0,Infinity
-identifier,Identifier,PaymentNotice.identifier,,0,Infinity
-status,code,PaymentNotice.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1
-request,Reference,PaymentNotice.request,,0,1
-response,Reference,PaymentNotice.response,,0,1
-created,dateTime,PaymentNotice.created,,1,1
-provider,Reference,PaymentNotice.provider,,0,1
-payment,Reference,PaymentNotice.payment,,1,1
-paymentDate,date,PaymentNotice.paymentDate,,0,1
-payee,Reference,PaymentNotice.payee,,0,1
-recipient,Reference,PaymentNotice.recipient,,1,1
-amount,Money,PaymentNotice.amount,,1,1
-paymentStatus,CodeableConcept,PaymentNotice.paymentStatus,"{""http://terminology.hl7.org/CodeSystem/paymentstatus""=>[""paid"", ""cleared""]}",0,1
+id,id,PaymentNotice.id,,0,1,[]
+meta,Meta,PaymentNotice.meta,,0,1,[]
+implicitRules,uri,PaymentNotice.implicitRules,,0,1,[]
+language,code,PaymentNotice.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,PaymentNotice.text,,0,1,[]
+contained,Resource,PaymentNotice.contained,,0,Infinity,[]
+extension,Extension,PaymentNotice.extension,,0,Infinity,[]
+modifierExtension,Extension,PaymentNotice.modifierExtension,,0,Infinity,[]
+identifier,Identifier,PaymentNotice.identifier,,0,Infinity,[]
+status,code,PaymentNotice.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1,[]
+request,Reference,PaymentNotice.request,,0,1,"[""Resource""]"
+response,Reference,PaymentNotice.response,,0,1,"[""Resource""]"
+created,dateTime,PaymentNotice.created,,1,1,[]
+provider,Reference,PaymentNotice.provider,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"
+payment,Reference,PaymentNotice.payment,,1,1,"[""PaymentReconciliation""]"
+paymentDate,date,PaymentNotice.paymentDate,,0,1,[]
+payee,Reference,PaymentNotice.payee,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"
+recipient,Reference,PaymentNotice.recipient,,1,1,"[""Organization""]"
+amount,Money,PaymentNotice.amount,,1,1,[]
+paymentStatus,CodeableConcept,PaymentNotice.paymentStatus,"{""http://terminology.hl7.org/CodeSystem/paymentstatus""=>[""paid"", ""cleared""]}",0,1,[]

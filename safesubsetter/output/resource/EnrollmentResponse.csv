@@ -1,16 +1,16 @@
-id,id,EnrollmentResponse.id,,0,1
-meta,Meta,EnrollmentResponse.meta,,0,1
-implicitRules,uri,EnrollmentResponse.implicitRules,,0,1
-language,code,EnrollmentResponse.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,EnrollmentResponse.text,,0,1
-contained,Resource,EnrollmentResponse.contained,,0,Infinity
-extension,Extension,EnrollmentResponse.extension,,0,Infinity
-modifierExtension,Extension,EnrollmentResponse.modifierExtension,,0,Infinity
-identifier,Identifier,EnrollmentResponse.identifier,,0,Infinity
-status,code,EnrollmentResponse.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",0,1
-request,Reference,EnrollmentResponse.request,,0,1
-outcome,code,EnrollmentResponse.outcome,"{""http://hl7.org/fhir/remittance-outcome""=>[""queued"", ""complete"", ""error"", ""partial""]}",0,1
-disposition,string,EnrollmentResponse.disposition,,0,1
-created,dateTime,EnrollmentResponse.created,,0,1
-organization,Reference,EnrollmentResponse.organization,,0,1
-requestProvider,Reference,EnrollmentResponse.requestProvider,,0,1
+id,id,EnrollmentResponse.id,,0,1,[]
+meta,Meta,EnrollmentResponse.meta,,0,1,[]
+implicitRules,uri,EnrollmentResponse.implicitRules,,0,1,[]
+language,code,EnrollmentResponse.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,EnrollmentResponse.text,,0,1,[]
+contained,Resource,EnrollmentResponse.contained,,0,Infinity,[]
+extension,Extension,EnrollmentResponse.extension,,0,Infinity,[]
+modifierExtension,Extension,EnrollmentResponse.modifierExtension,,0,Infinity,[]
+identifier,Identifier,EnrollmentResponse.identifier,,0,Infinity,[]
+status,code,EnrollmentResponse.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",0,1,[]
+request,Reference,EnrollmentResponse.request,,0,1,"[""EnrollmentRequest""]"
+outcome,code,EnrollmentResponse.outcome,"{""http://hl7.org/fhir/remittance-outcome""=>[""queued"", ""complete"", ""error"", ""partial""]}",0,1,[]
+disposition,string,EnrollmentResponse.disposition,,0,1,[]
+created,dateTime,EnrollmentResponse.created,,0,1,[]
+organization,Reference,EnrollmentResponse.organization,,0,1,"[""Organization""]"
+requestProvider,Reference,EnrollmentResponse.requestProvider,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"

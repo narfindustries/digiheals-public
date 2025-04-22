@@ -1,18 +1,18 @@
-id,id,Practitioner.id,,0,1
-meta,Meta,Practitioner.meta,,0,1
-implicitRules,uri,Practitioner.implicitRules,,0,1
-language,code,Practitioner.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,Practitioner.text,,0,1
-contained,Resource,Practitioner.contained,,0,Infinity
-extension,Extension,Practitioner.extension,,0,Infinity
-modifierExtension,Extension,Practitioner.modifierExtension,,0,Infinity
-identifier,Identifier,Practitioner.identifier,,0,Infinity
-active,boolean,Practitioner.active,,0,1
-name,HumanName,Practitioner.name,,0,Infinity
-telecom,ContactPoint,Practitioner.telecom,,0,Infinity
-address,Address,Practitioner.address,,0,Infinity
-gender,code,Practitioner.gender,"{""http://hl7.org/fhir/administrative-gender""=>[""male"", ""female"", ""other"", ""unknown""]}",0,1
-birthDate,date,Practitioner.birthDate,,0,1
-photo,Attachment,Practitioner.photo,,0,Infinity
-qualification,Practitioner::Qualification,Practitioner.qualification,,0,Infinity
-communication,CodeableConcept,Practitioner.communication,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,Infinity
+id,id,Practitioner.id,,0,1,[]
+meta,Meta,Practitioner.meta,,0,1,[]
+implicitRules,uri,Practitioner.implicitRules,,0,1,[]
+language,code,Practitioner.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,Practitioner.text,,0,1,[]
+contained,Resource,Practitioner.contained,,0,Infinity,[]
+extension,Extension,Practitioner.extension,,0,Infinity,[]
+modifierExtension,Extension,Practitioner.modifierExtension,,0,Infinity,[]
+identifier,Identifier,Practitioner.identifier,,0,Infinity,[]
+active,boolean,Practitioner.active,,0,1,[]
+name,HumanName,Practitioner.name,,0,Infinity,[]
+telecom,ContactPoint,Practitioner.telecom,,0,Infinity,[]
+address,Address,Practitioner.address,,0,Infinity,[]
+gender,code,Practitioner.gender,"{""http://hl7.org/fhir/administrative-gender""=>[""male"", ""female"", ""other"", ""unknown""]}",0,1,[]
+birthDate,date,Practitioner.birthDate,,0,1,[]
+photo,Attachment,Practitioner.photo,,0,Infinity,[]
+qualification,Practitioner::Qualification,Practitioner.qualification,,0,Infinity,[]
+communication,CodeableConcept,Practitioner.communication,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,Infinity,[]

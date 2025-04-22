@@ -1,32 +1,32 @@
-id,id,TerminologyCapabilities.id,,0,1
-meta,Meta,TerminologyCapabilities.meta,,0,1
-implicitRules,uri,TerminologyCapabilities.implicitRules,,0,1
-language,code,TerminologyCapabilities.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,TerminologyCapabilities.text,,0,1
-contained,Resource,TerminologyCapabilities.contained,,0,Infinity
-extension,Extension,TerminologyCapabilities.extension,,0,Infinity
-modifierExtension,Extension,TerminologyCapabilities.modifierExtension,,0,Infinity
-url,uri,TerminologyCapabilities.url,,0,1
-version,string,TerminologyCapabilities.version,,0,1
-name,string,TerminologyCapabilities.name,,0,1
-title,string,TerminologyCapabilities.title,,0,1
-status,code,TerminologyCapabilities.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1
-experimental,boolean,TerminologyCapabilities.experimental,,0,1
-date,dateTime,TerminologyCapabilities.date,,1,1
-publisher,string,TerminologyCapabilities.publisher,,0,1
-contact,ContactDetail,TerminologyCapabilities.contact,,0,Infinity
-description,markdown,TerminologyCapabilities.description,,0,1
-useContext,UsageContext,TerminologyCapabilities.useContext,,0,Infinity
-jurisdiction,CodeableConcept,TerminologyCapabilities.jurisdiction,,0,Infinity
-purpose,markdown,TerminologyCapabilities.purpose,,0,1
-copyright,markdown,TerminologyCapabilities.copyright,,0,1
-kind,code,TerminologyCapabilities.kind,"{""http://hl7.org/fhir/capability-statement-kind""=>[""instance"", ""capability"", ""requirements""]}",1,1
-software,TerminologyCapabilities::Software,TerminologyCapabilities.software,,0,1
-implementation,TerminologyCapabilities::Implementation,TerminologyCapabilities.implementation,,0,1
-lockedDate,boolean,TerminologyCapabilities.lockedDate,,0,1
-codeSystem,TerminologyCapabilities::CodeSystem,TerminologyCapabilities.codeSystem,,0,Infinity
-expansion,TerminologyCapabilities::Expansion,TerminologyCapabilities.expansion,,0,1
-codeSearch,code,TerminologyCapabilities.codeSearch,"{""http://hl7.org/fhir/code-search-support""=>[""explicit"", ""all""]}",0,1
-validateCode,TerminologyCapabilities::ValidateCode,TerminologyCapabilities.validateCode,,0,1
-translation,TerminologyCapabilities::Translation,TerminologyCapabilities.translation,,0,1
-closure,TerminologyCapabilities::Closure,TerminologyCapabilities.closure,,0,1
+id,id,TerminologyCapabilities.id,,0,1,[]
+meta,Meta,TerminologyCapabilities.meta,,0,1,[]
+implicitRules,uri,TerminologyCapabilities.implicitRules,,0,1,[]
+language,code,TerminologyCapabilities.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,TerminologyCapabilities.text,,0,1,[]
+contained,Resource,TerminologyCapabilities.contained,,0,Infinity,[]
+extension,Extension,TerminologyCapabilities.extension,,0,Infinity,[]
+modifierExtension,Extension,TerminologyCapabilities.modifierExtension,,0,Infinity,[]
+url,uri,TerminologyCapabilities.url,,0,1,[]
+version,string,TerminologyCapabilities.version,,0,1,[]
+name,string,TerminologyCapabilities.name,,0,1,[]
+title,string,TerminologyCapabilities.title,,0,1,[]
+status,code,TerminologyCapabilities.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1,[]
+experimental,boolean,TerminologyCapabilities.experimental,,0,1,[]
+date,dateTime,TerminologyCapabilities.date,,1,1,[]
+publisher,string,TerminologyCapabilities.publisher,,0,1,[]
+contact,ContactDetail,TerminologyCapabilities.contact,,0,Infinity,[]
+description,markdown,TerminologyCapabilities.description,,0,1,[]
+useContext,UsageContext,TerminologyCapabilities.useContext,,0,Infinity,[]
+jurisdiction,CodeableConcept,TerminologyCapabilities.jurisdiction,,0,Infinity,[]
+purpose,markdown,TerminologyCapabilities.purpose,,0,1,[]
+copyright,markdown,TerminologyCapabilities.copyright,,0,1,[]
+kind,code,TerminologyCapabilities.kind,"{""http://hl7.org/fhir/capability-statement-kind""=>[""instance"", ""capability"", ""requirements""]}",1,1,[]
+software,TerminologyCapabilities::Software,TerminologyCapabilities.software,,0,1,[]
+implementation,TerminologyCapabilities::Implementation,TerminologyCapabilities.implementation,,0,1,[]
+lockedDate,boolean,TerminologyCapabilities.lockedDate,,0,1,[]
+codeSystem,TerminologyCapabilities::CodeSystem,TerminologyCapabilities.codeSystem,,0,Infinity,[]
+expansion,TerminologyCapabilities::Expansion,TerminologyCapabilities.expansion,,0,1,[]
+codeSearch,code,TerminologyCapabilities.codeSearch,"{""http://hl7.org/fhir/code-search-support""=>[""explicit"", ""all""]}",0,1,[]
+validateCode,TerminologyCapabilities::ValidateCode,TerminologyCapabilities.validateCode,,0,1,[]
+translation,TerminologyCapabilities::Translation,TerminologyCapabilities.translation,,0,1,[]
+closure,TerminologyCapabilities::Closure,TerminologyCapabilities.closure,,0,1,[]

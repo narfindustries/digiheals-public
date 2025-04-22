@@ -22,7 +22,13 @@ def list_all_resources
     CSV.open("output/resource/#{resource}.csv", "w") do |csv|
       puts "Resource: #{resource}"
       for key, definition in type_list
-        csv << [key, definition["type"], definition["path"], definition["valid_codes"], definition["min"], definition["max"]]
+        profiles = []
+        if definition["type"] == "Reference"
+          definition["type_profiles"].each do |profile|
+            profiles.push profile.split("/").last
+          end
+        end
+        csv << [key, definition["type"], definition["path"], definition["valid_codes"], definition["min"], definition["max"], profiles]
       end # loop through type_list
     end # CSV open
   end # loop through resource types

@@ -1,26 +1,26 @@
-id,id,ValueSet.id,,0,1
-meta,Meta,ValueSet.meta,,0,1
-implicitRules,uri,ValueSet.implicitRules,,0,1
-language,code,ValueSet.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,ValueSet.text,,0,1
-contained,Resource,ValueSet.contained,,0,Infinity
-extension,Extension,ValueSet.extension,,0,Infinity
-modifierExtension,Extension,ValueSet.modifierExtension,,0,Infinity
-url,uri,ValueSet.url,,0,1
-identifier,Identifier,ValueSet.identifier,,0,Infinity
-version,string,ValueSet.version,,0,1
-name,string,ValueSet.name,,0,1
-title,string,ValueSet.title,,0,1
-status,code,ValueSet.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1
-experimental,boolean,ValueSet.experimental,,0,1
-date,dateTime,ValueSet.date,,0,1
-publisher,string,ValueSet.publisher,,0,1
-contact,ContactDetail,ValueSet.contact,,0,Infinity
-description,markdown,ValueSet.description,,0,1
-useContext,UsageContext,ValueSet.useContext,,0,Infinity
-jurisdiction,CodeableConcept,ValueSet.jurisdiction,,0,Infinity
-immutable,boolean,ValueSet.immutable,,0,1
-purpose,markdown,ValueSet.purpose,,0,1
-copyright,markdown,ValueSet.copyright,,0,1
-compose,ValueSet::Compose,ValueSet.compose,,0,1
-expansion,ValueSet::Expansion,ValueSet.expansion,,0,1
+id,id,ValueSet.id,,0,1,[]
+meta,Meta,ValueSet.meta,,0,1,[]
+implicitRules,uri,ValueSet.implicitRules,,0,1,[]
+language,code,ValueSet.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,ValueSet.text,,0,1,[]
+contained,Resource,ValueSet.contained,,0,Infinity,[]
+extension,Extension,ValueSet.extension,,0,Infinity,[]
+modifierExtension,Extension,ValueSet.modifierExtension,,0,Infinity,[]
+url,uri,ValueSet.url,,0,1,[]
+identifier,Identifier,ValueSet.identifier,,0,Infinity,[]
+version,string,ValueSet.version,,0,1,[]
+name,string,ValueSet.name,,0,1,[]
+title,string,ValueSet.title,,0,1,[]
+status,code,ValueSet.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1,[]
+experimental,boolean,ValueSet.experimental,,0,1,[]
+date,dateTime,ValueSet.date,,0,1,[]
+publisher,string,ValueSet.publisher,,0,1,[]
+contact,ContactDetail,ValueSet.contact,,0,Infinity,[]
+description,markdown,ValueSet.description,,0,1,[]
+useContext,UsageContext,ValueSet.useContext,,0,Infinity,[]
+jurisdiction,CodeableConcept,ValueSet.jurisdiction,,0,Infinity,[]
+immutable,boolean,ValueSet.immutable,,0,1,[]
+purpose,markdown,ValueSet.purpose,,0,1,[]
+copyright,markdown,ValueSet.copyright,,0,1,[]
+compose,ValueSet::Compose,ValueSet.compose,,0,1,[]
+expansion,ValueSet::Expansion,ValueSet.expansion,,0,1,[]

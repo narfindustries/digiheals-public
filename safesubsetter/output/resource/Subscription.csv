@@ -1,15 +1,15 @@
-id,id,Subscription.id,,0,1
-meta,Meta,Subscription.meta,,0,1
-implicitRules,uri,Subscription.implicitRules,,0,1
-language,code,Subscription.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,Subscription.text,,0,1
-contained,Resource,Subscription.contained,,0,Infinity
-extension,Extension,Subscription.extension,,0,Infinity
-modifierExtension,Extension,Subscription.modifierExtension,,0,Infinity
-status,code,Subscription.status,"{""http://hl7.org/fhir/subscription-status""=>[""requested"", ""active"", ""error"", ""off""]}",1,1
-contact,ContactPoint,Subscription.contact,,0,Infinity
-end,instant,Subscription.end,,0,1
-reason,string,Subscription.reason,,1,1
-criteria,string,Subscription.criteria,,1,1
-error,string,Subscription.error,,0,1
-channel,Subscription::Channel,Subscription.channel,,1,1
+id,id,Subscription.id,,0,1,[]
+meta,Meta,Subscription.meta,,0,1,[]
+implicitRules,uri,Subscription.implicitRules,,0,1,[]
+language,code,Subscription.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,Subscription.text,,0,1,[]
+contained,Resource,Subscription.contained,,0,Infinity,[]
+extension,Extension,Subscription.extension,,0,Infinity,[]
+modifierExtension,Extension,Subscription.modifierExtension,,0,Infinity,[]
+status,code,Subscription.status,"{""http://hl7.org/fhir/subscription-status""=>[""requested"", ""active"", ""error"", ""off""]}",1,1,[]
+contact,ContactPoint,Subscription.contact,,0,Infinity,[]
+end,instant,Subscription.end,,0,1,[]
+reason,string,Subscription.reason,,1,1,[]
+criteria,string,Subscription.criteria,,1,1,[]
+error,string,Subscription.error,,0,1,[]
+channel,Subscription::Channel,Subscription.channel,,1,1,[]

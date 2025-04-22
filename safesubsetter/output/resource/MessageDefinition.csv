@@ -1,33 +1,33 @@
-id,id,MessageDefinition.id,,0,1
-meta,Meta,MessageDefinition.meta,,0,1
-implicitRules,uri,MessageDefinition.implicitRules,,0,1
-language,code,MessageDefinition.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,MessageDefinition.text,,0,1
-contained,Resource,MessageDefinition.contained,,0,Infinity
-extension,Extension,MessageDefinition.extension,,0,Infinity
-modifierExtension,Extension,MessageDefinition.modifierExtension,,0,Infinity
-url,uri,MessageDefinition.url,,0,1
-identifier,Identifier,MessageDefinition.identifier,,0,Infinity
-version,string,MessageDefinition.version,,0,1
-name,string,MessageDefinition.name,,0,1
-title,string,MessageDefinition.title,,0,1
-replaces,canonical,MessageDefinition.replaces,,0,Infinity
-status,code,MessageDefinition.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1
-experimental,boolean,MessageDefinition.experimental,,0,1
-date,dateTime,MessageDefinition.date,,1,1
-publisher,string,MessageDefinition.publisher,,0,1
-contact,ContactDetail,MessageDefinition.contact,,0,Infinity
-description,markdown,MessageDefinition.description,,0,1
-useContext,UsageContext,MessageDefinition.useContext,,0,Infinity
-jurisdiction,CodeableConcept,MessageDefinition.jurisdiction,,0,Infinity
-purpose,markdown,MessageDefinition.purpose,,0,1
-copyright,markdown,MessageDefinition.copyright,,0,1
-base,canonical,MessageDefinition.base,,0,1
-parent,canonical,MessageDefinition.parent,,0,Infinity
-eventCoding,Coding,MessageDefinition.event[x],,1,1
-eventUri,uri,MessageDefinition.event[x],,1,1
-category,code,MessageDefinition.category,"{""http://hl7.org/fhir/message-significance-category""=>[""consequence"", ""currency"", ""notification""]}",0,1
-focus,MessageDefinition::Focus,MessageDefinition.focus,,0,Infinity
-responseRequired,code,MessageDefinition.responseRequired,"{""http://hl7.org/fhir/messageheader-response-request""=>[""always"", ""on-error"", ""never"", ""on-success""]}",0,1
-allowedResponse,MessageDefinition::AllowedResponse,MessageDefinition.allowedResponse,,0,Infinity
-graph,canonical,MessageDefinition.graph,,0,Infinity
+id,id,MessageDefinition.id,,0,1,[]
+meta,Meta,MessageDefinition.meta,,0,1,[]
+implicitRules,uri,MessageDefinition.implicitRules,,0,1,[]
+language,code,MessageDefinition.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,MessageDefinition.text,,0,1,[]
+contained,Resource,MessageDefinition.contained,,0,Infinity,[]
+extension,Extension,MessageDefinition.extension,,0,Infinity,[]
+modifierExtension,Extension,MessageDefinition.modifierExtension,,0,Infinity,[]
+url,uri,MessageDefinition.url,,0,1,[]
+identifier,Identifier,MessageDefinition.identifier,,0,Infinity,[]
+version,string,MessageDefinition.version,,0,1,[]
+name,string,MessageDefinition.name,,0,1,[]
+title,string,MessageDefinition.title,,0,1,[]
+replaces,canonical,MessageDefinition.replaces,,0,Infinity,[]
+status,code,MessageDefinition.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1,[]
+experimental,boolean,MessageDefinition.experimental,,0,1,[]
+date,dateTime,MessageDefinition.date,,1,1,[]
+publisher,string,MessageDefinition.publisher,,0,1,[]
+contact,ContactDetail,MessageDefinition.contact,,0,Infinity,[]
+description,markdown,MessageDefinition.description,,0,1,[]
+useContext,UsageContext,MessageDefinition.useContext,,0,Infinity,[]
+jurisdiction,CodeableConcept,MessageDefinition.jurisdiction,,0,Infinity,[]
+purpose,markdown,MessageDefinition.purpose,,0,1,[]
+copyright,markdown,MessageDefinition.copyright,,0,1,[]
+base,canonical,MessageDefinition.base,,0,1,[]
+parent,canonical,MessageDefinition.parent,,0,Infinity,[]
+eventCoding,Coding,MessageDefinition.event[x],,1,1,[]
+eventUri,uri,MessageDefinition.event[x],,1,1,[]
+category,code,MessageDefinition.category,"{""http://hl7.org/fhir/message-significance-category""=>[""consequence"", ""currency"", ""notification""]}",0,1,[]
+focus,MessageDefinition::Focus,MessageDefinition.focus,,0,Infinity,[]
+responseRequired,code,MessageDefinition.responseRequired,"{""http://hl7.org/fhir/messageheader-response-request""=>[""always"", ""on-error"", ""never"", ""on-success""]}",0,1,[]
+allowedResponse,MessageDefinition::AllowedResponse,MessageDefinition.allowedResponse,,0,Infinity,[]
+graph,canonical,MessageDefinition.graph,,0,Infinity,[]

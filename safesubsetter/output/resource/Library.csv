@@ -1,40 +1,40 @@
-id,id,Library.id,,0,1
-meta,Meta,Library.meta,,0,1
-implicitRules,uri,Library.implicitRules,,0,1
-language,code,Library.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1
-text,Narrative,Library.text,,0,1
-contained,Resource,Library.contained,,0,Infinity
-extension,Extension,Library.extension,,0,Infinity
-modifierExtension,Extension,Library.modifierExtension,,0,Infinity
-url,uri,Library.url,,0,1
-identifier,Identifier,Library.identifier,,0,Infinity
-version,string,Library.version,,0,1
-name,string,Library.name,,0,1
-title,string,Library.title,,0,1
-subtitle,string,Library.subtitle,,0,1
-status,code,Library.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1
-experimental,boolean,Library.experimental,,0,1
-type,CodeableConcept,Library.type,"{""http://terminology.hl7.org/CodeSystem/library-type""=>[""logic-library"", ""model-definition"", ""asset-collection"", ""module-definition""]}",1,1
-subjectCodeableConcept,CodeableConcept,Library.subject[x],"{""http://hl7.org/fhir/resource-types""=>[""Patient"", ""Practitioner"", ""Organization"", ""Location"", ""Device""]}",0,1
-subjectReference,Reference,Library.subject[x],,0,1
-date,dateTime,Library.date,,0,1
-publisher,string,Library.publisher,,0,1
-contact,ContactDetail,Library.contact,,0,Infinity
-description,markdown,Library.description,,0,1
-useContext,UsageContext,Library.useContext,,0,Infinity
-jurisdiction,CodeableConcept,Library.jurisdiction,,0,Infinity
-purpose,markdown,Library.purpose,,0,1
-usage,string,Library.usage,,0,1
-copyright,markdown,Library.copyright,,0,1
-approvalDate,date,Library.approvalDate,,0,1
-lastReviewDate,date,Library.lastReviewDate,,0,1
-effectivePeriod,Period,Library.effectivePeriod,,0,1
-topic,CodeableConcept,Library.topic,"{""http://terminology.hl7.org/CodeSystem/definition-topic""=>[""treatment"", ""education"", ""assessment""]}",0,Infinity
-author,ContactDetail,Library.author,,0,Infinity
-editor,ContactDetail,Library.editor,,0,Infinity
-reviewer,ContactDetail,Library.reviewer,,0,Infinity
-endorser,ContactDetail,Library.endorser,,0,Infinity
-relatedArtifact,RelatedArtifact,Library.relatedArtifact,,0,Infinity
-parameter,ParameterDefinition,Library.parameter,,0,Infinity
-dataRequirement,DataRequirement,Library.dataRequirement,,0,Infinity
-content,Attachment,Library.content,,0,Infinity
+id,id,Library.id,,0,1,[]
+meta,Meta,Library.meta,,0,1,[]
+implicitRules,uri,Library.implicitRules,,0,1,[]
+language,code,Library.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,Library.text,,0,1,[]
+contained,Resource,Library.contained,,0,Infinity,[]
+extension,Extension,Library.extension,,0,Infinity,[]
+modifierExtension,Extension,Library.modifierExtension,,0,Infinity,[]
+url,uri,Library.url,,0,1,[]
+identifier,Identifier,Library.identifier,,0,Infinity,[]
+version,string,Library.version,,0,1,[]
+name,string,Library.name,,0,1,[]
+title,string,Library.title,,0,1,[]
+subtitle,string,Library.subtitle,,0,1,[]
+status,code,Library.status,"{""http://hl7.org/fhir/publication-status""=>[""draft"", ""active"", ""retired"", ""unknown""]}",1,1,[]
+experimental,boolean,Library.experimental,,0,1,[]
+type,CodeableConcept,Library.type,"{""http://terminology.hl7.org/CodeSystem/library-type""=>[""logic-library"", ""model-definition"", ""asset-collection"", ""module-definition""]}",1,1,[]
+subjectCodeableConcept,CodeableConcept,Library.subject[x],"{""http://hl7.org/fhir/resource-types""=>[""Patient"", ""Practitioner"", ""Organization"", ""Location"", ""Device""]}",0,1,[]
+subjectReference,Reference,Library.subject[x],,0,1,"[""Group""]"
+date,dateTime,Library.date,,0,1,[]
+publisher,string,Library.publisher,,0,1,[]
+contact,ContactDetail,Library.contact,,0,Infinity,[]
+description,markdown,Library.description,,0,1,[]
+useContext,UsageContext,Library.useContext,,0,Infinity,[]
+jurisdiction,CodeableConcept,Library.jurisdiction,,0,Infinity,[]
+purpose,markdown,Library.purpose,,0,1,[]
+usage,string,Library.usage,,0,1,[]
+copyright,markdown,Library.copyright,,0,1,[]
+approvalDate,date,Library.approvalDate,,0,1,[]
+lastReviewDate,date,Library.lastReviewDate,,0,1,[]
+effectivePeriod,Period,Library.effectivePeriod,,0,1,[]
+topic,CodeableConcept,Library.topic,"{""http://terminology.hl7.org/CodeSystem/definition-topic""=>[""treatment"", ""education"", ""assessment""]}",0,Infinity,[]
+author,ContactDetail,Library.author,,0,Infinity,[]
+editor,ContactDetail,Library.editor,,0,Infinity,[]
+reviewer,ContactDetail,Library.reviewer,,0,Infinity,[]
+endorser,ContactDetail,Library.endorser,,0,Infinity,[]
+relatedArtifact,RelatedArtifact,Library.relatedArtifact,,0,Infinity,[]
+parameter,ParameterDefinition,Library.parameter,,0,Infinity,[]
+dataRequirement,DataRequirement,Library.dataRequirement,,0,Infinity,[]
+content,Attachment,Library.content,,0,Infinity,[]
