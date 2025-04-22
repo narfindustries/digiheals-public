@@ -1,8 +1,8 @@
-id,string,MarketingStatus.id,,0,1
-extension,Extension,MarketingStatus.extension,,0,Infinity
-modifierExtension,Extension,MarketingStatus.modifierExtension,,0,Infinity
-country,CodeableConcept,MarketingStatus.country,,1,1
-jurisdiction,CodeableConcept,MarketingStatus.jurisdiction,,0,1
-status,CodeableConcept,MarketingStatus.status,,1,1
-dateRange,Period,MarketingStatus.dateRange,,1,1
-restoreDate,dateTime,MarketingStatus.restoreDate,,0,1
+id,string,MarketingStatus.id,,0,1,[]
+extension,Extension,MarketingStatus.extension,,0,Infinity,[]
+modifierExtension,Extension,MarketingStatus.modifierExtension,,0,Infinity,[]
+country,CodeableConcept,MarketingStatus.country,,1,1,[]
+jurisdiction,CodeableConcept,MarketingStatus.jurisdiction,,0,1,[]
+status,CodeableConcept,MarketingStatus.status,,1,1,[]
+dateRange,Period,MarketingStatus.dateRange,,1,1,[]
+restoreDate,dateTime,MarketingStatus.restoreDate,,0,1,[]

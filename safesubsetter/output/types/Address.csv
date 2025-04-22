@@ -1,12 +1,12 @@
-id,string,Address.id,,0,1
-extension,Extension,Address.extension,,0,Infinity
-use,code,Address.use,"{""http://hl7.org/fhir/address-use""=>[""home"", ""work"", ""temp"", ""old"", ""billing""]}",0,1
-type,code,Address.type,"{""http://hl7.org/fhir/address-type""=>[""postal"", ""physical"", ""both""]}",0,1
-text,string,Address.text,,0,1
-line,string,Address.line,,0,Infinity
-city,string,Address.city,,0,1
-district,string,Address.district,,0,1
-state,string,Address.state,,0,1
-postalCode,string,Address.postalCode,,0,1
-country,string,Address.country,,0,1
-period,Period,Address.period,,0,1
+id,string,Address.id,,0,1,[]
+extension,Extension,Address.extension,,0,Infinity,[]
+use,code,Address.use,"{""http://hl7.org/fhir/address-use""=>[""home"", ""work"", ""temp"", ""old"", ""billing""]}",0,1,[]
+type,code,Address.type,"{""http://hl7.org/fhir/address-type""=>[""postal"", ""physical"", ""both""]}",0,1,[]
+text,string,Address.text,,0,1,[]
+line,string,Address.line,,0,Infinity,[]
+city,string,Address.city,,0,1,[]
+district,string,Address.district,,0,1,[]
+state,string,Address.state,,0,1,[]
+postalCode,string,Address.postalCode,,0,1,[]
+country,string,Address.country,,0,1,[]
+period,Period,Address.period,,0,1,[]
