@@ -1,18 +1,18 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-type,CodeableConcept
-unit,CodeableConcept
-source,Reference
-parent,Reference
-operationalStatus,code
-color,code
-category,code
-measurementPeriod,Timing
-calibration,DeviceMetric::Calibration
+id,id,DeviceMetric.id,,0,1,[]
+meta,Meta,DeviceMetric.meta,,0,1,[]
+implicitRules,uri,DeviceMetric.implicitRules,,0,1,[]
+language,code,DeviceMetric.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,DeviceMetric.text,,0,1,[]
+contained,Resource,DeviceMetric.contained,,0,Infinity,[]
+extension,Extension,DeviceMetric.extension,,0,Infinity,[]
+modifierExtension,Extension,DeviceMetric.modifierExtension,,0,Infinity,[]
+identifier,Identifier,DeviceMetric.identifier,,0,Infinity,[]
+type,CodeableConcept,DeviceMetric.type,,1,1,[]
+unit,CodeableConcept,DeviceMetric.unit,,0,1,[]
+source,Reference,DeviceMetric.source,,0,1,"[""Device""]"
+parent,Reference,DeviceMetric.parent,,0,1,"[""Device""]"
+operationalStatus,code,DeviceMetric.operationalStatus,"{""http://hl7.org/fhir/metric-operational-status""=>[""on"", ""off"", ""standby"", ""entered-in-error""]}",0,1,[]
+color,code,DeviceMetric.color,"{""http://hl7.org/fhir/metric-color""=>[""black"", ""red"", ""green"", ""yellow"", ""blue"", ""magenta"", ""cyan"", ""white""]}",0,1,[]
+category,code,DeviceMetric.category,"{""http://hl7.org/fhir/metric-category""=>[""measurement"", ""setting"", ""calculation"", ""unspecified""]}",1,1,[]
+measurementPeriod,Timing,DeviceMetric.measurementPeriod,,0,1,[]
+calibration,DeviceMetric::Calibration,DeviceMetric.calibration,,0,Infinity,[]

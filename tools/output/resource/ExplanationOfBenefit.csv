@@ -1,51 +1,51 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-type,CodeableConcept
-subType,CodeableConcept
-use,code
-patient,Reference
-billablePeriod,Period
-created,dateTime
-enterer,Reference
-insurer,Reference
-provider,Reference
-priority,CodeableConcept
-fundsReserveRequested,CodeableConcept
-fundsReserve,CodeableConcept
-related,ExplanationOfBenefit::Related
-prescription,Reference
-originalPrescription,Reference
-payee,ExplanationOfBenefit::Payee
-referral,Reference
-facility,Reference
-claim,Reference
-claimResponse,Reference
-outcome,code
-disposition,string
-preAuthRef,string
-preAuthRefPeriod,Period
-careTeam,ExplanationOfBenefit::CareTeam
-supportingInfo,ExplanationOfBenefit::SupportingInfo
-diagnosis,ExplanationOfBenefit::Diagnosis
-procedure,ExplanationOfBenefit::Procedure
-precedence,positiveInt
-insurance,ExplanationOfBenefit::Insurance
-accident,ExplanationOfBenefit::Accident
-item,ExplanationOfBenefit::Item
-addItem,ExplanationOfBenefit::AddItem
-adjudication,ExplanationOfBenefit::Item::Adjudication
-total,ExplanationOfBenefit::Total
-payment,ExplanationOfBenefit::Payment
-formCode,CodeableConcept
-form,Attachment
-processNote,ExplanationOfBenefit::ProcessNote
-benefitPeriod,Period
-benefitBalance,ExplanationOfBenefit::BenefitBalance
+id,id,ExplanationOfBenefit.id,,0,1,[]
+meta,Meta,ExplanationOfBenefit.meta,,0,1,[]
+implicitRules,uri,ExplanationOfBenefit.implicitRules,,0,1,[]
+language,code,ExplanationOfBenefit.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,ExplanationOfBenefit.text,,0,1,[]
+contained,Resource,ExplanationOfBenefit.contained,,0,Infinity,[]
+extension,Extension,ExplanationOfBenefit.extension,,0,Infinity,[]
+modifierExtension,Extension,ExplanationOfBenefit.modifierExtension,,0,Infinity,[]
+identifier,Identifier,ExplanationOfBenefit.identifier,,0,Infinity,[]
+status,code,ExplanationOfBenefit.status,"{""http://hl7.org/fhir/explanationofbenefit-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1,[]
+type,CodeableConcept,ExplanationOfBenefit.type,"{""http://terminology.hl7.org/CodeSystem/claim-type""=>[""institutional"", ""oral"", ""pharmacy"", ""professional"", ""vision""]}",1,1,[]
+subType,CodeableConcept,ExplanationOfBenefit.subType,"{""http://terminology.hl7.org/CodeSystem/ex-claimsubtype""=>[""ortho"", ""emergency""]}",0,1,[]
+use,code,ExplanationOfBenefit.use,"{""http://hl7.org/fhir/claim-use""=>[""claim"", ""preauthorization"", ""predetermination""]}",1,1,[]
+patient,Reference,ExplanationOfBenefit.patient,,1,1,"[""Patient""]"
+billablePeriod,Period,ExplanationOfBenefit.billablePeriod,,0,1,[]
+created,dateTime,ExplanationOfBenefit.created,,1,1,[]
+enterer,Reference,ExplanationOfBenefit.enterer,,0,1,"[""Practitioner"", ""PractitionerRole""]"
+insurer,Reference,ExplanationOfBenefit.insurer,,1,1,"[""Organization""]"
+provider,Reference,ExplanationOfBenefit.provider,,1,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"
+priority,CodeableConcept,ExplanationOfBenefit.priority,,0,1,[]
+fundsReserveRequested,CodeableConcept,ExplanationOfBenefit.fundsReserveRequested,"{""http://terminology.hl7.org/CodeSystem/fundsreserve""=>[""patient"", ""provider"", ""none""]}",0,1,[]
+fundsReserve,CodeableConcept,ExplanationOfBenefit.fundsReserve,"{""http://terminology.hl7.org/CodeSystem/fundsreserve""=>[""patient"", ""provider"", ""none""]}",0,1,[]
+related,ExplanationOfBenefit::Related,ExplanationOfBenefit.related,,0,Infinity,[]
+prescription,Reference,ExplanationOfBenefit.prescription,,0,1,"[""MedicationRequest"", ""VisionPrescription""]"
+originalPrescription,Reference,ExplanationOfBenefit.originalPrescription,,0,1,"[""MedicationRequest""]"
+payee,ExplanationOfBenefit::Payee,ExplanationOfBenefit.payee,,0,1,[]
+referral,Reference,ExplanationOfBenefit.referral,,0,1,"[""ServiceRequest""]"
+facility,Reference,ExplanationOfBenefit.facility,,0,1,"[""Location""]"
+claim,Reference,ExplanationOfBenefit.claim,,0,1,"[""Claim""]"
+claimResponse,Reference,ExplanationOfBenefit.claimResponse,,0,1,"[""ClaimResponse""]"
+outcome,code,ExplanationOfBenefit.outcome,"{""http://hl7.org/fhir/remittance-outcome""=>[""queued"", ""complete"", ""error"", ""partial""]}",1,1,[]
+disposition,string,ExplanationOfBenefit.disposition,,0,1,[]
+preAuthRef,string,ExplanationOfBenefit.preAuthRef,,0,Infinity,[]
+preAuthRefPeriod,Period,ExplanationOfBenefit.preAuthRefPeriod,,0,Infinity,[]
+careTeam,ExplanationOfBenefit::CareTeam,ExplanationOfBenefit.careTeam,,0,Infinity,[]
+supportingInfo,ExplanationOfBenefit::SupportingInfo,ExplanationOfBenefit.supportingInfo,,0,Infinity,[]
+diagnosis,ExplanationOfBenefit::Diagnosis,ExplanationOfBenefit.diagnosis,,0,Infinity,[]
+procedure,ExplanationOfBenefit::Procedure,ExplanationOfBenefit.procedure,,0,Infinity,[]
+precedence,positiveInt,ExplanationOfBenefit.precedence,,0,1,[]
+insurance,ExplanationOfBenefit::Insurance,ExplanationOfBenefit.insurance,,1,Infinity,[]
+accident,ExplanationOfBenefit::Accident,ExplanationOfBenefit.accident,,0,1,[]
+item,ExplanationOfBenefit::Item,ExplanationOfBenefit.item,,0,Infinity,[]
+addItem,ExplanationOfBenefit::AddItem,ExplanationOfBenefit.addItem,,0,Infinity,[]
+adjudication,ExplanationOfBenefit::Item::Adjudication,ExplanationOfBenefit.adjudication,,0,Infinity,[]
+total,ExplanationOfBenefit::Total,ExplanationOfBenefit.total,,0,Infinity,[]
+payment,ExplanationOfBenefit::Payment,ExplanationOfBenefit.payment,,0,1,[]
+formCode,CodeableConcept,ExplanationOfBenefit.formCode,"{""http://terminology.hl7.org/CodeSystem/forms-codes""=>[""1"", ""2""]}",0,1,[]
+form,Attachment,ExplanationOfBenefit.form,,0,1,[]
+processNote,ExplanationOfBenefit::ProcessNote,ExplanationOfBenefit.processNote,,0,Infinity,[]
+benefitPeriod,Period,ExplanationOfBenefit.benefitPeriod,,0,1,[]
+benefitBalance,ExplanationOfBenefit::BenefitBalance,ExplanationOfBenefit.benefitBalance,,0,Infinity,[]

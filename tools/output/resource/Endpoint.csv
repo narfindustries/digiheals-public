@@ -1,19 +1,19 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-connectionType,Coding
-name,string
-managingOrganization,Reference
-contact,ContactPoint
-period,Period
-payloadType,CodeableConcept
-payloadMimeType,code
-address,url
-header,string
+id,id,Endpoint.id,,0,1,[]
+meta,Meta,Endpoint.meta,,0,1,[]
+implicitRules,uri,Endpoint.implicitRules,,0,1,[]
+language,code,Endpoint.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,Endpoint.text,,0,1,[]
+contained,Resource,Endpoint.contained,,0,Infinity,[]
+extension,Extension,Endpoint.extension,,0,Infinity,[]
+modifierExtension,Extension,Endpoint.modifierExtension,,0,Infinity,[]
+identifier,Identifier,Endpoint.identifier,,0,Infinity,[]
+status,code,Endpoint.status,"{""http://hl7.org/fhir/endpoint-status""=>[""active"", ""suspended"", ""error"", ""off"", ""entered-in-error"", ""test""]}",1,1,[]
+connectionType,Coding,Endpoint.connectionType,"{""http://terminology.hl7.org/CodeSystem/endpoint-connection-type""=>[""ihe-xcpd"", ""ihe-xca"", ""ihe-xdr"", ""ihe-xds"", ""ihe-iid"", ""dicom-wado-rs"", ""dicom-qido-rs"", ""dicom-stow-rs"", ""dicom-wado-uri"", ""hl7-fhir-rest"", ""hl7-fhir-msg"", ""hl7v2-mllp"", ""secure-email"", ""direct-project""]}",1,1,[]
+name,string,Endpoint.name,,0,1,[]
+managingOrganization,Reference,Endpoint.managingOrganization,,0,1,"[""Organization""]"
+contact,ContactPoint,Endpoint.contact,,0,Infinity,[]
+period,Period,Endpoint.period,,0,1,[]
+payloadType,CodeableConcept,Endpoint.payloadType,"{""http://terminology.hl7.org/CodeSystem/endpoint-payload-type""=>[""any"", ""none""]}",1,Infinity,[]
+payloadMimeType,code,Endpoint.payloadMimeType,,0,Infinity,[]
+address,url,Endpoint.address,,1,1,[]
+header,string,Endpoint.header,,0,Infinity,[]

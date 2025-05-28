@@ -1,8 +1,8 @@
-id,string
-extension,Extension
-versionId,id
-lastUpdated,instant
-source,uri
-profile,canonical
-security,Coding
-tag,Coding
+id,string,Meta.id,,0,1,[]
+extension,Extension,Meta.extension,,0,Infinity,[]
+versionId,id,Meta.versionId,,0,1,[]
+lastUpdated,instant,Meta.lastUpdated,,0,1,[]
+source,uri,Meta.source,,0,1,[]
+profile,canonical,Meta.profile,,0,Infinity,[]
+security,Coding,Meta.security,"{""http://terminology.hl7.org/CodeSystem/v3-ActCode""=>[""ETH"", ""GDIS"", ""HIV"", ""MST"", ""SCA"", ""SDV"", ""SEX"", ""SPI"", ""BH"", ""COGN"", ""DVD"", ""EMOTDIS"", ""MH"", ""PSY"", ""PSYTHPN"", ""SUD"", ""ETHUD"", ""OPIOIDUD"", ""STD"", ""TBOO"", ""VIO"", ""SICKLE"", ""DEMO"", ""DOB"", ""GENDER"", ""LIVARG"", ""MARST"", ""RACE"", ""REL"", ""B"", ""EMPL"", ""LOCIS"", ""SSP"", ""ADOL"", ""CEL"", ""DIA"", ""DRGIS"", ""EMP"", ""PDS"", ""PHY"", ""PRS"", ""COMPT"", ""ACOCOMPT"", ""CTCOMPT"", ""FMCOMPT"", ""HRCOMPT"", ""LRCOMPT"", ""PACOMPT"", ""RESCOMPT"", ""RMGTCOMPT"", ""SecurityPolicy"", ""AUTHPOL"", ""ACCESSCONSCHEME"", ""DELEPOL"", ""ObligationPolicy"", ""ANONY"", ""AOD"", ""AUDIT"", ""AUDTR"", ""CPLYCC"", ""CPLYCD"", ""CPLYJPP"", ""CPLYOPP"", ""CPLYOSP"", ""CPLYPOL"", ""DECLASSIFYLABEL"", ""DEID"", ""DELAU"", ""DOWNGRDLABEL"", ""DRIVLABEL"", ""ENCRYPT"", ""ENCRYPTR"", ""ENCRYPTT"", ""ENCRYPTU"", ""HUAPRV"", ""LABEL"", ""MASK"", ""MINEC"", ""PERSISTLABEL"", ""PRIVMARK"", ""PSEUD"", ""REDACT"", ""UPGRDLABEL"", ""RefrainPolicy"", ""NOAUTH"", ""NOCOLLECT"", ""NODSCLCD"", ""NODSCLCDS"", ""NOINTEGRATE"", ""NOLIST"", ""NOMOU"", ""NOORGPOL"", ""NOPAT"", ""NOPERSISTP"", ""NORDSCLCD"", ""NORDSCLCDS"", ""NORDSCLW"", ""NORELINK"", ""NOREUSE"", ""NOVIP"", ""ORCON""]}",0,Infinity,[]
+tag,Coding,Meta.tag,"{""http://terminology.hl7.org/CodeSystem/common-tags""=>[""actionable""]}",0,Infinity,[]

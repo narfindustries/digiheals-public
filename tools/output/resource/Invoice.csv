@@ -1,24 +1,24 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-cancelledReason,string
-type,CodeableConcept
-subject,Reference
-recipient,Reference
-date,dateTime
-participant,Invoice::Participant
-issuer,Reference
-account,Reference
-lineItem,Invoice::LineItem
-totalPriceComponent,Invoice::LineItem::PriceComponent
-totalNet,Money
-totalGross,Money
-paymentTerms,markdown
-note,Annotation
+id,id,Invoice.id,,0,1,[]
+meta,Meta,Invoice.meta,,0,1,[]
+implicitRules,uri,Invoice.implicitRules,,0,1,[]
+language,code,Invoice.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,Invoice.text,,0,1,[]
+contained,Resource,Invoice.contained,,0,Infinity,[]
+extension,Extension,Invoice.extension,,0,Infinity,[]
+modifierExtension,Extension,Invoice.modifierExtension,,0,Infinity,[]
+identifier,Identifier,Invoice.identifier,,0,Infinity,[]
+status,code,Invoice.status,"{""http://hl7.org/fhir/invoice-status""=>[""draft"", ""issued"", ""balanced"", ""cancelled"", ""entered-in-error""]}",1,1,[]
+cancelledReason,string,Invoice.cancelledReason,,0,1,[]
+type,CodeableConcept,Invoice.type,,0,1,[]
+subject,Reference,Invoice.subject,,0,1,"[""Patient"", ""Group""]"
+recipient,Reference,Invoice.recipient,,0,1,"[""Organization"", ""Patient"", ""RelatedPerson""]"
+date,dateTime,Invoice.date,,0,1,[]
+participant,Invoice::Participant,Invoice.participant,,0,Infinity,[]
+issuer,Reference,Invoice.issuer,,0,1,"[""Organization""]"
+account,Reference,Invoice.account,,0,1,"[""Account""]"
+lineItem,Invoice::LineItem,Invoice.lineItem,,0,Infinity,[]
+totalPriceComponent,Invoice::LineItem::PriceComponent,Invoice.totalPriceComponent,,0,Infinity,[]
+totalNet,Money,Invoice.totalNet,,0,1,[]
+totalGross,Money,Invoice.totalGross,,0,1,[]
+paymentTerms,markdown,Invoice.paymentTerms,,0,1,[]
+note,Annotation,Invoice.note,,0,Infinity,[]

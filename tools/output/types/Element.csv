@@ -1,2 +1,2 @@
-id,string
-extension,Extension
+id,string,Element.id,,0,1,[]
+extension,Extension,Element.extension,,0,Infinity,[]

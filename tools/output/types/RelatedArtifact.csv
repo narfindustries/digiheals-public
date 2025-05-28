@@ -1,9 +1,9 @@
-id,string
-extension,Extension
-type,code
-label,string
-display,string
-citation,markdown
-url,url
-document,Attachment
-resource,canonical
+id,string,RelatedArtifact.id,,0,1,[]
+extension,Extension,RelatedArtifact.extension,,0,Infinity,[]
+type,code,RelatedArtifact.type,"{""http://hl7.org/fhir/related-artifact-type""=>[""documentation"", ""justification"", ""citation"", ""predecessor"", ""successor"", ""derived-from"", ""depends-on"", ""composed-of""]}",1,1,[]
+label,string,RelatedArtifact.label,,0,1,[]
+display,string,RelatedArtifact.display,,0,1,[]
+citation,markdown,RelatedArtifact.citation,,0,1,[]
+url,url,RelatedArtifact.url,,0,1,[]
+document,Attachment,RelatedArtifact.document,,0,1,[]
+resource,canonical,RelatedArtifact.resource,,0,1,[]

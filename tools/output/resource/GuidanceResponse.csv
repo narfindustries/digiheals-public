@@ -1,25 +1,25 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-requestIdentifier,Identifier
-identifier,Identifier
-moduleUri,uri
-moduleCanonical,canonical
-moduleCodeableConcept,CodeableConcept
-status,code
-subject,Reference
-encounter,Reference
-occurrenceDateTime,dateTime
-performer,Reference
-reasonCode,CodeableConcept
-reasonReference,Reference
-note,Annotation
-evaluationMessage,Reference
-outputParameters,Reference
-result,Reference
-dataRequirement,DataRequirement
+id,id,GuidanceResponse.id,,0,1,[]
+meta,Meta,GuidanceResponse.meta,,0,1,[]
+implicitRules,uri,GuidanceResponse.implicitRules,,0,1,[]
+language,code,GuidanceResponse.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,GuidanceResponse.text,,0,1,[]
+contained,Resource,GuidanceResponse.contained,,0,Infinity,[]
+extension,Extension,GuidanceResponse.extension,,0,Infinity,[]
+modifierExtension,Extension,GuidanceResponse.modifierExtension,,0,Infinity,[]
+requestIdentifier,Identifier,GuidanceResponse.requestIdentifier,,0,1,[]
+identifier,Identifier,GuidanceResponse.identifier,,0,Infinity,[]
+moduleUri,uri,GuidanceResponse.module[x],,1,1,[]
+moduleCanonical,canonical,GuidanceResponse.module[x],,1,1,[]
+moduleCodeableConcept,CodeableConcept,GuidanceResponse.module[x],,1,1,[]
+status,code,GuidanceResponse.status,"{""http://hl7.org/fhir/guidance-response-status""=>[""success"", ""data-requested"", ""data-required"", ""in-progress"", ""failure"", ""entered-in-error""]}",1,1,[]
+subject,Reference,GuidanceResponse.subject,,0,1,"[""Patient"", ""Group""]"
+encounter,Reference,GuidanceResponse.encounter,,0,1,"[""Encounter""]"
+occurrenceDateTime,dateTime,GuidanceResponse.occurrenceDateTime,,0,1,[]
+performer,Reference,GuidanceResponse.performer,,0,1,"[""Device""]"
+reasonCode,CodeableConcept,GuidanceResponse.reasonCode,,0,Infinity,[]
+reasonReference,Reference,GuidanceResponse.reasonReference,,0,Infinity,"[""Condition"", ""Observation"", ""DiagnosticReport"", ""DocumentReference""]"
+note,Annotation,GuidanceResponse.note,,0,Infinity,[]
+evaluationMessage,Reference,GuidanceResponse.evaluationMessage,,0,Infinity,"[""OperationOutcome""]"
+outputParameters,Reference,GuidanceResponse.outputParameters,,0,1,"[""Parameters""]"
+result,Reference,GuidanceResponse.result,,0,1,"[""CarePlan"", ""RequestGroup""]"
+dataRequirement,DataRequirement,GuidanceResponse.dataRequirement,,0,Infinity,[]
