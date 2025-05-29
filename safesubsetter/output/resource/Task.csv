@@ -15,7 +15,7 @@ partOf,Reference,Task.partOf,,0,Infinity,"[""Task""]"
 status,code,Task.status,"{""http://hl7.org/fhir/task-status""=>[""draft"", ""requested"", ""received"", ""accepted"", ""rejected"", ""ready"", ""cancelled"", ""in-progress"", ""on-hold"", ""failed"", ""completed"", ""entered-in-error""]}",1,1,[]
 statusReason,CodeableConcept,Task.statusReason,,0,1,[]
 businessStatus,CodeableConcept,Task.businessStatus,,0,1,[]
-intent,code,Task.intent,"{""http://hl7.org/fhir/task-intent""=>[""unknown""], ""http://hl7.org/fhir/request-intent""=>[""proposal"", ""plan"", ""order"", ""original-order"", ""reflex-order"", ""filler-order"", ""instance-order"", ""option""]}",1,1,[]
+intent,code,Task.intent,"{""http://hl7.org/fhir/request-intent""=>[""proposal"", ""plan"", ""order"", ""original-order"", ""reflex-order"", ""filler-order"", ""instance-order"", ""option""]}",1,1,[]
 priority,code,Task.priority,"{""http://hl7.org/fhir/request-priority""=>[""routine"", ""urgent"", ""asap"", ""stat""]}",0,1,[]
 code,CodeableConcept,Task.code,"{""http://hl7.org/fhir/CodeSystem/task-code""=>[""approve"", ""fulfill"", ""abort"", ""replace"", ""change"", ""suspend"", ""resume""]}",0,1,[]
 description,string,Task.description,,0,1,[]

@@ -1,3 +1,5 @@
+"""SQLAlchemy code to create and insert into SQLite DB."""
+
 from sqlalchemy import (
     create_engine,
     Column,
@@ -14,18 +16,24 @@ Base = declarative_base()
 
 
 class SafeSubsetRecord(Base):
-    __tablename__ = "safe_subset_records"
+    __tablename__ = "test_blaze"
 
     id = Column(Integer, autoincrement=True)
     patient_file = Column(String, nullable=False)
     leaf_node_path = Column(String, nullable=False)
     old_type = Column(String, nullable=False)
+    old_value = Column(String, nullable=False)
     new_type = Column(String, nullable=False)
     new_value = Column(String, nullable=False)
+    resp_type = Column(String, nullable=False)
+    resp_value = Column(String, nullable=False)
     server = Column(String, nullable=False)
     response_status = Column(Boolean, nullable=False)
     error_message = Column(String, nullable=True)
-    validity = Column(Boolean, nullable=False)
+    ip_validity = Column(Boolean, nullable=False)
+    ip_validity_error = Column(String, nullable=False)
+    op_validity = Column(Boolean, nullable=False)
+    op_validity_error = Column(String, nullable=False)
 
     # Define valid types as a class attribute
     VALID_TYPES = (
@@ -49,8 +57,11 @@ class SafeSubsetRecord(Base):
         "decimal",
         "xhtml",
         "instant",
+        "largeInt",
+        "largeFloat",
+        "largeString",
     )
-    SERVERS = ("ibm", "iris", "hapifhir", "vista", "blaze")
+    SERVERS = ("ibm", "iris", "hapi", "vista", "blaze")
 
     __table_args__ = (
         PrimaryKeyConstraint(
@@ -90,12 +101,18 @@ class Database:
         patient_file: str,
         leaf_node_path: str,
         old_type: str,
+        old_value: str,
         new_type: str,
         new_value: str,
+        resp_type: str,
+        resp_value: str,
         server: str,
         response_status: bool,
         error_message: str | None,
-        validity: bool,
+        ip_validity: bool,
+        ip_validity_error: str,
+        op_validity: bool,
+        op_validity_error: str,
     ) -> None:
         """
         Insert a new record into the safe_subset_records table.
@@ -106,12 +123,18 @@ class Database:
             patient_file=patient_file,
             leaf_node_path=leaf_node_path,
             old_type=old_type,
+            old_value=old_value,
             new_type=new_type,
             new_value=new_value,
+            resp_type=resp_type,
+            resp_value=resp_value,
             server=server,
             response_status=response_status,
             error_message=error_message,
-            validity=validity,
+            ip_validity=ip_validity,
+            ip_validity_error=ip_validity_error,
+            op_validity=op_validity,
+            op_validity_error=op_validity_error,
         )
 
         with Session(self.engine) as session:

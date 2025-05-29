@@ -10,7 +10,7 @@ identifier,Identifier,AppointmentResponse.identifier,,0,Infinity,[]
 appointment,Reference,AppointmentResponse.appointment,,1,1,"[""Appointment""]"
 start,instant,AppointmentResponse.start,,0,1,[]
 end,instant,AppointmentResponse.end,,0,1,[]
-participantType,CodeableConcept,AppointmentResponse.participantType,"{""http://terminology.hl7.org/CodeSystem/v3-ParticipationType""=>[""ADM"", ""ATND"", ""CALLBCK"", ""CON"", ""DIS"", ""ESC"", ""REF"", ""SPRF"", ""PPRF"", ""PART""], ""http://terminology.hl7.org/CodeSystem/participant-type""=>[""translator"", ""emergency""]}",0,Infinity,[]
+participantType,CodeableConcept,AppointmentResponse.participantType,"{""http://terminology.hl7.org/CodeSystem/v3-ParticipationType""=>[""ADM"", ""ATND"", ""CALLBCK"", ""CON"", ""DIS"", ""ESC"", ""REF"", ""SPRF"", ""PPRF"", ""PART""]}",0,Infinity,[]
 actor,Reference,AppointmentResponse.actor,,0,1,"[""Patient"", ""Practitioner"", ""PractitionerRole"", ""RelatedPerson"", ""Device"", ""HealthcareService"", ""Location""]"
 participantStatus,code,AppointmentResponse.participantStatus,"{""http://hl7.org/fhir/participationstatus""=>[""accepted"", ""declined"", ""tentative"", ""needs-action""]}",1,1,[]
 comment,string,AppointmentResponse.comment,,0,1,[]

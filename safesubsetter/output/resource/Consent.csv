@@ -9,7 +9,7 @@ modifierExtension,Extension,Consent.modifierExtension,,0,Infinity,[]
 identifier,Identifier,Consent.identifier,,0,Infinity,[]
 status,code,Consent.status,"{""http://hl7.org/fhir/consent-state-codes""=>[""draft"", ""proposed"", ""active"", ""rejected"", ""inactive"", ""entered-in-error""]}",1,1,[]
 scope,CodeableConcept,Consent.scope,"{""http://terminology.hl7.org/CodeSystem/consentscope""=>[""adr"", ""research"", ""patient-privacy"", ""treatment""]}",1,1,[]
-category,CodeableConcept,Consent.category,"{""http://terminology.hl7.org/CodeSystem/consentcategorycodes""=>[""acd"", ""dnr"", ""emrgonly"", ""hcd"", ""npp"", ""polst"", ""research"", ""rsdid"", ""rsreid""], ""http://terminology.hl7.org/CodeSystem/v3-ActCode""=>[""ICOL"", ""IDSCL"", ""INFA"", ""INFAO"", ""INFASO"", ""IRDSCL"", ""RESEARCH"", ""RSDID"", ""RSREID""], ""http://loinc.org""=>[""59284-0"", ""57016-8"", ""57017-6"", ""64292-6""]}",1,Infinity,[]
+category,CodeableConcept,Consent.category,"{""http://terminology.hl7.org/CodeSystem/consentcategorycodes""=>[""acd"", ""dnr"", ""emrgonly"", ""hcd"", ""npp"", ""polst"", ""research"", ""rsdid"", ""rsreid""]}",1,Infinity,[]
 patient,Reference,Consent.patient,,0,1,"[""Patient""]"
 dateTime,dateTime,Consent.dateTime,,0,1,[]
 performer,Reference,Consent.performer,,0,Infinity,"[""Organization"", ""Patient"", ""Practitioner"", ""RelatedPerson"", ""PractitionerRole""]"

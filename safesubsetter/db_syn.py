@@ -1,10 +1,6 @@
 """SQLAlchemy code to create and insert into SQLite DB."""
-from sqlalchemy import (
-    create_engine,
-    Column,
-    String,
-    Integer
-)
+
+from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
@@ -13,6 +9,7 @@ Base = declarative_base()
 
 class SynServerRecord(Base):
     """Synthea Server Class"""
+
     __tablename__ = "synthea_server_records"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -48,12 +45,12 @@ class Database:
         """
         record = SynServerRecord(
             patient_file=patient_file,
-            og_file_valid = og_file_valid,
-            blaze_valid = blaze_valid,
-            hapi_valid = hapi_valid,
-            ibm_valid = ibm_valid,
-            iris_valid = iris_valid,
-            vista_valid = vista_valid
+            og_file_valid=og_file_valid,
+            blaze_valid=blaze_valid,
+            hapi_valid=hapi_valid,
+            ibm_valid=ibm_valid,
+            iris_valid=iris_valid,
+            vista_valid=vista_valid,
         )
 
         with Session(self.engine) as session:
