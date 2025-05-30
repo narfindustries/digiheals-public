@@ -1,21 +1,21 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-accessionIdentifier,Identifier
-status,code
-type,CodeableConcept
-subject,Reference
-receivedTime,dateTime
-parent,Reference
-request,Reference
-collection,Specimen::Collection
-processing,Specimen::Processing
-container,Specimen::Container
-condition,CodeableConcept
-note,Annotation
+id,id,Specimen.id,,0,1,[]
+meta,Meta,Specimen.meta,,0,1,[]
+implicitRules,uri,Specimen.implicitRules,,0,1,[]
+language,code,Specimen.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,Specimen.text,,0,1,[]
+contained,Resource,Specimen.contained,,0,Infinity,[]
+extension,Extension,Specimen.extension,,0,Infinity,[]
+modifierExtension,Extension,Specimen.modifierExtension,,0,Infinity,[]
+identifier,Identifier,Specimen.identifier,,0,Infinity,[]
+accessionIdentifier,Identifier,Specimen.accessionIdentifier,,0,1,[]
+status,code,Specimen.status,"{""http://hl7.org/fhir/specimen-status""=>[""available"", ""unavailable"", ""unsatisfactory"", ""entered-in-error""]}",0,1,[]
+type,CodeableConcept,Specimen.type,"{""http://terminology.hl7.org/CodeSystem/v2-0487""=>[""ABS"", ""ACNE"", ""ACNFLD"", ""AIRS"", ""ALL"", ""AMN"", ""AMP"", ""ANGI"", ""ARTC"", ""ASERU"", ""ASP"", ""ATTE"", ""AUTOA"", ""AUTOC"", ""AUTP"", ""BBL"", ""BCYST"", ""BDY"", ""BIFL"", ""BITE"", ""BLD"", ""BLDA"", ""BLDCO"", ""BLDV"", ""BLEB"", ""BLIST"", ""BOIL"", ""BON"", ""BOWL"", ""BPH"", ""BPU"", ""BRN"", ""BRSH"", ""BRTH"", ""BRUS"", ""BUB"", ""BULLA"", ""BX"", ""CALC"", ""CARBU"", ""CAT"", ""CBITE"", ""CDM"", ""CLIPP"", ""CNJT"", ""CNL"", ""COL"", ""CONE"", ""CSCR"", ""CSERU"", ""CSF"", ""CSITE"", ""CSMY"", ""CST"", ""CSVR"", ""CTP"", ""CUR"", ""CVM"", ""CVPS"", ""CVPT"", ""CYN"", ""CYST"", ""DBITE"", ""DCS"", ""DEC"", ""DEION"", ""DIA"", ""DIAF"", ""DISCHG"", ""DIV"", ""DRN"", ""DRNG"", ""DRNGP"", ""DUFL"", ""EARW"", ""EBRUSH"", ""EEYE"", ""EFF"", ""EFFUS"", ""EFOD"", ""EISO"", ""ELT"", ""ENVIR"", ""EOS"", ""EOTH"", ""ESOI"", ""ESOS"", ""ETA"", ""ETTP"", ""ETTUB"", ""EWHI"", ""EXG"", ""EXS"", ""EXUDTE"", ""FAW"", ""FBLOOD"", ""FGA"", ""FIB"", ""FIST"", ""FLD"", ""FLT"", ""FLU"", ""FLUID"", ""FOLEY"", ""FRS"", ""FSCLP"", ""FUR"", ""GAS"", ""GASA"", ""GASAN"", ""GASBR"", ""GASD"", ""GAST"", ""GENL"", ""GENV"", ""GRAFT"", ""GRAFTS"", ""GRANU"", ""GROSH"", ""GSOL"", ""GSPEC"", ""GT"", ""GTUBE"", ""HAR"", ""HBITE"", ""HBLUD"", ""HEMAQ"", ""HEMO"", ""HERNI"", ""HEV"", ""HIC"", ""HYDC"", ""IBITE"", ""ICYST"", ""IDC"", ""IHG"", ""ILEO"", ""ILLEG"", ""IMP"", ""INCI"", ""INFIL"", ""INS"", ""INTRD"", ""ISLT"", ""IT"", ""IUD"", ""IVCAT"", ""IVFLD"", ""IVTIP"", ""JEJU"", ""JNTFLD"", ""JP"", ""KELOI"", ""KIDFLD"", ""LAVG"", ""LAVGG"", ""LAVGP"", ""LAVPG"", ""LENS1"", ""LENS2"", ""LESN"", ""LIQ"", ""LIQO"", ""LNA"", ""LNV"", ""LSAC"", ""LYM"", ""MAC"", ""MAHUR"", ""MAR"", ""MASS"", ""MBLD"", ""MEC"", ""MILK"", ""MLK"", ""MUCOS"", ""MUCUS"", ""NAIL"", ""NASDR"", ""NEDL"", ""NEPH"", ""NGASP"", ""NGAST"", ""NGS"", ""NODUL"", ""NSECR"", ""ORH"", ""ORL"", ""OTH"", ""PACEM"", ""PAFL"", ""PCFL"", ""PDSIT"", ""PDTS"", ""PELVA"", ""PENIL"", ""PERIA"", ""PILOC"", ""PINS"", ""PIS"", ""PLAN"", ""PLAS"", ""PLB"", ""PLC"", ""PLEVS"", ""PLR"", ""PMN"", ""PND"", ""POL"", ""POPGS"", ""POPLG"", ""POPLV"", ""PORTA"", ""PPP"", ""PROST"", ""PRP"", ""PSC"", ""PUNCT"", ""PUS"", ""PUSFR"", ""PUST"", ""QC3"", ""RANDU"", ""RBC"", ""RBITE"", ""RECT"", ""RECTA"", ""RENALC"", ""RENC"", ""RES"", ""SAL"", ""SCAR"", ""SCLV"", ""SCROA"", ""SECRE"", ""SER"", ""SHU"", ""SHUNF"", ""SHUNT"", ""SITE"", ""SKBP"", ""SKN"", ""SMM"", ""SMN"", ""SNV"", ""SPRM"", ""SPRP"", ""SPRPB"", ""SPS"", ""SPT"", ""SPTC"", ""SPTT"", ""SPUT1"", ""SPUTIN"", ""SPUTSP"", ""STER"", ""STL"", ""STONE"", ""SUBMA"", ""SUBMX"", ""SUMP"", ""SUP"", ""SUTUR"", ""SWGZ"", ""SWT"", ""TASP"", ""TEAR"", ""THRB"", ""TISS"", ""TISU"", ""TLC"", ""TRAC"", ""TRANS"", ""TSERU"", ""TSTES"", ""TTRA"", ""TUBES"", ""TUMOR"", ""TZANC"", ""UDENT"", ""UMED"", ""UR"", ""URC"", ""URINB"", ""URINC"", ""URINM"", ""URINN"", ""URINP"", ""URNS"", ""URT"", ""USCOP"", ""USPEC"", ""USUB"", ""VASTIP"", ""VENT"", ""VITF"", ""VOM"", ""WASH"", ""WASI"", ""WAT"", ""WB"", ""WBC"", ""WEN"", ""WICK"", ""WND"", ""WNDA"", ""WNDD"", ""WNDE"", ""WORM"", ""WRT"", ""WWA"", ""WWO"", ""WWT""]}",0,1,[]
+subject,Reference,Specimen.subject,,0,1,"[""Patient"", ""Group"", ""Device"", ""Substance"", ""Location""]"
+receivedTime,dateTime,Specimen.receivedTime,,0,1,[]
+parent,Reference,Specimen.parent,,0,Infinity,"[""Specimen""]"
+request,Reference,Specimen.request,,0,Infinity,"[""ServiceRequest""]"
+collection,Specimen::Collection,Specimen.collection,,0,1,[]
+processing,Specimen::Processing,Specimen.processing,,0,Infinity,[]
+container,Specimen::Container,Specimen.container,,0,Infinity,[]
+condition,CodeableConcept,Specimen.condition,"{""http://terminology.hl7.org/CodeSystem/v2-0493""=>[""AUT"", ""CFU"", ""CLOT"", ""CON"", ""COOL"", ""FROZ"", ""HEM"", ""LIVE"", ""ROOM"", ""SNR""]}",0,Infinity,[]
+note,Annotation,Specimen.note,,0,Infinity,[]

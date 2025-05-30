@@ -1,7 +1,7 @@
-id,string
-extension,Extension
-description,string
-name,id
-language,code
-expression,string
-reference,uri
+id,string,Expression.id,,0,1,[]
+extension,Extension,Expression.extension,,0,Infinity,[]
+description,string,Expression.description,,0,1,[]
+name,id,Expression.name,,0,1,[]
+language,code,Expression.language,"{""http://hl7.org/fhir/expression-language""=>[""text/cql"", ""text/fhirpath"", ""application/x-fhir-query""]}",1,1,[]
+expression,string,Expression.expression,,0,1,[]
+reference,uri,Expression.reference,,0,1,[]

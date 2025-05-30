@@ -1,15 +1,15 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-created,dateTime
-insurer,Reference
-provider,Reference
-candidate,Reference
-coverage,Reference
+id,id,EnrollmentRequest.id,,0,1,[]
+meta,Meta,EnrollmentRequest.meta,,0,1,[]
+implicitRules,uri,EnrollmentRequest.implicitRules,,0,1,[]
+language,code,EnrollmentRequest.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,EnrollmentRequest.text,,0,1,[]
+contained,Resource,EnrollmentRequest.contained,,0,Infinity,[]
+extension,Extension,EnrollmentRequest.extension,,0,Infinity,[]
+modifierExtension,Extension,EnrollmentRequest.modifierExtension,,0,Infinity,[]
+identifier,Identifier,EnrollmentRequest.identifier,,0,Infinity,[]
+status,code,EnrollmentRequest.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",0,1,[]
+created,dateTime,EnrollmentRequest.created,,0,1,[]
+insurer,Reference,EnrollmentRequest.insurer,,0,1,"[""Organization""]"
+provider,Reference,EnrollmentRequest.provider,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"
+candidate,Reference,EnrollmentRequest.candidate,,0,1,"[""Patient""]"
+coverage,Reference,EnrollmentRequest.coverage,,0,1,"[""Coverage""]"

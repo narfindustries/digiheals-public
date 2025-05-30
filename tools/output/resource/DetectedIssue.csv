@@ -1,21 +1,21 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-code,CodeableConcept
-severity,code
-patient,Reference
-identifiedDateTime,dateTime
-identifiedPeriod,Period
-author,Reference
-implicated,Reference
-evidence,DetectedIssue::Evidence
-detail,string
-reference,uri
-mitigation,DetectedIssue::Mitigation
+id,id,DetectedIssue.id,,0,1,[]
+meta,Meta,DetectedIssue.meta,,0,1,[]
+implicitRules,uri,DetectedIssue.implicitRules,,0,1,[]
+language,code,DetectedIssue.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,DetectedIssue.text,,0,1,[]
+contained,Resource,DetectedIssue.contained,,0,Infinity,[]
+extension,Extension,DetectedIssue.extension,,0,Infinity,[]
+modifierExtension,Extension,DetectedIssue.modifierExtension,,0,Infinity,[]
+identifier,Identifier,DetectedIssue.identifier,,0,Infinity,[]
+status,code,DetectedIssue.status,"{""http://hl7.org/fhir/observation-status""=>[""registered"", ""preliminary"", ""final"", ""amended"", ""corrected"", ""cancelled"", ""entered-in-error"", ""unknown""]}",1,1,[]
+code,CodeableConcept,DetectedIssue.code,"{""http://terminology.hl7.org/CodeSystem/v3-ActCode""=>[""FOOD"", ""TPROD"", ""DRG"", ""NHP"", ""NONRX"", ""PREVINEF"", ""DACT"", ""TIME"", ""ALRTENDLATE"", ""ALRTSTRTLATE"", ""ENDLATE"", ""STRTLATE"", ""ALLDONE"", ""FULFIL"", ""NOTACTN"", ""NOTEQUIV"", ""NOTEQUIVGEN"", ""NOTEQUIVTHER"", ""TIMING"", ""INTERVAL"", ""MINFREQ"", ""HELD"", ""TOOLATE"", ""TOOSOON"", ""HISTORIC"", ""PATPREF"", ""PATPREFALT""]}",0,1,[]
+severity,code,DetectedIssue.severity,"{""http://hl7.org/fhir/detectedissue-severity""=>[""high"", ""moderate"", ""low""]}",0,1,[]
+patient,Reference,DetectedIssue.patient,,0,1,"[""Patient""]"
+identifiedDateTime,dateTime,DetectedIssue.identified[x],,0,1,[]
+identifiedPeriod,Period,DetectedIssue.identified[x],,0,1,[]
+author,Reference,DetectedIssue.author,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Device""]"
+implicated,Reference,DetectedIssue.implicated,,0,Infinity,"[""Resource""]"
+evidence,DetectedIssue::Evidence,DetectedIssue.evidence,,0,Infinity,[]
+detail,string,DetectedIssue.detail,,0,1,[]
+reference,uri,DetectedIssue.reference,,0,1,[]
+mitigation,DetectedIssue::Mitigation,DetectedIssue.mitigation,,0,Infinity,[]

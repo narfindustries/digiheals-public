@@ -136,11 +136,11 @@ services:
       - 127.0.0.1:8004:8080
 
   ibm-fhir:
-    image: ghcr.io/linuxforhealth/fhir-server
+    image: ibmcom/ibm-fhir-server:4.10.0
     environment:
       BOOTSTRAP_DB: true
     ports:
-      - 127.0.0.1:8005:9443
+      - 127.0.0.1:9443:9443
 
   blaze:
     image: samply/blaze:latest
@@ -152,7 +152,6 @@ services:
     restart: always
     hostname: fhir-template
     container_name: fhir-template
-#   command: --check-caps false
     ports: 
       - 32782:1972
       - 8007:52773

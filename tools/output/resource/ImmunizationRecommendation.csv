@@ -1,13 +1,13 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-patient,Reference
-date,dateTime
-authority,Reference
-recommendation,ImmunizationRecommendation::Recommendation
+id,id,ImmunizationRecommendation.id,,0,1,[]
+meta,Meta,ImmunizationRecommendation.meta,,0,1,[]
+implicitRules,uri,ImmunizationRecommendation.implicitRules,,0,1,[]
+language,code,ImmunizationRecommendation.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,ImmunizationRecommendation.text,,0,1,[]
+contained,Resource,ImmunizationRecommendation.contained,,0,Infinity,[]
+extension,Extension,ImmunizationRecommendation.extension,,0,Infinity,[]
+modifierExtension,Extension,ImmunizationRecommendation.modifierExtension,,0,Infinity,[]
+identifier,Identifier,ImmunizationRecommendation.identifier,,0,Infinity,[]
+patient,Reference,ImmunizationRecommendation.patient,,1,1,"[""Patient""]"
+date,dateTime,ImmunizationRecommendation.date,,1,1,[]
+authority,Reference,ImmunizationRecommendation.authority,,0,1,"[""Organization""]"
+recommendation,ImmunizationRecommendation::Recommendation,ImmunizationRecommendation.recommendation,,1,Infinity,[]

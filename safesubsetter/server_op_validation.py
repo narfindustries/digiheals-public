@@ -1,4 +1,5 @@
 """Script to run validator.py on output patient files from FHIR server"""
+
 import os
 
 from validator import validate_patient_json
@@ -13,18 +14,20 @@ servers = ["blaze", "hapi", "IBM", "iris", "vista"]
 
 for patient_filename in os.listdir(input_dir):
     input_file_path = os.path.join(input_dir, patient_filename)
-    
+
     og_valid = str(validate_patient_json(input_file_path))
     server_validations = {}
 
     for server in servers:
         server_patient_filename = f"{server}_{patient_filename}"
-        server_file_path = os.path.join(output_base_dir, server, server_patient_filename)
+        server_file_path = os.path.join(
+            output_base_dir, server, server_patient_filename
+        )
 
         if os.path.exists(server_file_path):
             server_validations[server] = str(validate_patient_json(server_file_path))
         else:
-            server_validations[server] = str([]) 
+            server_validations[server] = str([])
 
     db.insert_syn_file_record(
         patient_file=patient_filename,
@@ -33,5 +36,5 @@ for patient_filename in os.listdir(input_dir):
         hapi_valid=server_validations["hapi"],
         ibm_valid=server_validations["IBM"],
         iris_valid=server_validations["iris"],
-        vista_valid=server_validations["vista"]
+        vista_valid=server_validations["vista"],
     )

@@ -1,23 +1,23 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-identifier,Identifier
-status,code
-period,Period
-created,dateTime
-paymentIssuer,Reference
-request,Reference
-requestor,Reference
-outcome,code
-disposition,string
-paymentDate,date
-paymentAmount,Money
-paymentIdentifier,Identifier
-detail,PaymentReconciliation::Detail
-formCode,CodeableConcept
-processNote,PaymentReconciliation::ProcessNote
+id,id,PaymentReconciliation.id,,0,1,[]
+meta,Meta,PaymentReconciliation.meta,,0,1,[]
+implicitRules,uri,PaymentReconciliation.implicitRules,,0,1,[]
+language,code,PaymentReconciliation.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,PaymentReconciliation.text,,0,1,[]
+contained,Resource,PaymentReconciliation.contained,,0,Infinity,[]
+extension,Extension,PaymentReconciliation.extension,,0,Infinity,[]
+modifierExtension,Extension,PaymentReconciliation.modifierExtension,,0,Infinity,[]
+identifier,Identifier,PaymentReconciliation.identifier,,0,Infinity,[]
+status,code,PaymentReconciliation.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1,[]
+period,Period,PaymentReconciliation.period,,0,1,[]
+created,dateTime,PaymentReconciliation.created,,1,1,[]
+paymentIssuer,Reference,PaymentReconciliation.paymentIssuer,,0,1,"[""Organization""]"
+request,Reference,PaymentReconciliation.request,,0,1,"[""Task""]"
+requestor,Reference,PaymentReconciliation.requestor,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"
+outcome,code,PaymentReconciliation.outcome,"{""http://hl7.org/fhir/remittance-outcome""=>[""queued"", ""complete"", ""error"", ""partial""]}",0,1,[]
+disposition,string,PaymentReconciliation.disposition,,0,1,[]
+paymentDate,date,PaymentReconciliation.paymentDate,,1,1,[]
+paymentAmount,Money,PaymentReconciliation.paymentAmount,,1,1,[]
+paymentIdentifier,Identifier,PaymentReconciliation.paymentIdentifier,,0,1,[]
+detail,PaymentReconciliation::Detail,PaymentReconciliation.detail,,0,Infinity,[]
+formCode,CodeableConcept,PaymentReconciliation.formCode,"{""http://terminology.hl7.org/CodeSystem/forms-codes""=>[""1"", ""2""]}",0,1,[]
+processNote,PaymentReconciliation::ProcessNote,PaymentReconciliation.processNote,,0,Infinity,[]

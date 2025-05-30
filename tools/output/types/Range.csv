@@ -1,4 +1,4 @@
-id,string
-extension,Extension
-low,Quantity
-high,Quantity
+id,string,Range.id,,0,1,[]
+extension,Extension,Range.extension,,0,Infinity,[]
+low,Quantity,Range.low,,0,1,[]
+high,Quantity,Range.high,,0,1,[]

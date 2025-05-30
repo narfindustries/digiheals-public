@@ -42,7 +42,31 @@ class IrisClient(AbstractClient):
             return (r.status_code, response_data)
         except Exception as e:
             return (-1, str(e))
-
+    def export_patients_tag(self, name=None, file_type=None):
+        """Calls the FHIR API to export all patients"""
+        tag = name
+        if file_type is None:
+            # Used for checking network/default
+            file_type = "json"
+        header_text = "application/fhir+" + file_type
+        headers = {"Accept": header_text}
+        try:
+            # Adding _count=500 here. Otherwise, it only returns a max of 10 bundle resources, even though more bundles are being created
+            r = requests.get(
+                f"{self.fhir}/{self.base}/Bundle?_tag={tag}&_sort=-_lastUpdated&_count=1",
+                headers=headers,
+                timeout=100,
+                verify=False,
+                auth=("fhiruser", "change-password"),
+            )
+            if file_type == "json":
+                response_data = r.json()
+            else:
+                response_data = r.text
+            return (r.status_code, response_data)
+        except Exception as e:
+            return (-1, str(e))
+        
     def export_patient(self, p_id, file_type):
         """Calls the FHIR API to export patients with given ID"""
         header_text = "application/fhir+" + file_type
@@ -59,53 +83,53 @@ class IrisClient(AbstractClient):
             response_data = r.text
         return (r.status_code, response_data)
 
-    def __get_new_patient_id(self, before_data, file_type):
+    def __get_new_patient_id(self, file_type, name):
         """Get the patient ID by pulling full list of patients before and after"""
-        (_, after_data) = self.export_patients(file_type)
+        (_, output_data) = self.export_patients_tag(name, file_type)
 
         if file_type == "json":
-            if len(after_data["entry"]) == 1:
-                return after_data["entry"][0]["resource"]["id"]
+            if len(output_data["entry"]) == 1: # Expectation is only one entry
+                return output_data["entry"][0]["resource"]["id"]
 
-            for entry in after_data["entry"]:
-                if entry not in before_data["entry"]:
-                    return entry["resource"]["id"]
+        #     for entry in after_data["entry"]:
+        #         if entry not in before_data["entry"]:
+        #             return entry["resource"]["id"]
 
-        else:
-            ns = {"fhir": "http://hl7.org/fhir"}
+        # else:
+        #     ns = {"fhir": "http://hl7.org/fhir"}
 
-            after_root = ET.fromstring(after_data)
+        #     after_root = ET.fromstring(after_data)
 
-            total = after_root.find("fhir:total", ns)
-            if total is not None and int(total.attrib.get("value", 0)) == 1:
-                pid = after_root.find(
-                    "fhir:entry/fhir:resource/fhir:Bundle/fhir:id", ns
-                )
-                if pid is not None:
-                    return pid.attrib.get("value")
+        #     total = after_root.find("fhir:total", ns)
+        #     if total is not None and int(total.attrib.get("value", 0)) == 1:
+        #         pid = after_root.find(
+        #             "fhir:entry/fhir:resource/fhir:Bundle/fhir:id", ns
+        #         )
+        #         if pid is not None:
+        #             return pid.attrib.get("value")
 
-            before_ids = []
-            after_ids = []
+        #     before_ids = []
+        #     after_ids = []
 
-            before_root = ET.fromstring(before_data)
+        #     before_root = ET.fromstring(before_data)
 
-            before_entries = before_root.findall(
-                "fhir:entry/fhir:resource/fhir:Bundle/fhir:id", ns
-            )
-            for entry in before_entries:
-                before_ids.append(entry.attrib.get("value"))
+        #     before_entries = before_root.findall(
+        #         "fhir:entry/fhir:resource/fhir:Bundle/fhir:id", ns
+        #     )
+        #     for entry in before_entries:
+        #         before_ids.append(entry.attrib.get("value"))
 
-            after_entries = after_root.findall(
-                "fhir:entry/fhir:resource/fhir:Bundle/fhir:id", ns
-            )
-            for entry in after_entries:
-                after_ids.append(entry.attrib.get("value"))
+        #     after_entries = after_root.findall(
+        #         "fhir:entry/fhir:resource/fhir:Bundle/fhir:id", ns
+        #     )
+        #     for entry in after_entries:
+        #         after_ids.append(entry.attrib.get("value"))
 
-            return int(list(set(after_ids) - set(before_ids))[0])
+        #     return int(list(set(after_ids) - set(before_ids))[0])
 
-    def create_patient_fromfile(self, file, file_type):
+    def create_patient_fromfile(self, file, file_type, name=None):
         """Create a new patient from a FHIR JSON file"""
-        (_, before_data) = self.export_patients(file_type)
+        # (_, before_data) = self.export_patients(file_type)
         headers = {
             "Accept": f"application/fhir+{file_type}",
             "Content-Type": f"application/{file_type}",
@@ -119,12 +143,12 @@ class IrisClient(AbstractClient):
         )
         patient_id = None
         if r.status_code == 201:
-            patient_id = self.__get_new_patient_id(before_data, file_type)
+            patient_id = self.__get_new_patient_id(file_type, name)
         return (patient_id, r)
 
-    def create_patient(self, data, file_type):
+    def create_patient(self, data, file_type, name):
         """Create a new patient from a FHIR JSON file"""
-        (_, before_data) = self.export_patients(file_type)
+        # (_, before_data) = self.export_patients(file_type)
         headers = {
             "Accept": f"application/fhir+{file_type}",
             "Content-Type": f"application/fhir+{file_type}",
@@ -140,10 +164,12 @@ class IrisClient(AbstractClient):
         )
         patient_id = None
         if r.status_code == 201:
-            patient_id = self.__get_new_patient_id(before_data, file_type)
+            patient_id = self.__get_new_patient_id(file_type, name)
+        else:
+            return (None, r.text)
         return (patient_id, r)
 
-    def step(self, step_number: int, data, file_type):
+    def step(self, step_number: int, data, file_type, name):
         """
         Called from the GoT scripts
         If its the first step, we just got a FHIR JSON file from Synthea.
@@ -151,30 +177,31 @@ class IrisClient(AbstractClient):
         If not, then we can import the file as is
         """
         patient_id = None
+        resp_or_err = {}
         if step_number == 0:
             if file_type == "json":
                 try:
                     patient_data = json.loads(data)
-                    (patient_id, _) = self.create_patient(
-                        json.dumps(patient_data), file_type
+                    (patient_id, resp_or_err) = self.create_patient(
+                        json.dumps(patient_data), file_type, name
                     )
                 except json.JSONDecodeError:
                     raise click.BadParameter("Malformed input json file.")
             else:
-                (patient_id, _) = self.create_patient(data, file_type)
-        else:
-            # This means we just got a full file from another server, simply upload it
-            (patient_id, _) = self.create_patient(data, file_type)
+                (patient_id, resp_or_err) = self.create_patient(data, file_type, name)
+        # else:
+        #     # This means we just got a full file from another server, simply upload it
+        #     (patient_id, _) = self.create_patient(data, file_type)
 
         if patient_id is None:
             if file_type == "json":
-                response = {}
+                response = resp_or_err
             else:
                 response = "<root></root>"
             return (patient_id, response, None)
 
         (_, export_response) = self.export_patient(patient_id, file_type)
-        return_response = {} if file_type == "json" else "<root></root>"
+        return_response = resp_or_err if file_type == "json" else "<root></root>"
         return (patient_id, return_response, export_response)
 
 
@@ -187,7 +214,8 @@ def cli_options(file):
     """
     client = IrisClient("https://localhost:8007", "fhir/r4")
     if file is None:
-        status, response = client.export_patients()
+        name="placeholder"
+        status, response = client.export_patients(name)
         if status == 200:
             print(response.text)
         else:

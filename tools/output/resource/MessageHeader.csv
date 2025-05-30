@@ -1,20 +1,20 @@
-id,id
-meta,Meta
-implicitRules,uri
-language,code
-text,Narrative
-contained,Resource
-extension,Extension
-modifierExtension,Extension
-eventCoding,Coding
-eventUri,uri
-destination,MessageHeader::Destination
-sender,Reference
-enterer,Reference
-author,Reference
-source,MessageHeader::Source
-responsible,Reference
-reason,CodeableConcept
-response,MessageHeader::Response
-focus,Reference
-definition,canonical
+id,id,MessageHeader.id,,0,1,[]
+meta,Meta,MessageHeader.meta,,0,1,[]
+implicitRules,uri,MessageHeader.implicitRules,,0,1,[]
+language,code,MessageHeader.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,MessageHeader.text,,0,1,[]
+contained,Resource,MessageHeader.contained,,0,Infinity,[]
+extension,Extension,MessageHeader.extension,,0,Infinity,[]
+modifierExtension,Extension,MessageHeader.modifierExtension,,0,Infinity,[]
+eventCoding,Coding,MessageHeader.event[x],,1,1,[]
+eventUri,uri,MessageHeader.event[x],,1,1,[]
+destination,MessageHeader::Destination,MessageHeader.destination,,0,Infinity,[]
+sender,Reference,MessageHeader.sender,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"
+enterer,Reference,MessageHeader.enterer,,0,1,"[""Practitioner"", ""PractitionerRole""]"
+author,Reference,MessageHeader.author,,0,1,"[""Practitioner"", ""PractitionerRole""]"
+source,MessageHeader::Source,MessageHeader.source,,1,1,[]
+responsible,Reference,MessageHeader.responsible,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"
+reason,CodeableConcept,MessageHeader.reason,"{""http://terminology.hl7.org/CodeSystem/message-reasons-encounter""=>[""admit"", ""discharge"", ""absent"", ""return"", ""moved"", ""edit""]}",0,1,[]
+response,MessageHeader::Response,MessageHeader.response,,0,1,[]
+focus,Reference,MessageHeader.focus,,0,Infinity,"[""Resource""]"
+definition,canonical,MessageHeader.definition,,0,1,[]

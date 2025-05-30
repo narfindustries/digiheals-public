@@ -1,11 +1,11 @@
-id,string
-extension,Extension
-type,code
-profile,canonical
-subjectCodeableConcept,CodeableConcept
-subjectReference,Reference
-mustSupport,string
-codeFilter,DataRequirement::CodeFilter
-dateFilter,DataRequirement::DateFilter
-limit,positiveInt
-sort,DataRequirement::Sort
+id,string,DataRequirement.id,,0,1,[]
+extension,Extension,DataRequirement.extension,,0,Infinity,[]
+type,code,DataRequirement.type,"{""http://hl7.org/fhir/data-types""=>[""Address"", ""Age"", ""Annotation"", ""Attachment"", ""BackboneElement"", ""CodeableConcept"", ""Coding"", ""ContactDetail"", ""ContactPoint"", ""Contributor"", ""Count"", ""DataRequirement"", ""Distance"", ""Dosage"", ""Duration"", ""Element"", ""ElementDefinition"", ""Expression"", ""Extension"", ""HumanName"", ""Identifier"", ""MarketingStatus"", ""Meta"", ""Money"", ""MoneyQuantity"", ""Narrative"", ""ParameterDefinition"", ""Period"", ""Population"", ""ProdCharacteristic"", ""ProductShelfLife"", ""Quantity"", ""Range"", ""Ratio"", ""Reference"", ""RelatedArtifact"", ""SampledData"", ""Signature"", ""SimpleQuantity"", ""SubstanceAmount"", ""Timing"", ""TriggerDefinition"", ""UsageContext"", ""base64Binary"", ""boolean"", ""canonical"", ""code"", ""date"", ""dateTime"", ""decimal"", ""id"", ""instant"", ""integer"", ""markdown"", ""oid"", ""positiveInt"", ""string"", ""time"", ""unsignedInt"", ""uri"", ""url"", ""uuid"", ""xhtml""]}",1,1,[]
+profile,canonical,DataRequirement.profile,,0,Infinity,[]
+subjectCodeableConcept,CodeableConcept,DataRequirement.subject[x],"{""http://hl7.org/fhir/resource-types""=>[""Patient"", ""Practitioner"", ""Organization"", ""Location"", ""Device""]}",0,1,[]
+subjectReference,Reference,DataRequirement.subject[x],,0,1,"[""Group""]"
+mustSupport,string,DataRequirement.mustSupport,,0,Infinity,[]
+codeFilter,DataRequirement::CodeFilter,DataRequirement.codeFilter,,0,Infinity,[]
+dateFilter,DataRequirement::DateFilter,DataRequirement.dateFilter,,0,Infinity,[]
+limit,positiveInt,DataRequirement.limit,,0,1,[]
+sort,DataRequirement::Sort,DataRequirement.sort,,0,Infinity,[]

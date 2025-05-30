@@ -1,8 +1,8 @@
-id,string
-extension,Extension
-use,code
-type,CodeableConcept
-system,uri
-value,string
-period,Period
-assigner,Reference
+id,string,Identifier.id,,0,1,[]
+extension,Extension,Identifier.extension,,0,Infinity,[]
+use,code,Identifier.use,"{""http://hl7.org/fhir/identifier-use""=>[""usual"", ""official"", ""temp"", ""secondary"", ""old""]}",0,1,[]
+type,CodeableConcept,Identifier.type,"{""http://terminology.hl7.org/CodeSystem/v2-0203""=>[""DL"", ""PPN"", ""BRN"", ""MR"", ""MCN"", ""EN"", ""TAX"", ""NIIP"", ""PRN"", ""MD"", ""DR"", ""ACSN"", ""UDI"", ""SNO"", ""SB"", ""PLAC"", ""FILL"", ""JHN""]}",0,1,[]
+system,uri,Identifier.system,,0,1,[]
+value,string,Identifier.value,,0,1,[]
+period,Period,Identifier.period,,0,1,[]
+assigner,Reference,Identifier.assigner,,0,1,"[""Organization""]"

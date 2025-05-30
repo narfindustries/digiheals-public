@@ -21,9 +21,9 @@ from utils.fhir_utils import (
     SERVER_NAME,
 )
 
-FHIR_SERVERS = ["blaze"]
+FHIR_SERVERS = ["ibm"]
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "safe_subset.db")
+DB_PATH = os.path.join(os.path.dirname(__file__), "safe_subset_latest.db")
 db = db_mut.Database(DB_PATH)
 
 
@@ -91,7 +91,7 @@ def mutate_and_send(
                 # Calling validator on modified patient input
                 ip_validity_err_list = validate_patient_json(temp_file)
                 ip_validity = True if len(ip_validity_err_list) == 0 else False
-                status, msg = send_to_fhir_server(temp_file, server, server_req_cnt)
+                status, msg = send_to_fhir_server(temp_file, server, server_req_cnt, file_path)
                 # Once we know that the status is True, it means the export patient was successful
                 validate_and_store_response(
                     file_path,
@@ -169,26 +169,45 @@ def nested_func_replace(data, keys, new_value):
                         current = current[key]
                 return
 
+def ibm_iris_counter_meta_tag(patient_file, patient_file_name, server_req_cnt):
+    with open(patient_file, "r") as f:
+        data_loaded = json.load(f)
+    # Add or update the meta tag
+    file_stem = data_loaded["meta"]["tag"][0]["code"].split("-")[0]
+    count = server_req_cnt["count"]
+    file_stem = f"{file_stem}-{count}"
+    code_tag = f"{file_stem}-stored-collection"
+    data_loaded['meta']["tag"][0]["code"] = code_tag
 
-def send_to_fhir_server(patient_file, server, server_req_cnt):
+    # Write the updated content back to the same file
+    with open(patient_file, "w") as f:
+        json.dump(data_loaded, f, indent=2)
+    
+    return code_tag
+
+
+
+def send_to_fhir_server(patient_file, server, server_req_cnt, file_path):
     """Send modified patient data to server through telephone.py func"""
 
     if server in ["iris", "ibm"]:
-        server_req_cnt += 1
+        server_req_cnt["count"] += 1
+        code_tag = ibm_iris_counter_meta_tag(patient_file, file_path, server_req_cnt)
+        
 
         # Restart after every 200 requests
-        if server_req_cnt % 200 == 0:
+        if server_req_cnt["count"] % 200 == 0:
             print(f"200 {server} requests reached. Restarting {server} container.")
             restart_container(server)
 
-    try:
-        _ = telephone_function(1, patient_file, False, [server], False, "json", "full")
-        file_path = f"temp_response_temp_{SERVER_NAME}.json"
-        if os.path.isfile(file_path):
+    # try:
+        _ = telephone_function(1, patient_file, False, [server], False, "json", "full", code_tag)
+        resp_file_path = f"temp_response_{SERVER_NAME}.json"
+        if os.path.isfile(resp_file_path):
             return True, "File created successfully"
-    except Exception as e:
-        return False, f"Error: {e}"
-    return False, "Unknown error occurred"
+        # except Exception as e:
+        #     return False, f"Error: {e}"
+        return False, "Unknown error occurred"
 
 
 def resp_type_check(file, leaf_path):
@@ -467,7 +486,7 @@ def validate_patient_json_file(file_path, server_req_cnt):
     if not patient_data:
         return
 
-    patient_resource_types = set()
+    patient_resource_types = set(['Patient'])
 
     for i, entry in enumerate(patient_data["entry"]):
         resource = entry.get("resource", {})
@@ -482,7 +501,6 @@ def validate_patient_json_file(file_path, server_req_cnt):
             patient_resource_types.add(resource_type)
 
         path = f"{resource_type}_{i}"
-        print(path)
 
         resourcetype_csv = os.path.join(RESOURCES_FOLDER, f"{resource_type}.csv")
         metadata, recursive_metadata = parse_fhir_spec_csv(resourcetype_csv)
@@ -524,7 +542,7 @@ if __name__ == "__main__":
         help="Path to a patient JSON file or a directory containing multiple JSON files.",
     )
     args = parser.parse_args()
-    server_req_cnt = 0
+    server_req_cnt = {"count": 0}
     if os.path.isdir(args.path):
         print(f"Validating multiple patient files in directory: {args.path}")
         validate_multiple_patients(args.path, server_req_cnt)
