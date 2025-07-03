@@ -1,3 +1,0 @@
-id,string,BackboneElement.id,,0,1,[]
-extension,Extension,BackboneElement.extension,,0,Infinity,[]
-modifierExtension,Extension,BackboneElement.modifierExtension,,0,Infinity,[]

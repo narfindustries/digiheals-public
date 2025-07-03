@@ -1,7 +1,0 @@
-id,string,Distance.id,,0,1,[]
-extension,Extension,Distance.extension,,0,Infinity,[]
-value,decimal,Distance.value,,0,1,[]
-comparator,code,Distance.comparator,"{""http://hl7.org/fhir/quantity-comparator""=>[""<"", ""<="", "">="", "">""]}",0,1,[]
-unit,string,Distance.unit,,0,1,[]
-system,uri,Distance.system,,0,1,[]
-code,code,Distance.code,,0,1,[]

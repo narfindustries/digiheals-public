@@ -1,7 +1,0 @@
-id,string,ProductShelfLife.id,,0,1,[]
-extension,Extension,ProductShelfLife.extension,,0,Infinity,[]
-modifierExtension,Extension,ProductShelfLife.modifierExtension,,0,Infinity,[]
-identifier,Identifier,ProductShelfLife.identifier,,0,1,[]
-type,CodeableConcept,ProductShelfLife.type,,1,1,[]
-period,Quantity,ProductShelfLife.period,,1,1,[]
-specialPrecautionsForStorage,CodeableConcept,ProductShelfLife.specialPrecautionsForStorage,,0,Infinity,[]

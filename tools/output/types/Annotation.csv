@@ -1,6 +1,0 @@
-id,string,Annotation.id,,0,1,[]
-extension,Extension,Annotation.extension,,0,Infinity,[]
-authorReference,Reference,Annotation.author[x],,0,1,"[""Practitioner"", ""Patient"", ""RelatedPerson"", ""Organization""]"
-authorString,string,Annotation.author[x],,0,1,[]
-time,dateTime,Annotation.time,,0,1,[]
-text,markdown,Annotation.text,,1,1,[]

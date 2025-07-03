@@ -1,7 +1,0 @@
-id,string,Quantity.id,,0,1,[]
-extension,Extension,Quantity.extension,,0,Infinity,[]
-value,decimal,Quantity.value,,0,1,[]
-comparator,code,Quantity.comparator,"{""http://hl7.org/fhir/quantity-comparator""=>[""<"", ""<="", "">="", "">""]}",0,1,[]
-unit,string,Quantity.unit,,0,1,[]
-system,uri,Quantity.system,,0,1,[]
-code,code,Quantity.code,,0,1,[]

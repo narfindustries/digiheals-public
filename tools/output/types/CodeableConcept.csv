@@ -1,4 +1,0 @@
-id,string,CodeableConcept.id,,0,1,[]
-extension,Extension,CodeableConcept.extension,,0,Infinity,[]
-coding,Coding,CodeableConcept.coding,,0,Infinity,[]
-text,string,CodeableConcept.text,,0,1,[]

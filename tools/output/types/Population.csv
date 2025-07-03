@@ -1,8 +1,0 @@
-id,string,Population.id,,0,1,[]
-extension,Extension,Population.extension,,0,Infinity,[]
-modifierExtension,Extension,Population.modifierExtension,,0,Infinity,[]
-ageRange,Range,Population.age[x],,0,1,[]
-ageCodeableConcept,CodeableConcept,Population.age[x],,0,1,[]
-gender,CodeableConcept,Population.gender,,0,1,[]
-race,CodeableConcept,Population.race,,0,1,[]
-physiologicalCondition,CodeableConcept,Population.physiologicalCondition,,0,1,[]

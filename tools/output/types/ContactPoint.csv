@@ -1,7 +1,0 @@
-id,string,ContactPoint.id,,0,1,[]
-extension,Extension,ContactPoint.extension,,0,Infinity,[]
-system,code,ContactPoint.system,"{""http://hl7.org/fhir/contact-point-system""=>[""phone"", ""fax"", ""email"", ""pager"", ""url"", ""sms"", ""other""]}",0,1,[]
-value,string,ContactPoint.value,,0,1,[]
-use,code,ContactPoint.use,"{""http://hl7.org/fhir/contact-point-use""=>[""home"", ""work"", ""temp"", ""old"", ""mobile""]}",0,1,[]
-rank,positiveInt,ContactPoint.rank,,0,1,[]
-period,Period,ContactPoint.period,,0,1,[]

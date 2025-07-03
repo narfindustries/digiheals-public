@@ -1,4 +1,0 @@
-id,string,Period.id,,0,1,[]
-extension,Extension,Period.extension,,0,Infinity,[]
-start,dateTime,Period.start,,0,1,[]
-end,dateTime,Period.end,,0,1,[]
