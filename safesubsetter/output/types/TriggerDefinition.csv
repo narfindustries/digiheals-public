@@ -1,0 +1,10 @@
+id,string,TriggerDefinition.id,,0,1,[]
+extension,Extension,TriggerDefinition.extension,,0,Infinity,[]
+type,code,TriggerDefinition.type,"{""http://hl7.org/fhir/trigger-type""=>[""named-event"", ""periodic"", ""data-changed"", ""data-added"", ""data-modified"", ""data-removed"", ""data-accessed"", ""data-access-ended""]}",1,1,[]
+name,string,TriggerDefinition.name,,0,1,[]
+timingTiming,Timing,TriggerDefinition.timing[x],,0,1,[]
+timingReference,Reference,TriggerDefinition.timing[x],,0,1,"[""Schedule""]"
+timingDate,date,TriggerDefinition.timing[x],,0,1,[]
+timingDateTime,dateTime,TriggerDefinition.timing[x],,0,1,[]
+data,DataRequirement,TriggerDefinition.data,,0,Infinity,[]
+condition,Expression,TriggerDefinition.condition,,0,1,[]

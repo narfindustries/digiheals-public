@@ -1,0 +1,26 @@
+id,id,RequestGroup.id,,0,1,[]
+meta,Meta,RequestGroup.meta,,0,1,[]
+implicitRules,uri,RequestGroup.implicitRules,,0,1,[]
+language,code,RequestGroup.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,RequestGroup.text,,0,1,[]
+contained,Resource,RequestGroup.contained,,0,Infinity,[]
+extension,Extension,RequestGroup.extension,,0,Infinity,[]
+modifierExtension,Extension,RequestGroup.modifierExtension,,0,Infinity,[]
+identifier,Identifier,RequestGroup.identifier,,0,Infinity,[]
+instantiatesCanonical,canonical,RequestGroup.instantiatesCanonical,,0,Infinity,[]
+instantiatesUri,uri,RequestGroup.instantiatesUri,,0,Infinity,[]
+basedOn,Reference,RequestGroup.basedOn,,0,Infinity,"[""Resource""]"
+replaces,Reference,RequestGroup.replaces,,0,Infinity,"[""Resource""]"
+groupIdentifier,Identifier,RequestGroup.groupIdentifier,,0,1,[]
+status,code,RequestGroup.status,"{""http://hl7.org/fhir/request-status""=>[""draft"", ""active"", ""on-hold"", ""revoked"", ""completed"", ""entered-in-error"", ""unknown""]}",1,1,[]
+intent,code,RequestGroup.intent,"{""http://hl7.org/fhir/request-intent""=>[""proposal"", ""plan"", ""directive"", ""order"", ""original-order"", ""reflex-order"", ""filler-order"", ""instance-order"", ""option""]}",1,1,[]
+priority,code,RequestGroup.priority,"{""http://hl7.org/fhir/request-priority""=>[""routine"", ""urgent"", ""asap"", ""stat""]}",0,1,[]
+code,CodeableConcept,RequestGroup.code,,0,1,[]
+subject,Reference,RequestGroup.subject,,0,1,"[""Patient"", ""Group""]"
+encounter,Reference,RequestGroup.encounter,,0,1,"[""Encounter""]"
+authoredOn,dateTime,RequestGroup.authoredOn,,0,1,[]
+author,Reference,RequestGroup.author,,0,1,"[""Device"", ""Practitioner"", ""PractitionerRole""]"
+reasonCode,CodeableConcept,RequestGroup.reasonCode,,0,Infinity,[]
+reasonReference,Reference,RequestGroup.reasonReference,,0,Infinity,"[""Condition"", ""Observation"", ""DiagnosticReport"", ""DocumentReference""]"
+note,Annotation,RequestGroup.note,,0,Infinity,[]
+action,RequestGroup::Action,RequestGroup.action,,0,Infinity,[]

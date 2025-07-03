@@ -1,0 +1,23 @@
+id,id,CoverageEligibilityRequest.id,,0,1,[]
+meta,Meta,CoverageEligibilityRequest.meta,,0,1,[]
+implicitRules,uri,CoverageEligibilityRequest.implicitRules,,0,1,[]
+language,code,CoverageEligibilityRequest.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,CoverageEligibilityRequest.text,,0,1,[]
+contained,Resource,CoverageEligibilityRequest.contained,,0,Infinity,[]
+extension,Extension,CoverageEligibilityRequest.extension,,0,Infinity,[]
+modifierExtension,Extension,CoverageEligibilityRequest.modifierExtension,,0,Infinity,[]
+identifier,Identifier,CoverageEligibilityRequest.identifier,,0,Infinity,[]
+status,code,CoverageEligibilityRequest.status,"{""http://hl7.org/fhir/fm-status""=>[""active"", ""cancelled"", ""draft"", ""entered-in-error""]}",1,1,[]
+priority,CodeableConcept,CoverageEligibilityRequest.priority,"{""http://terminology.hl7.org/CodeSystem/processpriority""=>[""stat"", ""normal"", ""deferred""]}",0,1,[]
+purpose,code,CoverageEligibilityRequest.purpose,"{""http://hl7.org/fhir/eligibilityrequest-purpose""=>[""auth-requirements"", ""benefits"", ""discovery"", ""validation""]}",1,Infinity,[]
+patient,Reference,CoverageEligibilityRequest.patient,,1,1,"[""Patient""]"
+servicedDate,date,CoverageEligibilityRequest.serviced[x],,0,1,[]
+servicedPeriod,Period,CoverageEligibilityRequest.serviced[x],,0,1,[]
+created,dateTime,CoverageEligibilityRequest.created,,1,1,[]
+enterer,Reference,CoverageEligibilityRequest.enterer,,0,1,"[""Practitioner"", ""PractitionerRole""]"
+provider,Reference,CoverageEligibilityRequest.provider,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Organization""]"
+insurer,Reference,CoverageEligibilityRequest.insurer,,1,1,"[""Organization""]"
+facility,Reference,CoverageEligibilityRequest.facility,,0,1,"[""Location""]"
+supportingInfo,CoverageEligibilityRequest::SupportingInfo,CoverageEligibilityRequest.supportingInfo,,0,Infinity,[]
+insurance,CoverageEligibilityRequest::Insurance,CoverageEligibilityRequest.insurance,,0,Infinity,[]
+item,CoverageEligibilityRequest::Item,CoverageEligibilityRequest.item,,0,Infinity,[]

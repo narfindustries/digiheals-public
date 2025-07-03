@@ -198,7 +198,7 @@ def cli_options(file):
     Extract command-line arguments to either create a new patient
     No arguments: exports all patients in a JSON form
     """
-    client = IBMFHIRClient("https://localhost:8005", "fhir-server/api/v4")
+    client = IBMFHIRClient("https://localhost:9443", "fhir-server/api/v4")
     if file is None:
         status, response = client.export_patients()
         if status == 200:

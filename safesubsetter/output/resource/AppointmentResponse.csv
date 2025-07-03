@@ -1,0 +1,16 @@
+id,id,AppointmentResponse.id,,0,1,[]
+meta,Meta,AppointmentResponse.meta,,0,1,[]
+implicitRules,uri,AppointmentResponse.implicitRules,,0,1,[]
+language,code,AppointmentResponse.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,AppointmentResponse.text,,0,1,[]
+contained,Resource,AppointmentResponse.contained,,0,Infinity,[]
+extension,Extension,AppointmentResponse.extension,,0,Infinity,[]
+modifierExtension,Extension,AppointmentResponse.modifierExtension,,0,Infinity,[]
+identifier,Identifier,AppointmentResponse.identifier,,0,Infinity,[]
+appointment,Reference,AppointmentResponse.appointment,,1,1,"[""Appointment""]"
+start,instant,AppointmentResponse.start,,0,1,[]
+end,instant,AppointmentResponse.end,,0,1,[]
+participantType,CodeableConcept,AppointmentResponse.participantType,"{""http://terminology.hl7.org/CodeSystem/v3-ParticipationType""=>[""ADM"", ""ATND"", ""CALLBCK"", ""CON"", ""DIS"", ""ESC"", ""REF"", ""SPRF"", ""PPRF"", ""PART""]}",0,Infinity,[]
+actor,Reference,AppointmentResponse.actor,,0,1,"[""Patient"", ""Practitioner"", ""PractitionerRole"", ""RelatedPerson"", ""Device"", ""HealthcareService"", ""Location""]"
+participantStatus,code,AppointmentResponse.participantStatus,"{""http://hl7.org/fhir/participationstatus""=>[""accepted"", ""declined"", ""tentative"", ""needs-action""]}",1,1,[]
+comment,string,AppointmentResponse.comment,,0,1,[]

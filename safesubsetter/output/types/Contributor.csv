@@ -1,0 +1,5 @@
+id,string,Contributor.id,,0,1,[]
+extension,Extension,Contributor.extension,,0,Infinity,[]
+type,code,Contributor.type,"{""http://hl7.org/fhir/contributor-type""=>[""author"", ""editor"", ""reviewer"", ""endorser""]}",1,1,[]
+name,string,Contributor.name,,1,1,[]
+contact,ContactDetail,Contributor.contact,,0,Infinity,[]

@@ -1,0 +1,22 @@
+id,id,Consent.id,,0,1,[]
+meta,Meta,Consent.meta,,0,1,[]
+implicitRules,uri,Consent.implicitRules,,0,1,[]
+language,code,Consent.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,Consent.text,,0,1,[]
+contained,Resource,Consent.contained,,0,Infinity,[]
+extension,Extension,Consent.extension,,0,Infinity,[]
+modifierExtension,Extension,Consent.modifierExtension,,0,Infinity,[]
+identifier,Identifier,Consent.identifier,,0,Infinity,[]
+status,code,Consent.status,"{""http://hl7.org/fhir/consent-state-codes""=>[""draft"", ""proposed"", ""active"", ""rejected"", ""inactive"", ""entered-in-error""]}",1,1,[]
+scope,CodeableConcept,Consent.scope,"{""http://terminology.hl7.org/CodeSystem/consentscope""=>[""adr"", ""research"", ""patient-privacy"", ""treatment""]}",1,1,[]
+category,CodeableConcept,Consent.category,"{""http://terminology.hl7.org/CodeSystem/consentcategorycodes""=>[""acd"", ""dnr"", ""emrgonly"", ""hcd"", ""npp"", ""polst"", ""research"", ""rsdid"", ""rsreid""]}",1,Infinity,[]
+patient,Reference,Consent.patient,,0,1,"[""Patient""]"
+dateTime,dateTime,Consent.dateTime,,0,1,[]
+performer,Reference,Consent.performer,,0,Infinity,"[""Organization"", ""Patient"", ""Practitioner"", ""RelatedPerson"", ""PractitionerRole""]"
+organization,Reference,Consent.organization,,0,Infinity,"[""Organization""]"
+sourceAttachment,Attachment,Consent.source[x],,0,1,[]
+sourceReference,Reference,Consent.source[x],,0,1,"[""Consent"", ""DocumentReference"", ""Contract"", ""QuestionnaireResponse""]"
+policy,Consent::Policy,Consent.policy,,0,Infinity,[]
+policyRule,CodeableConcept,Consent.policyRule,"{""http://terminology.hl7.org/CodeSystem/consentpolicycodes""=>[""cric"", ""illinois-minor-procedure"", ""hipaa-auth"", ""hipaa-npp"", ""hipaa-restrictions"", ""hipaa-research"", ""hipaa-self-pay"", ""mdhhs-5515"", ""nyssipp"", ""va-10-0484"", ""va-10-0485"", ""va-10-5345"", ""va-10-5345a"", ""va-10-5345a-mhv"", ""va-10-10116"", ""va-21-4142"", ""ssa-827"", ""dch-3927"", ""squaxin"", ""nl-lsp"", ""at-elga"", ""nih-hipaa"", ""nci"", ""nih-grdr"", ""nih-527"", ""ga4gh""]}",0,1,[]
+verification,Consent::Verification,Consent.verification,,0,Infinity,[]
+provision,Consent::Provision,Consent.provision,,0,1,[]

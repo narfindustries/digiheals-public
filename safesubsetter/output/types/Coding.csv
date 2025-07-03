@@ -1,0 +1,7 @@
+id,string,Coding.id,,0,1,[]
+extension,Extension,Coding.extension,,0,Infinity,[]
+system,uri,Coding.system,,0,1,[]
+version,string,Coding.version,,0,1,[]
+code,code,Coding.code,,0,1,[]
+display,string,Coding.display,,0,1,[]
+userSelected,boolean,Coding.userSelected,,0,1,[]

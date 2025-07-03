@@ -1,0 +1,21 @@
+id,id,List.id,,0,1,[]
+meta,Meta,List.meta,,0,1,[]
+implicitRules,uri,List.implicitRules,,0,1,[]
+language,code,List.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,List.text,,0,1,[]
+contained,Resource,List.contained,,0,Infinity,[]
+extension,Extension,List.extension,,0,Infinity,[]
+modifierExtension,Extension,List.modifierExtension,,0,Infinity,[]
+identifier,Identifier,List.identifier,,0,Infinity,[]
+status,code,List.status,"{""http://hl7.org/fhir/list-status""=>[""current"", ""retired"", ""entered-in-error""]}",1,1,[]
+mode,code,List.mode,"{""http://hl7.org/fhir/list-mode""=>[""working"", ""snapshot"", ""changes""]}",1,1,[]
+title,string,List.title,,0,1,[]
+code,CodeableConcept,List.code,"{""http://terminology.hl7.org/CodeSystem/list-example-use-codes""=>[""alerts"", ""adverserxns"", ""allergies"", ""medications"", ""problems"", ""worklist"", ""waiting"", ""protocols"", ""plans""]}",0,1,[]
+subject,Reference,List.subject,,0,1,"[""Patient"", ""Group"", ""Device"", ""Location""]"
+encounter,Reference,List.encounter,,0,1,"[""Encounter""]"
+date,dateTime,List.date,,0,1,[]
+source,Reference,List.source,,0,1,"[""Practitioner"", ""PractitionerRole"", ""Patient"", ""Device""]"
+orderedBy,CodeableConcept,List.orderedBy,"{""http://terminology.hl7.org/CodeSystem/list-order""=>[""user"", ""system"", ""event-date"", ""entry-date"", ""priority"", ""alphabetic"", ""category"", ""patient""]}",0,1,[]
+note,Annotation,List.note,,0,Infinity,[]
+entry,List::Entry,List.entry,,0,Infinity,[]
+emptyReason,CodeableConcept,List.emptyReason,"{""http://terminology.hl7.org/CodeSystem/list-empty-reason""=>[""nilknown"", ""notasked"", ""withheld"", ""unavailable"", ""notstarted"", ""closed""]}",0,1,[]

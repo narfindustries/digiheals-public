@@ -1,0 +1,23 @@
+id,id,ImmunizationEvaluation.id,,0,1,[]
+meta,Meta,ImmunizationEvaluation.meta,,0,1,[]
+implicitRules,uri,ImmunizationEvaluation.implicitRules,,0,1,[]
+language,code,ImmunizationEvaluation.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,ImmunizationEvaluation.text,,0,1,[]
+contained,Resource,ImmunizationEvaluation.contained,,0,Infinity,[]
+extension,Extension,ImmunizationEvaluation.extension,,0,Infinity,[]
+modifierExtension,Extension,ImmunizationEvaluation.modifierExtension,,0,Infinity,[]
+identifier,Identifier,ImmunizationEvaluation.identifier,,0,Infinity,[]
+status,code,ImmunizationEvaluation.status,"{""http://terminology.hl7.org/CodeSystem/medication-admin-status""=>[""completed"", ""entered-in-error""]}",1,1,[]
+patient,Reference,ImmunizationEvaluation.patient,,1,1,"[""Patient""]"
+date,dateTime,ImmunizationEvaluation.date,,0,1,[]
+authority,Reference,ImmunizationEvaluation.authority,,0,1,"[""Organization""]"
+targetDisease,CodeableConcept,ImmunizationEvaluation.targetDisease,"{""http://snomed.info/sct""=>[""1857005"", ""397430003"", ""14189004"", ""36989005"", ""36653000"", ""76902006"", ""709410003"", ""27836007"", ""398102009""]}",1,1,[]
+immunizationEvent,Reference,ImmunizationEvaluation.immunizationEvent,,1,1,"[""Immunization""]"
+doseStatus,CodeableConcept,ImmunizationEvaluation.doseStatus,"{""http://terminology.hl7.org/CodeSystem/immunization-evaluation-dose-status""=>[""valid"", ""notvalid""]}",1,1,[]
+doseStatusReason,CodeableConcept,ImmunizationEvaluation.doseStatusReason,"{""http://terminology.hl7.org/CodeSystem/immunization-evaluation-dose-status-reason""=>[""advstorage"", ""coldchbrk"", ""explot"", ""outsidesched"", ""prodrecall""]}",0,Infinity,[]
+description,string,ImmunizationEvaluation.description,,0,1,[]
+series,string,ImmunizationEvaluation.series,,0,1,[]
+doseNumberPositiveInt,positiveInt,ImmunizationEvaluation.doseNumber[x],,0,1,[]
+doseNumberString,string,ImmunizationEvaluation.doseNumber[x],,0,1,[]
+seriesDosesPositiveInt,positiveInt,ImmunizationEvaluation.seriesDoses[x],,0,1,[]
+seriesDosesString,string,ImmunizationEvaluation.seriesDoses[x],,0,1,[]

@@ -1,0 +1,6 @@
+id,string,Timing.id,,0,1,[]
+extension,Extension,Timing.extension,,0,Infinity,[]
+modifierExtension,Extension,Timing.modifierExtension,,0,Infinity,[]
+event,dateTime,Timing.event,,0,Infinity,[]
+repeat,Timing::Repeat,Timing.repeat,,0,1,[]
+code,CodeableConcept,Timing.code,"{""http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation""=>[""BID"", ""TID"", ""QID"", ""AM"", ""PM"", ""QD"", ""QOD"", ""Q1H"", ""Q2H"", ""Q3H"", ""Q4H"", ""Q6H"", ""Q8H"", ""BED"", ""WK"", ""MO""]}",0,1,[]

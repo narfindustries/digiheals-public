@@ -1,0 +1,7 @@
+id,string,UsageContext.id,,0,1,[]
+extension,Extension,UsageContext.extension,,0,Infinity,[]
+code,Coding,UsageContext.code,"{""http://terminology.hl7.org/CodeSystem/usage-context-type""=>[""gender"", ""age"", ""focus"", ""user"", ""workflow"", ""task"", ""venue"", ""species"", ""program""]}",1,1,[]
+valueCodeableConcept,CodeableConcept,UsageContext.value[x],,1,1,[]
+valueQuantity,Quantity,UsageContext.value[x],,1,1,[]
+valueRange,Range,UsageContext.value[x],,1,1,[]
+valueReference,Reference,UsageContext.value[x],,1,1,"[""PlanDefinition"", ""ResearchStudy"", ""InsurancePlan"", ""HealthcareService"", ""Group"", ""Location"", ""Organization""]"

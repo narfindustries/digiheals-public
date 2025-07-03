@@ -1,0 +1,2288 @@
+{
+    "StructureMap": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "StructureMap",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "EnrollmentRequest": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "EnrollmentRequest",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ConceptMap": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ConceptMap",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicationKnowledge": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MedicationKnowledge",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "TestReport": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "TestReport",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Resource": {
+        "max_depth": 9,
+        "max_depth_chain": [
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "PractitionerRole": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "PractitionerRole",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "RiskEvidenceSynthesis": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "RiskEvidenceSynthesis",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Organization": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Organization",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Composition": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Composition",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Appointment": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Appointment",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "VisionPrescription": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "VisionPrescription",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "DetectedIssue": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "DetectedIssue",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "DeviceMetric": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "DeviceMetric",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Library": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Library",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "EvidenceVariable": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "EvidenceVariable",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Condition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Condition",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "MedicinalProduct": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MedicinalProduct",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ServiceRequest": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ServiceRequest",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Account": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Account",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "EnrollmentResponse": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "EnrollmentResponse",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "CarePlan": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "CarePlan",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "CoverageEligibilityResponse": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "CoverageEligibilityResponse",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ChargeItemDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ChargeItemDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Flag": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Flag",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "SubstancePolymer": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SubstancePolymer",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "InsurancePlan": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "InsurancePlan",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicinalProductAuthorization": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MedicinalProductAuthorization",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ClaimResponse": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "ClaimResponse",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MessageHeader": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MessageHeader",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "DocumentReference": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "DocumentReference",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "CommunicationRequest": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "CommunicationRequest",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "VerificationResult": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "VerificationResult",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ImagingStudy": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ImagingStudy",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Specimen": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Specimen",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "DiagnosticReport": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "DiagnosticReport",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Claim": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Claim",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "DocumentManifest": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "DocumentManifest",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ValueSet": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ValueSet",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "BiologicallyDerivedProduct": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "BiologicallyDerivedProduct",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Task": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Task",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "CapabilityStatement": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "CapabilityStatement",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "GraphDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "GraphDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "SubstanceProtein": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SubstanceProtein",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Linkage": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Linkage",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Questionnaire": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Questionnaire",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "OperationOutcome": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "OperationOutcome",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Invoice": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Invoice",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Basic": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Basic",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Binary": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Binary",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "QuestionnaireResponse": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "QuestionnaireResponse",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicinalProductIndication": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "MedicinalProductIndication",
+            "Population",
+            "Range",
+            "Quantity",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Substance": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Substance",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicinalProductIngredient": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MedicinalProductIngredient",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Procedure": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Procedure",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "MolecularSequence": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MolecularSequence",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "AllergyIntolerance": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "AllergyIntolerance",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Subscription": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Subscription",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Medication": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Medication",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ObservationDefinition": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "ObservationDefinition",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MessageDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "MessageDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ImmunizationRecommendation": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "ImmunizationRecommendation",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "AppointmentResponse": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "AppointmentResponse",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "BodyStructure": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "BodyStructure",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ClinicalImpression": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ClinicalImpression",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "AuditEvent": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "AuditEvent",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ImmunizationEvaluation": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "ImmunizationEvaluation",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Measure": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Measure",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "SubstanceReferenceInformation": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SubstanceReferenceInformation",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ExampleScenario": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ExampleScenario",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "DomainResource": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "DomainResource",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicationDispense": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "MedicationDispense",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "List": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "List",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Patient": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Patient",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Slot": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Slot",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "FamilyMemberHistory": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "FamilyMemberHistory",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "CareTeam": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "CareTeam",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "ChargeItem": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ChargeItem",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "DeviceDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "DeviceDefinition",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "OrganizationAffiliation": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "OrganizationAffiliation",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicinalProductPharmaceutical": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MedicinalProductPharmaceutical",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "SearchParameter": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "SearchParameter",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Encounter": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Encounter",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "RequestGroup": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "RequestGroup",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Bundle": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Bundle",
+            "Signature",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "ResearchStudy": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ResearchStudy",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Location": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Location",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Goal": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Goal",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "CoverageEligibilityRequest": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "CoverageEligibilityRequest",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "EffectEvidenceSynthesis": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "EffectEvidenceSynthesis",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "SubstanceNucleicAcid": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SubstanceNucleicAcid",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Media": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Media",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "SupplyRequest": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SupplyRequest",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ExplanationOfBenefit": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "ExplanationOfBenefit",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ActivityDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ActivityDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "DeviceRequest": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "DeviceRequest",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "AdverseEvent": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "AdverseEvent",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "NamingSystem": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "NamingSystem",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "PaymentReconciliation": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "PaymentReconciliation",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "EventDefinition": {
+        "max_depth": 12,
+        "max_depth_chain": [
+            "EventDefinition",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "ResearchSubject": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "ResearchSubject",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "HealthcareService": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "HealthcareService",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "TestScript": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "TestScript",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "CodeSystem": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "CodeSystem",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MeasureReport": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MeasureReport",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ImplementationGuide": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ImplementationGuide",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicinalProductUndesirableEffect": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "MedicinalProductUndesirableEffect",
+            "Population",
+            "Range",
+            "Quantity",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicinalProductPackaged": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MedicinalProductPackaged",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Evidence": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Evidence",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Contract": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Contract",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "CompartmentDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "CompartmentDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "DeviceUseStatement": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "DeviceUseStatement",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "MedicationAdministration": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "MedicationAdministration",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Parameters": {
+        "max_depth": 9,
+        "max_depth_chain": [
+            "Parameters",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ResearchElementDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ResearchElementDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Observation": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Observation",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "MedicinalProductManufactured": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MedicinalProductManufactured",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Coverage": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Coverage",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "RelatedPerson": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "RelatedPerson",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Practitioner": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Practitioner",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "ResearchDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "ResearchDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "EpisodeOfCare": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "EpisodeOfCare",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Communication": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Communication",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "SpecimenDefinition": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SpecimenDefinition",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "GuidanceResponse": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "GuidanceResponse",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Provenance": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Provenance",
+            "Signature",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "RiskAssessment": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "RiskAssessment",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "TerminologyCapabilities": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "TerminologyCapabilities",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicationRequest": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "MedicationRequest",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "Group": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Group",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "PlanDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "PlanDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "SupplyDelivery": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SupplyDelivery",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Schedule": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Schedule",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicinalProductContraindication": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "MedicinalProductContraindication",
+            "Population",
+            "Range",
+            "Quantity",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "MedicationStatement": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "MedicationStatement",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "SubstanceSourceMaterial": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SubstanceSourceMaterial",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "StructureDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "StructureDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Immunization": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Immunization",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "MedicinalProductInteraction": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "MedicinalProductInteraction",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "CatalogEntry": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "CatalogEntry",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "PaymentNotice": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "PaymentNotice",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Consent": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Consent",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Person": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Person",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Endpoint": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "Endpoint",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "OperationDefinition": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "OperationDefinition",
+            "ContactDetail",
+            "ContactPoint",
+            "Period",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "Device": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "Device",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    },
+    "SubstanceSpecification": {
+        "max_depth": 10,
+        "max_depth_chain": [
+            "SubstanceSpecification",
+            "Resource",
+            "Meta",
+            "Extension",
+            "TriggerDefinition",
+            "DataRequirement",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding"
+        ]
+    },
+    "NutritionOrder": {
+        "max_depth": 11,
+        "max_depth_chain": [
+            "NutritionOrder",
+            "Annotation",
+            "Reference",
+            "Identifier",
+            "CodeableConcept",
+            "Coding",
+            "Extension",
+            "Contributor",
+            "ContactDetail",
+            "ContactPoint",
+            "Period"
+        ]
+    }
+}

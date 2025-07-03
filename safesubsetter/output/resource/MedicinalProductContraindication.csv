@@ -1,0 +1,15 @@
+id,id,MedicinalProductContraindication.id,,0,1,[]
+meta,Meta,MedicinalProductContraindication.meta,,0,1,[]
+implicitRules,uri,MedicinalProductContraindication.implicitRules,,0,1,[]
+language,code,MedicinalProductContraindication.language,"{""urn:ietf:bcp:47""=>[""ar"", ""bn"", ""cs"", ""da"", ""de"", ""de-AT"", ""de-CH"", ""de-DE"", ""el"", ""en"", ""en-AU"", ""en-CA"", ""en-GB"", ""en-IN"", ""en-NZ"", ""en-SG"", ""en-US"", ""es"", ""es-AR"", ""es-ES"", ""es-UY"", ""fi"", ""fr"", ""fr-BE"", ""fr-CH"", ""fr-FR"", ""fy"", ""fy-NL"", ""hi"", ""hr"", ""it"", ""it-CH"", ""it-IT"", ""ja"", ""ko"", ""nl"", ""nl-BE"", ""nl-NL"", ""no"", ""no-NO"", ""pa"", ""pl"", ""pt"", ""pt-BR"", ""ru"", ""ru-RU"", ""sr"", ""sr-RS"", ""sv"", ""sv-SE"", ""te"", ""zh"", ""zh-CN"", ""zh-HK"", ""zh-SG"", ""zh-TW""]}",0,1,[]
+text,Narrative,MedicinalProductContraindication.text,,0,1,[]
+contained,Resource,MedicinalProductContraindication.contained,,0,Infinity,[]
+extension,Extension,MedicinalProductContraindication.extension,,0,Infinity,[]
+modifierExtension,Extension,MedicinalProductContraindication.modifierExtension,,0,Infinity,[]
+subject,Reference,MedicinalProductContraindication.subject,,0,Infinity,"[""MedicinalProduct"", ""Medication""]"
+disease,CodeableConcept,MedicinalProductContraindication.disease,,0,1,[]
+diseaseStatus,CodeableConcept,MedicinalProductContraindication.diseaseStatus,,0,1,[]
+comorbidity,CodeableConcept,MedicinalProductContraindication.comorbidity,,0,Infinity,[]
+therapeuticIndication,Reference,MedicinalProductContraindication.therapeuticIndication,,0,Infinity,"[""MedicinalProductIndication""]"
+otherTherapy,MedicinalProductContraindication::OtherTherapy,MedicinalProductContraindication.otherTherapy,,0,Infinity,[]
+population,Population,MedicinalProductContraindication.population,,0,Infinity,[]

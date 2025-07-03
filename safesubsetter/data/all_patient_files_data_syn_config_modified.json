@@ -1,0 +1,2394 @@
+{
+    "Janina163-Schamberger479": {
+        "num_nodes": 42,
+        "num_edges": 11646,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Janina163_Schamberger479",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Juan-Carlos348": {
+        "num_nodes": 41,
+        "num_edges": 10181,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Juan_Carlos348",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Nilda678-Lebsack687": {
+        "num_nodes": 40,
+        "num_edges": 12168,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Nilda678_Lebsack687",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Luann880-Shields502": {
+        "num_nodes": 42,
+        "num_edges": 16061,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Luann880_Shields502",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Lavette209-Cassin499": {
+        "num_nodes": 41,
+        "num_edges": 24246,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lavette209_Cassin499",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Dillon740-Rutherford999": {
+        "num_nodes": 41,
+        "num_edges": 20733,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Dillon740_Rutherford999",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Ali918-Zemlak964": {
+        "num_nodes": 42,
+        "num_edges": 15688,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ali918_Zemlak964",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Else33-Reichel38": {
+        "num_nodes": 41,
+        "num_edges": 11578,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Else33_Reichel38",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Evan94-Wyman904": {
+        "num_nodes": 35,
+        "num_edges": 2765,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Evan94_Wyman904",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 17
+    },
+    "Myrtice99-Fadel536": {
+        "num_nodes": 39,
+        "num_edges": 8732,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Myrtice99_Fadel536",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Manie910-Martin117": {
+        "num_nodes": 41,
+        "num_edges": 53329,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Manie910_Martin117",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Antonia30-Emmy828": {
+        "num_nodes": 40,
+        "num_edges": 9299,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Antonia30_Emmy828",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Mirtha993-Ebert178": {
+        "num_nodes": 42,
+        "num_edges": 26072,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Mirtha993_Ebert178",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Livia401-Dooley940": {
+        "num_nodes": 41,
+        "num_edges": 11355,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Livia401_Dooley940",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Napoleon578-Hettinger594": {
+        "num_nodes": 40,
+        "num_edges": 6725,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Napoleon578_Hettinger594",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Antonia30-Hegmann834": {
+        "num_nodes": 41,
+        "num_edges": 14057,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Antonia30_Hegmann834",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Laurinda852-Douglas31": {
+        "num_nodes": 40,
+        "num_edges": 13683,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Laurinda852_Douglas31",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Brandi2-Greenholt190": {
+        "num_nodes": 41,
+        "num_edges": 10576,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Brandi2_Greenholt190",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Bryanna1-Otha286": {
+        "num_nodes": 42,
+        "num_edges": 16655,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Bryanna1_Otha286",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "August363-Welch179": {
+        "num_nodes": 42,
+        "num_edges": 15054,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "August363_Welch179",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Alexandra16-Gita759": {
+        "num_nodes": 42,
+        "num_edges": 152237,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Alexandra16_Gita759",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Dominque770-Luettgen772": {
+        "num_nodes": 31,
+        "num_edges": 335,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Dominque770_Luettgen772",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 15
+    },
+    "Catina822-Gutmann970": {
+        "num_nodes": 41,
+        "num_edges": 9625,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Catina822_Gutmann970",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Chelsey293-Jakubowski832": {
+        "num_nodes": 38,
+        "num_edges": 5141,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Chelsey293_Jakubowski832",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 21
+    },
+    "Hiram237-Fay398": {
+        "num_nodes": 41,
+        "num_edges": 11412,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Hiram237_Fay398",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Coretta598-Florentina22": {
+        "num_nodes": 42,
+        "num_edges": 21907,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Coretta598_Florentina22",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Lorenzo669-Farías160": {
+        "num_nodes": 41,
+        "num_edges": 17676,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lorenzo669_Farías160",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Gabriella773-Upton904": {
+        "num_nodes": 42,
+        "num_edges": 17614,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Gabriella773_Upton904",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Dwight645-Cormier289": {
+        "num_nodes": 41,
+        "num_edges": 27795,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Dwight645_Cormier289",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Emmy828-Carroll471": {
+        "num_nodes": 40,
+        "num_edges": 7266,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Emmy828_Carroll471",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Christian753-Schiller186": {
+        "num_nodes": 41,
+        "num_edges": 31313,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Christian753_Schiller186",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Alphonse92-Johnston597": {
+        "num_nodes": 36,
+        "num_edges": 2688,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Alphonse92_Johnston597",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 18
+    },
+    "Gavin481-Effertz744": {
+        "num_nodes": 40,
+        "num_edges": 5834,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Gavin481_Effertz744",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Dayna943-Jill895": {
+        "num_nodes": 40,
+        "num_edges": 10499,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Dayna943_Jill895",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 22
+    },
+    "Glendora96-Kohler843": {
+        "num_nodes": 41,
+        "num_edges": 10424,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Glendora96_Kohler843",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Paris331-Johns824": {
+        "num_nodes": 41,
+        "num_edges": 19485,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Paris331_Johns824",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Katlyn29-Ryan260": {
+        "num_nodes": 38,
+        "num_edges": 4311,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Katlyn29_Ryan260",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 21
+    },
+    "Donya787-Charolette797": {
+        "num_nodes": 41,
+        "num_edges": 18157,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Donya787_Charolette797",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Latoya8-Kub800": {
+        "num_nodes": 31,
+        "num_edges": 1888,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Latoya8_Kub800",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 15
+    },
+    "Norma469-Lola232": {
+        "num_nodes": 42,
+        "num_edges": 31426,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Norma469_Lola232",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Kieth891-Kub800": {
+        "num_nodes": 42,
+        "num_edges": 33792,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Kieth891_Kub800",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Antwan357-Douglas31": {
+        "num_nodes": 40,
+        "num_edges": 8437,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Antwan357_Douglas31",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Morgan564-Turner526": {
+        "num_nodes": 41,
+        "num_edges": 50387,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Morgan564_Turner526",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Nadene309-Heathcote539": {
+        "num_nodes": 40,
+        "num_edges": 17701,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Nadene309_Heathcote539",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Genaro214-Ankunding277": {
+        "num_nodes": 41,
+        "num_edges": 6862,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Genaro214_Ankunding277",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Angelo118-Cummerata161": {
+        "num_nodes": 41,
+        "num_edges": 32023,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Angelo118_Cummerata161",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Dee580-Alexia646": {
+        "num_nodes": 40,
+        "num_edges": 15441,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Dee580_Alexia646",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Lillie543-West559": {
+        "num_nodes": 42,
+        "num_edges": 9610,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lillie543_West559",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Miguel815-Toy286": {
+        "num_nodes": 41,
+        "num_edges": 13462,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Miguel815_Toy286",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Deena887-Mills423": {
+        "num_nodes": 41,
+        "num_edges": 10156,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Deena887_Mills423",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Daniele610-Abshire638": {
+        "num_nodes": 41,
+        "num_edges": 21543,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Daniele610_Abshire638",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Myrtie622-Amalia471": {
+        "num_nodes": 42,
+        "num_edges": 15371,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Myrtie622_Amalia471",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Ernesto186-Mascareñas995": {
+        "num_nodes": 41,
+        "num_edges": 6999,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ernesto186_Mascareñas995",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Erik495-Ziemann98": {
+        "num_nodes": 41,
+        "num_edges": 9367,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Erik495_Ziemann98",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Jene106-Hackett68": {
+        "num_nodes": 41,
+        "num_edges": 13087,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Jene106_Hackett68",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Eneida722-Ariana988": {
+        "num_nodes": 42,
+        "num_edges": 36254,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Eneida722_Ariana988",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Deangelo7-Buckridge80": {
+        "num_nodes": 41,
+        "num_edges": 162608,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Deangelo7_Buckridge80",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Lou594-Nolan344": {
+        "num_nodes": 41,
+        "num_edges": 12972,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lou594_Nolan344",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Calandra120-Vashti163": {
+        "num_nodes": 42,
+        "num_edges": 30718,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Calandra120_Vashti163",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Guy979-Zieme486": {
+        "num_nodes": 39,
+        "num_edges": 3178,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Guy979_Zieme486",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 22
+    },
+    "Olene159-Matha641": {
+        "num_nodes": 41,
+        "num_edges": 22074,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Olene159_Matha641",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Agnus790-Velvet616": {
+        "num_nodes": 42,
+        "num_edges": 18089,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Agnus790_Velvet616",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Octavio643-Ulibarri312": {
+        "num_nodes": 41,
+        "num_edges": 41186,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Octavio643_Ulibarri312",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Lilly908-Fredda152": {
+        "num_nodes": 41,
+        "num_edges": 20626,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lilly908_Fredda152",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Linwood526-Christiansen251": {
+        "num_nodes": 41,
+        "num_edges": 6519,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Linwood526_Christiansen251",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Freddie621-Prosacco716": {
+        "num_nodes": 41,
+        "num_edges": 12421,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Freddie621_Prosacco716",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Khalilah870-Carlyn477": {
+        "num_nodes": 41,
+        "num_edges": 13675,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Khalilah870_Carlyn477",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Londa304-Homenick806": {
+        "num_nodes": 39,
+        "num_edges": 3182,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Londa304_Homenick806",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 21
+    },
+    "Hugh686-Hackett68": {
+        "num_nodes": 40,
+        "num_edges": 6025,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Hugh686_Hackett68",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Patricia625-Ángela136": {
+        "num_nodes": 41,
+        "num_edges": 17951,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Patricia625_Ángela136",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Merissa718-Hillary281": {
+        "num_nodes": 41,
+        "num_edges": 15073,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Merissa718_Hillary281",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Doretta917-Schiller186": {
+        "num_nodes": 41,
+        "num_edges": 198380,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Doretta917_Schiller186",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Kenyatta61-Hauck852": {
+        "num_nodes": 41,
+        "num_edges": 21400,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Kenyatta61_Hauck852",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Dominic463-Boehm581": {
+        "num_nodes": 41,
+        "num_edges": 10030,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Dominic463_Boehm581",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Madeleine482-Greenfelder433": {
+        "num_nodes": 41,
+        "num_edges": 7878,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Madeleine482_Greenfelder433",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Jenette717-O'Keefe54": {
+        "num_nodes": 41,
+        "num_edges": 8811,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Jenette717_O'Keefe54",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Ofelia194-Heathcote539": {
+        "num_nodes": 41,
+        "num_edges": 10544,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ofelia194_Heathcote539",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Filiberto722-Wolff180": {
+        "num_nodes": 41,
+        "num_edges": 6749,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Filiberto722_Wolff180",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Chi716-Shanda945": {
+        "num_nodes": 41,
+        "num_edges": 15308,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Chi716_Shanda945",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Lesley194-Roberts511": {
+        "num_nodes": 41,
+        "num_edges": 7750,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lesley194_Roberts511",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Ardith914-Tai836": {
+        "num_nodes": 41,
+        "num_edges": 42120,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ardith914_Tai836",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Brett333-Becker968": {
+        "num_nodes": 41,
+        "num_edges": 12934,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Brett333_Becker968",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Gaston250-Metz686": {
+        "num_nodes": 31,
+        "num_edges": 2235,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Gaston250_Metz686",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 15
+    },
+    "Catalina187-Pizarro791": {
+        "num_nodes": 41,
+        "num_edges": 14259,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Catalina187_Pizarro791",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Lorinda137-Lockman863": {
+        "num_nodes": 41,
+        "num_edges": 12878,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lorinda137_Lockman863",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Merrill415-Heaney114": {
+        "num_nodes": 41,
+        "num_edges": 9750,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Merrill415_Heaney114",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Dona966-Labadie908": {
+        "num_nodes": 39,
+        "num_edges": 11535,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Dona966_Labadie908",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Aundrea980-Demetrice140": {
+        "num_nodes": 41,
+        "num_edges": 17252,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Aundrea980_Demetrice140",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Edgardo196-Russel238": {
+        "num_nodes": 41,
+        "num_edges": 10742,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Edgardo196_Russel238",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Cary869-Stanton715": {
+        "num_nodes": 42,
+        "num_edges": 16289,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Cary869_Stanton715",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Bee658-See995": {
+        "num_nodes": 40,
+        "num_edges": 12929,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Bee658_See995",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Danielle72-Collier206": {
+        "num_nodes": 41,
+        "num_edges": 15905,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Danielle72_Collier206",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Mertie42-Barrows492": {
+        "num_nodes": 41,
+        "num_edges": 20630,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Mertie42_Barrows492",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Allen322-Vertie683": {
+        "num_nodes": 41,
+        "num_edges": 14051,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Allen322_Vertie683",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Eleonore965-Marcella377": {
+        "num_nodes": 40,
+        "num_edges": 19118,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Eleonore965_Marcella377",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Brice635-Kautzer186": {
+        "num_nodes": 42,
+        "num_edges": 8657,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Brice635_Kautzer186",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Donny470-Hyatt152": {
+        "num_nodes": 38,
+        "num_edges": 8902,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Donny470_Hyatt152",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 21
+    },
+    "Kieth891-Hills818": {
+        "num_nodes": 41,
+        "num_edges": 138436,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Kieth891_Hills818",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Julio255-Palacios784": {
+        "num_nodes": 34,
+        "num_edges": 1344,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Julio255_Palacios784",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 18
+    },
+    "Almeta56-Willms744": {
+        "num_nodes": 40,
+        "num_edges": 9410,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Almeta56_Willms744",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Edmond919-Beahan375": {
+        "num_nodes": 41,
+        "num_edges": 17126,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Edmond919_Beahan375",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Lupita673-Roberts511": {
+        "num_nodes": 42,
+        "num_edges": 14963,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lupita673_Roberts511",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Florrie453-Lorean637": {
+        "num_nodes": 39,
+        "num_edges": 11655,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Florrie453_Lorean637",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Alona471-Hartmann983": {
+        "num_nodes": 40,
+        "num_edges": 4355,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Alona471_Hartmann983",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 22
+    },
+    "Michaele314-Breitenberg711": {
+        "num_nodes": 41,
+        "num_edges": 49151,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Michaele314_Breitenberg711",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Brooks264-Stroman228": {
+        "num_nodes": 41,
+        "num_edges": 11975,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Brooks264_Stroman228",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Emerson869-Jones311": {
+        "num_nodes": 42,
+        "num_edges": 10811,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Emerson869_Jones311",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Melony418-Friesen796": {
+        "num_nodes": 41,
+        "num_edges": 7243,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Melony418_Friesen796",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Margarito178-Toy286": {
+        "num_nodes": 41,
+        "num_edges": 17758,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Margarito178_Toy286",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Daisey627-Wynona930": {
+        "num_nodes": 41,
+        "num_edges": 15094,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Daisey627_Wynona930",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Jadwiga271-White193": {
+        "num_nodes": 41,
+        "num_edges": 14200,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Jadwiga271_White193",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Douglas31-Auer97": {
+        "num_nodes": 41,
+        "num_edges": 73926,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Douglas31_Auer97",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Elizabeth24-Dorian295": {
+        "num_nodes": 41,
+        "num_edges": 14693,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Elizabeth24_Dorian295",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Kirby843-Rachael540": {
+        "num_nodes": 42,
+        "num_edges": 16918,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Kirby843_Rachael540",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Ezekiel373-Koepp521": {
+        "num_nodes": 41,
+        "num_edges": 7539,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ezekiel373_Koepp521",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Michal596-Armstrong51": {
+        "num_nodes": 41,
+        "num_edges": 20953,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Michal596_Armstrong51",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Everett935-Kuhn96": {
+        "num_nodes": 39,
+        "num_edges": 10058,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Everett935_Kuhn96",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Alejandro916-Menéndez746": {
+        "num_nodes": 37,
+        "num_edges": 3837,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Alejandro916_Menéndez746",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 19
+    },
+    "Albertine688-Freeda113": {
+        "num_nodes": 41,
+        "num_edges": 22040,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Albertine688_Freeda113",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Margart214-Feeney44": {
+        "num_nodes": 42,
+        "num_edges": 15863,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Margart214_Feeney44",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Chanell45-Ming325": {
+        "num_nodes": 41,
+        "num_edges": 13122,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Chanell45_Ming325",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Pat3-Fadel536": {
+        "num_nodes": 41,
+        "num_edges": 20348,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Pat3_Fadel536",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Franklin857-Romaguera67": {
+        "num_nodes": 41,
+        "num_edges": 5420,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Franklin857_Romaguera67",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Jacki842-Emmie273": {
+        "num_nodes": 41,
+        "num_edges": 19888,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Jacki842_Emmie273",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Luna60-Edra310": {
+        "num_nodes": 41,
+        "num_edges": 151164,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Luna60_Edra310",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Len277-Bogisich202": {
+        "num_nodes": 41,
+        "num_edges": 6545,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Len277_Bogisich202",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Daine571-Louella862": {
+        "num_nodes": 42,
+        "num_edges": 27192,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Daine571_Louella862",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Caryn49-Mueller846": {
+        "num_nodes": 31,
+        "num_edges": 2296,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Caryn49_Mueller846",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 15
+    },
+    "Leola603-Mollie266": {
+        "num_nodes": 41,
+        "num_edges": 15540,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Leola603_Mollie266",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Duane703-Brakus656": {
+        "num_nodes": 40,
+        "num_edges": 10183,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Duane703_Brakus656",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Magda24-Roma9": {
+        "num_nodes": 40,
+        "num_edges": 9997,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Magda24_Roma9",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Elaina826-Bernier607": {
+        "num_nodes": 41,
+        "num_edges": 51770,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Elaina826_Bernier607",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Myles862-Hegmann834": {
+        "num_nodes": 34,
+        "num_edges": 2762,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Myles862_Hegmann834",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 18
+    },
+    "Mikki421-Faustina753": {
+        "num_nodes": 41,
+        "num_edges": 24464,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Mikki421_Faustina753",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Laurel943-Hui924": {
+        "num_nodes": 41,
+        "num_edges": 68993,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Laurel943_Hui924",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Kelvin159-Roob72": {
+        "num_nodes": 41,
+        "num_edges": 215638,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Kelvin159_Roob72",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Isabel214-Cardona494": {
+        "num_nodes": 41,
+        "num_edges": 37629,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Isabel214_Cardona494",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Lucas404-Lemus978": {
+        "num_nodes": 41,
+        "num_edges": 3231,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lucas404_Lemus978",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Fredricka415-Carola944": {
+        "num_nodes": 40,
+        "num_edges": 12103,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Fredricka415_Carola944",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Ezra452-Murphy561": {
+        "num_nodes": 39,
+        "num_edges": 6075,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ezra452_Murphy561",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 21
+    },
+    "Percy315-Goldner995": {
+        "num_nodes": 41,
+        "num_edges": 11204,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Percy315_Goldner995",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Cordia574-Karan473": {
+        "num_nodes": 41,
+        "num_edges": 19009,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Cordia574_Karan473",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Catherine271-Harmony242": {
+        "num_nodes": 39,
+        "num_edges": 14969,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Catherine271_Harmony242",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Jann271-Gwendolyn93": {
+        "num_nodes": 41,
+        "num_edges": 12665,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Jann271_Gwendolyn93",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Merrill415-Kris249": {
+        "num_nodes": 41,
+        "num_edges": 18584,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Merrill415_Kris249",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Gabriela205-McGlynn426": {
+        "num_nodes": 36,
+        "num_edges": 3807,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Gabriela205_McGlynn426",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 19
+    },
+    "Lezlie553-Leanora120": {
+        "num_nodes": 41,
+        "num_edges": 19288,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lezlie553_Leanora120",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Cristopher265-Hodkiewicz467": {
+        "num_nodes": 41,
+        "num_edges": 22531,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Cristopher265_Hodkiewicz467",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Natalya468-Corrie32": {
+        "num_nodes": 41,
+        "num_edges": 78126,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Natalya468_Corrie32",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Mose244-Pagac496": {
+        "num_nodes": 39,
+        "num_edges": 3928,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Mose244_Pagac496",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Arnoldo445-Abbott774": {
+        "num_nodes": 35,
+        "num_edges": 2468,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Arnoldo445_Abbott774",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 17
+    },
+    "Jacobo456-Mora209": {
+        "num_nodes": 41,
+        "num_edges": 6708,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Jacobo456_Mora209",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Antonietta855-Lola232": {
+        "num_nodes": 41,
+        "num_edges": 155017,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Antonietta855_Lola232",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Kirby843-Zieme486": {
+        "num_nodes": 42,
+        "num_edges": 12387,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Kirby843_Zieme486",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Lourie532-Myriam433": {
+        "num_nodes": 42,
+        "num_edges": 34209,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lourie532_Myriam433",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Garret233-McLaughlin530": {
+        "num_nodes": 41,
+        "num_edges": 10754,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Garret233_McLaughlin530",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Kent912-Ledner144": {
+        "num_nodes": 41,
+        "num_edges": 14925,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Kent912_Ledner144",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Logan497-Stokes453": {
+        "num_nodes": 31,
+        "num_edges": 1187,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Logan497_Stokes453",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 15
+    },
+    "Owen89-Schaefer657": {
+        "num_nodes": 41,
+        "num_edges": 100907,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Owen89_Schaefer657",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Ernest565-Predovic534": {
+        "num_nodes": 41,
+        "num_edges": 10649,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ernest565_Predovic534",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Lewis216-Heller342": {
+        "num_nodes": 42,
+        "num_edges": 16484,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Lewis216_Heller342",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Joesph309-Lindgren255": {
+        "num_nodes": 42,
+        "num_edges": 173780,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Joesph309_Lindgren255",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Ignacio928-Ayala238": {
+        "num_nodes": 40,
+        "num_edges": 9504,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ignacio928_Ayala238",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Betty470-Jeanine128": {
+        "num_nodes": 41,
+        "num_edges": 17515,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Betty470_Jeanine128",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Colin861-Cole117": {
+        "num_nodes": 41,
+        "num_edges": 26647,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Colin861_Cole117",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Freddy176-Satterfield305": {
+        "num_nodes": 41,
+        "num_edges": 12531,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Freddy176_Satterfield305",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Aretha897-Abshire638": {
+        "num_nodes": 36,
+        "num_edges": 2504,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Aretha897_Abshire638",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 19
+    },
+    "Marcelina712-Hoeger474": {
+        "num_nodes": 41,
+        "num_edges": 14622,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Marcelina712_Hoeger474",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Gladis186-Buckridge80": {
+        "num_nodes": 42,
+        "num_edges": 14674,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Gladis186_Buckridge80",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Frederic454-Streich926": {
+        "num_nodes": 41,
+        "num_edges": 21224,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Frederic454_Streich926",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Kristopher775-Langworth352": {
+        "num_nodes": 41,
+        "num_edges": 6642,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Kristopher775_Langworth352",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Brittany443-Bergstrom287": {
+        "num_nodes": 41,
+        "num_edges": 37140,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Brittany443_Bergstrom287",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Philomena945-Medhurst46": {
+        "num_nodes": 41,
+        "num_edges": 15380,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Philomena945_Medhurst46",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Babette571-Carleen42": {
+        "num_nodes": 41,
+        "num_edges": 14510,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Babette571_Carleen42",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Ahmad985-Marks830": {
+        "num_nodes": 39,
+        "num_edges": 6163,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ahmad985_Marks830",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Anitra287-Schumm995": {
+        "num_nodes": 41,
+        "num_edges": 33160,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Anitra287_Schumm995",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Cristian531-Abreu185": {
+        "num_nodes": 41,
+        "num_edges": 5928,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Cristian531_Abreu185",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Antonia30-Ankunding277": {
+        "num_nodes": 42,
+        "num_edges": 5226,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Antonia30_Ankunding277",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Ja391-Auer97": {
+        "num_nodes": 41,
+        "num_edges": 6805,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Ja391_Auer97",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Idell650-Streich926": {
+        "num_nodes": 42,
+        "num_edges": 15646,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Idell650_Streich926",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Julian715-Jacobson885": {
+        "num_nodes": 41,
+        "num_edges": 10270,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Julian715_Jacobson885",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Luis923-Carreón894": {
+        "num_nodes": 40,
+        "num_edges": 10374,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Luis923_Carreón894",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    },
+    "Madaline59-Angila948": {
+        "num_nodes": 42,
+        "num_edges": 20250,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Madaline59_Angila948",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 24
+    },
+    "Judson999-Mills423": {
+        "num_nodes": 41,
+        "num_edges": 8084,
+        "max_depth": 4,
+        "max_depth_chain": [
+            "Judson999_Mills423",
+            "Patient",
+            "Extension",
+            "Extension",
+            "Coding"
+        ],
+        "first_level_nodes": 23
+    }
+}

@@ -1,0 +1,7 @@
+id,string,Count.id,,0,1,[]
+extension,Extension,Count.extension,,0,Infinity,[]
+value,decimal,Count.value,,0,1,[]
+comparator,code,Count.comparator,"{""http://hl7.org/fhir/quantity-comparator""=>[""<"", ""<="", "">="", "">""]}",0,1,[]
+unit,string,Count.unit,,0,1,[]
+system,uri,Count.system,,0,1,[]
+code,code,Count.code,,0,1,[]

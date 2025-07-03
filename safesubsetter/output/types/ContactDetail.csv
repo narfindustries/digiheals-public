@@ -1,0 +1,4 @@
+id,string,ContactDetail.id,,0,1,[]
+extension,Extension,ContactDetail.extension,,0,Infinity,[]
+name,string,ContactDetail.name,,0,1,[]
+telecom,ContactPoint,ContactDetail.telecom,,0,Infinity,[]
