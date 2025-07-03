@@ -12,6 +12,8 @@ We have currently built and hosted the following services in this Docker Compose
 - Samply Blaze
 - Intersystems
 
+
+# FHIR-GARDEN
 Running
 -----
 
@@ -108,11 +110,49 @@ To run the test environment:
 
 Unit tests for Synthea file generation and FHIR clients are in `tools/tests`. Run `make test` from the root directory to run all tests. 
 
-Safe subset
+
+# SafeSubsetter
+
+SafeSubsetter is a tool designed to help derive a stricter FHIR R4 specification.
+
+Install Dependency
+
+`sudo apt-get -y install libpq-dev`
+
+Usage
 -----
+
+To run the `extract_types.rb` script, follow these steps:
+
+1. Ensure you are in the `tools/safesubsetter` directory:
+    ```sh
+    cd tools/safesubsetter
+    ```
+2. Run the script with the required arguments:
+    ```sh
+    ruby extract_types.rb
+    ```
+
+Output Files
+-----
+
+The `output` folder contains CSV files of the form (fieldname, type). These types need not be fundamental, could be other Resources or Types defined separately in another folder. The function `list_all_types` in `extract_types.rb` can list all the types from the specification. 
+
+Run Safesubset Mutation Engine
+-----
+Change directory by doing `cd safesubsetter`.
 To run FHIR R4 validation on files: `python3 validator.py <file_name> or <directory_name>`. File is valid if output is `[]`.
 To run mutation on patient file and pass it through a server: `python3 mutator.py <file_name> or <directory_name>`. Modify server name and db as needed.
-To create files with different resource types from template files: `python3 file_modify.py ss-patient-input/fill-files`. The generated files will be in `ss-patient-input/fill-files/filled`.
+For our experiments we created files with different resource types from template files: `python3 file_modify.py ss-patient-input/fill-files`. The generated files will be in `ss-patient-input/fill-files/filled`.
+
+Analysis
+-----
+The results of the safesubsetting experiments are available at (https://zenodo.org/records/15743198). The graphical analysis on them can be done by running `python3 analysis.py`. Modify the server name and db as needed.
+
+Acknowledgment
+-----
+The machine-readable specification we have used in this repository was derived from the [FHIR Crucible model](https://github.com/fhir-crucible/fhir_models).
+
 
 License
 -----
@@ -122,5 +162,7 @@ This project is free software: you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+
 
 

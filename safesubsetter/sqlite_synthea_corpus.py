@@ -7,11 +7,9 @@ import os
 import csv
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from sqlalchemy.engine import URL
 from sqlalchemy import create_engine, Column, Integer, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from utils import parse_fhir_spec_csv, list_files_in_folder
 
 RESOURCES_FOLDER = "output/resource"
 TYPES_FOLDER = "output/types"

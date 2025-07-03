@@ -172,7 +172,7 @@ def process_chain(guid, first_node, chain, file, file_type, name):
         )
 
         if error:
-            print("error")
+            print("error", server_response, pat_file)
             response_file_name = f"temp_error_{SERVER_NAME}.json"
             with open(response_file_name, "w", encoding="utf-8") as f:
                 json.dump(server_response, f, ensure_ascii=False, indent=4)
