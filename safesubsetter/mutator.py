@@ -23,7 +23,7 @@ from utils.fhir_utils import (
 
 FHIR_SERVERS = ["iris"]
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "123.db")
+DB_PATH = os.path.join(os.path.dirname(__file__), "safe_subset.db")
 db = db.Database(DB_PATH)
 
 
@@ -197,12 +197,12 @@ def send_to_fhir_server(patient_file, server, server_req_cnt, file_path):
         code_tag = ibm_iris_counter_meta_tag(patient_file, file_path, server_req_cnt)
 
         # Restart after every 200 requests
-        if server_req_cnt["count"] % 200 == 0:
-            print(f"200 {server} requests reached. Restarting {server} container.")
-            restart_container(server)
+        # if server_req_cnt["count"] % 200 == 0:
+        #     print(f"200 {server} requests reached. Restarting {server} container.")
+        #     restart_container(server)
 
     # try:
-    
+
     _ = telephone_function(
         1, patient_file, False, [server], False, "json", "full", code_tag
     )
@@ -490,7 +490,7 @@ def validate_patient_json_file(file_path, server_req_cnt):
     if not patient_data:
         return
 
-    patient_resource_types = set(["Patient"])
+    patient_resource_types = set(["Procedure", "Condition", "Observation", "Encounter"])
 
     for i, entry in enumerate(patient_data["entry"]):
         resource = entry.get("resource", {})

@@ -28,9 +28,10 @@ class IrisClient(AbstractClient):
             file_type = "json"
         header_text = "application/fhir+" + file_type
         headers = {"Accept": header_text}
+        tag = "default_tag"
         try:
             r = requests.get(
-                f"{self.fhir}/{self.base}/Bundle",
+                f"{self.fhir}/{self.base}/Bundle?_tag={tag}&_sort=-_lastUpdated&_count=1",
                 headers=headers,
                 timeout=100,
                 verify=False,

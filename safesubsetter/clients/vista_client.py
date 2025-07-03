@@ -74,7 +74,11 @@ class VistaClient(AbstractClient):
             (patient_id, response_json) = self.create_patient(json.dumps(data))
         if patient_id is None:
             # Creating the patient failed
-            return (patient_id, response_json.json(), None)
+            try:
+                resp = response_json.json()
+            except Exception:
+                resp = {"error": "Failed to parse response JSON"}
+            return (patient_id, resp, None)
 
         (_, export_response) = self.export_patient(patient_id)
         return (patient_id, response_json.json(), export_response)
